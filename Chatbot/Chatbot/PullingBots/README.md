@@ -1,6 +1,6 @@
 # County Records Scrapers
 
-This collection of scripts allows you to scrape and collect various county records including Notice of Default, Lis Pendens, and other legal filings.
+This collection of scripts allows you to scrape and collect various county records including Notice of Default, Lis Pendens, Foreclosures, and other legal filings.
 
 ## Setup Instructions
 
@@ -9,7 +9,7 @@ This collection of scripts allows you to scrape and collect various county recor
 Install the required Python packages:
 
 ```bash
-pip install selenium pandas gspread google-auth google-auth-oauthlib google-auth-httplib2 gspread-dataframe
+pip install -r requirements.txt
 ```
 
 ### 2. Database Setup
@@ -31,9 +31,30 @@ To enable Google Sheets integration:
 
 A template for the credentials file is provided at `data/google_credentials_template.json`.
 
-### 4. ChromeDriver Setup
+### 4. Optional Dependencies for Advanced Features
 
-Ensure you have Chrome and ChromeDriver installed on your system. The scraper uses Selenium with Chrome.
+The Foreclosure scraper has enhanced address extraction capabilities with these optional dependencies:
+
+- **Tesseract OCR**: For text extraction from images and PDFs
+  - Windows: Download and install from [UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)
+  - Linux: `sudo apt-get install tesseract-ocr`
+  - macOS: `brew install tesseract`
+
+- **Poppler**: For PDF to image conversion (used with Tesseract)
+  - Windows: Download from [poppler for Windows](http://blog.alivate.com.au/poppler-windows/)
+  - Linux: `sudo apt-get install poppler-utils`
+  - macOS: `brew install poppler`
+
+- **PyMuPDF**: Alternative PDF processing (automatic fallback when Poppler isn't available)
+  - Installed automatically with requirements.txt
+
+### 5. Playwright Browser Setup
+
+Foreclosure scraper uses Playwright for browser automation:
+
+```bash
+python -m playwright install chromium
+```
 
 ## Running the Scrapers
 
@@ -51,11 +72,47 @@ This will:
    - SQLite database
    - Google Sheets (if credentials are set up)
 
+### Foreclosure Scraper
+
+```bash
+python ForeclosureH.py [options]
+```
+
+Command-line options:
+- `--year YEAR`: Specify the year to scrape (defaults to current year)
+- `--month MONTH`: Specify the month to scrape (defaults to latest available)
+- `--limit LIMIT`: Limit the number of records to process (useful for testing)
+- `--headless`: Run in headless mode without showing the browser window
+
+Examples:
+```bash
+# Scrape current year/month with browser visible (for debugging)
+python ForeclosureH.py
+
+# Scrape January 2023 in headless mode
+python ForeclosureH.py --year 2023 --month 1 --headless
+
+# Process only 10 records for testing
+python ForeclosureH.py --limit 10
+```
+
+The foreclosure scraper:
+1. Searches for foreclosure records by year and month
+2. Downloads PDF documents and extracts property addresses using OCR
+3. Uses multiple fallback methods for text extraction (direct PDF text, Tesseract OCR, screenshots)
+4. Filters out auction locations to avoid capturing them as property addresses
+5. Saves records with valid addresses to:
+   - CSV file (`data/harris_foreclosures_[timestamp].csv`)
+   - SQL database
+   - Google Sheets (if configured)
+6. Provides detailed statistics about the scraping process
+
 ## Troubleshooting
 
 - If you encounter issues with the selectors, check the `screenshots/` directory for debugging screenshots
 - For Google Sheets errors, verify your credentials and ensure the spreadsheet is shared with the service account
 - For database issues, check the database file permissions
+- For OCR/PDF processing issues, ensure Tesseract and/or Poppler are properly installed and in your PATH
 
 ## Customization
 

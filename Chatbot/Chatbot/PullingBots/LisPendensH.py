@@ -8,6 +8,11 @@ import pandas as pd
 from typing import Optional, TypedDict, List, Dict, Any
 from urllib.parse import urljoin
 from playwright.async_api import async_playwright, Page, Frame
+import pytesseract
+import pdf2image
+from PIL import Image, ImageFilter
+import tempfile
+import re
 
 class LisPendensRecord(TypedDict):
     case_number: str
@@ -43,7 +48,8 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
-MAX_NEW_RECORDS = 100  # Maximum number of new records to scrape per run
+MAX_NEW_RECORDS = 10   # Maximum number of new records to scrape per run (testing)
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # Google Sheets (optional) ----------------------------------------------------
 load_dotenv()
@@ -250,6 +256,10 @@ async def _get_lis_pendens_records(page: Page) -> list[LisPendensRecord]:
     
     lis_pendens_records = []
     for idx, row in enumerate(rows):
+        # Stop early if we've hit our test limit of records
+        if len(lis_pendens_records) >= MAX_NEW_RECORDS:
+            _log(f"Reached test limit of {MAX_NEW_RECORDS} records, stopping further row processing.")
+            break
         try:
             # Extract data from each row based on the HTML structure in the screenshots
             # File number (case number)
@@ -305,10 +315,6 @@ async def _get_lis_pendens_records(page: Page) -> list[LisPendensRecord]:
             file_date_element = await row.query_selector("span[id*='lblFileDate']")
             file_date = (await file_date_element.inner_text()).strip() if file_date_element else ""
             
-            # Property address - not visible in screenshots, may need adjustment
-            property_address_element = await row.query_selector("td:nth-child(3)")
-            property_address = (await property_address_element.inner_text()).strip() if property_address_element else ""
-            
             # Filing number 
             filing_no_element = await row.query_selector("span[id*='lblVolNo']")
             filing_no = (await filing_no_element.inner_text()).strip() if filing_no_element else ""
@@ -321,11 +327,13 @@ async def _get_lis_pendens_records(page: Page) -> list[LisPendensRecord]:
             page_no_element = await row.query_selector("td:nth-child(7) span")
             page_no = (await page_no_element.inner_text()).strip() if page_no_element else ""
             
+            # Instead of just reading property_address from the table, extract from PDF
+            extracted_address = await extract_address_from_document(case_number, case_url, page)
             record = {
                 "case_number": case_number,
                 "case_url": case_url,
                 "file_date": file_date,
-                "property_address": property_address,
+                "property_address": extracted_address,
                 "filing_no": filing_no,
                 "volume_no": volume_no,
                 "page_no": page_no,
@@ -542,6 +550,254 @@ def _push_sheet(df: pd.DataFrame):
 
     _log(f"✅ Sheet updated → {GSHEET_NAME}/{worksheet_name}")
 
+# Address extraction helpers (copied from ForeclosureH.py)
+def extract_address_from_text(text: str) -> dict:
+    result = {
+        "address": "",
+        "source": "",
+        "has_exhibit_a": False
+    }
+    # New extraction for 'legally described as'
+    leg_desc_match = re.search(r'(?i)legally described as[:\\s]*([\\s\\S]+?\\d{5})', text)
+    if leg_desc_match:
+        candidate = leg_desc_match.group(1).strip()
+        result["address"] = candidate
+        result["source"] = "Legally Described"
+        return result
+
+    invalid_phrases = [
+        "DEED OF TRUST", "DEED", "TRUSTEE", "MORTGAGE", "FORECLOSURE", 
+        "SUBSTITUTE", "LIEN", "NOTICE", "APPOINTMENT"
+    ]
+    terminator_phrases = [
+        "IN ACCORDANCE WITH", "AS REQUIRED BY", "PURSUANT TO", 
+        "AS DEFINED IN", "COMMONLY KNOWN AS", "ALSO KNOWN AS"
+    ]
+    def standardize_numbers(text_segment):
+        text_segment = text_segment.replace('@', '(').replace('#', ')')
+        number_words = {
+            'ONE': '1', 'TWO': '2', 'THREE': '3', 'FOUR': '4', 'FIVE': '5',
+            'SIX': '6', 'SEVEN': '7', 'EIGHT': '8', 'NINE': '9', 'TEN': '10',
+            'ELEVEN': '11', 'TWELVE': '12', 'THIRTEEN': '13', 'FOURTEEN': '14',
+            'FIFTEEN': '15', 'SIXTEEN': '16', 'SEVENTEEN': '17', 'EIGHTEEN': '18',
+            'NINETEEN': '19', 'TWENTY': '20', 'THIRTY': '30', 'FORTY': '40',
+            'FIFTY': '50', 'SIXTY': '60', 'SEVENTY': '70', 'EIGHTY': '80', 'NINETY': '90'
+        }
+        for word, num in number_words.items():
+            text_segment = re.sub(rf'{word}\s*\((\d+)\)', r'\1', text_segment, flags=re.IGNORECASE)
+            text_segment = re.sub(rf'\b{word}\b', num, text_segment, flags=re.IGNORECASE)
+        text_segment = re.sub(r'\((\d+)\)', r'\1', text_segment)
+        text_segment = re.sub(r'LOTS?\s+(\d+)[- ](\d+)', r'LOTS \1-\2', text_segment, flags=re.IGNORECASE)
+        return text_segment
+    def clean_and_standardize_match(match_text):
+        for phrase in terminator_phrases:
+            phrase_pos = match_text.upper().find(phrase)
+            if phrase_pos > 0:
+                match_text = match_text[:phrase_pos].strip()
+        match_text = standardize_numbers(match_text)
+        match_text = match_text.replace('SlJBDIVISION', 'SUBDIVISION')
+        match_text = match_text.replace('r.', ',')
+        match_text = match_text.upper()
+        if not match_text.endswith('.'):
+            match_text = match_text + '.'
+        return match_text
+    prop_addr_match = re.search(r"Property\s*Address\s*:?", text, re.IGNORECASE)
+    if prop_addr_match:
+        addr_line1 = prop_addr_match.group(1) or ""
+        addr_line2 = prop_addr_match.group(2) or ""
+        candidate = (addr_line1 + " " + addr_line2).strip().replace("\n", " ")
+        if len(candidate) > 10:
+            result["address"] = candidate
+            result["source"] = "Property Address Label"
+            return result
+    legal_desc_match = re.search(r"Legal\s+Description:?:?\s*(.{10,300})", text, re.IGNORECASE)
+    if legal_desc_match:
+        candidate = legal_desc_match.group(1)
+        candidate = candidate.split(". ")[0].split("\n")[0].strip()
+        if len(candidate) > 10:
+            result["address"] = candidate
+            result["source"] = "Legal Description Section"
+            return result
+    lot_block_patterns = [
+        r"(LOT\s+(?:\w+|\(\w+\)|\d+)(?:[,,\s]+|[,,\s]+AND[,,\s]+)BLOCK\s+(?:\w+|\(\w+\)|\d+)[,,\s]+(?:OF|IN)?\s+[A-Za-z0-9\s\.,\-]+(?:SECTION|SEC\.|SUBDIVISION|SUBDIV\.|SUB\.|ADDITION|ADD\.|ESTATES|ESTATE|VILLAGE|WEST|EAST|NORTH|SOUTH)(?:[^\.]{5,150}))",
+        r"(LOT\s+\d+,?\s+BLOCK\s+\d+,?\s+[^,\.]+,\s+(?:A\s+SUBDIVISION|SECTION)\s+(?:[^\.]{5,150}))",
+        r"(LOT\s+(?:\w+|\(\w+\))\s*(?:\(?\d+\)?),?\s+(?:IN\s+)?BLOCK\s+(?:\w+|\(\w+\))\s*(?:\(?\d+\)?),?\s+(?:OF|IN)?[^\.]{5,150})",
+        r"(LOT\s+(?:\w+|\(\w+\)|\d+)[,,\s]+BLOCK\s+(?:\w+|\(\w+\)|\d+))"
+    ]
+    for pattern in lot_block_patterns:
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        for match in matches:
+            match_text = match.strip()
+            if not match_text.endswith('.') and '.' in text[text.find(match_text) + len(match_text):text.find(match_text) + len(match_text) + 50]:
+                extended_match = text[text.find(match_text):text.find(match_text) + len(match_text) + 50]
+                period_pos = extended_match.find('.', len(match_text))
+                if period_pos > 0:
+                    match_text = extended_match[:period_pos+1].strip()
+            match_text = clean_and_standardize_match(match_text)
+            if not any(invalid in match_text.upper() for invalid in invalid_phrases):
+                result["address"] = match_text
+                result["source"] = "Lot/Block Pattern"
+                return result
+    exhibit_patterns = [
+        r"EXHIBIT\s+A",
+        r"EXHIBIT\s*['\"]?A['\"]?",
+        r"SEE\s+EXHIBIT\s+A",
+        r"ATTACHED\s+EXHIBIT\s+A",
+        r"LEGAL\s+DESCRIPTION\s+ATTACHED\s+AS\s+EXHIBIT\s+A"
+    ]
+    for pattern in exhibit_patterns:
+        if re.search(pattern, text, re.IGNORECASE):
+            result["has_exhibit_a"] = True
+            result["source"] = "EXHIBIT A reference found"
+            break
+    legal_desc_patterns = [
+        r"(?:Legal\s+Description:?)?\s*(LOT\s+\d+,?\s+BLOCK\s+\d+[^\.]+(?:COUNTY|COUNTIES),\s+TEXAS[^\.]+(?:VOLUME|VOL\.)\s+\d+[^\.]+(?:PAGE|PG\.)\s+\d+[^\.]+(?:COUNTY|COUNTIES),\s+TEXAS\.?)",
+        r"(?:Legal\s+Description:?)?\s*(LOT\s+\d+,?\s+BLOCK\s+\d+[^\.]+(?:SUBDIVISION|ADDITION|SECTION|ESTATE)[^\.]+(?:COUNTY|COUNTIES),\s+TEXAS\.?)"
+    ]
+    for pattern in legal_desc_patterns:
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        for match in matches:
+            match_text = match.strip()
+            match_text = clean_and_standardize_match(match_text)
+            if not any(invalid in match_text.upper() for invalid in invalid_phrases):
+                result["address"] = match_text
+                result["source"] = "Complete Legal Description"
+                return result
+    address_with_zip_patterns = [
+        r"(\d+\s+[A-Za-z0-9\.\s]+,\s*[A-Za-z\s]+,\s*[A-Z]{2}\s+\d{5}(?:-\d{4})?)",
+        r"(\d+\s+[A-Za-z0-9\.\s]+,\s*[A-Za-z\s]+,\s*TX\s+\d{5}(?:-\d{4})?)"
+    ]
+    for pattern in address_with_zip_patterns:
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        for match in matches:
+            match_text = match.strip()
+            if not any(invalid in match_text.upper() for invalid in invalid_phrases):
+                result["address"] = match_text
+                result["source"] = "Complete Street Address"
+                return result
+    return result
+
+def clean_extracted_text(text: str) -> str:
+    if not text:
+        return ""
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('|', 'I')
+    text = text.replace('l1', '11')
+    text = text.replace('O0', '00')
+    text = re.sub(r'(?i)Streel', 'Street', text)
+    text = re.sub(r'(?i)Slreet', 'Street', text)
+    text = re.sub(r'(?i)Streot', 'Street', text)
+    text = re.sub(r'(?i)Avonue', 'Avenue', text)
+    text = re.sub(r'(?i)Avenuo', 'Avenue', text)
+    text = re.sub(r'Property\s+Address\s*:?:?\s*', 'Property Address: ', text)
+    text = re.sub(r'(\.)(\s+[A-Z])', r'\1\n\2', text)
+    return text
+
+def extract_text_from_pdf(file_path: str) -> str:
+    if not pytesseract.pytesseract.tesseract_cmd:
+        return ""
+    extracted_text = ""
+    DPI = 400
+    POPPLER_BIN = r"C:\Program Files\poppler\Library\bin"
+    # Step 1: Convert PDF pages to images (requires Poppler on PATH for Windows)
+    try:
+        images = pdf2image.convert_from_path(file_path, dpi=DPI, poppler_path=POPPLER_BIN)
+    except Exception as e:
+        print(f"[PDF2Image ERROR] Could not convert PDF to images ({file_path}): {e}")
+        return ""
+    # Step 2: OCR each image
+    for img in images:
+        img = img.convert('L')
+        img = img.point(lambda x: 0 if x < 180 else 255, '1')
+        img = img.filter(ImageFilter.SHARPEN)
+        try:
+            page_text = pytesseract.image_to_string(img)
+        except Exception as ocr_e:
+            print(f"[TESSERACT ERROR] OCR failed on image from {file_path}: {ocr_e}")
+            continue
+        extracted_text += page_text + "\n"
+    # Step 3: Clean and debug-print the extracted text
+    cleaned = clean_extracted_text(extracted_text)
+    print(f"[OCR DEBUG] Cleaned text from {file_path}:\n{cleaned}")
+    return cleaned
+
+semaphore = asyncio.Semaphore(3)  # Limit to 3 concurrent downloads
+
+async def limited_download(*args, **kwargs):
+    async with semaphore:
+        return await download_pdf(*args, **kwargs)
+
+async def download_pdf(page: Page, doc_url: str, doc_id: str) -> str:
+    PDF_DIR = (Path(__file__).parent / "pdfs").resolve()
+    PDF_DIR.mkdir(parents=True, exist_ok=True)
+    try:
+        browser = page.context.browser
+        context = await browser.new_context(user_agent=USER_AGENT)
+        doc_page = await context.new_page()
+
+        # Revert to simple navigation (no network capture)
+        await doc_page.goto(doc_url, wait_until="domcontentloaded", timeout=60000)
+        await doc_page.wait_for_load_state("networkidle", timeout=60000)
+        await asyncio.sleep(2)
+
+        # --- LOGIN LOGIC (triggered if login form is present) ---
+        USERNAME = os.getenv("LP_USERNAME")
+        PASSWORD = os.getenv("LP_PASSWORD")
+        if await doc_page.query_selector('input[id="ctl00_ContentPlaceHolder1_Login1_UserName"]'):
+            await doc_page.fill('input[id="ctl00_ContentPlaceHolder1_Login1_UserName"]', USERNAME)
+            await doc_page.fill('input[id="ctl00_ContentPlaceHolder1_Login1_Password"]', PASSWORD)
+            await doc_page.check('input[id="ctl00_ContentPlaceHolder1_Login1_RememberMe"]')
+            await doc_page.click('input[id="ctl00_ContentPlaceHolder1_Login1_LoginButton"]')
+            await doc_page.wait_for_load_state("networkidle")
+
+        # Expand PDF embed to fullscreen for full-page printing
+        await doc_page.set_viewport_size({"width":1920, "height":1080})
+        await doc_page.evaluate("""() => {
+            const embed = document.querySelector('embed') || document.querySelector('iframe');
+            if (embed) {
+                embed.style.position = 'fixed';
+                embed.style.top = '0';
+                embed.style.left = '0';
+                embed.style.width = '100vw';
+                embed.style.height = '100vh';
+                document.body.style.margin = '0';
+                document.documentElement.style.margin = '0';
+            }
+        }""")
+        pdf_path = PDF_DIR / f"doc_{doc_id.replace('/', '_')}_{datetime.now():%Y%m%d_%H%M%S}.pdf"
+        try:
+            download_button = doc_page.locator("a:has-text('Download')")
+            if await download_button.count() > 0:
+                with doc_page.expect_download() as download_info:
+                    await download_button.click()
+                download = await download_info.value
+                await download.save_as(pdf_path)
+            else:
+                # Fallback: print page as PDF (includes embedded PDF viewer full-screen)
+                pdf_bytes = await doc_page.pdf(print_background=True)
+                with open(pdf_path, "wb") as f:
+                    f.write(pdf_bytes)
+        except Exception:
+            pass
+        await doc_page.close()
+        await context.close()
+        return str(pdf_path)
+    except Exception as e:
+        _log(f"❌ Error downloading document {doc_id}: {e}")
+        return None
+
+async def extract_address_from_document(doc_id: str, doc_url: str, page: Page) -> str:
+    try:
+        pdf_path = await download_pdf(page, doc_url, doc_id)
+        if pdf_path:
+            text = extract_text_from_pdf(pdf_path)
+            address_info = extract_address_from_text(text)
+            return address_info["address"]
+        return ""
+    except Exception as e:
+        _log(f"❌ Error extracting address from document {doc_id}: {e}")
+        return ""
+
 async def run():
     """Main function to run the scraper."""
     async with async_playwright() as pw:
@@ -553,6 +809,7 @@ async def run():
         
         # Go to the Lis Pendens search page
         await page.goto(BASE_URL)
+
         await _maybe_accept(page)
         frm = await _find_frame(page)
         await _apply_filters(page, frm)
@@ -562,7 +819,7 @@ async def run():
         page_num = 1
         has_next_page = True
         
-        while has_next_page and len(all_records) < MAX_NEW_RECORDS * 2:  # Get more than needed to account for existing records
+        while has_next_page and len(all_records) < MAX_NEW_RECORDS:  # Fetch only up to MAX_NEW_RECORDS for testing
             _log(f"📄 Processing page {page_num}...")
             # Get records from current page
             page_records = await _get_lis_pendens_records(page)
