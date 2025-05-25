@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model lis_pendens_filing {
+  case_number      String   @id
+  case_url         String?
+  file_date        DateTime
+  property_address String
+  filing_no        String?
+  volume_no        String?
+  page_no          String?
+  county           String
+  created_at       DateTime @default(now())
+  is_new           Boolean  @default(true)
+  doc_type         String
+}
+

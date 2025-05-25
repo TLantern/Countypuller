@@ -384,6 +384,46 @@ def clean_extracted_text(text: str) -> str:
     
     return text
 
+# Extract the paragraph containing 'Legal Description' or 'Property Description' from OCR text
+def extract_description_paragraph(text: str) -> str:
+    # Define start and end regex patterns
+    start_patterns = [
+        r"Property/Legal Description:",
+        r"The property to be sold is described as follows:",
+        r"Commonly known as:",
+        r"Property",  # Standalone 'Property' (may be too broad, but included as requested)
+        r"Property Address"
+    ]
+    end_patterns = [
+        r"In accordance with TEX, PROP. CODE §51.0076 and the Deed of Trust",
+        r"Instrument to be Foreclosed",
+        r"MORTGAGE SERVICING INFORMATION:"
+    ]
+    lines = text.splitlines()
+    collecting = False
+    result_lines = []
+    for line in lines:
+        if not collecting:
+            for pat in start_patterns:
+                if re.search(pat, line, re.IGNORECASE):
+                    # Optionally, get everything after the label on this line
+                    after_label = re.split(pat, line, flags=re.IGNORECASE)
+                    if len(after_label) > 1:
+                        result_lines.append(after_label[1].strip())
+                    collecting = True
+                    break
+        else:
+            for pat in end_patterns:
+                if re.search(pat, line, re.IGNORECASE):
+                    collecting = False
+                    break
+            if not collecting:
+                break
+            result_lines.append(line.strip())
+    if result_lines:
+        return ' '.join(result_lines).strip()
+    return text.strip()
+
 semaphore = asyncio.Semaphore(3)  # Limit to 3 concurrent downloads
 
 async def limited_download(*args, **kwargs):
@@ -401,7 +441,7 @@ async def download_pdf(page: Page, doc_url: str, doc_id: str) -> str:
         # Simple navigation (no network capture)
         await doc_page.goto(doc_url, wait_until="domcontentloaded", timeout=60000)
         await doc_page.wait_for_load_state("networkidle", timeout=60000)
-        await asyncio.sleep(2)
+        await asyncio.sleep(4)
 
         # --- LOGIN LOGIC (triggered if login form is present) ---
         USERNAME = os.getenv("FRCL_USERNAME") or os.getenv("LP_USERNAME")
@@ -432,23 +472,42 @@ async def download_pdf(page: Page, doc_url: str, doc_id: str) -> str:
         await doc_page.close()
         await context.close()
 
-        # Zoom in on the PNG after saving (200%)
         try:
             from PIL import Image
             img = Image.open(screenshot_path)
-            width, height = img.size
-            zoom_factor = 2.0
-            new_size = (int(width * zoom_factor), int(height * zoom_factor))
-            img_zoomed = img.resize(new_size, Image.LANCZOS)
-            img_zoomed.save(screenshot_path)
-            _log(f"🔍 Zoomed in on screenshot for {doc_id} to {new_size}")
+            img_sharpened = img.filter(ImageFilter.SHARPEN)
+            img_sharpened.save(screenshot_path)
+            _log(f"🖼️ Sharpened screenshot for {doc_id}")
         except Exception as e:
-            _log(f"⚠️ Could not zoom in on screenshot for {doc_id}: {e}")
+            _log(f"⚠️ Could not sharpen screenshot for {doc_id}: {e}")
 
         return str(screenshot_path)
     except Exception as e:
         _log(f"❌ Error taking screenshot for {doc_id}: {e}")
         return None
+
+# OCR a specific region from an image
+
+def ocr_region_from_image(image_path: str, region: tuple[int, int, int, int], debug_path: str = None) -> str:
+    """
+    Crop the image to the specified region and run OCR on that region.
+    :param image_path: Path to the image file.
+    :param region: (left, upper, right, lower) pixel coordinates.
+    :param debug_path: Optional path to save the cropped region for debugging.
+    :return: OCR'd text from the region.
+    """
+    img = Image.open(image_path)
+    cropped = img.crop(region)
+    # Optional: preprocess (sharpen, binarize) for better OCR
+    cropped = cropped.convert('L').filter(ImageFilter.SHARPEN)
+    if debug_path:
+        cropped.save(debug_path)
+    text = pytesseract.image_to_string(cropped)
+    return text
+
+# Helper to screenshot the last page (simulate by adding a suffix to doc_id for filename uniqueness)
+async def download_last_page_screenshot(page: Page, doc_url: str, doc_id: str) -> str:
+    return await download_pdf(page, doc_url, f"{doc_id}_lastpage")
 
 async def extract_address_from_document(doc_id: str, doc_url: str, page: Page) -> Tuple[str, str]:
     """
@@ -464,38 +523,38 @@ async def extract_address_from_document(doc_id: str, doc_url: str, page: Page) -
         _log(f"📄 Processing document {doc_id} for address extraction")
         # Download the PDF or screenshot
         file_path = await download_pdf(page, doc_url, doc_id)
-        # Initialize with empty values
         address = ""
         extracted_text = ""
-        # Try OCR on PDF or PNG if we have one and Tesseract is installed
-        if file_path and TESSERACT_INSTALLED:
-            _log(f"Attempting OCR on file: {file_path}")
-            if file_path.lower().endswith('.pdf'):
-                extracted_text = extract_text_from_pdf(file_path)
-            elif file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
-                try:
-                    from PIL import Image
-                    img = Image.open(file_path)
-                    extracted_text = pytesseract.image_to_string(img)
-                except Exception as e:
-                    _log(f"❌ Error running OCR on screenshot: {e}")
-            if extracted_text:
-                # Save OCR output for debugging
-                try:
-                    debug_dir = Path(__file__).parent / "ocr_debug"
-                    debug_dir.mkdir(exist_ok=True)
-                    debug_path = debug_dir / f"ocr_debug_{doc_id}.txt"
-                    with open(debug_path, "w", encoding="utf-8") as f:
-                        f.write(extracted_text)
-                except Exception as e:
-                    print(f"[DEBUG] Failed to save OCR debug text for {doc_id}: {e}")
-                # Only use Legal Description for now
-                address_info = extract_address_from_text(extracted_text, doc_id=doc_id)
-                address = address_info["address"]
-                if address:
-                    _log(f"✅ Found address: {address} (Source: {address_info['source']})")
-                else:
-                    _log(f"⚠️ No address found in document {doc_id} (Legal Description only)")
+        max_attempts = 3
+        attempt = 0
+        while attempt < max_attempts:
+            attempt += 1
+            if file_path and TESSERACT_INSTALLED:
+                _log(f"Attempt {attempt}: OCR on file: {file_path}")
+                if file_path.lower().endswith('.pdf'):
+                    extracted_text = extract_text_from_pdf(file_path)
+                elif file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
+                    try:
+                        from PIL import Image
+                        img = Image.open(file_path)
+                        left = 0
+                        upper = 345
+                        right = img.width
+                        lower = 392
+                        region = (left, upper, right, lower)
+                        debug_crop_path = str(Path(file_path).with_name(f"crop_{Path(file_path).name}"))
+                        extracted_text = ocr_region_from_image(file_path, region, debug_path=debug_crop_path)
+                    except Exception as e:
+                        _log(f"❌ Error running region-based OCR on screenshot: {e}")
+                if extracted_text:
+                    address = extract_description_paragraph(extracted_text)
+                    if address:
+                        _log(f"✅ Extracted text from region for {doc_id} (length: {len(address)})")
+                        break
+                    else:
+                        _log(f"⏭️ Skipping record {doc_id} - no address found")
+        if not address:
+            _log(f"⚠️ No address found in document {doc_id} after {max_attempts} attempts")
         return address, file_path or ""
     except Exception as e:
         _log(f"❌ Error extracting address from document {doc_id}: {e}")
@@ -776,7 +835,6 @@ async def run_scraper(year: int | None = None, month: int | None = None, record_
             browser = await p.chromium.launch(headless=HEADLESS)
             context = await browser.new_context(user_agent=USER_AGENT)
             page    = await context.new_page()
-            
             try:
                 await page.goto(BASE_URL, timeout=60000)
             except Exception as e:
@@ -796,159 +854,93 @@ async def run_scraper(year: int | None = None, month: int | None = None, record_
                 await browser.close()
                 return None
 
-            # 3) Find the total number of pages
-            links = page.locator("tr.pagination-ys a")
-            count = await links.count()
-            last_page = 1
-            
-            # Try to find the highest page number
-            ellipsis = page.locator("tr.pagination-ys a:has-text('…')")
-            if await ellipsis.count():
-                _log("➡️ Jumping to last page group via ellipsis (…) link")
-                await ellipsis.first.click()
+            # 3) Jump to the last page using ellipsis and highest page number
+            await page.wait_for_selector('tr.pagination-ys a')
+            links = await page.query_selector_all('tr.pagination-ys a')
+            ellipsis = None
+            for link in links:
+                txt = (await link.inner_text()).strip()
+                if txt == '…':
+                    ellipsis = link
+                    break
+            if ellipsis:
+                await ellipsis.click()
                 await page.wait_for_load_state("networkidle")
-                
-                links = page.locator("tr.pagination-ys a")
-                count = await links.count()
-                for i in range(count - 1, -1, -1):
-                    txt = (await links.nth(i).inner_text()).strip()
-                    if txt.isdigit():
-                        last_page = int(txt)
-                        break
-            else:
-                # No ellipsis, find the highest page number from available links
-                for i in range(count):
-                    txt = (await links.nth(i).inner_text()).strip()
-                    if txt.isdigit() and int(txt) > last_page:
-                        last_page = int(txt)
-            
-            _log(f"Found {last_page} pages to scrape")
-            
-            # Go back to first page if we jumped to last
-            if await page.locator("tr.pagination-ys a:has-text('1')").count():
-                await page.click("tr.pagination-ys a:has-text('1')")
+                links = await page.query_selector_all('tr.pagination-ys a')
+            # Find the highest page number
+            last_page_num = 1
+            last_page_link = None
+            for link in links:
+                txt = (await link.inner_text()).strip()
+                if txt.isdigit() and int(txt) > last_page_num:
+                    last_page_num = int(txt)
+                    last_page_link = link
+            if last_page_link:
+                await last_page_link.click()
                 await page.wait_for_load_state("networkidle")
-            
-            # 4) Iterate through all pages and scrape
-            current_page = 1
-            while current_page <= last_page:
-                _log(f"🔍 Scraping page {current_page} of {last_page}")
-                stats["pages_scraped"] += 1
-                
-                try:
-                    page_records = await _parse_current_page(page)
-                except Exception as e:
-                    _log(f"❌ Error parsing page {current_page}: {e}")
-                    _log("Trying to reload the page and continue...")
-                    try:
-                        # Try clicking the current page number to reload
-                        await page.click(f"tr.pagination-ys a:has-text('{current_page}')")
-                        await page.wait_for_load_state("networkidle", timeout=60000)
-                        page_records = await _parse_current_page(page)
-                    except Exception as reload_error:
-                        _log(f"❌ Failed to recover page {current_page}: {reload_error}")
-                        page_records = []
-                
-                # Skip to next page if no records found
+            _log(f"➡️ Jumped to last page: {last_page_num}")
+
+            # 4) Process records from last page to first, bottom to top
+            all_records = []
+            page_num = last_page_num
+            has_prev_page = True
+            while has_prev_page and (not record_limit or len(all_records) < record_limit):
+                _log(f"📄 Processing page {page_num} (reverse order)...")
+                page_records = await _parse_current_page(page)
                 if not page_records:
-                    _log(f"⚠️ No records found on page {current_page}, skipping to next page")
-                    if current_page < last_page:
-                        try:
-                            # Try clicking the "Next" button first
-                            next_button = page.locator("tr.pagination-ys a:has-text('Next')")
-                            if await next_button.count():
-                                await next_button.click()
-                            else:
-                                # Otherwise click the next page number
-                                next_page = current_page + 1
-                                await page.click(f"tr.pagination-ys a:has-text('{next_page}')")
-                            
-                            await page.wait_for_load_state("networkidle", timeout=60000)
-                            current_page += 1
-                            continue
-                        except Exception as e:
-                            _log(f"❌ Error navigating to next page: {e}")
-                            break
-                    else:
+                    _log(f"⚠️ No records found on page {page_num}")
+                    break
+                for rec in reversed(page_records):
+                    if record_limit and len(all_records) >= record_limit:
                         break
-                
-                # Process records and extract addresses
-                new_page_records = []
-                for record in page_records:
-                    # Check if we've reached the testing limit
-                    if record_limit and stats["total_processed"] >= record_limit:
-                        _log(f"⚠️ Testing limit of {record_limit} records reached, stopping")
-                        break
-                    
-                    stats["total_processed"] += 1
-                    doc_id = record["case_number"]
-                    
+                    doc_id = rec["case_number"]
                     try:
-                        # Extract address from document
                         address, file_path = await extract_address_from_document(
-                            doc_id, 
-                            record["case_url"],
+                            doc_id,
+                            rec["case_url"],
                             page
                         )
-                        
-                        # Track PDF/screenshot success
-                        if file_path:
-                            if file_path.endswith('.pdf'):
-                                stats["pdf_success"] += 1
-                            elif file_path.endswith(('.png', '.jpg', '.jpeg')):
-                                stats["screenshot_fallback"] += 1
+                        rec["scraped_address"] = address
+                        if address:
+                            all_records.append(rec)
+                            _log(f"✅ Processed record: {doc_id}")
                         else:
-                            stats["pdf_failed"] += 1
-                            
-                        # Add address to the record
-                        record["scraped_address"] = address
-                        
-                        # Track address extraction
-                        if not address:
                             _log(f"⏭️ Skipping record {doc_id} - no address found")
-                            stats["records_without_address"] += 1
-                            continue
-                        
-                        # Process records with addresses
-                        stats["records_with_address"] += 1
-                        if doc_id in existing_ids:
-                            stats["skipped_records"] += 1
-                        else:
-                            new_page_records.append(record)
-                            # Add to existing_ids to avoid duplicates within this scraping session
-                            existing_ids.add(doc_id)
-                            stats["new_records"] += 1
                     except Exception as e:
                         _log(f"❌ Error processing record {doc_id}: {e}")
-                        stats["failed_records"] += 1
-                
-                _log(f"Found {len(page_records)} records on page {current_page}, {len(new_page_records)} new with addresses")
-                all_records.extend(new_page_records)
-                
-                # Break if we've reached the testing limit
-                if record_limit and stats["total_processed"] >= record_limit:
-                    break
-                    
-                # Go to next page if not on the last page
-                if current_page < last_page:
+                # Find Previous button
+                prev_button = None
+                for frm in page.frames:
                     try:
-                        # Try clicking the "Next" button first
-                        next_button = page.locator("tr.pagination-ys a:has-text('Next')")
-                        if await next_button.count():
-                            await next_button.click()
-                        else:
-                            # Otherwise click the next page number
-                            next_page = current_page + 1
-                            await page.click(f"tr.pagination-ys a:has-text('{next_page}')")
-                        
-                        await page.wait_for_load_state("networkidle", timeout=60000)
-                        current_page += 1
+                        selectors = [
+                            "a:has-text('Previous')",
+                            "a[aria-label='Previous']",
+                            "input[id*='BtnPrev'][value='Previous']",
+                            "input[id*='ContentPlaceHolder1_BtnPrev']",
+                            "input[class*='btn-primary'][value='Previous']",
+                            "input[type='submit'][value='Previous']"
+                        ]
+                        for selector in selectors:
+                            prev_button = await frm.query_selector(selector)
+                            if prev_button:
+                                _log(f"✅ Found Previous button using selector: {selector}")
+                                break
+                        if prev_button:
+                            break
                     except Exception as e:
-                        _log(f"❌ Error navigating to next page: {e}")
-                        break
+                        _log(f"Error looking for Previous button in frame: {e}")
+                if prev_button and (not record_limit or len(all_records) < record_limit):
+                    _log("⏮️ Clicking Previous button to go to previous page...")
+                    try:
+                        await prev_button.click()
+                        await page.wait_for_load_state("networkidle")
+                        page_num -= 1
+                    except Exception as e:
+                        _log(f"❌ Error clicking Previous button: {e}")
+                        has_prev_page = False
                 else:
-                    break
-
+                    _log("⚠️ No Previous button found - reached first page or hit record limit")
+                    has_prev_page = False
             await browser.close()
 
     except Exception as e:
@@ -963,7 +955,7 @@ async def run_scraper(year: int | None = None, month: int | None = None, record_
     _log("\n" + "="*80)
     _log(f"📊 SCRAPING SUMMARY ({duration_str})")
     _log("="*80)
-    _log(f"📌 Pages scraped: {stats['pages_scraped']} of {last_page}")
+    _log(f"📌 Pages scraped: {stats['pages_scraped']} of {page_num}")
     _log(f"📝 Total records processed: {stats['total_processed']}")
     _log(f"✅ Records with addresses: {stats['records_with_address']}")
     _log(f"❌ Records without addresses: {stats['records_without_address']}")

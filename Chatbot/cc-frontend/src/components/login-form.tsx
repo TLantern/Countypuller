@@ -69,7 +69,7 @@ export function LoginForm({
             <Button
               variant="outline"
               className="w-full flex items-center justify-center"
-              onClick={() => signIn("github")}
+              onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
             >
               <ProviderIcon provider="github" />
               Sign in with GitHub
@@ -77,7 +77,7 @@ export function LoginForm({
             <Button
               variant="outline"
               className="w-full flex items-center justify-center"
-              onClick={() => signIn("google")}
+              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
             >
               <ProviderIcon provider="google" />
               Sign in with Google
@@ -85,15 +85,7 @@ export function LoginForm({
             <Button
               variant="outline"
               className="w-full flex items-center justify-center"
-              onClick={() => signIn("apple")}
-            >
-              <ProviderIcon provider="apple" />
-              Sign in with Apple
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full flex items-center justify-center"
-              onClick={() => signIn("azure-ad")}
+              onClick={() => signIn("azure-ad", { callbackUrl: "/dashboard" })}
             >
               <ProviderIcon provider="azure-ad" />
               Sign in with Microsoft
