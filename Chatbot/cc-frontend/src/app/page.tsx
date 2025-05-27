@@ -1,5 +1,14 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+const homeButtonShadow = {
+  boxShadow: '0 4px 24px 0 rgba(224,224,224,0.6)',
+  transition: 'box-shadow 0.2s',
+};
+const homeButtonHover = {
+  boxShadow: '0 8px 32px 0 rgba(224,224,224,0.8)',
+};
 
 export default function Home() {
   return (
@@ -22,21 +31,20 @@ export default function Home() {
         }}
       >
         <div style={{ fontWeight: 700, fontSize: "1.5rem", letterSpacing: "1px" }}>
-          County<span style={{ color: "#4fd1c5" }}>Cloud</span>
+          Clerk<span style={{ color: "#4fd1c5" }}> Crawler</span>
         </div>
         <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Home</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>About us</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Pricing</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Features</a>
-          <Link href="/login" passHref legacyBehavior>
+          <Link href="/login">
             <Button
               asChild
-              variant="outline"
-              style={{ marginLeft: "1.5rem", transition: "transform 0.15s" }}
-              className="hover:scale-105 hover:border-[#4fd1c5]"
+              style={{ marginLeft: "1.5rem", background: "#fff", color: "#000", ...homeButtonShadow }}
+              className="home-shadow-btn"
             >
-              <a style={{ color: "#000" }}>Log In</a>
+              <span style={{ color: "#000" }}>Log In</span>
             </Button>
           </Link>
         </nav>
@@ -61,21 +69,20 @@ export default function Home() {
             Save hours of manual work and close more deals with our powerful, automated research platform.
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
-            <Link href="/login" passHref legacyBehavior>
-              <Button asChild size="lg">
-                <a>Get Started</a>
+            <Link href="/login">
+              <Button asChild size="lg" style={{ background: "#fff", color: "#000", ...homeButtonShadow }} className="home-shadow-btn">
+                <span style={{ color: "#000" }}>Get Started</span>
               </Button>
             </Link>
-            <Link href="/login" passHref legacyBehavior>
-            <Button
-              variant="outline"
-              size="lg"
-              style={{ transition: "transform 0.15s" }}
-              className="hover:scale-105 hover:border-[#4fd1c5]"
-            >
-              <a style={{ color: "#000" }}>Log In</a>
-            </Button>
-          </Link>
+            <Link href="/login">
+              <Button
+                size="lg"
+                style={{ background: "#fff", color: "#000", ...homeButtonShadow }}
+                className="home-shadow-btn"
+              >
+                <span style={{ color: "#000" }}>Log In</span>
+              </Button>
+            </Link>
           </div>
         </div>
         {/* Placeholder for illustration */}
@@ -84,6 +91,11 @@ export default function Home() {
           <span style={{ color: "#4fd1c5", fontSize: "1.2rem" }}>[ Illustration Here ]</span>
         </div>
       </main>
+      <style jsx global>{`
+        .home-shadow-btn:hover {
+          box-shadow: 0 8px 32px 0 rgba(224,224,224,0.4) !important;
+        }
+      `}</style>
     </div>
   );
 }

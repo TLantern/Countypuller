@@ -17,6 +17,9 @@ import {
 } from "@/components/ui/sidebar"
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import ChatBox from '../../components/ChatBox';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 const PropertyAddressCell = ({ value }: { value: string }) => {
   const [open, setOpen] = React.useState(false);
@@ -81,36 +84,16 @@ interface LisPendensRecord {
 export default function Dashboard() {
   const [rows, setRows] = useState<LisPendensRecord[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
+  const [county, setCounty] = useState('Harris');
+  const [docType, setDocType] = useState('L/P');
+  const counties = ['Harris', 'Fort Bend', 'Montgomery'];
+  const docTypes = ['L/P', 'Deed', 'Mortgage'];
 
   useEffect(() => {
     fetch('/api/lis-pendens')
       .then(res => res.json())
       .then(data => setRows(data));
   }, []);
-
-  // Handle row click to set is_new to false (X)
-  const handleRowClick = async (params: { row: LisPendensRecord }) => {
-    setRows((prevRows) =>
-      prevRows.map((row) =>
-        row.case_number === params.row.case_number
-          ? { ...row, is_new: false }
-          : row
-      )
-    );
-    // Persist to backend
-    try {
-      const res = await fetch(`/api/lis-pendens/${params.row.case_number}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ is_new: false }),
-      });
-      if (!res.ok) {
-        throw new Error('Failed to update record');
-      }
-    } catch (err) {
-      alert('Failed to update record in the database.');
-    }
-  };
 
   return (
     <SidebarProvider>
@@ -124,7 +107,7 @@ export default function Dashboard() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    County Cloud
+                    Clerk Crawler
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
@@ -136,20 +119,42 @@ export default function Dashboard() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
-            <div style={{ height: 600, width: '100%', background: 'white', borderRadius: 8, padding: 16 }}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                getRowId={(row) => row.case_number}
-                paginationModel={paginationModel}
-                onPaginationModelChange={setPaginationModel}
-                pageSizeOptions={[10, 25, 50]}
-                checkboxSelection
-                disableRowSelectionOnClick
-                onRowClick={handleRowClick}
-                density="compact"
-              />
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
+            <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)' }}>
+              <div className="flex items-center gap-4 mb-4">
+                <Select
+                  value={county}
+                  onChange={e => setCounty(e.target.value)}
+                  variant="outlined"
+                  sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
+                >
+                  {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c}</MenuItem>)}
+                </Select>
+                <Select
+                  value={docType}
+                  onChange={e => setDocType(e.target.value)}
+                  variant="outlined"
+                  sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
+                >
+                  {docTypes.map(dt => <MenuItem key={dt} value={dt} style={{ color: 'black' }}>{dt}</MenuItem>)}
+                </Select>
+                <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
+                  {county} County / {docType}
+                </span>
+              </div>
+              <div style={{ position: 'relative', color: 'black' }}>
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  getRowId={(row) => row.case_number}
+                  paginationModel={paginationModel}
+                  onPaginationModelChange={setPaginationModel}
+                  pageSizeOptions={[10, 25, 50]}
+                  checkboxSelection
+                  disableRowSelectionOnClick
+                  sx={{ color: 'black', background: 'white', '& .MuiDataGrid-cell': { color: 'black' }, '& .MuiDataGrid-columnHeaders': { color: 'black' } }}
+                />
+              </div>
             </div>
           </div>
         </div>

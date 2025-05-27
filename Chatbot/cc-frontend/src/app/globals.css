@@ -118,5 +118,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition: background 0.3s, color 0.3s;
+  }
+  body.dark {
+    background: #181a1b !important;
+    color: #f5f5f5 !important;
+  }
+  body.light {
+    background: #f5f5f5 !important;
+    color: #181a1b !important;
   }
 }
