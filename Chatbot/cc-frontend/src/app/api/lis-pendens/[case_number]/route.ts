@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../../lib/prisma';
 
-export async function PATCH(request: NextRequest, context: { params: { case_number: string } }) {
-  const { case_number } = context.params;
+export async function PATCH(request: NextRequest) {
+  const case_number = request.nextUrl.pathname.split('/').pop();
   const body = await request.json();
   const { is_new } = body;
   try {
