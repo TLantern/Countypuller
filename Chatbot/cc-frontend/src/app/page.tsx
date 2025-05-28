@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -10,7 +11,13 @@ const homeButtonHover = {
   boxShadow: '0 8px 32px 0 rgba(224,224,224,0.8)',
 };
 
+function useIsMobile() {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(max-width: 600px)').matches;
+}
+
 export default function Home() {
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches;
   return (
     <div
       style={{
@@ -27,13 +34,15 @@ export default function Home() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "2rem 4rem 1.5rem 4rem",
+          padding: isMobile ? "1rem" : "2rem 4rem 1.5rem 4rem",
+          flexDirection: isMobile ? "column" : "row",
+          flexWrap: "wrap",
         }}
       >
-        <div style={{ fontWeight: 700, fontSize: "1.5rem", letterSpacing: "1px" }}>
+        <div style={{ fontWeight: 700, fontSize: isMobile ? "1.1rem" : "1.5rem", letterSpacing: "1px", marginBottom: isMobile ? 12 : 0 }}>
           Clerk<span style={{ color: "#4fd1c5" }}> Crawler</span>
         </div>
-        <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+        <nav style={{ display: "flex", gap: isMobile ? "1rem" : "2rem", alignItems: "center", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined, marginTop: isMobile ? 12 : 0 }}>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Home</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>About us</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Pricing</a>
@@ -41,8 +50,7 @@ export default function Home() {
           <Link href="/login">
             <Button
               asChild
-              style={{ marginLeft: "1.5rem", background: "#fff", color: "#000", ...homeButtonShadow }}
-              className="home-shadow-btn"
+              style={{ marginLeft: isMobile ? 0 : "1.5rem", background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginTop: isMobile ? 8 : 0 }}
             >
               <span style={{ color: "#000" }}>Log In</span>
             </Button>
@@ -54,31 +62,31 @@ export default function Home() {
       <main
         style={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: isMobile ? "column" : "row",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "4rem 8vw",
+          padding: isMobile ? "1.5rem" : "4rem 8vw",
+          gap: "2rem",
         }}
       >
-        <div style={{ maxWidth: "600px" }}>
-          <h1 style={{ fontSize: "2.8rem", fontWeight: 800, marginBottom: "1.5rem" }}>
+        <div style={{ maxWidth: isMobile ? "100%" : "600px", width: "100%" }}>
+          <h1 style={{ fontSize: isMobile ? "1.5rem" : "2.8rem", fontWeight: 800, marginBottom: "1.5rem" }}>
             Revolutionize County Property Research
           </h1>
-          <p style={{ fontSize: "1.25rem", marginBottom: "2.5rem", color: "#c3c6f1" }}>
+          <p style={{ fontSize: isMobile ? "1rem" : "1.25rem", marginBottom: "2.5rem", color: "#c3c6f1" }}>
             Instantly search and analyze property records across 200+ counties. 
             Save hours of manual work and close more deals with our powerful, automated research platform.
           </p>
-          <div style={{ display: "flex", gap: "1.5rem" }}>
+          <div style={{ display: "flex", gap: isMobile ? "0.75rem" : "1.5rem", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined }}>
             <Link href="/login">
-              <Button asChild size="lg" style={{ background: "#fff", color: "#000", ...homeButtonShadow }} className="home-shadow-btn">
+              <Button asChild size="lg" style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginBottom: isMobile ? 8 : 0 }}>
                 <span style={{ color: "#000" }}>Get Started</span>
               </Button>
             </Link>
             <Link href="/login">
               <Button
                 size="lg"
-                style={{ background: "#fff", color: "#000", ...homeButtonShadow }}
-                className="home-shadow-btn"
+                style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined }}
               >
                 <span style={{ color: "#000" }}>Log In</span>
               </Button>
@@ -86,9 +94,9 @@ export default function Home() {
           </div>
         </div>
         {/* Placeholder for illustration */}
-        <div style={{ minWidth: "320px", minHeight: "240px", background: "rgba(79,209,197,0.08)", borderRadius: "24px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ minWidth: isMobile ? undefined : "220px", minHeight: isMobile ? 100 : "160px", background: "rgba(79,209,197,0.08)", borderRadius: "24px", display: "flex", alignItems: "center", justifyContent: "center", width: "100%", maxWidth: isMobile ? "100%" : "320px", marginTop: isMobile ? 24 : 0 }}>
           {/* You can replace this with an SVG or image */}
-          <span style={{ color: "#4fd1c5", fontSize: "1.2rem" }}>[ Illustration Here ]</span>
+          <span style={{ color: "#4fd1c5", fontSize: isMobile ? "1rem" : "1.2rem" }}>[ Illustration Here ]</span>
         </div>
       </main>
       <style jsx global>{`

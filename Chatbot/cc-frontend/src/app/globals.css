@@ -129,3 +129,51 @@
     color: #181a1b !important;
   }
 }
+
+/* Responsive breakpoints */
+@media (max-width: 900px) {
+  .responsive-flex-col {
+    flex-direction: column !important;
+  }
+  .responsive-hide {
+    display: none !important;
+  }
+  .responsive-full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .responsive-padding {
+    padding: 1.5rem !important;
+  }
+  .responsive-font-lg {
+    font-size: 1.5rem !important;
+  }
+  .responsive-font-md {
+    font-size: 1.1rem !important;
+  }
+}
+@media (max-width: 600px) {
+  .responsive-flex-col {
+    flex-direction: column !important;
+  }
+  .responsive-hide {
+    display: none !important;
+  }
+  .responsive-full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .responsive-padding {
+    padding: 1rem !important;
+  }
+  .responsive-font-lg {
+    font-size: 1.1rem !important;
+  }
+  .responsive-font-md {
+    font-size: 1rem !important;
+  }
+  .responsive-center {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MessageList } from 'react-chat-elements';
 import 'react-chat-elements/dist/main.css';
 
@@ -42,10 +42,32 @@ interface ChatBoxProps {
   onExternalMessageHandled?: () => void;
 }
 
+function useIsMobile() {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(max-width: 600px)').matches;
+}
+
 const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternalMessageHandled }: ChatBoxProps) => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messageListRef = useRef(null);
+  const messageListEndRef = useRef<HTMLDivElement | null>(null);
+  const [showStartNotice, setShowStartNotice] = useState(true);
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches;
+
+  // Auto-scroll to latest message when messages change
+  useEffect(() => {
+    if (messageListEndRef.current) {
+      messageListEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, loading]);
+
+  // Show 'Start from the latest text box' when chat is opened/reopened
+  useEffect(() => {
+    setShowStartNotice(true);
+    const timer = setTimeout(() => setShowStartNotice(false), 2000);
+    return () => clearTimeout(timer);
+  }, []); // Only on mount (chat open/reopen)
 
   // Add external message as a box to chat
   React.useEffect(() => {
@@ -115,7 +137,7 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
 
   return (
     <div style={{
-      maxWidth: 900,
+      maxWidth: isMobile ? '100%' : 900,
       width: '100%',
       height: '100%',
       display: 'flex',
@@ -124,17 +146,19 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
       borderRadius: 12,
       boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
       padding: 0,
-    }}>
+    }} className="responsive-full-width responsive-padding">
       <div style={{
         display: 'flex',
         alignItems: 'center',
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,
-        padding: 32,
-        paddingBottom: 16,
+        padding: isMobile ? 16 : 32,
+        paddingBottom: isMobile ? 8 : 16,
         borderBottom: '1px solid #eee',
         background: '#222',
-      }}>
+        flexWrap: 'wrap',
+        flexDirection: isMobile ? 'column' : 'row',
+      }} className="responsive-padding">
         <button
           onClick={onNewChat}
           style={{
@@ -142,7 +166,8 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
             border: 'none',
             cursor: 'pointer',
             padding: 0,
-            marginRight: 16,
+            marginRight: isMobile ? 0 : 16,
+            marginBottom: isMobile ? 8 : 0,
             width: 40,
             height: 40,
             borderRadius: '50%',
@@ -158,7 +183,7 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
             <line x1="5" y1="12" x2="19" y2="12" />
           </svg>
         </button>
-        <h2 style={{ flex: 1, textAlign: 'center', fontWeight: 600, fontSize: 26, marginBottom: 0, color: '#fff' }}>What can I help with?</h2>
+        <h2 style={{ flex: 1, textAlign: 'center', fontWeight: 600, fontSize: isMobile ? 18 : 26, marginBottom: 0, color: '#fff' }} className="responsive-font-lg">What can I help with?</h2>
       </div>
       <div style={{
         flex: 1,
@@ -166,22 +191,31 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
         maxHeight: '100%',
         overflowY: 'auto',
         background: '#fff',
-        padding: 24,
+        padding: isMobile ? 12 : 24,
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
-      }}>
+      }} className="responsive-padding">
+        {showStartNotice && (
+          <div style={{ textAlign: 'center', color: '#1976d2', fontWeight: 600, marginBottom: 12 }}>
+            Start from the latest text box
+          </div>
+        )}
         {messages.map(renderMessage)}
         {loading && <BouncingDots />}
+        <div ref={messageListEndRef} />
       </div>
       <div style={{
         display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
         alignItems: 'center',
         background: '#222',
         borderRadius: 8,
-        margin: 24,
+        margin: isMobile ? 12 : 24,
         marginTop: 0,
-        padding: 8,
-      }}>
+        padding: isMobile ? 4 : 8,
+        flexWrap: 'wrap',
+        gap: isMobile ? 8 : 0,
+      }} className="responsive-padding responsive-flex-col">
         <input
           type="text"
           placeholder="Ask about a property..."
@@ -194,9 +228,10 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
             background: 'transparent',
             border: 'none',
             color: '#fff',
-            fontSize: 18,
-            padding: '12px 16px',
+            fontSize: isMobile ? 16 : 18,
+            padding: isMobile ? '8px 10px' : '12px 16px',
             outline: 'none',
+            marginBottom: isMobile ? 8 : 0,
           }}
           disabled={loading}
         />
@@ -204,8 +239,8 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
           onClick={sendMessage}
           disabled={loading || !input.trim()}
           style={{
-            marginLeft: 12,
-            width: 44,
+            marginLeft: isMobile ? 0 : 12,
+            width: isMobile ? '100%' : 44,
             height: 44,
             borderRadius: '50%',
             background: '#1976d2',
