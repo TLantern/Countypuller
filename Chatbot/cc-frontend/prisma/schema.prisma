@@ -36,3 +36,15 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model scraping_job {
+  id                String     @id @default(uuid())
+  job_type          String
+  status            String
+  created_at        DateTime   @default(now())
+  completed_at      DateTime?
+  parameters        Json?
+  result            Json?
+  error_message     String?
+  records_processed Int?
+}
+

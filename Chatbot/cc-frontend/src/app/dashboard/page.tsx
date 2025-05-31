@@ -90,6 +90,8 @@ export default function Dashboard() {
   const docTypes = ['L/P', 'Deed', 'Mortgage'];
   const [pulling, setPulling] = useState(false);
   const [pullResult, setPullResult] = useState<null | 'success' | 'error'>(null);
+  const [currentJobId, setCurrentJobId] = useState<string | null>(null);
+  const [jobStatus, setJobStatus] = useState<string>('');
 
   const fetchData = async () => {
     try {
@@ -105,22 +107,65 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  const pollJobStatus = async (jobId: string) => {
+    try {
+      const res = await fetch(`/api/pull-lph?job_id=${jobId}`);
+      const data = await res.json();
+      
+      if (data.success) {
+        setJobStatus(data.status);
+        
+        if (data.status === 'COMPLETED') {
+          setPullResult('success');
+          setPulling(false);
+          setCurrentJobId(null);
+          // Automatically refresh the data after successful completion
+          await fetchData();
+          return;
+        } else if (data.status === 'FAILED') {
+          setPullResult('error');
+          setPulling(false);
+          setCurrentJobId(null);
+          return;
+        }
+        
+        // Continue polling if job is still pending or in progress
+        if (data.status === 'PENDING' || data.status === 'IN_PROGRESS') {
+          setTimeout(() => pollJobStatus(jobId), 2000); // Poll every 2 seconds
+        }
+      } else {
+        setPullResult('error');
+        setPulling(false);
+        setCurrentJobId(null);
+      }
+    } catch (error) {
+      console.error('Error polling job status:', error);
+      setPullResult('error');
+      setPulling(false);
+      setCurrentJobId(null);
+    }
+  };
+
   const handlePullRecord = async () => {
     setPulling(true);
     setPullResult(null);
+    setJobStatus('');
+    
     try {
       const res = await fetch('/api/pull-lph', { method: 'POST' });
       const data = await res.json();
-      if (data.success) {
-        setPullResult('success');
-        // Automatically refresh the data after successful pull
-        await fetchData();
+      
+      if (data.success && data.job_id) {
+        setCurrentJobId(data.job_id);
+        setJobStatus(data.status);
+        // Start polling for job status
+        pollJobStatus(data.job_id);
       } else {
         setPullResult('error');
+        setPulling(false);
       }
     } catch (e) {
       setPullResult('error');
-    } finally {
       setPulling(false);
     }
   };
@@ -202,7 +247,16 @@ export default function Dashboard() {
                       <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
                       <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.4s' }}></span>
                     </div>
-                    <div className="mt-4 text-blue-700 font-semibold">Pulling records...</div>
+                    <div className="mt-4 text-blue-700 font-semibold">
+                      {jobStatus === 'PENDING' && 'Job queued, waiting to start...'}
+                      {jobStatus === 'IN_PROGRESS' && 'Scraping records from Harris County...'}
+                      {!jobStatus && 'Creating scraping job...'}
+                    </div>
+                    {currentJobId && (
+                      <div className="mt-2 text-gray-600 text-sm">
+                        Job ID: {currentJobId}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
