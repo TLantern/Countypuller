@@ -18,7 +18,7 @@ export default function PricingPage() {
           {/* 2 Counties/Unlimited LLM use - Yearly */}
           <Card>
             <div className="relative">
-              <span className="absolute -top-3 -left-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
+              <span className="absolute -top-3 -right-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
                 3-Day Free Trial
               </span>
               <CardHeader>
@@ -47,7 +47,7 @@ export default function PricingPage() {
           {/* 2 Counties/Unlimited LLM use - Monthly */}
           <Card>
             <div className="relative">
-              <span className="absolute -top-3 -left-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
+              <span className="absolute -top-3 -right-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
                 3-Day Free Trial
               </span>
               <CardHeader>
@@ -76,7 +76,7 @@ export default function PricingPage() {
           {/* 1 County/Limited LLM use - Yearly */}
           <Card>
             <div className="relative">
-              <span className="absolute -top-3 -left-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
+              <span className="absolute -top-3 -right-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
                 3-Day Free Trial
               </span>
               <CardHeader>
@@ -105,7 +105,7 @@ export default function PricingPage() {
           {/* 1 County/Limited LLM use - Monthly */}
           <Card>
             <div className="relative">
-              <span className="absolute -top-3 -left-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
+              <span className="absolute -top-3 -right-3 rotate-[-20deg] bg-green-500 text-white px-4 py-1 rounded shadow-lg text-xs font-bold z-10">
                 3-Day Free Trial
               </span>
               <CardHeader>
