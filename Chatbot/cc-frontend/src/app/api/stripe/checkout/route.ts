@@ -7,16 +7,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: NextRequest) {
   try {
-    const { priceId, quantity = 1 } = await req.json();
+    const { priceId, quantity = 1, customerId } = await req.json();
 
     const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: priceId,
-          quantity: quantity,
-        },
-      ],
+      payment_method_types: ['card'],
       mode: 'subscription',
+      line_items: [{ price: priceId, quantity: 1 }],
+      customer: customerId,
+      subscription_data: {
+        trial_period_days: 3,
+      },
       success_url: `${req.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.get('origin')}/payment/cancel`,
     });
