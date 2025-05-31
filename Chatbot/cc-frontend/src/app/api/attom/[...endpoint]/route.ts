@@ -3,7 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 const isPromise = (p: unknown): p is Promise<unknown> =>
   !!p && (typeof p === 'object' || typeof p === 'function') && typeof (p as any).then === 'function';
 
-export async function GET(req: NextRequest, context: { params: { endpoint: string[] } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { endpoint: string[] } }
+) {
   const apiKey = process.env.ATTOM_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: 'ATTOM API key not configured' }, { status: 500 });
@@ -27,9 +30,8 @@ export async function GET(req: NextRequest, context: { params: { endpoint: strin
   // Always exclude records with 0.00 sales amount for accuracy
   searchParams.set('include0SalesAmounts', 'false');
 
-  const getParams = context.params;
-  const params = (isPromise(getParams) ? await getParams : getParams) as { endpoint: string[] };
-  const endpointPath = params.endpoint.join('/');
+  const getParams = params.endpoint;
+  const endpointPath = getParams.join('/');
 
   // Use correct county for 7914 WOODSMAN TRL, HOUSTON, TX 77040
   let fixedCounty = county;
