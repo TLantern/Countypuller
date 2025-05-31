@@ -23,13 +23,21 @@ export default function StripeCheckoutButton({
 
   const handleClick = async () => {
     setLoading(true);
-    
+
     try {
+      if (!priceId) {
+        alert('No priceId provided!');
+        setLoading(false);
+        return;
+      }
+
       console.log('About to call /api/stripe/checkout', { priceId, quantity });
       const stripe = await stripePromise;
-      
+
       if (!stripe) {
-        throw new Error('Stripe failed to load');
+        alert('Stripe failed to load');
+        setLoading(false);
+        return;
       }
 
       // Call your API to create a checkout session
@@ -44,17 +52,31 @@ export default function StripeCheckoutButton({
         }),
       });
 
-      const { sessionId } = await response.json();
+      const data = await response.json();
+
+      if (data.error) {
+        alert('Server error: ' + data.error);
+        setLoading(false);
+        return;
+      }
+
+      if (!data.sessionId) {
+        alert('No sessionId returned from server.');
+        setLoading(false);
+        return;
+      }
 
       // Redirect to Stripe Checkout
       const result = await stripe.redirectToCheckout({
-        sessionId,
+        sessionId: data.sessionId,
       });
 
       if (result.error) {
+        alert('Stripe checkout error: ' + result.error.message);
         console.error('Stripe checkout error:', result.error);
       }
     } catch (error) {
+      alert('Error: ' + (error as any).message);
       console.error('Error:', error);
     } finally {
       setLoading(false);
