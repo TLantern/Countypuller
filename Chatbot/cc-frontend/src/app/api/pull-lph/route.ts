@@ -55,7 +55,8 @@ export async function POST(req: NextRequest) {
   console.log(`[DEBUG] Resolved script path: ${scriptPath}`);
   console.log(`[DEBUG] Script exists: ${fs.existsSync(scriptPath)}`);
   
-  const pythonPath = 'C:\\Users\\tmbor\\AppData\\Local\\Programs\\Python\\Python311\\python.exe';
+  // Use the local virtual environment Python
+  const pythonPath = path.resolve(process.cwd(), '../Chatbot/venv/Scripts/python.exe');
   console.log(`[DEBUG] Python executable exists: ${fs.existsSync(pythonPath)}`);
   
   // Use your specific Python path first
