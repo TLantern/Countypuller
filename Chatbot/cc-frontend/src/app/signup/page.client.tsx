@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
@@ -45,6 +46,37 @@ export default function SignupPage() {
           </div>
           Teniola Inc.
         </a>
+        {/* OAuth Providers */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-3">
+          <button
+            type="button"
+            className="bg-black text-white rounded px-4 py-2 font-semibold flex items-center justify-center gap-2 hover:bg-gray-900"
+            onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
+          >
+            <span>Sign up with GitHub</span>
+          </button>
+          <button
+            type="button"
+            className="bg-white text-black border border-gray-300 rounded px-4 py-2 font-semibold flex items-center justify-center gap-2 hover:bg-gray-100"
+            onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+          >
+            <span>Sign up with Google</span>
+          </button>
+          <button
+            type="button"
+            className="bg-blue-700 text-white rounded px-4 py-2 font-semibold flex items-center justify-center gap-2 hover:bg-blue-800"
+            onClick={() => signIn('azure-ad', { callbackUrl: '/dashboard' })}
+          >
+            <span>Sign up with Microsoft</span>
+          </button>
+        </div>
+        {/* Divider */}
+        <div className="flex items-center gap-2 my-2">
+          <hr className="flex-grow border-gray-300" />
+          <span className="text-gray-500 text-sm">or</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
+        {/* Credentials Sign Up Form */}
         <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
           <h2 className="text-xl font-semibold text-center">Sign Up</h2>
           <input
