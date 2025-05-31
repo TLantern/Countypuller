@@ -79,8 +79,8 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", gap: isMobile ? "0.75rem" : "1.5rem", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined }}>
             <Link href="/pricing">
-              <Button asChild size="lg" style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginBottom: isMobile ? 8 : 0 }}>
-                <span style={{ color: "#000" }}>Get Started</span>
+              <Button asChild size="lg" className="glow-pulse-btn" style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginBottom: isMobile ? 8 : 0, position: 'relative', zIndex: 1 }}>
+                <span style={{ color: "#000", position: 'relative', zIndex: 2 }}>Get Started</span>
               </Button>
             </Link>
             <Link href="/login">
@@ -93,15 +93,66 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        {/* Placeholder for illustration */}
-        <div style={{ minWidth: isMobile ? undefined : "220px", minHeight: isMobile ? 100 : "160px", background: "rgba(79,209,197,0.08)", borderRadius: "24px", display: "flex", alignItems: "center", justifyContent: "center", width: "100%", maxWidth: isMobile ? "100%" : "320px", marginTop: isMobile ? 24 : 0 }}>
-          {/* You can replace this with an SVG or image */}
-          <span style={{ color: "#4fd1c5", fontSize: isMobile ? "1rem" : "1.2rem" }}>[ Illustration Here ]</span>
+        {/* Clerk Crawler Demo Video to the right of hero text */}
+        <div style={{ width: isMobile ? '100%' : 540, maxWidth: '100%', margin: isMobile ? '2rem auto 0 auto' : '0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <h3 style={{
+            color: '#fff',
+            fontWeight: 800,
+            fontFamily: 'Inter, sans-serif',
+            fontSize: isMobile ? '1.7rem' : '2.8rem',
+            marginBottom: 18,
+            textAlign: 'center',
+            textShadow: '0 0 12px #3b82f6',
+            lineHeight: 1.1,
+          }}>
+            Clerk Crawler Demo
+          </h3>
+          <div style={{ borderRadius: 32, boxShadow: '0 0 56px 16px #3b82f6, 0 0 0 8px #fff2', background: 'rgba(59,130,246,0.15)', padding: 20, width: '100%' }}>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+              <iframe src="https://www.loom.com/embed/e1a6688e0d654818b61464c71fe98c00?sid=45ff9108-8af0-4762-b6cf-ce30af5d337e" frameBorder="0" allowFullScreen style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: 24 }}></iframe>
+            </div>
+          </div>
         </div>
       </main>
+      {/* Our Mission section centered below hero+demo */}
+      <section style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: isMobile ? '2.5rem 0 0 0' : '3.5rem 0 0 0' }}>
+        <h3 style={{
+          color: '#fff',
+          fontWeight: 800,
+          fontFamily: 'Inter, sans-serif',
+          fontSize: isMobile ? '1.7rem' : '2.8rem',
+          marginBottom: 18,
+          textAlign: 'center',
+          textShadow: '0 0 12px #3b82f6',
+          lineHeight: 1.1,
+        }}>
+          Our Mission
+        </h3>
+        <div style={{ borderRadius: 32, boxShadow: '0 0 56px 16px #3b82f6, 0 0 0 8px #fff2', background: 'rgba(59,130,246,0.15)', padding: 20, width: isMobile ? '99%' : 540, maxWidth: '100%' }}>
+          <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+            <iframe src="https://www.loom.com/embed/662a5f2f4b224dff9e1bab82085efb84?sid=ca2107ad-a492-4c04-b5ec-f68c1db06055" frameBorder="0" allowFullScreen style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: 24 }}></iframe>
+          </div>
+        </div>
+      </section>
       <style jsx global>{`
         .home-shadow-btn:hover {
           box-shadow: 0 8px 32px 0 rgba(224,224,224,0.4) !important;
+        }
+        .glow-pulse-btn {
+          box-shadow: 0 0 32px 0 #3b82f6, 0 0 0 0 #3b82f6;
+          animation: glow-pulse 3s ease-in-out infinite;
+          transition: box-shadow 0.3s;
+        }
+        @keyframes glow-pulse {
+          0% {
+            box-shadow: 0 0 32px 0 #3b82f6, 0 0 0 0 #3b82f6;
+          }
+          50% {
+            box-shadow: 0 0 48px 12px #3b82f6, 0 0 0 8px #3b82f6;
+          }
+          100% {
+            box-shadow: 0 0 32px 0 #3b82f6, 0 0 0 0 #3b82f6;
+          }
         }
       `}</style>
     </div>
