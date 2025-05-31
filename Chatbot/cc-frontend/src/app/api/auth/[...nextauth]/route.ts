@@ -3,6 +3,11 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import AzureADProvider from "next-auth/providers/azure-ad";
 
+// Debug environment variables
+console.log("Environment variables check:");
+console.log("NEXTAUTH_SECRET exists:", !!process.env.NEXTAUTH_SECRET);
+console.log("NEXTAUTH_SECRET length:", process.env.NEXTAUTH_SECRET?.length || 0);
+
 const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
@@ -20,7 +25,7 @@ const authOptions: NextAuthOptions = {
     }),
     // Add more providers here
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "10749645e8d2e267f4f15bb9b8cb2f38b352913e11db666d3d5cf858933237f1",
   // Add more NextAuth options here (callbacks, pages, etc.)
 };
 
