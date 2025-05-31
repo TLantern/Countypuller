@@ -170,6 +170,30 @@ export default function Dashboard() {
     }
   };
 
+  // Add this handler to mark is_new as false and persist
+  const handleRowClick = async (params: any) => {
+    const case_number = params.row.case_number;
+    // Only update if is_new is true
+    if (!params.row.is_new) return;
+    // Optimistically update UI
+    setRows(prev =>
+      prev.map(r =>
+        r.case_number === case_number ? { ...r, is_new: false } : r
+      )
+    );
+    // Persist to backend
+    try {
+      await fetch(`/api/lis-pendens/${case_number}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_new: false }),
+      });
+    } catch (e) {
+      // Optionally: revert UI or show error
+      console.error('Failed to update is_new:', e);
+    }
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -235,6 +259,7 @@ export default function Dashboard() {
                   pageSizeOptions={[10, 25, 50]}
                   checkboxSelection
                   disableRowSelectionOnClick
+                  onRowClick={handleRowClick}
                   sx={{ color: 'black', background: 'white', '& .MuiDataGrid-cell': { color: 'black' }, '& .MuiDataGrid-columnHeaders': { color: 'black' } }}
                 />
               </div>

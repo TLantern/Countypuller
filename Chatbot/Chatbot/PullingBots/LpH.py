@@ -18,6 +18,7 @@ import numpy as np
 import argparse
 import pyap
 import openai
+import pygetwindow as gw
 
 class LisPendensRecord(TypedDict):
     case_number: str
@@ -46,7 +47,7 @@ from dateutil.relativedelta import relativedelta
 # ─────────────────────────────────────────────────────────────────────────────
 BASE_URL   = "https://www.cclerk.hctx.net/Applications/WebSearch/RP.aspx"
 EXPORT_DIR = Path("data"); EXPORT_DIR.mkdir(exist_ok=True)
-HEADLESS   = True
+HEADLESS   = False
 YEAR       = datetime.now().year
 MONTH: Optional[int] = None  # None ⇒ auto‑pick latest month
 USER_AGENT = (
@@ -823,13 +824,20 @@ async def run():
     """Main function to run the scraper."""
     async with async_playwright() as pw:
         # Launch Chromium with your HEADLESS flag
-        browser = await pw.chromium.launch(headless=HEADLESS)
+        browser = await pw.chromium.launch(headless=False)
         # Apply your custom user‑agent
         context = await browser.new_context(user_agent=USER_AGENT)
         page = await context.new_page()
         
         # Go to the Lis Pendens search page
         await page.goto(BASE_URL)
+
+        # Give the browser a moment to open
+        time.sleep(2)
+
+        # Minimize all Chromium windows
+        for w in gw.getWindowsWithTitle('Chromium'):
+            w.minimize()
 
         await _maybe_accept(page)
         frm = await _find_frame(page)
