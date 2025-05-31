@@ -78,7 +78,7 @@ export default function Home() {
             Save hours of manual work and close more deals with our powerful, automated research platform.
           </p>
           <div style={{ display: "flex", gap: isMobile ? "0.75rem" : "1.5rem", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined }}>
-            <Link href="/login">
+            <Link href="/pricing">
               <Button asChild size="lg" style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginBottom: isMobile ? 8 : 0 }}>
                 <span style={{ color: "#000" }}>Get Started</span>
               </Button>
