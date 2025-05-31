@@ -76,7 +76,7 @@ export default function SignupPage() {
             className="bg-blue-700 text-white rounded px-4 py-2 font-semibold hover:bg-blue-800"
             disabled={loading}
           >
-            {loading ? 'Signing up...' : 'Sign Up'}
+            {loading ? 'Signing up...' : 'Sign up'}
           </button>
           {error && <div className="text-red-600 text-sm text-center">{error}</div>}
           {success && <div className="text-green-600 text-sm text-center">Registration successful! You can now log in.</div>}
