@@ -25,6 +25,7 @@ export default function StripeCheckoutButton({
     setLoading(true);
     
     try {
+      console.log('About to call /api/stripe/checkout', { priceId, quantity });
       const stripe = await stripePromise;
       
       if (!stripe) {
