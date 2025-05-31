@@ -45,7 +45,7 @@ export default function Home() {
         <nav style={{ display: "flex", gap: isMobile ? "1rem" : "2rem", alignItems: "center", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined, marginTop: isMobile ? 12 : 0 }}>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Home</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>About us</a>
-          <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Pricing</a>
+          <a href="/pricing" style={{ color: "#fff", textDecoration: "none" }}>Pricing</a>
           <a href="#" style={{ color: "#fff", textDecoration: "none" }}>Features</a>
           <Link href="/login">
             <Button
