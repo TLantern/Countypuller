@@ -15,13 +15,13 @@ export default function PricingPage() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Basic Plan */}
+          {/* Basic Plans */}
           <Card className="relative">
             <CardHeader>
               <CardTitle className="text-2xl font-bold">Basic</CardTitle>
               <CardDescription>Perfect for getting started</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">$29</span>
+                <span className="text-4xl font-bold">$49</span>
                 <span className="text-base font-medium text-gray-500">/month</span>
               </div>
             </CardHeader>
