@@ -5,8 +5,9 @@ const isPromise = (p: unknown): p is Promise<unknown> =>
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { endpoint: string[] } } = { params: { endpoint: [] } }
+  context: { params: { endpoint: string[] } }
 ) {
+  const { params } = context;
   const apiKey = process.env.ATTOM_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: 'ATTOM API key not configured' }, { status: 500 });
