@@ -33,7 +33,7 @@ export default function PricingPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <StripeCheckoutButton priceId="prod_SPg9VrSjD6iZ0k"> {/* Replace with your Stripe Price ID */}
+              <StripeCheckoutButton priceId="price_1RUqn72KmmBYwJTHrVxBWEZT"> {/* Replace with your Stripe Price ID */}
                 Choose Yearly
               </StripeCheckoutButton>
             </CardFooter>
@@ -57,7 +57,7 @@ export default function PricingPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <StripeCheckoutButton priceId="prod_SPg80MRwVfwVgs"> {/* Replace with your Stripe Price ID */}
+              <StripeCheckoutButton priceId="price_1RUqme2KmmBYwJTHoiOjENPb"> {/* Replace with your Stripe Price ID */}
                 Choose Monthly
               </StripeCheckoutButton>
             </CardFooter>
@@ -81,7 +81,7 @@ export default function PricingPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <StripeCheckoutButton priceId="prod_SPg7UuvsFDJlE1"> {/* Replace with your Stripe Price ID */}
+              <StripeCheckoutButton priceId="price_1RUqlT2KmmBYwJTHcMz9S41M"> {/* Replace with your Stripe Price ID */}
                 Choose Yearly
               </StripeCheckoutButton>
             </CardFooter>
@@ -105,7 +105,7 @@ export default function PricingPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <StripeCheckoutButton priceId="prod_SPg74XECK4lzYt"> {/* Replace with your Stripe Price ID */}
+              <StripeCheckoutButton priceId="price_1RUql52KmmBYwJTHegFyjNV4"> {/* Replace with your Stripe Price ID */}
                 Choose Monthly
               </StripeCheckoutButton>
             </CardFooter>
