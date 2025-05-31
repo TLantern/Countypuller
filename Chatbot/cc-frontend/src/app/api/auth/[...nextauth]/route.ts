@@ -2,7 +2,6 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import AzureADProvider from "next-auth/providers/azure-ad";
-import { NextRequest, NextResponse } from "next/server";
 
 const authOptions: NextAuthOptions = {
   providers: [
