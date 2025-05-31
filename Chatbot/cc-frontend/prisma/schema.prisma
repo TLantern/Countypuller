@@ -28,3 +28,11 @@ model lis_pendens_filing {
   doc_type         String
 }
 
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  password  String
+  createdAt DateTime @default(now())
+}
+
