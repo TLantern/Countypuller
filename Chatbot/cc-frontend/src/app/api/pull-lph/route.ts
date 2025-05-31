@@ -48,23 +48,44 @@ function runPython(scriptPath: string, args: string[], pythonPath: string) {
 }
 
 export async function POST(req: NextRequest) {
+  // Check if we're in a deployed environment
+  const isDeployed = process.cwd().includes('/var/task') || process.env.VERCEL || process.env.NODE_ENV === 'production';
+  
+  if (isDeployed) {
+    console.log(`[DEBUG] Detected deployed environment, Python execution not supported`);
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Python execution is not supported in the deployed environment. Please run this locally.' 
+    }, { status: 400 });
+  }
+
+  // Fix path resolution to avoid double "Chatbot"
+  const isWindows = process.platform === 'win32';
   const scriptPath = path.resolve(process.cwd(), '../Chatbot/PullingBots/LpH.py');
   const args = ['--limit', '10'];
   
   console.log(`[DEBUG] Current working directory: ${process.cwd()}`);
+  console.log(`[DEBUG] Platform: ${process.platform}`);
   console.log(`[DEBUG] Resolved script path: ${scriptPath}`);
   console.log(`[DEBUG] Script exists: ${fs.existsSync(scriptPath)}`);
   
-  // Use the local virtual environment Python
-  const pythonPath = path.resolve(process.cwd(), '../Chatbot/venv/Scripts/python.exe');
-  console.log(`[DEBUG] Python executable exists: ${fs.existsSync(pythonPath)}`);
+  // Determine Python executable path based on platform
+  const pythonExecutable = isWindows ? 'python.exe' : 'python3';
+  const venvPath = isWindows 
+    ? path.resolve(process.cwd(), '../Chatbot/venv/Scripts', pythonExecutable)
+    : path.resolve(process.cwd(), '../Chatbot/venv/bin', pythonExecutable);
   
-  // Use your specific Python path first
-  let result = await runPython(scriptPath, args, pythonPath);
+  console.log(`[DEBUG] Virtual environment Python path: ${venvPath}`);
+  console.log(`[DEBUG] Python executable exists: ${fs.existsSync(venvPath)}`);
+  
+  // Try virtual environment Python first
+  let result = await runPython(scriptPath, args, venvPath);
+  
   if (!result.success) {
-    console.log(`[DEBUG] First attempt failed, trying fallback 'python'`);
-    // Fallback to 'python' in PATH
-    result = await runPython(scriptPath, args, 'python');
+    console.log(`[DEBUG] Virtual environment attempt failed, trying system Python`);
+    // Fallback to system Python
+    const systemPython = isWindows ? 'python' : 'python3';
+    result = await runPython(scriptPath, args, systemPython);
   }
   
   console.log(`[DEBUG] Final result:`, result);
