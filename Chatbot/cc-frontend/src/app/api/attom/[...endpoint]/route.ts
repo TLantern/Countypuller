@@ -5,7 +5,7 @@ const isPromise = (p: unknown): p is Promise<unknown> =>
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { endpoint: string[] } }
+  { params }: { params: { endpoint: string[] } } = { params: { endpoint: [] } }
 ) {
   const apiKey = process.env.ATTOM_API_KEY;
   if (!apiKey) {
