@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
           quantity: quantity,
         },
       ],
-      mode: 'payment', // or 'subscription' for recurring payments
+      mode: 'subscription',
       success_url: `${req.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.get('origin')}/payment/cancel`,
     });
