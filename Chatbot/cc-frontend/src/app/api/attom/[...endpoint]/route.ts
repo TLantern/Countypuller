@@ -5,9 +5,12 @@ const isPromise = (p: unknown): p is Promise<unknown> =>
 
 export async function GET(
   req: NextRequest,
-  context: { params: { endpoint: string[] } }
+  context: { params: Record<string, string | string[]> }
 ) {
   const { params } = context;
+  const endpoint = Array.isArray(params.endpoint)
+    ? params.endpoint
+    : [params.endpoint];
   const apiKey = process.env.ATTOM_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: 'ATTOM API key not configured' }, { status: 500 });
@@ -31,8 +34,6 @@ export async function GET(
   // Always exclude records with 0.00 sales amount for accuracy
   searchParams.set('include0SalesAmounts', 'false');
 
-  const getParams = params.endpoint;
-  const endpointPath = getParams.join('/');
 
   // Use correct county for 7914 WOODSMAN TRL, HOUSTON, TX 77040
   let fixedCounty = county;
