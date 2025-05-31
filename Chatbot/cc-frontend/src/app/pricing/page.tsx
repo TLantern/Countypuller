@@ -14,12 +14,84 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Basic Plans */}
-          <Card className="relative">
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          {/* 2 Counties/Unlimited LLM use - Yearly */}
+          <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-bold">Basic</CardTitle>
-              <CardDescription>Perfect for getting started</CardDescription>
+              <CardTitle>2 Counties/Unlimited LLM use</CardTitle>
+              <CardDescription>Best value for teams and power users. Unlimited AI property research in 2 counties.</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold">$999</span>
+                <span className="text-base font-medium text-gray-500">/year</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3">
+                <li>Unlimited LLM (AI) property lookups</li>
+                <li>Access to 2 counties</li>
+                <li>Priority support</li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <StripeCheckoutButton priceId="prod_SPg9VrSjD6iZ0k"> {/* Replace with your Stripe Price ID */}
+                Choose Yearly
+              </StripeCheckoutButton>
+            </CardFooter>
+          </Card>
+
+          {/* 2 Counties/Unlimited LLM use - Monthly */}
+          <Card>
+            <CardHeader>
+              <CardTitle>2 Counties/Unlimited LLM use</CardTitle>
+              <CardDescription>Flexible monthly access for unlimited AI research in 2 counties.</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold">$79</span>
+                <span className="text-base font-medium text-gray-500">/month</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3">
+                <li>Unlimited LLM (AI) property lookups</li>
+                <li>Access to 2 counties</li>
+                <li>Email support</li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <StripeCheckoutButton priceId="prod_SPg80MRwVfwVgs"> {/* Replace with your Stripe Price ID */}
+                Choose Monthly
+              </StripeCheckoutButton>
+            </CardFooter>
+          </Card>
+
+          {/* 1 County/Limited LLM use - Yearly */}
+          <Card>
+            <CardHeader>
+              <CardTitle>1 County/Limited LLM use</CardTitle>
+              <CardDescription>Annual plan for focused research in a single county with limited AI usage.</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold">$490</span>
+                <span className="text-base font-medium text-gray-500">/year</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3">
+                <li>Limited LLM (AI) property lookups</li>
+                <li>Access to 1 county</li>
+                <li>Email support</li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <StripeCheckoutButton priceId="prod_SPg7UuvsFDJlE1"> {/* Replace with your Stripe Price ID */}
+                Choose Yearly
+              </StripeCheckoutButton>
+            </CardFooter>
+          </Card>
+
+          {/* 1 County/Limited LLM use - Monthly */}
+          <Card>
+            <CardHeader>
+              <CardTitle>1 County/Limited LLM use</CardTitle>
+              <CardDescription>Monthly plan for individuals needing limited AI research in one county.</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$49</span>
                 <span className="text-base font-medium text-gray-500">/month</span>
@@ -27,115 +99,14 @@ export default function PricingPage() {
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Up to 100 searches/month
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Basic property data
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Email support
-                </li>
+                <li>Limited LLM (AI) property lookups</li>
+                <li>Access to 1 county</li>
+                <li>Email support</li>
               </ul>
             </CardContent>
             <CardFooter>
-              <StripeCheckoutButton 
-                priceId="price_basic_plan_id" // Replace with your actual Stripe Price ID
-                className="w-full"
-              >
-                Start Basic Plan
-              </StripeCheckoutButton>
-            </CardFooter>
-          </Card>
-
-          {/* Pro Plan */}
-          <Card className="relative border-blue-500 border-2">
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <span className="bg-blue-500 text-white px-4 py-1 text-sm font-medium rounded-full">
-                Most Popular
-              </span>
-            </div>
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold">Pro</CardTitle>
-              <CardDescription>Best for professionals</CardDescription>
-              <div className="mt-4">
-                <span className="text-4xl font-bold">$99</span>
-                <span className="text-base font-medium text-gray-500">/month</span>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Up to 1,000 searches/month
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Advanced property data
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  API access
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Priority support
-                </li>
-              </ul>
-            </CardContent>
-            <CardFooter>
-              <StripeCheckoutButton 
-                priceId="price_pro_plan_id" // Replace with your actual Stripe Price ID
-                className="w-full"
-              >
-                Start Pro Plan
-              </StripeCheckoutButton>
-            </CardFooter>
-          </Card>
-
-          {/* Enterprise Plan */}
-          <Card className="relative">
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold">Enterprise</CardTitle>
-              <CardDescription>For large organizations</CardDescription>
-              <div className="mt-4">
-                <span className="text-4xl font-bold">$299</span>
-                <span className="text-base font-medium text-gray-500">/month</span>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Unlimited searches
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Premium property data
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Full API access
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  24/7 dedicated support
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Custom integrations
-                </li>
-              </ul>
-            </CardContent>
-            <CardFooter>
-              <StripeCheckoutButton 
-                priceId="price_enterprise_plan_id" // Replace with your actual Stripe Price ID
-                className="w-full"
-              >
-                Start Enterprise Plan
+              <StripeCheckoutButton priceId="prod_SPg74XECK4lzYt"> {/* Replace with your Stripe Price ID */}
+                Choose Monthly
               </StripeCheckoutButton>
             </CardFooter>
           </Card>
