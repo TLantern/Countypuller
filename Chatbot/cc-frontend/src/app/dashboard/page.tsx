@@ -88,18 +88,48 @@ export default function Dashboard() {
   const [docType, setDocType] = useState('L/P');
   const counties = ['Harris', 'Fort Bend', 'Montgomery'];
   const docTypes = ['L/P', 'Deed', 'Mortgage'];
+  const [pulling, setPulling] = useState(false);
+  const [pullResult, setPullResult] = useState<null | 'success' | 'error'>(null);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch('/api/lis-pendens');
+      const data = await res.json();
+      setRows(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
-    fetch('/api/lis-pendens')
-      .then(res => res.json())
-      .then(data => setRows(data));
+    fetchData();
   }, []);
+
+  const handlePullRecord = async () => {
+    setPulling(true);
+    setPullResult(null);
+    try {
+      const res = await fetch('/api/pull-lph', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setPullResult('success');
+        // Automatically refresh the data after successful pull
+        await fetchData();
+      } else {
+        setPullResult('error');
+      }
+    } catch (e) {
+      setPullResult('error');
+    } finally {
+      setPulling(false);
+    }
+  };
 
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b justify-between pr-6">
           <div className="flex items-center gap-2 px-3">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -117,10 +147,18 @@ export default function Dashboard() {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
+          <button
+            className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
+            style={{ fontSize: '1.1rem' }}
+            onClick={handlePullRecord}
+            disabled={pulling}
+          >
+            Pull Records
+          </button>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
-            <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)' }}>
+            <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>
               <div className="flex items-center gap-4 mb-4">
                 <Select
                   value={county}
@@ -155,9 +193,29 @@ export default function Dashboard() {
                   sx={{ color: 'black', background: 'white', '& .MuiDataGrid-cell': { color: 'black' }, '& .MuiDataGrid-columnHeaders': { color: 'black' } }}
                 />
               </div>
+              {/* Loader inside content box */}
+              {pulling && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
+                  <div className="flex flex-col items-center justify-center p-8">
+                    <div className="flex space-x-2 mt-2">
+                      <span className="dot-bounce bg-blue-600"></span>
+                      <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
+                      <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.4s' }}></span>
+                    </div>
+                    <div className="mt-4 text-blue-700 font-semibold">Pulling records...</div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
+        {/* Toast for result */}
+        {pullResult === 'success' && (
+          <div className="fixed bottom-6 left-6 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">Records pulled successfully!</div>
+        )}
+        {pullResult === 'error' && (
+          <div className="fixed bottom-6 left-6 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">Error pulling records.</div>
+        )}
       </SidebarInset>
     </SidebarProvider>
   )

@@ -46,7 +46,7 @@ from dateutil.relativedelta import relativedelta
 # ─────────────────────────────────────────────────────────────────────────────
 BASE_URL   = "https://www.cclerk.hctx.net/Applications/WebSearch/RP.aspx"
 EXPORT_DIR = Path("data"); EXPORT_DIR.mkdir(exist_ok=True)
-HEADLESS   = False
+HEADLESS   = True
 YEAR       = datetime.now().year
 MONTH: Optional[int] = None  # None ⇒ auto‑pick latest month
 USER_AGENT = (
