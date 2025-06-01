@@ -3,10 +3,10 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import AzureADProvider from "next-auth/providers/azure-ad";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter"; // Using correct package name
-import prisma from "@/lib/prisma";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import prisma from "../../../../lib/prisma";
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
