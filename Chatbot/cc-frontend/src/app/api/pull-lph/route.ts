@@ -17,6 +17,8 @@ export async function POST(req: NextRequest) {
   if (!session || !userId) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
+  console.log("Session:", session);
+  console.log("userId:", userId);
   try {
     // Create a new job record in the database
     const job = await prisma.scraping_job.create({
