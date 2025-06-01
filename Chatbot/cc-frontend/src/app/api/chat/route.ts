@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '../../../lib/prisma';
 import { normalizeAttomParams } from '@/lib/utils';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/authOptions";
+import prisma from '../../../lib/prisma';
 
 // Helper to detect web search intent
 function hasWebSearchIntent(message: string): boolean {
@@ -107,6 +107,6 @@ export async function POST(req: NextRequest) {
       state ? `state=${encodeURIComponent(state)}` : '',
       zip ? `zip=${encodeURIComponent(zip)}` : '',
       county ? `county=${encodeURIComponent(county)}` : 'county=US'
-    ].filter(Boolean).join(',');
+    ].filter(Boolean).join('&');
   }
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '../../../../lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
+import prisma from '../../../../lib/prisma';
 
 export async function PATCH(request: NextRequest) {
   const case_number = request.nextUrl.pathname.split('/').pop();
