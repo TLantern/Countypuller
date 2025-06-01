@@ -1,15 +1,10 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import AzureADProvider from "next-auth/providers/azure-ad";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-
-// Debug environment variables
-console.log("Environment variables check:");
-console.log("NEXTAUTH_SECRET exists:", !!process.env.NEXTAUTH_SECRET);
-console.log("NEXTAUTH_SECRET length:", process.env.NEXTAUTH_SECRET?.length || 0);
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -57,15 +52,4 @@ const authOptions: NextAuthOptions = {
   // Add more NextAuth options here (callbacks, pages, etc.)
 };
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
-// Be sure to add the following to your .env.local:
-// NEXTAUTH_SECRET=your-secret-key-here
-// GITHUB_ID=...
-// GITHUB_SECRET=...
-// GOOGLE_CLIENT_ID=...
-// GOOGLE_CLIENT_SECRET=...
-// AZURE_AD_CLIENT_ID=...
-// AZURE_AD_CLIENT_SECRET=...
-// AZURE_AD_TENANT_ID=... 
+export { authOptions }; 
