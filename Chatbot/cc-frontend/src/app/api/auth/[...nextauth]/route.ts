@@ -45,12 +45,22 @@ const authOptions: NextAuthOptions = {
     // Add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET || "10749645e8d2e267f4f15bb9b8cb2f38b352913e11db666d3d5cf858933237f1",
+  callbacks: {
+    async session({ session, token, user }) {
+      // Add user id to session
+      if (session.user && token.sub) {
+        (session.user as any).id = token.sub;
+      }
+      return session;
+    },
+  },
   // Add more NextAuth options here (callbacks, pages, etc.)
 };
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+export { authOptions };
 // Be sure to add the following to your .env.local:
 // NEXTAUTH_SECRET=your-secret-key-here
 // GITHUB_ID=...

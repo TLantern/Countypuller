@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 // Job status enum
 enum JobStatus {
@@ -10,6 +12,11 @@ enum JobStatus {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  const userId = (session?.user as any)?.id;
+  if (!session || !userId) {
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+  }
   try {
     // Create a new job record in the database
     const job = await prisma.scraping_job.create({
@@ -20,10 +27,10 @@ export async function POST(req: NextRequest) {
         parameters: {
           limit: 10,
           source: 'harris_county'
-        }
+        },
+        userId
       }
     });
-
     return NextResponse.json({ 
       success: true, 
       job_id: job.id,
@@ -40,28 +47,29 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  const userId = (session?.user as any)?.id;
+  if (!session || !userId) {
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+  }
   const url = new URL(req.url);
   const jobId = url.searchParams.get('job_id');
-
   if (!jobId) {
     return NextResponse.json({ 
       success: false, 
       error: 'job_id parameter is required' 
     }, { status: 400 });
   }
-
   try {
-    const job = await prisma.scraping_job.findUnique({
-      where: { id: jobId }
+    const job = await prisma.scraping_job.findFirst({
+      where: { id: jobId, userId }
     });
-
     if (!job) {
       return NextResponse.json({ 
         success: false, 
         error: 'Job not found' 
       }, { status: 404 });
     }
-
     return NextResponse.json({ 
       success: true, 
       job_id: job.id,

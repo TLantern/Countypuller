@@ -26,14 +26,19 @@ model lis_pendens_filing {
   created_at       DateTime @default(now())
   is_new           Boolean  @default(true)
   doc_type         String
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  @@index([userId])
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  firstName String
-  password  String
-  createdAt DateTime @default(now())
+  id                String                @id @default(uuid())
+  email             String                @unique
+  firstName         String
+  password          String
+  createdAt         DateTime              @default(now())
+  lisPendensFilings lis_pendens_filing[]
+  scrapingJobs      scraping_job[]
 }
 
 model scraping_job {
@@ -46,5 +51,8 @@ model scraping_job {
   result            Json?
   error_message     String?
   records_processed Int?
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+  @@index([userId])
 }
 

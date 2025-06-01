@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { normalizeAttomParams } from '@/lib/utils';
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 // Helper to detect web search intent
 function hasWebSearchIntent(message: string): boolean {
@@ -163,9 +165,11 @@ export async function POST(req: NextRequest) {
 
   // 4. Query property data from DB (lis pendens filings) - always do this if we have street info
   let propertyData = null;
-  if (street) {
+  const session = await getServerSession(authOptions);
+  const userId = (session?.user as any)?.id;
+  if (street && userId) {
     propertyData = await prisma.lis_pendens_filing.findFirst({
-      where: { property_address: { contains: street, mode: 'insensitive' } }
+      where: { property_address: { contains: street, mode: 'insensitive' }, userId },
     });
   }
 
