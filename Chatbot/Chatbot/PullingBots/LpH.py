@@ -99,7 +99,7 @@ VALUES
    :created_at,
    :is_new,
    :doc_type,
-   :userId)
+   :user_id_param)
 ON CONFLICT (case_number) DO UPDATE
 SET
   case_url         = EXCLUDED.case_url,
@@ -344,7 +344,7 @@ async def _get_lis_pendens_records(page: Page, existing_case_numbers: set, max_n
                 "created_at": datetime.now(),
                 "is_new": True,
                 "doc_type": "L/P",
-                "userId": USER_ID,
+                "user_id_param": USER_ID,
             }
             _log(f"[DEBUG] Creating record with USER_ID: {USER_ID}")
             lis_pendens_records.append(record)
