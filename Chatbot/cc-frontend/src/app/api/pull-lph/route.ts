@@ -15,9 +15,48 @@ enum JobStatus {
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   const userId = (session?.user as any)?.id;
+  
+  // Add comprehensive logging for debugging
+  console.log('=== SESSION DEBUG ===');
+  console.log('Full session object:', JSON.stringify(session, null, 2));
+  console.log('Extracted userId:', userId);
+  console.log('UserId type:', typeof userId);
+  console.log('UserId length:', userId ? userId.length : 'null');
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+  console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL);
+  
   if (!session || !userId) {
+    console.log('❌ Authentication failed - no session or userId');
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
+  
+  // Verify the userId exists in database before creating job
+  try {
+    const userExists = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, email: true }
+    });
+    
+    console.log('User lookup result:', userExists);
+    
+    if (!userExists) {
+      console.log('❌ UserId from session does not exist in database!');
+      return NextResponse.json({ 
+        error: 'User session invalid - please login again',
+        debug: { sessionUserId: userId, userExists: false }
+      }, { status: 401 });
+    }
+    
+    console.log('✅ UserId verified in database:', userExists.email);
+    
+  } catch (dbError) {
+    console.error('❌ Database error during user verification:', dbError);
+    return NextResponse.json({ 
+      error: 'Database connection error',
+      debug: { userId, dbError: String(dbError) }
+    }, { status: 500 });
+  }
+  
   console.log("Session:", session);
   console.log("userId:", userId);
   try {
