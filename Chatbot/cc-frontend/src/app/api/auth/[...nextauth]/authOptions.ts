@@ -81,7 +81,6 @@ const authOptions: NextAuthOptions = {
               data: {
                 email: user.email!,
                 firstName: user.name || 'OAuth User',
-                lastName: '',
                 password: '', // OAuth users don't have password
                 createdAt: new Date(),
               }
