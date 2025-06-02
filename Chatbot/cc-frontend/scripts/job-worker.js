@@ -1,4 +1,4 @@
-const { PrismaClient } = require('../src/generated/prisma');
+const { PrismaClient } = require('@prisma/client');
 const { spawn } = require('child_process');
 const path = require('path');
 
@@ -58,7 +58,10 @@ async function processJob(job) {
     if (job.job_type === 'LIS_PENDENS_PULL') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/LpH.py');
       const limit = job.parameters?.limit || 10;
-      const args = ['--limit', limit.toString()];
+      console.log(`[DEBUG] Job userId: ${job.userId}`);
+      console.log(`[DEBUG] Job object:`, JSON.stringify(job, null, 2));
+      const args = ['--limit', limit.toString(), '--user-id', job.userId];
+      console.log(`[DEBUG] Arguments being passed:`, args);
       const result = await runPython(scriptPath, args);
       if (result.success) {
         const recordsMatch = result.output.match(/(\d+)\s+new records/i);

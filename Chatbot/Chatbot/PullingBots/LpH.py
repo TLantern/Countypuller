@@ -55,6 +55,7 @@ USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
 MAX_NEW_RECORDS = 100   # Maximum number of new records to scrape per run (default)
+USER_ID = None  # Will be set from command line argument
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # Google Sheets (optional) ----------------------------------------------------
@@ -84,7 +85,8 @@ INSERT INTO lis_pendens_filing
    county,
    created_at,
    is_new,
-   doc_type)
+   doc_type,
+   "userId")
 VALUES
   (:case_number,
    :case_url,
@@ -96,7 +98,8 @@ VALUES
    :county,
    :created_at,
    :is_new,
-   :doc_type)
+   :doc_type,
+   :userId)
 ON CONFLICT (case_number) DO UPDATE
 SET
   case_url         = EXCLUDED.case_url,
@@ -108,7 +111,8 @@ SET
   county           = EXCLUDED.county,
   created_at       = EXCLUDED.created_at,
   is_new           = EXCLUDED.is_new,
-  doc_type         = EXCLUDED.doc_type;
+  doc_type         = EXCLUDED.doc_type,
+  "userId"         = EXCLUDED."userId";
 """
 # ─────────────────────────────────────────────────────────────────────────────
 # LOG + SAFE WRAPPER
@@ -255,6 +259,8 @@ async def _get_lis_pendens_records(page: Page, existing_case_numbers: set, max_n
     Extract Lis Pendens records from the search results page, skipping any that already exist in the database.
     Only count and log new records, and stop when max_new_records is reached.
     """
+    global USER_ID  # Access the global USER_ID variable
+    
     # Find the frame containing results
     for frm in page.frames:
         if await frm.query_selector("table[id*='itemPlaceholderContainer']"):
@@ -338,7 +344,9 @@ async def _get_lis_pendens_records(page: Page, existing_case_numbers: set, max_n
                 "created_at": datetime.now(),
                 "is_new": True,
                 "doc_type": "L/P",
+                "userId": USER_ID,
             }
+            _log(f"[DEBUG] Creating record with USER_ID: {USER_ID}")
             lis_pendens_records.append(record)
             new_record_count += 1
             _log(f"✅ Extracted record {new_record_count}: {case_number}")
@@ -955,11 +963,16 @@ async def run():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Lis Pendens Scraper")
     parser.add_argument("--limit", type=int, default=None, help="Maximum number of new records to process")
+    parser.add_argument("--user-id", type=str, required=True, help="User ID to associate records with")
     args = parser.parse_args()
 
     # Override MAX_NEW_RECORDS if --limit is provided
     if args.limit is not None:
         MAX_NEW_RECORDS = args.limit
         print(f"[INFO] Overriding MAX_NEW_RECORDS to {MAX_NEW_RECORDS} due to --limit argument.")
+
+    # Set global USER_ID
+    USER_ID = args.user_id
+    print(f"[INFO] Using USER_ID: {USER_ID}")
 
     asyncio.run(run())

@@ -8,7 +8,17 @@ import bcrypt from 'bcryptjs';
 import prisma from '../../../../lib/prisma';
 
 const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  // Temporarily disable adapter to test JWT strategy
+  // adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt", // Switch to JWT strategy temporarily
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  pages: {
+    signIn: '/login',
+    signOut: '/login',
+    error: '/login', // Error code passed in query string as ?error=
+  },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
@@ -30,26 +40,54 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        console.log('Credentials authorize called with:', { email: credentials?.email });
         if (!credentials?.email || !credentials?.password) return null;
-        const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        if (!user) return null;
-        const isValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isValid) return null;
-        return { id: user.id, email: user.email, name: user.firstName };
+        
+        try {
+          const user = await prisma.user.findUnique({ where: { email: credentials.email } });
+          console.log('User found:', user ? { id: user.id, email: user.email } : 'No user found');
+          
+          if (!user) return null;
+          const isValid = await bcrypt.compare(credentials.password, user.password);
+          console.log('Password valid:', isValid);
+          
+          if (!isValid) return null;
+          return { id: user.id, email: user.email, name: user.firstName };
+        } catch (error) {
+          console.error('Auth error:', error);
+          return null;
+        }
       }
     }),
     // Add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET || "10749645e8d2e267f4f15bb9b8cb2f38b352913e11db666d3d5cf858933237f1",
   callbacks: {
-    async session({ session, token, user }) {
-      // Add user id to session
-      if (session.user && token.sub) {
-        (session.user as any).id = token.sub;
+    async jwt({ token, user }) {
+      // Store user id in JWT token
+      if (user) {
+        token.userId = user.id;
       }
+      return token;
+    },
+    async session({ session, token }) {
+      // Add user id to session from JWT token
+      if (session.user && token) {
+        (session.user as any).id = token.userId;
+      }
+      console.log('Session callback result:', session);
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      console.log('Redirect callback:', { url, baseUrl });
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return `${baseUrl}/dashboard`;
+    },
   },
+  debug: true, // Enable debug mode
   // Add more NextAuth options here (callbacks, pages, etc.)
 };
 

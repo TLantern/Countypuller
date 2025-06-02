@@ -25,9 +25,16 @@ export async function POST(req: NextRequest) {
         password: hashedPassword,
       },
     });
-    return NextResponse.json({ id: user.id, email: user.email, firstName: user.firstName });
+    // Return user data without password
+    return NextResponse.json({ 
+      id: user.id, 
+      email: user.email, 
+      firstName: user.firstName 
+    });
   } catch (error) {
     console.error('Error registering user:', error);
     return NextResponse.json({ error: 'Failed to register user' }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 } 

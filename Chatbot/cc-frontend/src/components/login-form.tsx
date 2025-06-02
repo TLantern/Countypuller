@@ -10,6 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 function ProviderIcon({ provider }: { provider: string }) {
   switch (provider) {
@@ -23,7 +25,7 @@ function ProviderIcon({ provider }: { provider: string }) {
       );
     case "apple":
       return (
-        <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.93 2.07-2.07 2.07s-2.07-.93-2.07-2.07.93-2.07 2.07-2.07 2.07.93 2.07 2.07zm4.13 6.13c-.09-.09-.19-.17-.29-.25-.1-.08-.21-.15-.32-.21-.11-.06-.23-.11-.35-.15-.12-.04-.25-.07-.38-.09-.13-.02-.27-.03-.41-.03-.14 0-.28.01-.41.03-.13.02-.26.05-.38.09-.12.04-.24.09-.35.15-.11.06-.22.13-.32.21-.1.08-.2.16-.29.25-.09.09-.17.19-.25.29-.08.1-.15.21-.21.32-.06.11-.11.23-.15.35-.04.12-.07.25-.09.38-.02.13-.03.27-.03.41 0 .14.01.28.03.41.02.13.05.26.09.38.04.12.09.24.15.35.06.11.13.22.21.32.08.1.16.2.25.29.09.09.19.17.29.25.1.08.21.15.32.21.11.06.23.11.35.15.12.04.25.07.38.09.13.02.27.03.41.03.14 0 .28-.01.41-.03.13-.02.26-.05.38-.09.12-.04.24-.09.35-.15.11-.06.22-.13.32-.21.1-.08.2-.16.29-.25.09-.09.17-.19.25-.29.08-.1.15-.21.21-.32.06-.11.11-.23.15-.35.04-.12.07-.25.09-.38.02-.13.03-.27.03-.41 0-.14-.01-.28-.03-.41-.02-.13-.05-.26-.09-.38-.04-.12-.09-.24-.15-.35-.06-.11-.13-.22-.21-.32-.08-.1-.16-.2-.25-.29z"/></svg>
+        <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.93 2.07-2.07 2.07s-2.07-.93-2.07-2.07.93-2.07 2.07-2.07 2.07.93 2.07 2.07zm4.13 6.13c-.09-.09-.19-.17-.29-.25-.1-.08-.21-.15-.32-.21-.11-.06-.23-.11-.35-.15-.12-.04-.25-.07-.38-.09-.13-.02-.27-.03-.41-.03-.14 0-.28.01-.41.03-.13.02-.26.05-.38.09-.12.04-.24.09-.35.15-.11.06-.22.13-.32.21-.1.08-.2.16-.29.25-.09.09-.17.19-.25.29-.08.1-.15.21-.21.32-.06.11-.11.23-.15.35-.04.12-.07.25-.09.38-.02.13-.03.27-.03.41 0 .14.01.28.03.41.02.13.05.26.09.38.04.12.09.24.15.35.06.11.13.22.21.32.08.1.16.2.25.29.09.09.19.17.29.25.1.08.21.15.32.21.11.06.23.11.35.15.12.04.25.07.38.09.13.02.27.03.41.03.14 0 .28-.01.41-.03.13-.02.26-.05.38-.09.12-.04.24-.09.35-.15.11-.06.22-.13.32-.21.1-.08.2-.16.29-.25.09-.09.17-.19.25-.29.08-.1.15-.21.21-.32.06-.11.11-.23.15-.35.04-.12.07-.25.09-.38.02-.13.03-.27.03-.41 0-.14-.01-.28-.03-.41-.02-.13-.05-.26-.09-.38-.04-.12-.09-.24-.15-.35-.06-.11-.13-.22-.21-.32-.08-.1-.16-.2-.25-.29-.29-.09-.09-.19-.17-.29-.25-.1-.08-.2-.16-.29z"/></svg>
       );
     case "azure-ad":
       return (
@@ -34,11 +36,78 @@ function ProviderIcon({ provider }: { provider: string }) {
   }
 }
 
+function CredentialLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false, // Don't auto-redirect, handle it manually
+      });
+      
+      if (res?.error) {
+        setError("Invalid email or password");
+        setLoading(false);
+      } else if (res?.ok) {
+        // Successful login, redirect to dashboard
+        window.location.href = "/dashboard";
+      }
+    } catch (error) {
+      setError("An error occurred during sign in");
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-2">
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        className="border border-gray-400 rounded px-3 py-2 bg-white text-black placeholder-black"
+        required
+        autoComplete="username"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        className="border border-gray-400 rounded px-3 py-2 bg-white text-black placeholder-black"
+        required
+        autoComplete="current-password"
+      />
+      <Button type="submit" className="w-full" disabled={loading}>
+        {loading ? "Signing in..." : "Sign in with Credentials"}
+      </Button>
+      {error && <div className="text-red-500 text-xs mt-1">{error}</div>}
+    </form>
+  );
+}
+
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "loading") return;
+    if (session) {
+      router.push("/dashboard");
+    }
+  }, [session, status, router]);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -48,6 +117,7 @@ export function LoginForm({
     return (
       <div className={cn("flex flex-col gap-6", className)} {...props}>
         <div>Signed in as {session.user?.email}</div>
+        <div>Redirecting to dashboard...</div>
         <Button onClick={() => signOut()} className="w-full">
           Sign out
         </Button>
@@ -90,10 +160,11 @@ export function LoginForm({
               <ProviderIcon provider="azure-ad" />
               Sign in with Microsoft
             </Button>
+            <CredentialLogin />
           </div>
           <div className="text-center text-sm mt-4">
             Don&apos;t have an account?{" "}
-            <a href="/api/auth/signin" className="underline underline-offset-4">
+            <a href="/signup" className="underline underline-offset-4">
               Sign up
             </a>
           </div>

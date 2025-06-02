@@ -1,5 +1,7 @@
 'use client';
 import React, { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -82,6 +84,10 @@ interface LisPendensRecord {
 }
 
 export default function Dashboard() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
   const [rows, setRows] = useState<LisPendensRecord[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
   const [county, setCounty] = useState('Harris');
@@ -93,6 +99,7 @@ export default function Dashboard() {
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
   const [jobStatus, setJobStatus] = useState<string>('');
 
+  // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
     try {
       const res = await fetch('/api/lis-pendens');
@@ -106,6 +113,29 @@ export default function Dashboard() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    console.log('Dashboard useEffect - status:', status, 'session:', session);
+    if (status === "loading") return; // Still loading
+    if (!session) {
+      console.log('No session found, redirecting to login');
+      router.push("/login");
+      return;
+    }
+    console.log('Session found, staying on dashboard');
+  }, [session, status, router]);
+
+  // NOW we can do conditional rendering AFTER all hooks are called
+  if (status === "loading") {
+    console.log('Status is loading...');
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    console.log('No session, returning null');
+    return null;
+  }
 
   const pollJobStatus = async (jobId: string) => {
     try {
@@ -216,14 +246,22 @@ export default function Dashboard() {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <button
-            className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
-            style={{ fontSize: '1.1rem' }}
-            onClick={handlePullRecord}
-            disabled={pulling}
-          >
-            Pull Records
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              className="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-200 cursor-pointer"
+              onClick={() => signOut({ callbackUrl: '/' })}
+            >
+              Sign Out
+            </button>
+            <button
+              className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
+              style={{ fontSize: '1.1rem' }}
+              onClick={handlePullRecord}
+              disabled={pulling}
+            >
+              Pull Records
+            </button>
+          </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
