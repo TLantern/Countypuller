@@ -63,6 +63,45 @@ const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET || "10749645e8d2e267f4f15bb9b8cb2f38b352913e11db666d3d5cf858933237f1",
   callbacks: {
+    async signIn({ user, account, profile }) {
+      console.log('SignIn callback triggered:', { user, account: account?.provider });
+      
+      // Handle OAuth providers (Google, GitHub, Azure)
+      if (account && account.provider !== 'credentials') {
+        try {
+          // Check if user already exists in database by email
+          let dbUser = await prisma.user.findUnique({
+            where: { email: user.email! }
+          });
+          
+          if (!dbUser) {
+            // Create new user in database for OAuth users
+            console.log('Creating new OAuth user in database:', user.email);
+            dbUser = await prisma.user.create({
+              data: {
+                email: user.email!,
+                firstName: user.name || 'OAuth User',
+                lastName: '',
+                password: '', // OAuth users don't have password
+                createdAt: new Date(),
+              }
+            });
+            console.log('✅ Created OAuth user with UUID:', dbUser.id);
+          } else {
+            console.log('✅ Found existing OAuth user:', dbUser.id);
+          }
+          
+          // Update user.id with database UUID for JWT token
+          user.id = dbUser.id;
+          
+        } catch (error) {
+          console.error('❌ Error creating/finding OAuth user:', error);
+          return false; // Deny sign in on error
+        }
+      }
+      
+      return true; // Allow sign in
+    },
     async jwt({ token, user }) {
       // Store user id in JWT token
       if (user) {
