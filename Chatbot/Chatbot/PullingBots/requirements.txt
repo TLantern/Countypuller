@@ -12,4 +12,16 @@ PyMuPDF==1.23.3
 python-dotenv==1.0.0
 sqlalchemy==2.0.23
 asyncio==3.4.3
-playwright==1.40.0 
+playwright==1.40.0
+playwright-stealth
+sqlalchemy[asyncio]
+python-dotenv
+asyncpg
+openai
+requests
+beautifulsoup4
+tqdm
+pyap
+pdf2image
+pytesseract
+opencv-python 

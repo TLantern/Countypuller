@@ -79,6 +79,33 @@ async function processJob(job) {
       } else {
         throw new Error(result.error);
       }
+    } else if (job.job_type === 'MD_CASE_SEARCH') {
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/MdCaseSearch.py');
+      const limit = job.parameters?.limit || 10;
+      console.log(`[DEBUG] MD Case Search Job userId: ${job.userId}`);
+      console.log(`[DEBUG] MD Case Search Job object:`, JSON.stringify(job, null, 2));
+      const args = ['--limit', limit.toString(), '--user-id', job.userId];
+      console.log(`[DEBUG] MD Case Search Arguments being passed:`, args);
+      const result = await runPython(scriptPath, args);
+      if (result.success) {
+        // Look for records processed in the output (adjust regex as needed based on actual output)
+        const recordsMatch = result.output.match(/(\d+)\s+total records/i) || 
+                           result.output.match(/(\d+)\s+records/i) ||
+                           result.output.match(/(\d+)\s+unique records/i);
+        const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
+        await prisma.scraping_job.update({
+          where: { id: job.id },
+          data: {
+            status: JobStatus.COMPLETED,
+            completed_at: new Date(),
+            result: { output: result.output },
+            records_processed: recordsProcessed
+          }
+        });
+        console.log(`[SUCCESS] MD Case Search Job ${job.id} completed successfully`);
+      } else {
+        throw new Error(result.error);
+      }
     } else {
       throw new Error(`Unknown job type: ${job.job_type}`);
     }

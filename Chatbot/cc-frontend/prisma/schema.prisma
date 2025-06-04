@@ -30,16 +30,37 @@ model lis_pendens_filing {
   @@index([userId])
 }
 
+model md_case_search_filing {
+  case_number                String   @id
+  case_url                   String?
+  file_date                  DateTime?
+  party_name                 String?
+  case_type                  String?
+  county                     String?
+  created_at                 DateTime @default(now())
+  is_new                     Boolean  @default(true)
+  doc_type                   String?
+  userId                     String
+  property_address           String?
+  defendant_info             String?
+  case_details_raw           String?
+  case_details_scraped_at    DateTime?
+  user                       User     @relation(fields: [userId], references: [id])
+  @@index([userId])
+}
+
 model User {
-  id                String                @id @default(uuid())
-  email             String                @unique
-  firstName         String
-  password          String
-  createdAt         DateTime              @default(now())
-  lisPendensFilings lis_pendens_filing[]
-  scrapingJobs      scraping_job[]
-  accounts          Account[]
-  sessions          Session[]
+  id                    String                    @id @default(uuid())
+  email                 String                    @unique
+  firstName             String
+  password              String
+  userType              String                    @default("LPH") // "LPH" or "MD_CASE_SEARCH"
+  createdAt             DateTime                  @default(now())
+  lisPendensFilings     lis_pendens_filing[]
+  mdCaseSearchFilings   md_case_search_filing[]
+  scrapingJobs          scraping_job[]
+  accounts              Account[]
+  sessions              Session[]
 }
 
 model scraping_job {

@@ -22,6 +22,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/
 import ChatBox from '../../components/ChatBox';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { Box, Typography } from '@mui/material';
 
 const PropertyAddressCell = ({ value }: { value: string }) => {
   const [open, setOpen] = React.useState(false);
@@ -54,7 +55,8 @@ const PropertyAddressCell = ({ value }: { value: string }) => {
   );
 };
 
-const columns: GridColDef[] = [
+// Columns for Lis Pendens (LPH) users
+const lphColumns: GridColDef[] = [
   { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
   { field: 'case_url', headerName: 'Case URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> },
   { field: 'file_date', headerName: 'File Date', minWidth: 90, maxWidth: 110, flex: 0.7 },
@@ -68,7 +70,21 @@ const columns: GridColDef[] = [
   { field: 'doc_type', headerName: 'Doc Type', minWidth: 60, maxWidth: 80, flex: 0.5 },
 ];
 
-// Add type for rows
+// Columns for Maryland Case Search users
+const mdCaseSearchColumns: GridColDef[] = [
+  { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
+  { field: 'case_url', headerName: 'Case URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> },
+  { field: 'file_date', headerName: 'File Date', minWidth: 90, maxWidth: 110, flex: 0.7 },
+  { field: 'party_name', headerName: 'Party Name', minWidth: 150, maxWidth: 200, flex: 1 },
+  { field: 'case_type', headerName: 'Case Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
+  { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 120, maxWidth: 180, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'defendant_info', headerName: 'Parties', minWidth: 150, maxWidth: 200, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+];
+
+// Types for different record types
 interface LisPendensRecord {
   case_number: string;
   case_url: string;
@@ -83,17 +99,30 @@ interface LisPendensRecord {
   doc_type: string;
 }
 
+interface MdCaseSearchRecord {
+  case_number: string;
+  case_url: string;
+  file_date: string;
+  party_name: string;
+  case_type: string;
+  county: string;
+  property_address: string;
+  defendant_info: string;
+  created_at: string;
+  is_new: boolean;
+  doc_type: string;
+}
+
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-  const [rows, setRows] = useState<LisPendensRecord[]>([]);
+  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
+  const [userType, setUserType] = useState<string>('LPH');
   const [county, setCounty] = useState('Harris');
-  const [docType, setDocType] = useState('L/P');
   const counties = ['Harris', 'Fort Bend', 'Montgomery'];
-  const docTypes = ['L/P', 'Deed', 'Mortgage'];
   const [pulling, setPulling] = useState(false);
   const [pullResult, setPullResult] = useState<null | 'success' | 'error'>(null);
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
@@ -102,7 +131,8 @@ export default function Dashboard() {
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
     try {
-      const res = await fetch('/api/lis-pendens');
+      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : '/api/lis-pendens';
+      const res = await fetch(endpoint);
       const data = await res.json();
       setRows(data);
     } catch (error) {
@@ -110,9 +140,34 @@ export default function Dashboard() {
     }
   };
 
+  // Fetch user type from session
+  const fetchUserType = async () => {
+    if (session?.user) {
+      try {
+        // The user type should be available in the session, but if not, we'll fetch it
+        const res = await fetch('/api/auth/user-type');
+        if (res.ok) {
+          const data = await res.json();
+          setUserType(data.userType || 'LPH');
+        }
+      } catch (error) {
+        console.error('Error fetching user type:', error);
+        setUserType('LPH'); // Default to LPH
+      }
+    }
+  };
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (session) {
+      fetchUserType();
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (userType) {
+      fetchData();
+    }
+  }, [userType]);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -139,7 +194,11 @@ export default function Dashboard() {
 
   const pollJobStatus = async (jobId: string) => {
     try {
-      const res = await fetch(`/api/pull-lph?job_id=${jobId}`);
+      const endpoint = userType === 'MD_CASE_SEARCH' 
+        ? `/api/pull-md-case-search?job_id=${jobId}`
+        : `/api/pull-lph?job_id=${jobId}`;
+      
+      const res = await fetch(endpoint);
       const data = await res.json();
       
       if (data.success) {
@@ -182,7 +241,8 @@ export default function Dashboard() {
     setJobStatus('');
     
     try {
-      const res = await fetch('/api/pull-lph', { method: 'POST' });
+      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : '/api/pull-lph';
+      const res = await fetch(endpoint, { method: 'POST' });
       const data = await res.json();
       
       if (data.success && data.job_id) {
@@ -213,16 +273,32 @@ export default function Dashboard() {
     );
     // Persist to backend
     try {
-      await fetch(`/api/lis-pendens/${case_number}`, {
-        method: 'PATCH',
+      const endpoint = userType === 'MD_CASE_SEARCH' 
+        ? `/api/md-case-search`
+        : `/api/lis-pendens/${case_number}`;
+      
+      const method = userType === 'MD_CASE_SEARCH' ? 'PATCH' : 'PATCH';
+      const body = userType === 'MD_CASE_SEARCH' 
+        ? JSON.stringify({ case_number, is_new: false })
+        : JSON.stringify({ is_new: false });
+      
+      await fetch(endpoint, {
+        method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ is_new: false }),
+        body,
       });
     } catch (e) {
       // Optionally: revert UI or show error
       console.error('Failed to update is_new:', e);
     }
   };
+
+  // Get the appropriate columns and display info based on user type
+  const columns = userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : lphColumns;
+  const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : `${county} County Records`;
+  const loadingMessage = userType === 'MD_CASE_SEARCH' 
+    ? 'Scraping records from Maryland Case Search...'
+    : `Scraping records from ${county} County...`;
 
   return (
     <SidebarProvider>
@@ -267,24 +343,19 @@ export default function Dashboard() {
           <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
             <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>
               <div className="flex items-center gap-4 mb-4">
-                <Select
-                  value={county}
-                  onChange={e => setCounty(e.target.value)}
-                  variant="outlined"
-                  sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
-                >
-                  {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c}</MenuItem>)}
-                </Select>
-                <Select
-                  value={docType}
-                  onChange={e => setDocType(e.target.value)}
-                  variant="outlined"
-                  sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
-                >
-                  {docTypes.map(dt => <MenuItem key={dt} value={dt} style={{ color: 'black' }}>{dt}</MenuItem>)}
-                </Select>
+                {userType === 'LPH' && (
+                  <Select
+                    value={county}
+                    onChange={e => setCounty(e.target.value)}
+                    variant="outlined"
+                    sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
+                  >
+                    {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c} County</MenuItem>)}
+                  </Select>
+                )}
+                
                 <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
-                  {county} County / {docType}
+                  {displayTitle}
                 </span>
               </div>
               <div style={{ position: 'relative', color: 'black' }}>
@@ -312,7 +383,7 @@ export default function Dashboard() {
                     </div>
                     <div className="mt-4 text-blue-700 font-semibold">
                       {jobStatus === 'PENDING' && 'Job queued, waiting to start...'}
-                      {jobStatus === 'IN_PROGRESS' && 'Scraping records from Harris County...'}
+                      {jobStatus === 'IN_PROGRESS' && loadingMessage}
                       {!jobStatus && 'Creating scraping job...'}
                     </div>
                     {currentJobId && (
