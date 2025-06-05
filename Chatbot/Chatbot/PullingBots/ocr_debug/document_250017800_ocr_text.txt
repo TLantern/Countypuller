@@ -3,7 +3,7 @@ Image: ocr_debug/document_250017800.png
 Image dimensions: 1280x720
 OCR method used: grayscale
 OCR text length: 1212 characters
-Timestamp: 2025-06-05 01:18:36.482765
+Timestamp: 2025-06-05 02:04:20.270963
 === FULL OCR TEXT ===
 
 es

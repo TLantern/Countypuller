@@ -54,7 +54,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
-MAX_NEW_RECORDS = 15   # Maximum number of new records to scrape per run (default)
+MAX_NEW_RECORDS = 10   # Maximum number of new records to scrape per run (default)
 USER_ID = None  # Will be set from command line argument
 COUNTY_NAME = "Hillsborough NH"
 EXTRACT_ADDRESSES = True  # Enable/disable address extraction via OCR
@@ -150,7 +150,12 @@ SET
 # LOG + SAFE WRAPPER
 # ─────────────────────────────────────────────────────────────────────────────
 def _log(msg: str):
-    print(f"[{datetime.now():%H:%M:%S}] {msg}")
+    try:
+        print(f"[{datetime.now():%H:%M:%S}] {msg}")
+    except UnicodeEncodeError:
+        # Fallback for Windows console encoding issues
+        safe_msg = msg.encode('ascii', 'replace').decode('ascii')
+        print(f"[{datetime.now():%H:%M:%S}] {safe_msg}")
 
 async def _safe(desc: str, coro):
     try:
@@ -2083,7 +2088,7 @@ async def main():
     parser = argparse.ArgumentParser(description="Hillsborough County NH Registry Scraper")
     parser.add_argument("--max-records", type=int, default=MAX_NEW_RECORDS,
                         help=f"Maximum number of new records to scrape (default: {MAX_NEW_RECORDS})")
-    parser.add_argument("--user-id", type=int, 
+    parser.add_argument("--user-id", type=str, 
                         help="User ID for database records (required unless using --test-mode)")
     parser.add_argument("--headless", action="store_true",
                         help="Run browser in headless mode")

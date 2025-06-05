@@ -932,6 +932,21 @@ async def run():
             _log("Navigating to Maryland Case Search...")
             await page.goto(BASE_URL, wait_until='networkidle')
             
+            # Give user 5 seconds to manually click "Agree" on disclaimers, then minimize
+            _log("⏰ Browser will minimize in 5 seconds - please click 'Agree' on any disclaimers now...")
+            await page.wait_for_timeout(5000)
+            
+            # Minimize the browser window
+            try:
+                await page.evaluate("""
+                    window.moveTo(0, 0);
+                    window.resizeTo(1, 1);
+                """)
+                _log("✅ Browser window minimized - scraping will continue in background")
+            except Exception as e:
+                _log(f"⚠️ Could not minimize browser window: {e}")
+                _log("📝 Browser will remain visible during scraping")
+            
             # Skip page state detection and proceed directly to search page logic
             _log("Proceeding as if on search page...")
             
