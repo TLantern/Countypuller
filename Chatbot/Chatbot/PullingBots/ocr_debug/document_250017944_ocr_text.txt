@@ -1,0 +1,44 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250017944.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 1304 characters
+Timestamp: 2025-06-05 01:17:54.445826
+=== FULL OCR TEXT ===
+
+Nanathitny
+NEWHAMPSHIRE
+ae
+BACK
+Book9859Page2617
+3005
+Fe 668OMO DepartmentoftheTreasuryInternalRevenueService
+orm c
+AfovFobrcery2008 NoticeofFederalTaxLien
+rea SorialNumber ForOptonalUsebyRecardngOffice
+SNALLBUSINESSSELFEMPLOYEDAREA1
+LienUnitPhone2009136050 sissese2sCw
+Asprovidedbysection63216322and6323oftheInternalRevenue2
+CodewearegivinganoticethattaxesincludinginterestandpenaltiesF
+havebeenassessedagainstthefollowingnamedtaxpayerWehavemade
+ademandforpaymentofthisliabilitybutitremainsunpaidTherefore
+thereisalieninfavoroftheUnitedStatesonallpropertyandrightsto
+propertybelongingtothistaxpayerfortheamountofthesetaxesand
+additionalpenaltiesinterestandcoststhatmayaccrue
+NameofTaxpayerDANIELAMELENDEZ Dfc25001794806022025112132AM
+Book9859Page2617 Page1of1
+Residence 231f2GILMANST DennisHogan
+Resins RegisterofDeedsHillsboroughCounty
+IMPORTANTRELEASEINFORMATIONForcachassessmentlistedbelow
+unlessnoticeofthelienisrefledbythedategivenincolumnethisnoticeshal
+anthedayfollowingsuchdateopereteasacertificateofreleaseasdefined
+inIRC6325e1
+TaxPeriod i DateofLasgDayfor UnpaidBalance
+KindofTaxEndingIdentifyingNumberAssessment ofAssessment
+a y G mm
+1040 12312014XXXXx36400805202409042034 746857
+1040 12312015XXXXX36400805202409042034 630775 PrivacyTerm
+1040 19231f2016xxxxy2640In80659004990429024 s16279 vv
+
+
+=== END OCR TEXT ===

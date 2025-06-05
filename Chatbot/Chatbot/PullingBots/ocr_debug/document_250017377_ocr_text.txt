@@ -1,0 +1,44 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250017377.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 1300 characters
+Timestamp: 2025-06-05 01:24:12.577538
+=== FULL OCR TEXT ===
+
+came
+BACK
+Book9858Page1983
+3005
+Form668YXXe DepartmentoftheTreasuryInternalRevenueService
+form C A
+RovFerury2004 NoticeofFederalTaxLien
+Area SerialNumber ForOptionalUsebyRecordingOfice
+SNALLBUSINESSSELFSMPLOYEDAREA41 Gv
+LienUnitPhone00293903 siearsazsOW
+Asprovidedbysection63216322and6323oftheInternalRevenueGC7
+CodewearegivinganoticethattaxesincludinginterestandpenaltiesP
+havebeenassessedagainstthefollowingnamedtaxpayerWehavemade
+ademandforpaymentofchisliabilitybutitremainsunpaidTherefore
+thereisalieninfavoroftheUnitedStatesonallpropertyandrightsto
+Propertybelongingtothistaxpayerfortheamountofthesetaxesand
+additionalpenaltiesinterestandcoststhatmayaccrue
+NNameofTaxpayerMECHAELALINDAALEVASSEUR Bot25001737705292025081602AM
+Book9858Page1983 Page1oft
+DennisCHogan
+Residence 261OAKST RegisterofDeedsHillsboroughCounty
+MANCHESTERNH031043238
+IMPORTANTRELEASEINFORMATIONForcachassessmentlistedbelow
+uniessnoticeofthelienisrefiledbythedategivenincolumnethisnoticeshall
+onthedayfollowingsuchdateoperateasacortiticateofreleaseasdefined
+inIRC63261a
+TaxPeriod DateofLastDayfor UnpaidBalance
+KindofTaxEndingIdentifyingNumberAssessment Refiling ofAssessment
+by G d e o
+104012312022xxxxx481411202023122072033 3608898
+104012312023xxxxx48141118202412182034 2950095
+RESETDQQ6MOHWPHGoTOPage Go oo
+Contact FAQ a
+
+
+=== END OCR TEXT ===

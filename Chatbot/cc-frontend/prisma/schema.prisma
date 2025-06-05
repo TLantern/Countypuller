@@ -49,18 +49,48 @@ model md_case_search_filing {
   @@index([userId])
 }
 
+model hillsborough_nh_filing {
+  id                String   @id @default(uuid())
+  document_number   String   @unique
+  document_url      String?
+  recorded_date     DateTime?
+  instrument_type   String?
+  grantor           String?
+  grantee           String?
+  property_address  String?
+  book_page         String?
+  consideration     String?
+  legal_description String?
+  county            String   @default("Hillsborough NH")
+  state             String   @default("NH")
+  filing_date       String?
+  amount            String?
+  parties           String?
+  location          String?
+  status            String   @default("active")
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  is_new            Boolean  @default(true)
+  doc_type          String   @default("lien")
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+  @@index([userId])
+  @@index([document_number])
+}
+
 model User {
-  id                    String                    @id @default(uuid())
-  email                 String                    @unique
-  firstName             String
-  password              String
-  userType              String                    @default("LPH") // "LPH" or "MD_CASE_SEARCH"
-  createdAt             DateTime                  @default(now())
-  lisPendensFilings     lis_pendens_filing[]
-  mdCaseSearchFilings   md_case_search_filing[]
-  scrapingJobs          scraping_job[]
-  accounts              Account[]
-  sessions              Session[]
+  id                        String                      @id @default(uuid())
+  email                     String                      @unique
+  firstName                 String
+  password                  String
+  userType                  String                      @default("LPH") // "LPH", "MD_CASE_SEARCH", or "HILLSBOROUGH_NH"
+  createdAt                 DateTime                    @default(now())
+  lisPendensFilings         lis_pendens_filing[]
+  mdCaseSearchFilings       md_case_search_filing[]
+  hillsboroughNhFilings     hillsborough_nh_filing[]
+  scrapingJobs              scraping_job[]
+  accounts                  Account[]
+  sessions                  Session[]
 }
 
 model scraping_job {

@@ -1,18 +1,20 @@
-# User Type System - LPH vs Maryland Case Search
+# User Type System - LPH vs Maryland Case Search vs Hillsborough NH
 
 ## Overview
 
-The application now supports two different user types that determine which scraper runs when users click "Pull Records":
+The application now supports three different user types that determine which scraper runs when users click "Pull Records":
 
 - **LPH**: Users who pull Lis Pendens records from Harris County
 - **MD_CASE_SEARCH**: Users who pull case records from Maryland Case Search
+- **HILLSBOROUGH_NH**: Users who pull registry records from Hillsborough County, New Hampshire
 
 ## How It Works
 
 ### 1. Database Schema
 - Added `userType` field to the `User` model (defaults to "LPH")
 - Added `md_case_search_filing` table for Maryland case search records
-- Both user types have their own dedicated data tables
+- Added `hillsborough_nh_filing` table for Hillsborough NH registry records
+- All user types have their own dedicated data tables
 
 ### 2. API Endpoints
 
@@ -25,6 +27,11 @@ The application now supports two different user types that determine which scrap
 - `POST /api/pull-md-case-search` - Creates MD_CASE_SEARCH jobs  
 - `GET /api/md-case-search` - Fetches Maryland case search records
 - Requires `userType = "MD_CASE_SEARCH"`
+
+#### For Hillsborough NH Users:
+- `POST /api/pull-hillsborough-nh` - Creates HILLSBOROUGH_NH_PULL jobs
+- `GET /api/hillsborough-nh` - Fetches Hillsborough NH registry records
+- Requires `userType = "HILLSBOROUGH_NH"`
 
 #### User Management:
 - `GET /api/auth/user-type` - Get current user's type
@@ -44,6 +51,11 @@ The dashboard automatically adapts based on user type:
 - No county selectors (Maryland-specific)
 - "Pull Records" button triggers Maryland Case Search scraper
 
+#### Hillsborough NH Users See:
+- Hillsborough NH specific columns (Document #, Grantor, Grantee, Property Address, etc.)
+- No county selectors (Hillsborough NH-specific)
+- "Pull Records" button triggers Hillsborough NH registry scraper
+
 ## Setting Up User Types
 
 ### Method 1: User Settings Page
@@ -59,6 +71,9 @@ UPDATE "User" SET "userType" = 'MD_CASE_SEARCH' WHERE email = 'user@example.com'
 
 -- Set user to Lis Pendens  
 UPDATE "User" SET "userType" = 'LPH' WHERE email = 'user@example.com';
+
+-- Set user to Hillsborough NH
+UPDATE "User" SET "userType" = 'HILLSBOROUGH_NH' WHERE email = 'user@example.com';
 ```
 
 ### Method 3: Test Script
@@ -77,6 +92,7 @@ The job system creates different job types:
 ### Job Parameters
 - **LPH jobs**: `{ limit: 10, source: 'harris_county' }`
 - **MD jobs**: `{ limit: 10, source: 'maryland_case_search', letters: ['a','b','c','d','e','f'] }`
+- **Hillsborough NH jobs**: `{ limit: 15, source: 'hillsborough_nh_registry', extract_addresses: true }`
 
 ## Security
 
@@ -88,12 +104,13 @@ The job system creates different job types:
 
 - LPH users only see `lis_pendens_filing` records they created
 - MD users only see `md_case_search_filing` records they created
+- Hillsborough NH users only see `hillsborough_nh_filing` records they created
 - No cross-contamination between user types
 
 ## Testing
 
-1. Create two test accounts
-2. Set one to LPH, one to MD_CASE_SEARCH using user settings
+1. Create three test accounts
+2. Set one to LPH, one to MD_CASE_SEARCH, one to HILLSBOROUGH_NH using user settings
 3. Login as each user and verify:
    - Different dashboard layouts
    - Different data columns
@@ -104,4 +121,5 @@ The job system creates different job types:
 
 - Existing users default to LPH type
 - No data migration needed for existing Lis Pendens records
-- Maryland Case Search table is new and empty initially 
+- Maryland Case Search table is new and empty initially
+- Hillsborough NH table is new and empty initially 

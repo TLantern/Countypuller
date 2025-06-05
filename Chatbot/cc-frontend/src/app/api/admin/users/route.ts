@@ -63,9 +63,9 @@ export async function POST(req: NextRequest) {
     }
     
     // Validate userType
-    if (!['LPH', 'MD_CASE_SEARCH'].includes(userType)) {
+    if (!['LPH', 'MD_CASE_SEARCH', 'HILLSBOROUGH_NH'].includes(userType)) {
       return NextResponse.json({ 
-        error: 'Invalid user type. Must be LPH or MD_CASE_SEARCH' 
+        error: 'Invalid user type. Must be LPH, MD_CASE_SEARCH, or HILLSBOROUGH_NH' 
       }, { status: 400 });
     }
     
@@ -80,10 +80,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
+    const userTypeDisplay = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
+                           userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH' : 
+                           'Lis Pendens (LPH)';
+    
     return NextResponse.json({ 
       success: true, 
       user: updatedUser,
-      message: `User ${updatedUser.email} updated to ${userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 'Lis Pendens (LPH)'}`
+      message: `User ${updatedUser.email} updated to ${userTypeDisplay}`
     });
   } catch (error) {
     console.error('Error updating user type:', error);

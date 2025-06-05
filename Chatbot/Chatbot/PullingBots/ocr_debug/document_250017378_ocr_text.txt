@@ -1,0 +1,45 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250017378.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 1326 characters
+Timestamp: 2025-06-05 01:23:30.538067
+=== FULL OCR TEXT ===
+
+vee
+BACK
+Book9858Page1984
+3005
+468X0 DepartmentoftheTreasuryInternalRevenueService
+Form o
+fevFebeuary2008 NoticeofFederalTaxLien
+Area SerialNumber ForOptionalUsebyRecordingOffice
+WAGEINVESTMENTAREA2 Gi
+LienUnitPhone8008297650 siesi0525CAV
+Asprovidedbysection63216322and6323oftheInternalRevenue01
+Codewearegivinganoticethattaxesincludinginterestandpenalties77S
+hhavebeenassessedagainstthefollowingnamedtaxpayerWehavemade
+ademandforpaymentofthisliabilitybutitremainsunpaidTherefore
+thereisafieninfavoroftheUnitedStatesonallpropertyandrightsto
+propertybelongingtothistaxpayerfortheamountofthesetaxesand
+additionalpenaltiesinterestandcoststhatmayaccrue
+NameofTaxpayerSTEVENTBARROWMICHELLEFREDA
+Dpe25001737805292025081603AM
+ok9858Page1984 Page1of1
+Residence 74NAGLEST DennisHogan
+NASHUANH030604450 RegisterofDeedsHillsboroughCounty
+IMPORTANTRELEASEINFORMATIONForeachassessmentlistedbelow
+Lnlessnoticeofthelienisrefiledbythedategivenincolumnethisnoticeshal
+fonthedayfollowingsuchdateoperateasacertficateofreleasessdefined
+inIRC63251a
+TaxPeriod DateofLastDayfor UnpaidBalance
+KindofTaxEndingIdentifyingNumberAssessment Reto ofAssessment
+a by re e
+1040 12312017XXXXxX90800513201906122029 175377
+1040 12312018XXXXxX90800603201907032029 1547730
+1040 12312023XXXxx90800603202407f032034 586921
+RESETDQQ6MOHWPHGoTOPage Go oo
+Contact FAQ a
+
+
+=== END OCR TEXT ===

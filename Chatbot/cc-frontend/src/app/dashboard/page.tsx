@@ -84,6 +84,21 @@ const mdCaseSearchColumns: GridColDef[] = [
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
 ];
 
+// Columns for Hillsborough NH users
+const hillsboroughNhColumns: GridColDef[] = [
+  { field: 'document_number', headerName: 'Document #', minWidth: 110, maxWidth: 130, flex: 0.7 },
+  { field: 'document_url', headerName: 'Doc URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => params.value ? <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> : '' },
+  { field: 'recorded_date', headerName: 'Recorded Date', minWidth: 110, maxWidth: 130, flex: 0.7 },
+  { field: 'instrument_type', headerName: 'Type', minWidth: 80, maxWidth: 100, flex: 0.6 },
+  { field: 'grantor', headerName: 'Grantor', minWidth: 120, maxWidth: 160, flex: 1 },
+  { field: 'grantee', headerName: 'Grantee', minWidth: 120, maxWidth: 160, flex: 1 },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 150, maxWidth: 200, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'consideration', headerName: 'Amount', minWidth: 80, maxWidth: 100, flex: 0.6 },
+  { field: 'county', headerName: 'County', minWidth: 100, maxWidth: 120, flex: 0.7 },
+  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+];
+
 // Types for different record types
 interface LisPendensRecord {
   case_number: string;
@@ -113,12 +128,35 @@ interface MdCaseSearchRecord {
   doc_type: string;
 }
 
+interface HillsboroughNhRecord {
+  document_number: string;
+  document_url: string;
+  recorded_date: string;
+  instrument_type: string;
+  grantor: string;
+  grantee: string;
+  property_address: string;
+  book_page: string;
+  consideration: string;
+  legal_description: string;
+  county: string;
+  state: string;
+  filing_date: string;
+  amount: string;
+  parties: string;
+  location: string;
+  status: string;
+  created_at: string;
+  is_new: boolean;
+  doc_type: string;
+}
+
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord)[]>([]);
+  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
   const [userType, setUserType] = useState<string>('LPH');
   const [county, setCounty] = useState('Harris');
@@ -131,7 +169,9 @@ export default function Dashboard() {
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
     try {
-      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : '/api/lis-pendens';
+      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : 
+                      userType === 'HILLSBOROUGH_NH' ? '/api/hillsborough-nh' : 
+                      '/api/lis-pendens';
       const res = await fetch(endpoint);
       const data = await res.json();
       setRows(data);
@@ -196,6 +236,8 @@ export default function Dashboard() {
     try {
       const endpoint = userType === 'MD_CASE_SEARCH' 
         ? `/api/pull-md-case-search?job_id=${jobId}`
+        : userType === 'HILLSBOROUGH_NH'
+        ? `/api/pull-hillsborough-nh?job_id=${jobId}`
         : `/api/pull-lph?job_id=${jobId}`;
       
       const res = await fetch(endpoint);
@@ -241,7 +283,9 @@ export default function Dashboard() {
     setJobStatus('');
     
     try {
-      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : '/api/pull-lph';
+      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : 
+                      userType === 'HILLSBOROUGH_NH' ? '/api/pull-hillsborough-nh' : 
+                      '/api/pull-lph';
       const res = await fetch(endpoint, { method: 'POST' });
       const data = await res.json();
       
@@ -262,28 +306,35 @@ export default function Dashboard() {
 
   // Add this handler to mark is_new as false and persist
   const handleRowClick = async (params: any) => {
-    const case_number = params.row.case_number;
+    const recordId = userType === 'HILLSBOROUGH_NH' ? params.row.document_number : params.row.case_number;
     // Only update if is_new is true
     if (!params.row.is_new) return;
+    
     // Optimistically update UI
     setRows(prev =>
-      prev.map(r =>
-        r.case_number === case_number ? { ...r, is_new: false } : r
-      )
+      prev.map(r => {
+        const currentId = userType === 'HILLSBOROUGH_NH' ? (r as HillsboroughNhRecord).document_number : (r as LisPendensRecord | MdCaseSearchRecord).case_number;
+        return currentId === recordId ? { ...r, is_new: false } : r;
+      })
     );
+    
     // Persist to backend
     try {
-      const endpoint = userType === 'MD_CASE_SEARCH' 
-        ? `/api/md-case-search`
-        : `/api/lis-pendens/${case_number}`;
+      let endpoint, body;
       
-      const method = userType === 'MD_CASE_SEARCH' ? 'PATCH' : 'PATCH';
-      const body = userType === 'MD_CASE_SEARCH' 
-        ? JSON.stringify({ case_number, is_new: false })
-        : JSON.stringify({ is_new: false });
+      if (userType === 'MD_CASE_SEARCH') {
+        endpoint = `/api/md-case-search`;
+        body = JSON.stringify({ case_number: recordId, is_new: false });
+      } else if (userType === 'HILLSBOROUGH_NH') {
+        endpoint = `/api/hillsborough-nh`;
+        body = JSON.stringify({ document_number: recordId, is_new: false });
+      } else {
+        endpoint = `/api/lis-pendens/${recordId}`;
+        body = JSON.stringify({ is_new: false });
+      }
       
       await fetch(endpoint, {
-        method,
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body,
       });
@@ -294,10 +345,16 @@ export default function Dashboard() {
   };
 
   // Get the appropriate columns and display info based on user type
-  const columns = userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : lphColumns;
-  const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : `${county} County Records`;
+  const columns = userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : 
+                  userType === 'HILLSBOROUGH_NH' ? hillsboroughNhColumns : 
+                  lphColumns;
+  const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
+                       userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH Records' : 
+                       `${county} County Records`;
   const loadingMessage = userType === 'MD_CASE_SEARCH' 
     ? 'Scraping records from Maryland Case Search...'
+    : userType === 'HILLSBOROUGH_NH'
+    ? 'Scraping records from Hillsborough NH Registry...'
     : `Scraping records from ${county} County...`;
 
   return (
@@ -362,7 +419,7 @@ export default function Dashboard() {
                 <DataGrid
                   rows={rows}
                   columns={columns}
-                  getRowId={(row) => row.case_number}
+                  getRowId={(row) => userType === 'HILLSBOROUGH_NH' ? (row as HillsboroughNhRecord).document_number : (row as LisPendensRecord | MdCaseSearchRecord).case_number}
                   paginationModel={paginationModel}
                   onPaginationModelChange={setPaginationModel}
                   pageSizeOptions={[10, 25, 50]}

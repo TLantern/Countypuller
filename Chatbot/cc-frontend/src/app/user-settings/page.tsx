@@ -181,12 +181,17 @@ export default function UserSettings() {
                                 >
                                   <MenuItem value="LPH">Lis Pendens (LPH)</MenuItem>
                                   <MenuItem value="MD_CASE_SEARCH">Maryland Case Search</MenuItem>
+                                  <MenuItem value="HILLSBOROUGH_NH">Hillsborough NH</MenuItem>
                                 </Select>
                               </FormControl>
                             ) : (
                               <Chip 
-                                label={user.userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 'Lis Pendens (LPH)'} 
-                                color={user.userType === 'MD_CASE_SEARCH' ? 'primary' : 'secondary'}
+                                label={user.userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
+                                       user.userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH' : 
+                                       'Lis Pendens (LPH)'} 
+                                color={user.userType === 'MD_CASE_SEARCH' ? 'primary' : 
+                                       user.userType === 'HILLSBOROUGH_NH' ? 'success' : 
+                                       'secondary'}
                                 size="small"
                               />
                             )}
