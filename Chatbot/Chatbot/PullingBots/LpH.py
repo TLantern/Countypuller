@@ -54,7 +54,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
-MAX_NEW_RECORDS = 100   # Maximum number of new records to scrape per run (default)
+MAX_NEW_RECORDS = 10   # Maximum number of new records to scrape per run (default)
 USER_ID = None  # Will be set from command line argument
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 

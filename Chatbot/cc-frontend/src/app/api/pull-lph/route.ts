@@ -16,12 +16,24 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   const userId = (session?.user as any)?.id;
   
+  // Parse request body to get dateFilter parameter
+  let requestBody;
+  try {
+    requestBody = await req.json();
+  } catch (error) {
+    // If no body or invalid JSON, use defaults
+    requestBody = {};
+  }
+  
+  const dateFilter = requestBody.dateFilter || 7; // Default to 7 days if not provided
+  
   // Add comprehensive logging for debugging
   console.log('=== SESSION DEBUG ===');
   console.log('Full session object:', JSON.stringify(session, null, 2));
   console.log('Extracted userId:', userId);
   console.log('UserId type:', typeof userId);
   console.log('UserId length:', userId ? userId.length : 'null');
+  console.log('Date filter:', dateFilter, 'days');
   console.log('NODE_ENV:', process.env.NODE_ENV);
   console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL);
   
@@ -68,6 +80,9 @@ export async function POST(req: NextRequest) {
   console.log("Session:", session);
   console.log("userId:", userId);
   try {
+    // Calculate dynamic limit based on date range (more days = potentially more records)
+    const dynamicLimit = Math.min(100, Math.max(10, Math.floor(dateFilter * 2))); // Scale with date range, cap at 100
+    
     // Create a new job record in the database
     const job = await prisma.scraping_job.create({
       data: {
@@ -75,7 +90,8 @@ export async function POST(req: NextRequest) {
         status: JobStatus.PENDING,
         created_at: new Date(),
         parameters: {
-          limit: 10,
+          limit: dynamicLimit,
+          dateFilter: dateFilter,
           source: 'harris_county'
         },
         userId

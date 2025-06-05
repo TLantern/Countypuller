@@ -13,6 +13,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy import text
 from dotenv import load_dotenv
 import re
+import pygetwindow as gw
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CONFIG
@@ -21,8 +22,9 @@ BASE_URL = "https://casesearch.courts.state.md.us/casesearch/inquirySearch.jis"
 EXPORT_DIR = Path("data"); EXPORT_DIR.mkdir(exist_ok=True)
 HEADLESS = False  # Keep browser visible for manual interaction
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-MAX_NEW_RECORDS = 20
+MAX_NEW_RECORDS = 18  # Default for backwards compatibility (6 letters × 3 records each)
 USER_ID = None  # Will be set from command line argument
+DATE_FILTER_DAYS = 7  # Will be set from command line argument, defaults to 7 days
 COOKIES_FILE = "md_cookies.json"  # File to store manual cookies
 
 # Load environment variables
@@ -87,7 +89,12 @@ SET
 # LOG + SAFE WRAPPER
 # ─────────────────────────────────────────────────────────────────────────────
 def _log(msg: str):
-    print(f"[{datetime.now():%H:%M:%S}] {msg}")
+    try:
+        print(f"[{datetime.now():%H:%M:%S}] {msg}")
+    except UnicodeEncodeError:
+        # Handle Unicode characters that can't be encoded by Windows console
+        safe_msg = msg.encode('ascii', errors='replace').decode('ascii')
+        print(f"[{datetime.now():%H:%M:%S}] {safe_msg}")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # COOKIE MANAGEMENT (RESTORED)
@@ -316,9 +323,10 @@ async def _apply_filters_and_search(page: Page, letter: str) -> bool:
         else:
             _log("[ERROR] Could not find County select in Advanced Search panel")
         
-        # Set filing date range (last 7 days for recent records)
-        from_date = (datetime.now() - timedelta(days=7)).strftime("%m/%d/%Y")
+        # Set filing date range (using configurable date filter)
+        from_date = (datetime.now() - timedelta(days=DATE_FILTER_DAYS)).strftime("%m/%d/%Y")
         to_date = datetime.now().strftime("%m/%d/%Y")
+        _log(f"[DATE_RANGE] Searching from {from_date} to {to_date} ({DATE_FILTER_DAYS} days back)")
         
         # Clear and fill filing date from
         filing_date_from = advanced_search_panel.locator('input[name="filingStart"]')
@@ -922,6 +930,19 @@ async def run():
         page = await context.new_page()
         
         try:
+            # Give user 5 seconds to manually interact, then minimize browser
+            _log("[TIMER] Browser will minimize in 5 seconds - please click 'Agree' on any disclaimers if needed...")
+            await page.wait_for_timeout(5000)
+            
+            # Minimize all Chromium windows using pygetwindow (same as LpH.py)
+            try:
+                for w in gw.getWindowsWithTitle('Chromium'):
+                    w.minimize()
+                _log("[SUCCESS] Browser minimized using pygetwindow")
+            except Exception as e:
+                _log(f"[WARNING] Could not minimize browser window: {e}")
+                _log("[NOTE] Browser will remain visible during scraping")
+            
             # Try to load existing cookies first
             cookies_loaded = await load_cookies(page)
             
@@ -931,21 +952,6 @@ async def run():
             # Navigate to search page
             _log("Navigating to Maryland Case Search...")
             await page.goto(BASE_URL, wait_until='networkidle')
-            
-            # Give user 5 seconds to manually click "Agree" on disclaimers, then minimize
-            _log("⏰ Browser will minimize in 5 seconds - please click 'Agree' on any disclaimers now...")
-            await page.wait_for_timeout(5000)
-            
-            # Minimize the browser window
-            try:
-                await page.evaluate("""
-                    window.moveTo(0, 0);
-                    window.resizeTo(1, 1);
-                """)
-                _log("✅ Browser window minimized - scraping will continue in background")
-            except Exception as e:
-                _log(f"⚠️ Could not minimize browser window: {e}")
-                _log("📝 Browser will remain visible during scraping")
             
             # Skip page state detection and proceed directly to search page logic
             _log("Proceeding as if on search page...")
@@ -972,9 +978,9 @@ async def run():
                     search_success = await _apply_filters_and_search(page, letter)
 
                     if search_success:
-                        # Get records for this letter
-                        letter_records = await _get_case_records(page, existing_case_numbers, MAX_NEW_RECORDS)
-                        _log(f"Letter '{letter.upper()}': Parsed {len(letter_records)} records")
+                        # Get records for this letter (limit to 3 per letter)
+                        letter_records = await _get_case_records(page, existing_case_numbers, 3)
+                        _log(f"Letter '{letter.upper()}': Parsed {len(letter_records)} records (max 3 per letter)")
                         
                         # Add these records to our accumulator
                         all_records.extend(letter_records)
@@ -1057,16 +1063,22 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Maryland Case Search Scraper - DataDome + Cookie Enabled")
     parser.add_argument("--limit", type=int, default=5, help="Maximum number of new records to process (default: 5)")
     parser.add_argument("--user-id", type=str, required=False, help="User ID to associate records with (optional for testing)")
+    parser.add_argument("--date-filter", type=int, default=7, help="Number of days back to search (default: 7)")
     args = parser.parse_args()
     if args.limit is not None:
         MAX_NEW_RECORDS = args.limit
         print(f"[INFO] Overriding MAX_NEW_RECORDS to {MAX_NEW_RECORDS} due to --limit argument.")
     else:
-        MAX_NEW_RECORDS = 20
+        MAX_NEW_RECORDS = 10
     if args.user_id:
         USER_ID = args.user_id
         print(f"[INFO] Using USER_ID: {USER_ID}")
     else:
         USER_ID = "test"
         print("[WARNING] No --user-id provided. Using USER_ID='test' for testing mode.")
+    
+    # Set the global date filter
+    DATE_FILTER_DAYS = args.date_filter
+    print(f"[INFO] Using DATE_FILTER: {DATE_FILTER_DAYS} days")
+    
     asyncio.run(run()) 

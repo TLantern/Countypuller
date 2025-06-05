@@ -24,6 +24,29 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Typography } from '@mui/material';
 
+// Custom CSS for the slider
+const sliderStyles = `
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: 2px solid #1e40af;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: 2px solid #1e40af;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+`;
+
 const PropertyAddressCell = ({ value }: { value: string }) => {
   const [open, setOpen] = React.useState(false);
   return (
@@ -165,6 +188,7 @@ export default function Dashboard() {
   const [pullResult, setPullResult] = useState<null | 'success' | 'error'>(null);
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
   const [jobStatus, setJobStatus] = useState<string>('');
+  const [dateFilter, setDateFilter] = useState<number>(7); // Default to 7 days
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
@@ -286,7 +310,19 @@ export default function Dashboard() {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/pull-hillsborough-nh' : 
                       '/api/pull-lph';
-      const res = await fetch(endpoint, { method: 'POST' });
+      
+      // Include the date filter in the request body
+      const requestBody = {
+        dateFilter: dateFilter // Number of days back to pull records from
+      };
+      
+      const res = await fetch(endpoint, { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
       const data = await res.json();
       
       if (data.success && data.job_id) {
@@ -359,6 +395,7 @@ export default function Dashboard() {
 
   return (
     <SidebarProvider>
+      <style dangerouslySetInnerHTML={{ __html: sliderStyles }} />
       <AppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b justify-between pr-6">
@@ -386,6 +423,38 @@ export default function Dashboard() {
             >
               Sign Out
             </button>
+            
+            {/* Date Filter Slider */}
+            <div className="flex items-center gap-3 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg">
+              <span className="text-sm font-medium whitespace-nowrap">Pull from last:</span>
+              <input
+                type="range"
+                min="1"
+                max="90"
+                value={dateFilter}
+                onChange={(e) => setDateFilter(Number(e.target.value))}
+                className="w-24 h-2 bg-blue-400 rounded-lg appearance-none cursor-pointer slider"
+                style={{
+                  background: `linear-gradient(to right, #93c5fd 0%, #93c5fd ${((dateFilter - 1) / 89) * 100}%, #1e40af ${((dateFilter - 1) / 89) * 100}%, #1e40af 100%)`
+                }}
+              />
+              <input
+                type="number"
+                min="1"
+                max="90"
+                value={dateFilter}
+                onChange={(e) => {
+                  const value = Math.min(90, Math.max(1, Number(e.target.value) || 1));
+                  setDateFilter(value);
+                }}
+                className="w-12 h-8 text-center text-blue-900 bg-white rounded border-0 focus:ring-2 focus:ring-blue-300"
+                style={{ fontSize: '20px' }}
+              />
+              <span className="text-sm font-medium whitespace-nowrap">
+                day{dateFilter !== 1 ? 's' : ''}
+              </span>
+            </div>
+            
             <button
               className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
               style={{ fontSize: '1.1rem' }}
