@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -27,31 +21,33 @@ model lis_pendens_filing {
   doc_type         String
   userId           String
   user             User     @relation(fields: [userId], references: [id])
+
   @@index([userId])
 }
 
 model md_case_search_filing {
-  case_number                String   @id
-  case_url                   String?
-  file_date                  DateTime?
-  party_name                 String?
-  case_type                  String?
-  county                     String?
-  created_at                 DateTime @default(now())
-  is_new                     Boolean  @default(true)
-  doc_type                   String?
-  userId                     String
-  property_address           String?
-  defendant_info             String?
-  case_details_raw           String?
-  case_details_scraped_at    DateTime?
-  user                       User     @relation(fields: [userId], references: [id])
+  case_number             String    @id
+  case_url                String?
+  file_date               DateTime?
+  party_name              String?
+  case_type               String?
+  county                  String?
+  created_at              DateTime  @default(now())
+  is_new                  Boolean   @default(true)
+  doc_type                String?
+  userId                  String
+  property_address        String?
+  defendant_info          String?
+  case_details_raw        String?
+  case_details_scraped_at DateTime?
+  user                    User      @relation(fields: [userId], references: [id])
+
   @@index([userId])
 }
 
 model hillsborough_nh_filing {
-  id                String   @id @default(uuid())
-  document_number   String   @unique
+  id                String    @id @default(uuid())
+  document_number   String    @unique
   document_url      String?
   recorded_date     DateTime?
   instrument_type   String?
@@ -61,69 +57,88 @@ model hillsborough_nh_filing {
   book_page         String?
   consideration     String?
   legal_description String?
-  county            String   @default("Hillsborough NH")
-  state             String   @default("NH")
+  county            String    @default("Hillsborough NH")
+  state             String    @default("NH")
   filing_date       String?
   amount            String?
   parties           String?
   location          String?
-  status            String   @default("active")
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
-  is_new            Boolean  @default(true)
-  doc_type          String   @default("lien")
+  status            String    @default("active")
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  is_new            Boolean   @default(true)
+  doc_type          String    @default("lien")
   userId            String
-  user              User     @relation(fields: [userId], references: [id])
+  user              User      @relation(fields: [userId], references: [id])
+
   @@index([userId])
   @@index([document_number])
 }
 
+model brevard_fl_filing {
+  id               String    @id @default(uuid())
+  case_number      String    @unique
+  document_url     String?
+  file_date        DateTime?
+  case_type        String?
+  party_name       String?
+  property_address String?
+  county           String    @default("Brevard")
+  created_at       DateTime  @default(now())
+  is_new           Boolean   @default(true)
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([case_number])
+}
+
 model User {
-  id                        String                      @id @default(uuid())
-  email                     String                      @unique
-  firstName                 String
-  password                  String
-  userType                  String                      @default("LPH") // "LPH", "MD_CASE_SEARCH", or "HILLSBOROUGH_NH"
-  createdAt                 DateTime                    @default(now())
-  lisPendensFilings         lis_pendens_filing[]
-  mdCaseSearchFilings       md_case_search_filing[]
-  hillsboroughNhFilings     hillsborough_nh_filing[]
-  scrapingJobs              scraping_job[]
-  accounts                  Account[]
-  sessions                  Session[]
+  id                    String                   @id @default(uuid())
+  email                 String                   @unique
+  firstName             String
+  password              String
+  userType              String                   @default("LPH")
+  createdAt             DateTime                 @default(now())
+  accounts              Account[]
+  brevardFlFilings      brevard_fl_filing[]
+  hillsboroughNhFilings hillsborough_nh_filing[]
+  lisPendensFilings     lis_pendens_filing[]
+  mdCaseSearchFilings   md_case_search_filing[]
+  scrapingJobs          scraping_job[]
+  sessions              Session[]
 }
 
 model scraping_job {
-  id                String     @id @default(uuid())
+  id                String    @id @default(uuid())
   job_type          String
   status            String
-  created_at        DateTime   @default(now())
+  created_at        DateTime  @default(now())
   completed_at      DateTime?
   parameters        Json?
   result            Json?
   error_message     String?
   records_processed Int?
   userId            String
-  user              User     @relation(fields: [userId], references: [id])
+  user              User      @relation(fields: [userId], references: [id])
+
   @@index([userId])
 }
 
-// NextAuth.js required tables
 model Account {
   id                String  @id @default(uuid())
   userId            String  @map("user_id")
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -147,4 +162,3 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationtokens")
 }
-

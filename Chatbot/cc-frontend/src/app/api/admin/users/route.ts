@@ -63,9 +63,9 @@ export async function POST(req: NextRequest) {
     }
     
     // Validate userType
-    if (!['LPH', 'MD_CASE_SEARCH', 'HILLSBOROUGH_NH'].includes(userType)) {
+    if (!['LPH', 'MD_CASE_SEARCH', 'HILLSBOROUGH_NH', 'BREVARD_FL'].includes(userType)) {
       return NextResponse.json({ 
-        error: 'Invalid user type. Must be LPH, MD_CASE_SEARCH, or HILLSBOROUGH_NH' 
+        error: 'Invalid user type. Must be LPH, MD_CASE_SEARCH, HILLSBOROUGH_NH, or BREVARD_FL' 
       }, { status: 400 });
     }
     
@@ -82,6 +82,7 @@ export async function POST(req: NextRequest) {
     
     const userTypeDisplay = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
                            userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH' : 
+                           userType === 'BREVARD_FL' ? 'Brevard FL' :
                            'Lis Pendens (LPH)';
     
     return NextResponse.json({ 

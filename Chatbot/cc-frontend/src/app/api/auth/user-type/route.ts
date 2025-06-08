@@ -31,9 +31,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ userType: user.userType });
   } catch (error) {
     console.error('Error fetching user type:', error);
-    return NextResponse.json({ 
-      error: 'Failed to fetch user type' 
-    }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 

@@ -27,6 +27,9 @@
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "file-saver": "^2.0.5",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.510.0",
     "next": "^15.3.2",
     "next-auth": "^4.24.11",
@@ -38,10 +41,12 @@
     "react-dom": "^18.2.0",
     "stripe": "^18.2.0",
     "styled-components": "^6.1.18",
-    "tailwind-merge": "^3.3.0"
+    "tailwind-merge": "^3.3.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/file-saver": "^2.0.7",
     "@types/node": "20.17.47",
     "@types/react": "19.1.4",
     "@types/react-dom": "^19",

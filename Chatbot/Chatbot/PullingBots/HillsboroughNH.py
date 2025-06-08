@@ -27,6 +27,7 @@ from PIL import Image
 import cv2
 import numpy as np
 import pyap  # For address parsing
+import pygetwindow as gw
 
 # ─────────────────────────────────────────────────────────────────────────────
 # DATA MODEL
@@ -54,7 +55,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
-MAX_NEW_RECORDS = 10   # Maximum number of new records to scrape per run (default)
+MAX_NEW_RECORDS = 5   # Maximum number of new records to scrape per run (default)
 USER_ID = None  # Will be set from command line argument
 COUNTY_NAME = "Hillsborough NH"
 EXTRACT_ADDRESSES = True  # Enable/disable address extraction via OCR
@@ -77,7 +78,8 @@ if not DB_URL:
 engine = create_async_engine(DB_URL, echo=False)
 INSERT_SQL = """
 INSERT INTO hillsborough_nh_filing
-  (document_number,
+  (id,
+   document_number,
    document_url,
    recorded_date,
    instrument_type,
@@ -100,7 +102,8 @@ INSERT INTO hillsborough_nh_filing
    doc_type,
    "userId")
 VALUES
-  (:document_number,
+  (gen_random_uuid(),
+   :document_number,
    :document_url,
    :recorded_date,
    :instrument_type,
@@ -121,7 +124,7 @@ VALUES
    :updated_at,
    :is_new,
    :doc_type,
-   :user_id_param)
+   :userId)
 ON CONFLICT (document_number) DO UPDATE
 SET
   document_url       = EXCLUDED.document_url,
@@ -418,9 +421,9 @@ async def _execute_search(page: Page) -> bool:
             try:
                 # Wait for the page to finish loading after search
                 await page.wait_for_load_state("networkidle", timeout=30000)
-                
+                await page.wait_for_timeout(10000)
                 # Additional wait for Angular to update the results
-                await page.wait_for_timeout(3000)
+                await page.wait_for_timeout(10000)
                 
                 _log("✅ Search results should be loaded")
                 return True
@@ -437,14 +440,26 @@ async def _execute_search(page: Page) -> bool:
 # DATA EXTRACTION
 # ─────────────────────────────────────────────────────────────────────────────
 async def _extract_records_from_results(page: Page, max_records: int = 100) -> List[HillsboroughRecord]:
-    """Extract record data from search results"""
+    """Extract record data from search results - limits to max_records NEW records only"""
     records = []
     seen_document_numbers = set()  # Track document numbers to avoid duplicates
+    new_records_count = 0  # Track count of NEW records only
+    
+    # Get existing document numbers to check against (unless in test mode)
+    try:
+        existing_doc_numbers = await get_existing_document_numbers()
+        _log(f"📊 Found {len(existing_doc_numbers)} existing records in database")
+    except Exception as e:
+        _log(f"⚠️ Could not fetch existing records (test mode?): {e}")
+        existing_doc_numbers = set()  # Empty set for test mode
     
     try:
         # Take a screenshot first to see what we're working with
-        await page.screenshot(path="debug_extraction_start.png")
-        _log("📸 Screenshot saved: debug_extraction_start.png")
+        try:
+            await page.screenshot(path="debug_extraction_start.png", timeout=10000)
+            _log("📸 Screenshot saved: debug_extraction_start.png")
+        except Exception as screenshot_error:
+            _log(f"Warning: Could not take extraction screenshot: {screenshot_error}")
         
         # Look for the results based on the actual HTML structure
         results_selectors = [
@@ -498,10 +513,13 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
         
         # Extract data from each row
         count = await rows.count()
-        rows_to_process = min(count, max_records)
-        _log(f"Processing {rows_to_process} rows...")
+        _log(f"Found {count} total rows, processing until we get {max_records} NEW records...")
         
-        for i in range(rows_to_process):
+        for i in range(count):  # Process all rows, but stop when we hit max NEW records
+            # Check if we've reached our limit of NEW records
+            if new_records_count >= max_records:
+                _log(f"✅ Reached maximum of {max_records} new records, stopping at row {i+1}")
+                break
             try:
                 row = rows.nth(i)
                 
@@ -562,11 +580,20 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                     _log(f"Skipping row {i+1} - no document number found")
                     continue
                 
-                # Check for duplicates
+                # Check for duplicates in this session
                 if document_number in seen_document_numbers:
                     _log(f"Skipping duplicate document number: {document_number}")
                     continue
                 seen_document_numbers.add(document_number)
+                
+                # Check if this record already exists in database
+                if document_number in existing_doc_numbers:
+                    _log(f"Skipping existing record: {document_number}")
+                    continue
+                
+                # This is a NEW record - increment our counter
+                new_records_count += 1
+                _log(f"📝 Processing NEW record {new_records_count}/{max_records}: {document_number}")
                 
                 # Extract other fields
                 instrument_type = ""
@@ -658,7 +685,7 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                 _log(f"❌ Error extracting record {i+1}: {e}")
                 continue
         
-        _log(f"✅ Successfully extracted {len(records)} unique records from {rows_to_process} rows")
+        _log(f"✅ Successfully extracted {len(records)} unique records from {count} total rows")
         return records
         
     except Exception as e:
@@ -1218,14 +1245,11 @@ async def _extract_property_address_from_document(page: Page, document_number: s
                     # Get the element for full document capture
                     element = page.locator(selector).first
                     
-                    # Scroll the element into view and ensure full content is visible
-                    await element.scroll_into_view_if_needed()
-                    await page.wait_for_timeout(1000)  # Wait for scroll to complete
-                    
                     # For iframe elements, try to access the full content
                     if "iframe" in selector:
                         try:
-                            # Just take a simple iframe content screenshot
+                            # Skip scroll_into_view_if_needed for iframes (causes timeouts)
+                            _log(f"⚡ Skipping scroll for iframe to avoid timeout - taking direct screenshot")
                             await _screenshot_full_iframe_content(page, element, screenshot_path, document_number)
                             screenshot_taken = True
                             used_selector = selector + " (iframe content)"
@@ -1233,6 +1257,13 @@ async def _extract_property_address_from_document(page: Page, document_number: s
                         except Exception as e:
                             _log(f"Warning: Could not capture iframe content: {e}")
                             # Fall back to regular element screenshot
+                    else:
+                        # Only scroll for non-iframe elements with short timeout
+                        try:
+                            await element.scroll_into_view_if_needed(timeout=5000)  # 5 second timeout instead of 30
+                            await page.wait_for_timeout(500)  # Reduced wait time
+                        except Exception as e:
+                            _log(f"Warning: Could not scroll element into view: {e}")
                     
                     if not screenshot_taken:
                         # Simple element screenshot - no scrolling logic
@@ -1910,10 +1941,22 @@ async def upsert_records(records: List[dict]):
             for record in records:
                 # Add metadata and additional fields required by the site
                 current_time = datetime.now()
+                
+                # Convert recorded_date string to datetime object if present
+                recorded_date_obj = None
+                recorded_date_str = record.get('recorded_date', '')
+                if recorded_date_str:
+                    try:
+                        # Parse date string YYYY-MM-DD into datetime object
+                        recorded_date_obj = datetime.strptime(recorded_date_str, '%Y-%m-%d')
+                    except Exception as e:
+                        _log(f"Warning: Could not parse recorded_date '{recorded_date_str}': {e}")
+                
                 record.update({
+                    'recorded_date': recorded_date_obj,  # Use datetime object
                     'county': COUNTY_NAME,
                     'state': 'NH',
-                    'filing_date': record.get('recorded_date', ''),  # Use recorded_date as filing_date
+                    'filing_date': recorded_date_str,  # Keep original string for filing_date
                     'amount': record.get('consideration', ''),  # Use consideration as amount
                     'parties': f"{record.get('grantor', '')} / {record.get('grantee', '')}".strip(' /'),  # Combined parties
                     'location': record.get('book_page', ''),  # Use book_page (legals) as location for now
@@ -1922,7 +1965,7 @@ async def upsert_records(records: List[dict]):
                     'updated_at': current_time,
                     'is_new': True,
                     'doc_type': 'lien',  # Since we're searching for liens
-                    'user_id_param': USER_ID,
+                    'userId': USER_ID,
                 })
                 
                 await session.execute(text(INSERT_SQL), record)
@@ -1978,16 +2021,28 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
     
     if test_mode:
         _log("🧪 Running in TEST MODE - no database operations")
-        existing_doc_numbers = set()
-    else:
-        # Get existing records to avoid duplicates
-        existing_doc_numbers = await get_existing_document_numbers()
-        _log(f"Found {len(existing_doc_numbers)} existing records in database")
     
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=HEADLESS, args=["--disable-blink-features=AutomationControlled"])
         context = await browser.new_context(user_agent=USER_AGENT)
         page = await context.new_page()
+        
+        # Minimize browser after 5 seconds (same as other scripts)
+        if not test_mode and not HEADLESS:  # Skip minimization in test mode and headless mode
+            try:
+                _log("[TIMER] Browser will minimize in 5 seconds - please click 'Agree' on any disclaimers if needed...")
+                await page.wait_for_timeout(5000)
+                
+                # Minimize all Chromium windows using pygetwindow (same as other scripts)
+                try:
+                    for w in gw.getWindowsWithTitle('Chromium'):
+                        w.minimize()
+                    _log("[SUCCESS] Browser minimized using pygetwindow")
+                except Exception as e:
+                    _log(f"[WARNING] Could not minimize browser window: {e}")
+                    _log("[NOTE] Browser will remain visible during scraping")
+            except Exception as e:
+                _log(f"[WARNING] Error in minimization timer: {e}")
         
         try:
             # Navigate to the search page
@@ -2002,8 +2057,11 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
                 _log("Warning: Page may not have loaded completely")
             
             # Take screenshot for debugging
-            await page.screenshot(path="debug_hillsborough_initial.png")
-            _log("Screenshot saved: debug_hillsborough_initial.png")
+            try:
+                await page.screenshot(path="debug_hillsborough_initial.png", timeout=10000)
+                _log("Screenshot saved: debug_hillsborough_initial.png")
+            except Exception as screenshot_error:
+                _log(f"Warning: Could not take initial screenshot: {screenshot_error}")
             
             # Apply search filters
             if await _apply_search_filters(page):
@@ -2013,8 +2071,11 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
                 return
             
             # Take screenshot after filling form
-            await page.screenshot(path="debug_hillsborough_form_filled.png")
-            _log("Screenshot saved: debug_hillsborough_form_filled.png")
+            try:
+                await page.screenshot(path="debug_hillsborough_form_filled.png", timeout=10000)
+                _log("Screenshot saved: debug_hillsborough_form_filled.png")
+            except Exception as screenshot_error:
+                _log(f"Warning: Could not take form screenshot: {screenshot_error}")
             
             # Execute search
             if await _execute_search(page):
@@ -2024,23 +2085,20 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
                 return
             
             # Take screenshot of results
-            await page.screenshot(path="debug_hillsborough_results.png")
-            _log("Screenshot saved: debug_hillsborough_results.png")
+            try:
+                await page.screenshot(path="debug_hillsborough_results.png", timeout=10000)
+                _log("Screenshot saved: debug_hillsborough_results.png")
+            except Exception as screenshot_error:
+                _log(f"Warning: Could not take results screenshot: {screenshot_error}")
             
-            # Extract records from results
-            all_records = await _extract_records_from_results(page, max_new_records)
+            # Extract records from results (already filters for new records only)
+            new_records = await _extract_records_from_results(page, max_new_records)
             
-            if not all_records:
-                _log("No records found")
+            if not new_records:
+                _log("No new records found")
                 return
             
-            # Filter out existing records
-            if test_mode:
-                new_records = all_records
-                _log(f"TEST MODE: Found {len(all_records)} records")
-            else:
-                new_records = [r for r in all_records if r['document_number'] not in existing_doc_numbers]
-                _log(f"Found {len(new_records)} new records out of {len(all_records)} total")
+            _log(f"✅ Found {len(new_records)} new records (already filtered)")
             
             if not new_records:
                 _log("No new records to process")
@@ -2073,8 +2131,12 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
             
         except Exception as e:
             _log(f"❌ Error in main execution: {e}")
-            # Take screenshot for debugging
-            await page.screenshot(path="debug_hillsborough_error.png")
+            # Take screenshot for debugging (with timeout protection)
+            try:
+                await page.screenshot(path="debug_hillsborough_error.png", timeout=10000)
+                _log("Error screenshot saved: debug_hillsborough_error.png")
+            except Exception as screenshot_error:
+                _log(f"Warning: Could not take error screenshot: {screenshot_error}")
             raise
         
         finally:

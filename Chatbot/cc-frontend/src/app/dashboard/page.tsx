@@ -23,6 +23,7 @@ import ChatBox from '../../components/ChatBox';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Typography } from '@mui/material';
+// Dynamic imports used in export functions to avoid SSR issues
 
 // Custom CSS for the slider
 const sliderStyles = `
@@ -122,6 +123,19 @@ const hillsboroughNhColumns: GridColDef[] = [
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
 ];
 
+// Columns for Brevard FL users
+const brevardFlColumns: GridColDef[] = [
+  { field: 'case_number', headerName: 'Case #', minWidth: 120, maxWidth: 140, flex: 0.8 },
+  { field: 'document_url', headerName: 'Doc URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => params.value ? <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> : '' },
+  { field: 'file_date', headerName: 'Record Date', minWidth: 110, maxWidth: 130, flex: 0.7 },
+  { field: 'case_type', headerName: 'Doc Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
+  { field: 'party_name', headerName: 'Party Name', minWidth: 150, maxWidth: 200, flex: 1.2 },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 150, maxWidth: 200, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
+  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+];
+
 // Types for different record types
 interface LisPendensRecord {
   case_number: string;
@@ -174,12 +188,220 @@ interface HillsboroughNhRecord {
   doc_type: string;
 }
 
+interface BrevardFlRecord {
+  case_number: string;
+  document_url: string;
+  file_date: string;
+  case_type: string;
+  party_name: string;
+  property_address: string;
+  county: string;
+  created_at: string;
+  is_new: boolean;
+}
+
+// Export Button Component
+interface ExportButtonProps {
+  data: any[];
+  userType: string;
+  displayTitle: string;
+}
+
+const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitle }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    try {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setIsOpen(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    } catch (error) {
+      console.error('Event listener setup error:', error);
+    }
+  }, []);
+
+  const exportToCSV = async () => {
+    try {
+      if (data.length === 0) {
+        alert('No data to export');
+        return;
+      }
+      const { saveAs } = await import('file-saver');
+      const csvContent = convertToCSV(data);
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      saveAs(blob, `${displayTitle.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
+      setIsOpen(false);
+    } catch (error) {
+      console.error('CSV Export Error:', error);
+      alert('Failed to export CSV file');
+      setIsOpen(false);
+    }
+  };
+
+  const exportToExcel = async () => {
+    try {
+      if (data.length === 0) {
+        alert('No data to export');
+        return;
+      }
+      const XLSX = await import('xlsx');
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, displayTitle);
+      XLSX.writeFile(workbook, `${displayTitle.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`);
+      setIsOpen(false);
+    } catch (error) {
+      console.error('Excel Export Error:', error);
+      alert('Failed to export Excel file');
+      setIsOpen(false);
+    }
+  };
+
+  const exportToPDF = async () => {
+    try {
+      if (data.length === 0) {
+        alert('No data to export');
+        return;
+      }
+      const { jsPDF } = await import('jspdf');
+      await import('jspdf-autotable');
+      const doc = new jsPDF();
+      
+      // PDF Header
+      doc.setFontSize(16);
+      doc.text(displayTitle, 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Export Date: ${new Date().toLocaleDateString()}`, 20, 30);
+      
+      let yPosition = 50;
+      
+      data.forEach((record, index) => {
+        // Check if we need a new page
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
+        }
+        
+        // Lead header
+        doc.setFontSize(14);
+        doc.text(`Lead ${index + 1}`, 20, yPosition);
+        yPosition += 10;
+        
+        // Lead details
+        doc.setFontSize(10);
+        Object.entries(record).forEach(([key, value]) => {
+          if (value && key !== 'id') {
+            const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const displayValue = String(value).substring(0, 100); // Truncate long values
+            doc.text(`${displayKey}: ${displayValue}`, 20, yPosition);
+            yPosition += 5;
+          }
+        });
+        
+        yPosition += 10; // Space between leads
+      });
+      
+      doc.save(`${displayTitle.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
+      setIsOpen(false);
+    } catch (error) {
+      console.error('PDF Export Error:', error);
+      alert('Failed to export PDF file');
+      setIsOpen(false);
+    }
+  };
+
+  const convertToCSV = (data: any[]) => {
+    if (data.length === 0) return '';
+    
+    const headers = Object.keys(data[0]);
+    const csvRows = [];
+    
+    // Add headers
+    csvRows.push(headers.join(','));
+    
+    // Add data rows
+    data.forEach(row => {
+      const values = headers.map(header => {
+        const value = row[header];
+        // Escape quotes and wrap in quotes if contains comma
+        const stringValue = String(value || '');
+        return stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n') 
+          ? `"${stringValue.replace(/"/g, '""')}"` 
+          : stringValue;
+      });
+      csvRows.push(values.join(','));
+    });
+    
+    return csvRows.join('\n');
+  };
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-200 flex items-center gap-2"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a4 4 0 01-4-4V5a4 4 0 014-4h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a4 4 0 01-4 4z" />
+        </svg>
+        Export
+        <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+          <div className="py-2">
+            <button
+              onClick={exportToCSV}
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Export as CSV
+            </button>
+            <button
+              onClick={exportToExcel}
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Export as Excel
+            </button>
+            <button
+              onClick={exportToPDF}
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707L14.586 4.586A1 1 0 0014 4.293V2a1 1 0 00-1-1H7a2 2 0 00-2 2v16a2 2 0 002 2z" />
+              </svg>
+              Export as PDF (One-pager per lead)
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord)[]>([]);
+  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
   const [userType, setUserType] = useState<string>('LPH');
   const [county, setCounty] = useState('Harris');
@@ -195,6 +417,7 @@ export default function Dashboard() {
     try {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/hillsborough-nh' : 
+                      userType === 'BREVARD_FL' ? '/api/brevard-fl' :
                       '/api/lis-pendens';
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -262,6 +485,8 @@ export default function Dashboard() {
         ? `/api/pull-md-case-search?job_id=${jobId}`
         : userType === 'HILLSBOROUGH_NH'
         ? `/api/pull-hillsborough-nh?job_id=${jobId}`
+        : userType === 'BREVARD_FL'
+        ? `/api/pull-brevard-fl?job_id=${jobId}`
         : `/api/pull-lph?job_id=${jobId}`;
       
       const res = await fetch(endpoint);
@@ -309,6 +534,7 @@ export default function Dashboard() {
     try {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/pull-hillsborough-nh' : 
+                      userType === 'BREVARD_FL' ? '/api/pull-brevard-fl' :
                       '/api/pull-lph';
       
       // Include the date filter in the request body
@@ -342,14 +568,18 @@ export default function Dashboard() {
 
   // Add this handler to mark is_new as false and persist
   const handleRowClick = async (params: any) => {
-    const recordId = userType === 'HILLSBOROUGH_NH' ? params.row.document_number : params.row.case_number;
+    const recordId = (userType === 'HILLSBOROUGH_NH' || userType === 'BREVARD_FL') ? params.row.document_number : params.row.case_number;
     // Only update if is_new is true
     if (!params.row.is_new) return;
     
     // Optimistically update UI
     setRows(prev =>
       prev.map(r => {
-        const currentId = userType === 'HILLSBOROUGH_NH' ? (r as HillsboroughNhRecord).document_number : (r as LisPendensRecord | MdCaseSearchRecord).case_number;
+        const currentId = userType === 'HILLSBOROUGH_NH' ? 
+          (r as HillsboroughNhRecord).document_number :
+          userType === 'BREVARD_FL' ?
+          (r as BrevardFlRecord).case_number :
+          (r as LisPendensRecord | MdCaseSearchRecord).case_number;
         return currentId === recordId ? { ...r, is_new: false } : r;
       })
     );
@@ -364,6 +594,9 @@ export default function Dashboard() {
       } else if (userType === 'HILLSBOROUGH_NH') {
         endpoint = `/api/hillsborough-nh`;
         body = JSON.stringify({ document_number: recordId, is_new: false });
+      } else if (userType === 'BREVARD_FL') {
+        endpoint = `/api/brevard-fl`;
+        body = JSON.stringify({ case_number: recordId, is_new: false });
       } else {
         endpoint = `/api/lis-pendens/${recordId}`;
         body = JSON.stringify({ is_new: false });
@@ -383,14 +616,18 @@ export default function Dashboard() {
   // Get the appropriate columns and display info based on user type
   const columns = userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : 
                   userType === 'HILLSBOROUGH_NH' ? hillsboroughNhColumns : 
+                  userType === 'BREVARD_FL' ? brevardFlColumns :
                   lphColumns;
   const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
                        userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH Records' : 
+                       userType === 'BREVARD_FL' ? 'Brevard FL Records' :
                        `${county} County Records`;
   const loadingMessage = userType === 'MD_CASE_SEARCH' 
     ? 'Scraping records from Maryland Case Search...'
     : userType === 'HILLSBOROUGH_NH'
     ? 'Scraping records from Hillsborough NH Registry...'
+    : userType === 'BREVARD_FL'
+    ? 'Scraping records from Brevard FL Official Records...'
     : `Scraping records from ${county} County...`;
 
   return (
@@ -468,27 +705,39 @@ export default function Dashboard() {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
             <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>
-              <div className="flex items-center gap-4 mb-4">
-                {userType === 'LPH' && (
-                  <Select
-                    value={county}
-                    onChange={e => setCounty(e.target.value)}
-                    variant="outlined"
-                    sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
-                  >
-                    {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c} County</MenuItem>)}
-                  </Select>
-                )}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-4">
+                  {userType === 'LPH' && (
+                    <Select
+                      value={county}
+                      onChange={e => setCounty(e.target.value)}
+                      variant="outlined"
+                      sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
+                    >
+                      {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c} County</MenuItem>)}
+                    </Select>
+                  )}
+                  
+                  <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
+                    {displayTitle}
+                  </span>
+                </div>
                 
-                <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
-                  {displayTitle}
-                </span>
+                <ExportButton 
+                  data={rows} 
+                  userType={userType} 
+                  displayTitle={displayTitle}
+                />
               </div>
               <div style={{ position: 'relative', color: 'black' }}>
                 <DataGrid
                   rows={rows}
                   columns={columns}
-                  getRowId={(row) => userType === 'HILLSBOROUGH_NH' ? (row as HillsboroughNhRecord).document_number : (row as LisPendensRecord | MdCaseSearchRecord).case_number}
+                  getRowId={(row) => userType === 'HILLSBOROUGH_NH' ? 
+                    (row as HillsboroughNhRecord).document_number :
+                    userType === 'BREVARD_FL' ?
+                    (row as BrevardFlRecord).case_number :
+                    (row as LisPendensRecord | MdCaseSearchRecord).case_number}
                   paginationModel={paginationModel}
                   onPaginationModelChange={setPaginationModel}
                   pageSizeOptions={[10, 25, 50]}

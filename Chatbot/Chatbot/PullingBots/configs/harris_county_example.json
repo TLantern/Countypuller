@@ -1,0 +1,118 @@
+{
+  "name": "Harris County",
+  "state": "TX",
+  "base_url": "https://harris.foreclosures.com",
+  "description": "Harris County foreclosure records system",
+  "scraper_type": "search_form",
+  "field_mappings": [
+    {
+      "field_name": "case_number",
+      "field_type": "case_number",
+      "selectors": [
+        {
+          "selector": "td:nth-child(1)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": true,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_case_number",
+      "validation": "^[A-Z0-9-]+$"
+    },
+    {
+      "field_name": "property_address",
+      "field_type": "address",
+      "selectors": [
+        {
+          "selector": "//div[@class='prop-addr']",
+          "selector_type": "xpath",
+          "attribute": "text",
+          "required": true,
+          "multiple": false
+        },
+        {
+          "selector": ".address",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace"
+    },
+    {
+      "field_name": "auction_date",
+      "field_type": "date",
+      "selectors": [
+        {
+          "selector": "//span[@class='date']",
+          "selector_type": "xpath",
+          "attribute": "text",
+          "required": true,
+          "multiple": false
+        }
+      ],
+      "post_process": "parse_date"
+    },
+    {
+      "field_name": "plaintiff",
+      "field_type": "person_name",
+      "selectors": [
+        {
+          "selector": ".plaintiff-name",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ]
+    },
+    {
+      "field_name": "defendant",
+      "field_type": "person_name",
+      "selectors": [
+        {
+          "selector": ".defendant-name",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ]
+    }
+  ],
+  "search_config": {
+    "search_url": "https://harris.foreclosures.com/search",
+    "search_form_selector": "#search-form",
+    "search_fields": {
+      "date_from": "#date_from",
+      "date_to": "#date_to",
+      "property_type": "#property_type"
+    },
+    "submit_button_selector": "#search-submit",
+    "results_container_selector": ".search-results"
+  },
+  "pagination_config": {
+    "pagination_type": "numbered",
+    "next_button_selector": ".next-page",
+    "page_number_selector": ".page-number",
+    "results_per_page": 25,
+    "max_pages": 10
+  },
+  "auth_config": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+  "headless": true,
+  "timeout": 30,
+  "delay_between_requests": 2.0,
+  "duplicate_check_field": "case_number",
+  "required_fields": ["case_number", "property_address", "auction_date"],
+  "javascript_enabled": true,
+  "cookies_file": null,
+  "proxy_config": null,
+  "custom_headers": {},
+  "created_at": "2024-01-15T10:30:00",
+  "updated_at": "2024-01-15T10:30:00",
+  "version": "1.0.0",
+  "tested": false
+} 

@@ -156,7 +156,7 @@ export default function UserSettings() {
                   </Typography>
                   
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    Manage account types for all users. LPH users access Harris County records, MD users access Maryland case search.
+                    Manage account types for all users. LPH users access Harris County records, MD users access Maryland case search, Hillsborough NH users access New Hampshire registry records, and Brevard FL users access Florida official records.
                   </Typography>
                   
                   <Table>
@@ -182,15 +182,18 @@ export default function UserSettings() {
                                   <MenuItem value="LPH">Lis Pendens (LPH)</MenuItem>
                                   <MenuItem value="MD_CASE_SEARCH">Maryland Case Search</MenuItem>
                                   <MenuItem value="HILLSBOROUGH_NH">Hillsborough NH</MenuItem>
+                                  <MenuItem value="BREVARD_FL">Brevard FL</MenuItem>
                                 </Select>
                               </FormControl>
                             ) : (
                               <Chip 
                                 label={user.userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
                                        user.userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH' : 
+                                       user.userType === 'BREVARD_FL' ? 'Brevard FL' :
                                        'Lis Pendens (LPH)'} 
                                 color={user.userType === 'MD_CASE_SEARCH' ? 'primary' : 
                                        user.userType === 'HILLSBOROUGH_NH' ? 'success' : 
+                                       user.userType === 'BREVARD_FL' ? 'info' :
                                        'secondary'}
                                 size="small"
                               />

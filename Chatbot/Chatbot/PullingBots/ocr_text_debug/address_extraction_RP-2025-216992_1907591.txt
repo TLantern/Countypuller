@@ -1,0 +1,69 @@
+Address Extraction Debug for Document: RP-2025-216992
+Timestamp: 1907591
+======================================================================
+EXTRACTED TEXT:
+======================================================================
+RP-2025-216992
+
+06/06/2025 ER $29.00
+
+E115 PENDENS
+
+THESTATE OF TEXAS 5s
+
+COUNTY OF HARRS §
+
+_MPNOTICE IS HEREBY GIVEN that Cause No. 202589077; Courtyrd — Weatoay Homemmers
+
+jo. Raurair Jaco; In the District Court of Harris County, Texas, 113th Judicial District, and is
+
+gaogin acho
+‘ctiomgeeks to establish and enforce a right in real property situated in Hartis County,
+
+ddescithed ax
+
+Cac e @ 2,820 square foot tract of land known as Lot 3, Block 1 of
+‘COUR (AED HOMES, om wivecoredoubiiion Of Unrestricted Reserve "B",
+Block 2, stony ection, a subdivision situated In Harris County, Texas, recorded In
+Volume 206, Page 123 of the Mp Records of Haris County, Texas, tid recorded
+subi yestricled Reserve *B", being more particularly described in the
+
+f Dard Restri Courtyart-Westiay Homeounters
+Association, recorded Jai File? Code No. 2257 to 126-14-2282 of the Official
+Public Records of Real” Property.of Harris County, Texas, said Lot 3 being more
+particularly described by metes-and bounds as fellows: COMMENCING at 2 5/8 Tach
+Tron tod find Tn the Nortt Hine ofthat certain tract of tand known as Stanford Court at
+the calied Norchuxst corm of suid Block, snid North tine of Stanford Caurt bears
+North 02° 00' 30” West, a Of R06 feet, and a Yi inch Irom rad found at an
+Interior "L* corner of the East tin@of's¢id Westway, Section 1,
+West, a distance of 14.29 feet and'Geyt Pe West, a distance of 11.00 feet;
+THENCE South 02" 00° 30" Ezst, tod rod found along said North line of
+Stanford Court, @ distance of 70,30 feet of that certain tract of
+County Clerk's File No, P-790284, same being the Nortinest corner and PLACE OF
+BEGINNING of the herein described Lot 3; THENGE North 87° 59' 30" Eact, along
+the South Vine of said Lot 2, « distance of 28.20 feet toW building corner of comer of said
+
+
+======================================================================
+REGEX PATTERN TESTING:
+======================================================================
+Pattern 1: (?:commonly known|known as|is commonly known|is commonly)(.*?)(?:this action seeks)
+NO MATCH
+--------------------------------------------------
+Pattern 2: (?:commonly known as|commonly known|this proceeding is|property affected:|known as|is commonly known|property located at|common address|legally described as)(.*?)(?:the instrument|this action seeks|and/or stats|by the applicable|to unpaid|this action|that the lawsuit|to whom it|parcel id|authorized|recovery of|and being legally described|and being|may concern)
+NO MATCH
+--------------------------------------------------
+NO REGEX MATCHES FOUND - TRYING FALLBACK METHODS
+======================================================================
+CLEANED TEXT FOR PYAP:
+06/06/2025 ER $29.00 E115 PENDENS THESTATE OF TEXAS 5s COUNTY OF HARRS § _MPNOTICE IS HEREBY GIVEN that Cause No. 202589077; Courtyrd - Weatoay Homemmers jo. Raurair Jaco; In the District Court of Harris County, Texas, 113th Judicial District, and is gaogin acho ‘ctiomgeeks to establish and enforce a right in real property situated in Hartis County, ddescithed ax Cac e @ 2,820 square foot tract of land known as: Lot 3, Block 1 of ‘COUR (AED HOMES, om wivecoredoubiiion Of Unrestricted Reserve "B"...
+--------------------------------------------------
+PYAP FOUND NO ADDRESS - TRYING LLM ON FULL TEXT
+--------------------------------------------------
+LLM ON FULL TEXT RESULT: 06/06/2025 ER $29.00 E115 PENDENS THESTATE OF TEXAS 5s COUNTY OF HARRS § _MPNOTICE IS HEREBY GIVEN that Cause No. 202589077; Courtyrd - Weatoay Homemmers jo. Raurair Jaco; In the District Court of Harris County, Texas, 113th Judicial District, and is gaogin acho ‘ctiomgeeks to establish and enforce a right in real property situated in Hartis County, ddescithed ax Cac e @ 2,820 square foot tract of land known as: Lot 3, Block 1 of ‘COUR (AED HOMES, om wivecoredoubiiion Of Unrestricted Reserve "B", Block 2, stony ection, a subdivision situated In Harris County, Texas, recorded In Volume 206, Page 123 of the Mp Records of Haris County, Texas, tid recorded subi yestricled Reserve *B", being more particularly described in the f Dard Restri Courtyart-Westiay Homeounters Association, recorded Jai File? Code No. 2257 to 126-14-2282 of the Official Public Records of Real” Property.of Harris County, Texas, said Lot 3 being more particularly described by metes-and bounds as fellows: COMMENCING at 2 5/8 Tach Tron tod find Tn the Nortt Hine ofthat certain tract of tand known as: Stanford Court at the calied Norchuxst corm of suid Block, snid North tine of Stanford Caurt bears North 02° 00' 30” West, a Of R06 feet, and a Yi inch Irom rad found at an Interior "L* corner of the East tin@of's¢id Westway, Section 1, West, a distance of 14.29 feet and'Geyt Pe West, a distance of 11.00 feet; THENCE South 02" 00° 30" Ezst, tod rod found along said North line of Stanford Court, @ distance of 70,30 feet of that certain tract of County Clerk's File No, P-790284, same being the Nortinest corner and PLACE OF BEGINNING of the herein described Lot 3; THENGE North 87° 59' 30" Eact, along the South Vine of said Lot 2, « distance of 28.20 feet toW building corner of comer of said
+--------------------------------------------------
+======================================================================
+FINAL RESULT:
+======================================================================
+FINAL ADDRESS: 06/06/2025 ER $29.00 E115 PENDENS THESTATE OF TEXAS 5s COUNTY OF HARRS § _MPNOTICE IS HEREBY GIVEN that Cause No. 202589077; Courtyrd - Weatoay Homemmers jo. Raurair Jaco; In the District Court of Harris County, Texas, 113th Judicial District, and is gaogin acho ‘ctiomgeeks to establish and enforce a right in real property situated in Hartis County, ddescithed ax Cac e @ 2,820 square foot tract of land known as: Lot 3, Block 1 of ‘COUR (AED HOMES, om wivecoredoubiiion Of Unrestricted Reserve "B", Block 2, stony ection, a subdivision situated In Harris County, Texas, recorded In Volume 206, Page 123 of the Mp Records of Haris County, Texas, tid recorded subi yestricled Reserve *B", being more particularly described in the f Dard Restri Courtyart-Westiay Homeounters Association, recorded Jai File? Code No. 2257 to 126-14-2282 of the Official Public Records of Real” Property.of Harris County, Texas, said Lot 3 being more particularly described by metes-and bounds as fellows: COMMENCING at 2 5/8 Tach Tron tod find Tn the Nortt Hine ofthat certain tract of tand known as: Stanford Court at the calied Norchuxst corm of suid Block, snid North tine of Stanford Caurt bears North 02° 00' 30” West, a Of R06 feet, and a Yi inch Irom rad found at an Interior "L* corner of the East tin@of's¢id Westway, Section 1, West, a distance of 14.29 feet and'Geyt Pe West, a distance of 11.00 feet; THENCE South 02" 00° 30" Ezst, tod rod found along said North line of Stanford Court, @ distance of 70,30 feet of that certain tract of County Clerk's File No, P-790284, same being the Nortinest corner and PLACE OF BEGINNING of the herein described Lot 3; THENGE North 87° 59' 30" Eact, along the South Vine of said Lot 2, « distance of 28.20 feet toW building corner of comer of said
+======================================================================

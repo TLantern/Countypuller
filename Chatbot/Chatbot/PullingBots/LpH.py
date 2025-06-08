@@ -119,7 +119,18 @@ SET
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _log(msg: str):
-    print(f"[{datetime.now():%H:%M:%S}] {msg}")
+    """Log messages with proper Unicode handling for Windows console"""
+    import sys
+    timestamp = datetime.now().strftime("%H:%M:%S")
+    try:
+        print(f"[{timestamp}] {msg}")
+    except UnicodeEncodeError:
+        # Fallback for Windows console encoding issues
+        safe_msg = msg.encode('ascii', 'replace').decode('ascii')
+        print(f"[{timestamp}] {safe_msg}")
+    except Exception as e:
+        # Last resort fallback
+        print(f"[{timestamp}] [LOG ERROR: {e}]")
 # ─────────────────────────────────────────────────────────────────────────────
 # POP‑UP DISCLAIMER
 # ─────────────────────────────────────────────────────────────────────────────

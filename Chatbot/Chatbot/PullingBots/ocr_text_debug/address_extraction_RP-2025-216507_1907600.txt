@@ -1,0 +1,65 @@
+Address Extraction Debug for Document: RP-2025-216507
+Timestamp: 1907600
+======================================================================
+EXTRACTED TEXT:
+======================================================================
+RP-2025-216507
+
+RE-2025-216507
+06/06/2025 ER $25.00
+
+IOTICE OF LI9 PENDENS
+
+‘THE STATE OF TEXAS. §
+
+COUNTY OF HARRIS 5
+NOTICE IS HEREBY GIVEN that Cause No, 202539113; Afton Oaks Cinie Chub Inc. u, James
+and Maria Reeve; ta the Distict Court of Harris County, Texas, 133d Judicial Disticf and'is now
+pending in such Court, AV
+The action secks to establish and enforce a right i seal property situat ‘County,
+Texas, legally described as:
+Lot Four (4), in Block Sixteen (16) of Afton Oaks, 2 unin HariEolanty,
+‘Teaas, according to the map or plat thereof, recorded in Volume 48; Page St the Map
+Records of Harris County, exe and which property is commonly kaigdn as 3615
+Netwcasie Drive, Fouston, TX 77027.
+
+‘This action secks: (a) recovery of delinquent assessments, interest and other changes authorized
+bby the applicable restrictive covenants and/or state law; at (b) an order foreclosing plaintiff's lien for
+all such delinquent charges that are secured by the plaintiff’s-lien property per the applicable
+
+restrictive covenants.
+‘SIGNED this the 5% day of June, 2025.
+Oaks Civic Club, Inc.
+Ve My, bd
+
+KELTON WILKINS - ATTORNEY
+
+STATE OF TEXAS §
+
+
+======================================================================
+REGEX PATTERN TESTING:
+======================================================================
+Pattern 1: (?:commonly known|known as|is commonly known|is commonly)(.*?)(?:this action seeks)
+NO MATCH
+--------------------------------------------------
+Pattern 2: (?:commonly known as|commonly known|this proceeding is|property affected:|known as|is commonly known|property located at|common address|legally described as)(.*?)(?:the instrument|this action seeks|and/or stats|by the applicable|to unpaid|this action|that the lawsuit|to whom it|parcel id|authorized|recovery of|and being legally described|and being|may concern)
+MATCH FOUND: :
+Lot Four (4), in Block Sixteen (16) of Afton Oaks, 2 unin HariEolanty,
+‘Teaas, according to the map or plat thereof, recorded in Volume 48; Page St the Map
+Records of Harris County, exe and which property is commonly kaigdn as 3615
+Netwcasie Drive, Fouston, TX 77027.
+
+‘
+--------------------------------------------------
+======================================================================
+FINAL RESULT:
+======================================================================
+FINAL ADDRESS: :
+Lot Four (4), in Block Sixteen (16) of Afton Oaks, 2 unin HariEolanty,
+‘Teaas, according to the map or plat thereof, recorded in Volume 48; Page St the Map
+Records of Harris County, exe and which property is commonly kaigdn as 3615
+Netwcasie Drive, Fouston, TX 77027.
+
+‘
+======================================================================

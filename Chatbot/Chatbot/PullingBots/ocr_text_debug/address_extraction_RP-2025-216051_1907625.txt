@@ -1,0 +1,57 @@
+Address Extraction Debug for Document: RP-2025-216051
+Timestamp: 1907625
+======================================================================
+EXTRACTED TEXT:
+======================================================================
+RP-2025-216051
+
+‘THE STATE OF pe §
+§
+county of fat §
+
+NOTICE is GIVEN that Cause No, 20253922; North Briar Commeaity Association, Inc v. Vicky
+
+Ann Gilbert, was aay can ol District Cour of Haris County, Texas, and is now pending in such Gout,
+‘The action seek
+
+A TRACT br LAND conTAINING 11,172 SQUARE FEET MORE OR LESS AND
+KNOWN AS LOT NINETPEN 19), IN BLOCK ONE. {1), OF COUNTRY VILLAGE,
+SECTION ont (1), CORRECTED PLAT, A SUBDIVISION IN HARRIS COUNTY,
+
+EXHIBIT "A" ATTACHED HERETO AND MADE A PART HEREOF FOR ALL
+
+ATRACTOPLAKD CONTAINS Ud SURAE Yn OF LAT), MES CLS, TUNNEL LAR
+SO Nora COA AG AVAIE G2 RABEAVE INA CORROOTD MAT GT
+‘COURTHY VLA RNDHVION STENCH AGCURDNO TO SMA OR PLAT THGRDS MACOREED Ik VORAM
+26, PACE AS CD HE MAP TCO, MARAIS CRETE, DCAd, AND HH, tod SCAR Le BN
+‘ARIEL DAY MATE AORN ANTCL
+
+counancva Te BOOTIWESE Ci Cm HAR At As APORIMAETIONND CTY VLLACS,
+‘SOHN ei” .
+
+‘et entn ana a Beye AcNORT HET TO AS Nar ODD RR SK
+ee ey
+
+======================================================================
+REGEX PATTERN TESTING:
+======================================================================
+Pattern 1: (?:commonly known|known as|is commonly known|is commonly)(.*?)(?:this action seeks)
+NO MATCH
+--------------------------------------------------
+Pattern 2: (?:commonly known as|commonly known|this proceeding is|property affected:|known as|is commonly known|property located at|common address|legally described as)(.*?)(?:the instrument|this action seeks|and/or stats|by the applicable|to unpaid|this action|that the lawsuit|to whom it|parcel id|authorized|recovery of|and being legally described|and being|may concern)
+NO MATCH
+--------------------------------------------------
+NO REGEX MATCHES FOUND - TRYING FALLBACK METHODS
+======================================================================
+CLEANED TEXT FOR PYAP:
+‘THE STATE OF pe § § county of fat § NOTICE is GIVEN that Cause No, 20253922; North Briar Commeaity Association, Inc v. Vicky Ann Gilbert, was aay can ol District Cour of Haris County, Texas, and is now pending in such Gout, ‘The action seek A TRACT br LAND conTAINING 11,172 SQUARE FEET MORE OR LESS AND known as: LOT NINETPEN 19), IN BLOCK ONE. {1), OF COUNTRY VILLAGE, SECTION ont (1), CORRECTED PLAT, A SUBDIVISION IN HARRIS COUNTY, EXHIBIT "A" ATTACHED HERETO AND MADE A PART HEREOF FOR ALL ATRA...
+--------------------------------------------------
+PYAP FOUND NO ADDRESS - TRYING LLM ON FULL TEXT
+--------------------------------------------------
+LLM ON FULL TEXT RESULT: ‘THE STATE OF pe § § county of fat § NOTICE is GIVEN that Cause No, 20253922; North Briar Commeaity Association, Inc v. Vicky Ann Gilbert, was aay can ol District Cour of Haris County, Texas, and is now pending in such Gout, ‘The action seek A TRACT br LAND conTAINING 11,172 SQUARE FEET MORE OR LESS AND known as: LOT NINETPEN 19), IN BLOCK ONE. {1), OF COUNTRY VILLAGE, SECTION ont (1), CORRECTED PLAT, A SUBDIVISION IN HARRIS COUNTY, EXHIBIT "A" ATTACHED HERETO AND MADE A PART HEREOF FOR ALL ATRACTOPLAKD CONTAINS Ud SURAE Yn OF LAT), MES CLS, TUNNEL LAR SO Nora COA AG AVAIE G2 RABEAVE INA CORROOTD MAT GT ‘COURTHY VLA RNDHVION STENCH AGCURDNO TO SMA OR PLAT THGRDS MACOREED Ik VORAM 26, PACE AS CD HE MAP TCO, MARAIS CRETE, DCAd, AND HH, tod SCAR Le BN ‘ARIEL DAY MATE AORN ANTCL counancva Te BOOTIWESE Ci Cm HAR At As APORIMAETIONND CTY VLLACS, ‘SOHN ei” . ‘et entn ana a Beye AcNORT HET TO AS Nar ODD RR SK ee ey
+--------------------------------------------------
+======================================================================
+FINAL RESULT:
+======================================================================
+FINAL ADDRESS: ‘THE STATE OF pe § § county of fat § NOTICE is GIVEN that Cause No, 20253922; North Briar Commeaity Association, Inc v. Vicky Ann Gilbert, was aay can ol District Cour of Haris County, Texas, and is now pending in such Gout, ‘The action seek A TRACT br LAND conTAINING 11,172 SQUARE FEET MORE OR LESS AND known as: LOT NINETPEN 19), IN BLOCK ONE. {1), OF COUNTRY VILLAGE, SECTION ont (1), CORRECTED PLAT, A SUBDIVISION IN HARRIS COUNTY, EXHIBIT "A" ATTACHED HERETO AND MADE A PART HEREOF FOR ALL ATRACTOPLAKD CONTAINS Ud SURAE Yn OF LAT), MES CLS, TUNNEL LAR SO Nora COA AG AVAIE G2 RABEAVE INA CORROOTD MAT GT ‘COURTHY VLA RNDHVION STENCH AGCURDNO TO SMA OR PLAT THGRDS MACOREED Ik VORAM 26, PACE AS CD HE MAP TCO, MARAIS CRETE, DCAd, AND HH, tod SCAR Le BN ‘ARIEL DAY MATE AORN ANTCL counancva Te BOOTIWESE Ci Cm HAR At As APORIMAETIONND CTY VLLACS, ‘SOHN ei” . ‘et entn ana a Beye AcNORT HET TO AS Nar ODD RR SK ee ey
+======================================================================
