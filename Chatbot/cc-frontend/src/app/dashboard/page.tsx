@@ -235,7 +235,8 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
         alert('No data to export');
         return;
       }
-      const { saveAs } = await import('file-saver');
+      const fileSaver = await import('file-saver');
+      const saveAs = fileSaver.saveAs || fileSaver.default;
       const csvContent = convertToCSV(data);
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       saveAs(blob, `${displayTitle.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
