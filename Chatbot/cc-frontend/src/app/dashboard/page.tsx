@@ -573,9 +573,17 @@ export default function Dashboard() {
 
   // Add this handler to mark is_new as false and persist
   const handleRowClick = async (params: any) => {
-    const recordId = (userType === 'HILLSBOROUGH_NH' || userType === 'BREVARD_FL') ? params.row.document_number : params.row.case_number;
-    // Only update if is_new is true
-    if (!params.row.is_new) return;
+    let recordId;
+    if (userType === 'HILLSBOROUGH_NH') {
+      recordId = params.row.document_number;
+    } else if (userType === 'BREVARD_FL') {
+      recordId = params.row.case_number;
+    } else {
+      recordId = params.row.case_number;
+    }
+    
+    // Only update if is_new is true and we have a valid recordId
+    if (!params.row.is_new || !recordId) return;
     
     // Optimistically update UI
     setRows(prev =>
@@ -756,11 +764,26 @@ export default function Dashboard() {
                 <DataGrid
                   rows={rows}
                   columns={columns}
-                  getRowId={(row) => userType === 'HILLSBOROUGH_NH' ? 
-                    (row as HillsboroughNhRecord).document_number :
-                    userType === 'BREVARD_FL' ?
-                    (row as BrevardFlRecord).case_number :
-                    (row as LisPendensRecord | MdCaseSearchRecord).case_number}
+                  getRowId={(row) => {
+                    let id;
+                    if (userType === 'HILLSBOROUGH_NH') {
+                      id = (row as HillsboroughNhRecord).document_number;
+                    } else if (userType === 'BREVARD_FL') {
+                      id = (row as BrevardFlRecord).case_number;
+                    } else {
+                      id = (row as LisPendensRecord | MdCaseSearchRecord).case_number;
+                    }
+                    
+                    // Ensure we always return a valid string ID
+                    if (!id || typeof id !== 'string' || id.trim() === '') {
+                      // Fallback: create a unique ID using other available fields
+                      const fallbackId = `${row.county || 'unknown'}-${row.created_at || Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                      console.warn('Row missing valid ID, using fallback:', fallbackId, 'Row:', row);
+                      return fallbackId;
+                    }
+                    
+                    return id;
+                  }}
                   paginationModel={paginationModel}
                   onPaginationModelChange={setPaginationModel}
                   pageSizeOptions={[10, 25, 50]}
