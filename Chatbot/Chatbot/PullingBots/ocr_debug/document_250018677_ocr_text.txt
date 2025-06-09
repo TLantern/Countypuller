@@ -1,0 +1,32 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250018677.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 651 characters
+Timestamp: 2025-06-09 01:34:59.612796
+=== FULL OCR TEXT ===
+
+vas
+BACK
+Book9861Pagei514
+VRichardsWardJrPLLCLawOffices
+POBox1117
+WolfeboroNH03894
+aA64 Doc250018677 06062025081442AM
+Book9861Page514 Page1of2
+DennisCHogan
+RegisterofDeedsHillsboroughCounty
+THEBRIARSONBODWELLROADCONDOMINIUM
+MANCHESTERHILLSBOROUGHCOUNTYNEWHAMPSHIRE
+MEMORANDUMOFLIENFORCONDOMINIUMASSESSMENTS
+PursuanttotheprovisionsofNHRSA356B46andtheCondominiumInstrumentsthe
+BoardofDirectorsoftheUnitOwnersAssociationofBriarsonBodwellRoadCondominium
+herebyassertalienonthepremisesdescribedbelowforunpaidcondominiumfeesand
+assessments
+BRIARSONBODWELLROADCONDOMINIUMASSOCIATION
+cloNHCOREPropertiesLLC ru
+722EIndustrialParkDrive414
+ManchesterNH03109 goa
+
+
+=== END OCR TEXT ===

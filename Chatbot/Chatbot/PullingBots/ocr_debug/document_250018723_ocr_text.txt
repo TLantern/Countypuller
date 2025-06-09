@@ -1,0 +1,30 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250018723.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 750 characters
+Timestamp: 2025-06-09 01:34:18.562975
+=== FULL OCR TEXT ===
+
+ee
+BACK
+Book9861Page730
+EDoc25001872306062025092539AM
+Book9861Page730 Page1of3
+DennisCHogan
+RegisterofDeedsHillsboroughCounty
+111COBURNASSOCIATIONINC
+TERMINATIONOFPRIVILEGESANDSERVICESUNIT113K
+NOWCOMESthedulyempoweredBoardMemberforthe111Coburn
+AssociationIncaresidentialcommunitylocatedat111CoburnAvenuein
+NashuaHillsboroughCountyNewHampshirestatesunderoathasfollows
+1ThereisacertainUnitknownandnumberedasUnit113K113
+CoburnAvenueNashuaHillsboroughCountyNewHampshirewhichUnitis
+createdunderAmendedDeclarationofCovenantsandRestrictionsdatedJune1
+2011andrecordedattheHillsboroughCountyRegistryofDeedsatBook8334
+Page0507asamended ru
+2SaidUnitisownedofrecordbyBradenDelMorebyvirtueofa ayes
+UnitDeedrecordedintheHillsboroughCountyRegistryofDeedsinBook9396
+
+
+=== END OCR TEXT ===

@@ -412,6 +412,10 @@ export default function Dashboard() {
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
   const [jobStatus, setJobStatus] = useState<string>('');
   const [dateFilter, setDateFilter] = useState<number>(7); // Default to 7 days
+  
+  // State for focused cell display
+  const [focusedCellContent, setFocusedCellContent] = useState<string>('');
+  const [focusedCellField, setFocusedCellField] = useState<string>('');
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
@@ -631,6 +635,24 @@ export default function Dashboard() {
     ? 'Scraping records from Brevard FL Official Records...'
     : `Scraping records from ${county} County...`;
 
+  // Handle cell focus to show content in the wide box
+  const handleCellFocus = (params: any) => {
+    const cellValue = params.value || '';
+    const fieldName = params.field || '';
+    
+    // Only show the box if there's meaningful content
+    if (cellValue && cellValue.toString().trim().length > 0) {
+      setFocusedCellContent(cellValue.toString());
+      setFocusedCellField(fieldName);
+    }
+  };
+
+  // Handle cell blur to hide the wide box
+  const handleCellBlur = () => {
+    setFocusedCellContent('');
+    setFocusedCellField('');
+  };
+
   return (
     <SidebarProvider>
       <style dangerouslySetInnerHTML={{ __html: sliderStyles }} />
@@ -745,9 +767,42 @@ export default function Dashboard() {
                   checkboxSelection
                   disableRowSelectionOnClick
                   onRowClick={handleRowClick}
-                  sx={{ color: 'black', background: 'white', '& .MuiDataGrid-cell': { color: 'black' }, '& .MuiDataGrid-columnHeaders': { color: 'black' } }}
+                  onCellClick={handleCellFocus}
+                  sx={{ 
+                    color: 'black', 
+                    background: 'white', 
+                    '& .MuiDataGrid-cell': { 
+                      color: 'black',
+                      cursor: 'pointer'
+                    }, 
+                    '& .MuiDataGrid-columnHeaders': { color: 'black' } 
+                  }}
                 />
               </div>
+              
+              {/* Wide Text Display Box for Focused Cell */}
+              {focusedCellContent && (
+                <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm font-semibold text-gray-700 capitalize">
+                      {focusedCellField.replace(/_/g, ' ')} Content:
+                    </h3>
+                    <button 
+                      onClick={handleCellBlur}
+                      className="text-gray-400 hover:text-gray-600 text-xl leading-none"
+                      title="Close"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="bg-white p-3 rounded border border-gray-100 max-h-40 overflow-y-auto">
+                    <p className="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed">
+                      {focusedCellContent}
+                    </p>
+                  </div>
+                </div>
+              )}
+              
               {/* Loader inside content box */}
               {pulling && (
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">

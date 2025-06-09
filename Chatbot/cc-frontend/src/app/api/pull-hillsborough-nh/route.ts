@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
   
   try {
     // Calculate dynamic limit based on date range (more days = potentially more records)
-    const dynamicLimit = 5; // Fixed to 5 records per pull
+    const dynamicLimit = 10; // Fixed to 10 records per pull
     
     // Create a new job record in the database
     const job = await prisma.scraping_job.create({

@@ -55,7 +55,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
-MAX_NEW_RECORDS = 5   # Maximum number of new records to scrape per run (default)
+MAX_NEW_RECORDS = 10   # Maximum number of new records to scrape per run (default)
 USER_ID = None  # Will be set from command line argument
 COUNTY_NAME = "Hillsborough NH"
 EXTRACT_ADDRESSES = True  # Enable/disable address extraction via OCR
@@ -487,29 +487,95 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                 _log(f"Warning: Could not use results selector '{selector}': {e}")
         
         if not rows:
-            _log("❌ Could not find results table")
+            _log("⚠️ Could not find results table with standard selectors - trying alternative approaches...")
             
-            # Try to find any indication of results or no results message
-            no_results_selectors = [
-                "text=/no results/i",
-                "text=/no records/i", 
-                "text=/no documents/i",
-                ".no-results",
-                ".empty-results"
+            # Don't return early - try alternative approaches to find results
+            # Try more generic selectors for any clickable elements that might be records
+            alternative_selectors = [
+                "div[ng-repeat]",  # Angular repeated elements
+                ".ng-star-inserted",  # Angular inserted elements
+                "div[class*='result']",  # Any div with 'result' in class name
+                "div[class*='row']",  # Any div with 'row' in class name
+                "button",  # Any buttons that might be clickable records
+                "a[href]",  # Any links
+                "div:has(label)",  # Divs containing labels
+                "*[ng-click]",  # Elements with ng-click handlers
+                ".mat-button",  # Material buttons
+                ".mat-card",  # Material cards
             ]
             
-            for selector in no_results_selectors:
+            for alt_selector in alternative_selectors:
                 try:
-                    if await page.locator(selector).count():
-                        _log(f"Found 'no results' message: {selector}")
-                        return records
-                except:
-                    continue
+                    alt_count = await page.locator(alt_selector).count()
+                    if alt_count > 0:
+                        _log(f"🔍 Found {alt_count} elements with alternative selector: {alt_selector}")
+                        rows = page.locator(alt_selector)
+                        rows_selector_used = alt_selector
+                        _log(f"✅ Using alternative selector for results: {alt_selector}")
+                        break
+                except Exception as e:
+                    _log(f"Warning: Could not use alternative selector '{alt_selector}': {e}")
             
-            # Log page content for debugging
-            page_text = await page.text_content("body")
-            _log(f"Page content preview: {page_text[:500]}...")
-            return records
+            # If still no rows found, try to find any indication of results or no results message
+            if not rows:
+                no_results_selectors = [
+                    "text=/no results/i",
+                    "text=/no records/i", 
+                    "text=/no documents/i",
+                    ".no-results",
+                    ".empty-results"
+                ]
+                
+                for selector in no_results_selectors:
+                    try:
+                        if await page.locator(selector).count():
+                            _log(f"Found 'no results' message: {selector}")
+                            return records
+                    except:
+                        continue
+                
+                # Log page content for debugging but continue processing
+                _log("📄 Taking screenshot and logging page content for debugging...")
+                try:
+                    await page.screenshot(path="debug_no_results_found.png", timeout=10000)
+                    _log("Screenshot saved: debug_no_results_found.png")
+                except Exception as screenshot_error:
+                    _log(f"Warning: Could not take debug screenshot: {screenshot_error}")
+                
+                page_text = await page.text_content("body")
+                _log(f"Page content preview (first 1000 chars): {page_text[:1000]}...")
+                
+                # Don't return early - continue to see if we can extract anything
+                _log("⚠️ No standard results found, but continuing to check for any extractable content...")
+                
+                # Try to find ANY clickable elements and treat them as potential records
+                generic_elements = await page.locator("*").all()
+                _log(f"🔍 Found {len(generic_elements)} total elements on page - will try to process some of them")
+                
+                # Limit to reasonable number to avoid infinite processing
+                if len(generic_elements) > 50:
+                    # Filter to elements that might contain meaningful content
+                    potential_records = []
+                    for element in generic_elements[:100]:  # Check first 100 elements
+                        try:
+                            element_text = await element.text_content()
+                            if element_text and len(element_text.strip()) > 10:  # Has meaningful text
+                                potential_records.append(element)
+                                if len(potential_records) >= 10:  # Limit to 10 potential records
+                                    break
+                        except:
+                            continue
+                    
+                    if potential_records:
+                        _log(f"🎯 Found {len(potential_records)} elements with meaningful content - treating as potential records")
+                        rows = page.locator("body").locator("*").filter(lambda x: x in potential_records)
+                        rows_selector_used = "generic_content_elements"
+                    else:
+                        _log("❌ No elements with meaningful content found")
+                        return records
+                else:
+                    _log("❌ Too few elements on page - likely no results")
+                    return records
         
         # Extract data from each row
         count = await rows.count()
@@ -626,14 +692,16 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                 
                 # Extract property address using OCR (if enabled)
                 property_address = ""
+                document_url = ""
                 if EXTRACT_ADDRESSES:
                     try:
                         # Store current page URL for returning
                         current_url = page.url
                         _log(f"🔍 Starting address extraction for document {document_number}")
                         
-                        property_address = await _click_and_extract_address(page, row, document_number)
+                        property_address, document_url = await _click_and_extract_address(page, row, document_number)
                         _log(f"✅ Address extraction completed for {document_number}: {property_address[:50] if property_address else 'No address found'}")
+                        _log(f"📄 Document URL captured: {document_url}")
                         
                         # Enhanced logic to return to results page
                         await _ensure_back_to_results(page, current_url, rows_selector_used)
@@ -649,6 +717,7 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                     except Exception as e:
                         _log(f"❌ Address extraction failed for {document_number}: {e}")
                         property_address = ""
+                        document_url = ""
                         
                         # Try to get back to results even on error
                         try:
@@ -668,7 +737,7 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                     'consideration': "",  # Not available in this interface
                     'legal_description': legal_description,
                     'property_address': property_address,  # Now populated via OCR
-                    'document_url': await _extract_document_url(row),
+                    'document_url': document_url,  # Now captured from actual document page
                 }
                 
                 # Clean and format the data
@@ -1488,8 +1557,11 @@ def _parse_addresses_from_text(text: str) -> List[str]:
     addresses = []
     
     try:
-        # Method 1: PRIORITY REGEX - User specified "residence" and "manchester" patterns
+        # Method 1: PRIORITY REGEX - User specified patterns in priority order
         priority_patterns = [
+            # Pattern 0: HIGHEST PRIORITY - Capture address between "being know and numbered as" and "and described as followed"
+            r'(?i)being\s+know\s+and\s+numbered\s+as\s+([^.]*?)\s+and\s+described\s+as\s+followed',
+            
             # Pattern 1: Capture text AFTER "residence" on the SAME line, include "manchester" line if present
             r'(?i)residence\s+([^\n]+)(?:\n([^\n]*manchester[^\n]*))?',
             
@@ -1761,12 +1833,13 @@ def _parse_addresses_from_text(text: str) -> List[str]:
         _log(f"❌ Address parsing error: {e}")
         return []
 
-async def _click_and_extract_address(page: Page, row, document_number: str) -> str:
+async def _click_and_extract_address(page: Page, row, document_number: str) -> tuple[str, str]:
     """
-    Click a result row to expand details, then click document to extract address
+    Click a result row to expand details, then click document to extract address and URL
+    Returns: (property_address, document_url)
     """
     try:
-        _log(f"🔍 Extracting address for document {document_number}")
+        _log(f"🔍 Extracting address and URL for document {document_number}")
         
         # Step 1: Click the row to expand details
         try:
@@ -1798,7 +1871,7 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> s
         
         if not document_clicked:
             _log(f"❌ Could not find document button for {document_number}")
-            return ""
+            return "", ""
         
         # Step 3: Wait for document to open (might be new tab/window)
         await page.wait_for_timeout(3000)
@@ -1812,16 +1885,26 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> s
             document_page = all_pages[-1]  # Get the newest page
             _log(f"✅ Document opened in new tab")
             
+            # Capture the document URL
+            document_url = document_page.url
+            _log(f"📄 Captured document URL: {document_url}")
+            
             # Extract address from the new page
             address = await _extract_property_address_from_document(document_page, document_number)
             
             # Close the document tab
             await document_page.close()
             
-            return address or ""
+            return address or "", document_url
         else:
             # Document opened in same page
             _log(f"✅ Document opened in same page")
+            
+            # Capture the document URL
+            document_url = page.url
+            _log(f"📄 Captured document URL: {document_url}")
+            
+            # Extract address from the page
             address = await _extract_property_address_from_document(page, document_number)
             
             # Go back to results if needed
@@ -1831,11 +1914,11 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> s
             except:
                 pass  # If go_back fails, continue
             
-            return address or ""
+            return address or "", document_url
         
     except Exception as e:
-        _log(f"❌ Error extracting address for {document_number}: {e}")
-        return ""
+        _log(f"❌ Error extracting address and URL for {document_number}: {e}")
+        return "", ""
 
 async def _ensure_back_to_results(page: Page, target_url: str, rows_selector: str) -> bool:
     """

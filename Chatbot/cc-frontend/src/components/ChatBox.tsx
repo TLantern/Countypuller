@@ -55,6 +55,24 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
   const [showStartNotice, setShowStartNotice] = useState(true);
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches;
 
+  // Property-related queries that users can click
+  const suggestedQueries = [
+    "Search for properties by address",
+    "Find liens on a specific property", 
+    "Check property ownership history",
+    "Get property tax information",
+    "Look up recent property transfers",
+    "Find foreclosure records",
+    "Search by property owner name",
+    "Get property assessment details"
+  ];
+
+  // Handle clicking on a suggested query
+  const handleQueryClick = (query: string) => {
+    setInput(query);
+    setShowStartNotice(false);
+  };
+
   // Auto-scroll to latest message when messages change
   useEffect(() => {
     if (messageListEndRef.current) {
@@ -62,10 +80,10 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
     }
   }, [messages, loading]);
 
-  // Show 'Start from the latest text box' when chat is opened/reopened
+  // Show suggested queries when chat is opened/reopened
   useEffect(() => {
     setShowStartNotice(true);
-    const timer = setTimeout(() => setShowStartNotice(false), 2000);
+    const timer = setTimeout(() => setShowStartNotice(false), 10000); // Show for 10 seconds
     return () => clearTimeout(timer);
   }, []); // Only on mount (chat open/reopen)
 
@@ -197,7 +215,45 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
       }} className="responsive-padding">
         {showStartNotice && (
           <div style={{ textAlign: 'center', color: '#1976d2', fontWeight: 600, marginBottom: 12 }}>
-            Start from the latest text box
+            <div style={{ marginBottom: 12, fontSize: 16, color: '#666' }}>
+              Try asking about:
+            </div>
+            <div style={{ 
+              display: 'flex', 
+              flexWrap: 'wrap', 
+              gap: 8, 
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              {suggestedQueries.map((query, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleQueryClick(query)}
+                  style={{
+                    background: '#f0f9ff',
+                    border: '1px solid #1976d2',
+                    borderRadius: 20,
+                    padding: '6px 12px',
+                    fontSize: 13,
+                    color: '#1976d2',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    margin: 2,
+                    fontWeight: 500
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#1976d2';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#f0f9ff';
+                    e.currentTarget.style.color = '#1976d2';
+                  }}
+                >
+                  {query}
+                </button>
+              ))}
+            </div>
           </div>
         )}
         {messages.map(renderMessage)}
