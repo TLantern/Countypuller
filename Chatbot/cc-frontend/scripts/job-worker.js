@@ -135,7 +135,7 @@ async function processJob(job) {
       }
     } else if (job.job_type === 'BREVARD_FL_PULL') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/BrevardFL.py');
-      const limit = job.parameters?.limit || 5;
+      const limit = job.parameters?.limit || 10;
       const dateFilter = job.parameters?.dateFilter || 7;
       console.log(`[DEBUG] Brevard FL Job userId: ${job.userId}`);
       console.log(`[DEBUG] Brevard FL Job object:`, JSON.stringify(job, null, 2));
@@ -186,6 +186,19 @@ async function processJob(job) {
       } else {
         throw new Error(result.error);
       }
+    } else if (job.job_type === 'TEST_SCRAPE') {
+      // Test job type for system testing - just marks as completed
+      console.log(`[DEBUG] Test scrape job - simulating completion`);
+      await prisma.scraping_job.update({
+        where: { id: job.id },
+        data: {
+          status: JobStatus.COMPLETED,
+          completed_at: new Date(),
+          result: { output: 'Test job completed successfully' },
+          records_processed: 0
+        }
+      });
+      console.log(`[SUCCESS] Test job ${job.id} completed successfully`);
     } else {
       throw new Error(`Unknown job type: ${job.job_type}`);
     }

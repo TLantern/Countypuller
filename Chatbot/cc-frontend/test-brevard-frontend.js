@@ -47,7 +47,7 @@ async function testBrevardFLFrontend() {
         job_type: 'BREVARD_FL_PULL',
         status: 'PENDING',
         parameters: {
-          limit: 5,
+          limit: 10,
           dateFilter: 7,
           source: 'brevard_fl_official_records'
         },

@@ -1,0 +1,24 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250019015.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 532 characters
+Timestamp: 2025-06-09 12:24:24.899235
+=== FULL OCR TEXT ===
+
+NEWHAMPSHIRE
+ddd
+BACK
+Book9861Page2407
+RET4561 Doc250019015 06092025021215PM
+ManchesterWaterWorks Book9861Page2407 Page1of1
+June22025 WaterLienNo 2025L1852
+NoticeOfLienUponRealEstate
+ForCollectionofUnpaidWaterCharges
+AsprovidedunderNewHampshireRSA3822andasstatedin theRulesandRegulationsofthe
+ManchesterWaterWorksinArticle9d5themunicipallyownedCityofManchesterWater
+WorksDepartmentherebyrequeststheHillsboroughCountyRegistryofDeedstorecordano coe
+tHaeafliennaanthefallawingdeecrjhedrealectatefarthecallectinnafunnaidwatercharges vv
+
+
+=== END OCR TEXT ===

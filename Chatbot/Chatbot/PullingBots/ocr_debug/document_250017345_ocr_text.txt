@@ -1,0 +1,29 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250017345.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 778 characters
+Timestamp: 2025-06-09 12:25:47.904234
+=== FULL OCR TEXT ===
+
+BACK
+Book9858Page1872
+Returnto EDoc25001734505282025024715PM
+FenigerUliaseStacey Book9858Page1872 Page1of3
+45BayStreet DennisCHogan
+ManchesterNEO3104 RegisterofDeedsHillsboroughCounty
+MemorandumofLien
+PursuanttoBassIslandEstatesCondominiumByLawsatSection31theundersigned
+AssociationManagerofBassIslandEstatesCondominiumAssociationtheAssociation
+herebyclaimsalieninthenameoftheAssociationforunpaidcondominiumassessmentsand
+duesonthepropertypresentlyownedbyShovaKarkiTrusteoftheShovaRevocableTrust
+andbeingknownandnumberedas25LogStreetUnit3CManchesterNewHampshire03102
+anddescribedasfollows
+SeeAttachedExhibitA
+Thetotalamountoftheunpaidassessmentsincludinglegalfeesandcostsofcollectionon
+thisunitis99284dueasofMay222025SeeattachedExhibitB
+RESETDQQ6MOHWPHGoTOPage Go oo
+ContactFAQ
+
+
+=== END OCR TEXT ===

@@ -1,0 +1,36 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250018969.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 726 characters
+Timestamp: 2025-06-09 12:25:06.174916
+=== FULL OCR TEXT ===
+
+BACK
+Book9861Page2182
+CroninBissonZalinskyPC EDoc25001896906092025110209AM
+722ChestnutStreet Book9861Page2182 Page1of1
+ManchesterNH03104 DennisCHogan
+RegisterofDeedsHillsboroughCounty
+STATEOFNEWHAMPSHIRE
+HILLSBOROUGHCOUNTYREGISTRYOFDEEDS
+EASTVIEWCONDOMINIUMASSOCIATION
+RESOLUTIONOFTHEBOARDOFDIRECTORS
+TERMINATIONOFCOMMONAREAPRIVILEGESANDSERVICES
+InaccordancewiththeDeclarationandBylawsofEastviewCondominiumAssociationand
+
+NHRSA356B46theBoardofDirectorshasauthorizedtheterminationofallcommonarea
+
+privilegesandservicesnormallysuppliedorpaidforbytheAssociationanduseofcommonareas
+
+andfacilitiesforthefollowingunit
+
+OWNERKerryABrady
+UNITUnit8Building1
+alka508EastviewDrive
+WiltonNH03086
+RESETDQQ6MOHWPHGoTOPage Go oo
+Contact FAQ
+
+
+=== END OCR TEXT ===

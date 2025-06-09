@@ -199,7 +199,7 @@ async def _wait_for_page_load(page: Page, timeout: int = 30000):
     """Wait for the AVA application to fully load"""
     try:
         # Wait for the Angular app to load
-        await page.wait_for_load_state("networkidle", timeout=timeout)
+        await page.wait_for_load_state("networkidle", timeout=min(timeout, 15000))  # Cap at 15 seconds
         
         # Look for key elements that indicate the search form is ready
         search_indicators = [
@@ -211,7 +211,7 @@ async def _wait_for_page_load(page: Page, timeout: int = 30000):
         
         for indicator in search_indicators:
             try:
-                await page.wait_for_selector(indicator, timeout=5000)
+                await page.wait_for_selector(indicator, timeout=3000)  # Reduced from 5000
                 _log(f"Page loaded - found {indicator}")
                 return True
             except:
@@ -241,15 +241,15 @@ async def _apply_search_filters(page: Page) -> bool:
         _log(f"Setting date range: {fourteen_days_ago} to {today}")
         
         # Wait for the form elements to be ready
-        await page.wait_for_timeout(2000)
+        await page.wait_for_timeout(1000)  # Reduced from 2000
         
         # Start Date - using the specific selector from the HTML
         start_date_selector = "input[id='mat-input-0']"
         try:
-            await page.wait_for_selector(start_date_selector, timeout=10000)
+            await page.wait_for_selector(start_date_selector, timeout=5000)  # Reduced from 10000
             await page.fill(start_date_selector, fourteen_days_ago.strftime("%m/%d/%Y"))
             _log(f"✅ Set start date to {fourteen_days_ago.strftime('%m/%d/%Y')}")
-            await page.wait_for_timeout(500)  # Brief pause
+            await page.wait_for_timeout(200)  # Reduced from 500
         except Exception as e:
             _log(f"❌ Error setting start date: {e}")
             return False
@@ -259,7 +259,7 @@ async def _apply_search_filters(page: Page) -> bool:
         try:
             await page.fill(end_date_selector, today.strftime("%m/%d/%Y"))
             _log(f"✅ Set end date to {today.strftime('%m/%d/%Y')}")
-            await page.wait_for_timeout(500)  # Brief pause
+            await page.wait_for_timeout(200)  # Reduced from 500
         except Exception as e:
             _log(f"❌ Error setting end date: {e}")
             return False
@@ -267,19 +267,19 @@ async def _apply_search_filters(page: Page) -> bool:
         # Document Type - using the specific selector for the autocomplete field
         doc_type_selector = "input[id='mat-input-2']"
         try:
-            await page.wait_for_selector(doc_type_selector, timeout=10000)
+            await page.wait_for_selector(doc_type_selector, timeout=5000)  # Reduced from 10000
             
             # Click on the field first to focus it and open dropdown
             await page.click(doc_type_selector)
-            await page.wait_for_timeout(500)
+            await page.wait_for_timeout(300)  # Reduced from 500
             
             # Clear any existing content and type "lien" to trigger autocomplete
             await page.fill(doc_type_selector, "")
-            await page.type(doc_type_selector, "lien", delay=100)
+            await page.type(doc_type_selector, "lien", delay=50)  # Reduced delay from 100
             _log("✅ Typed 'lien' in document type field")
             
             # Wait for autocomplete dropdown to appear
-            await page.wait_for_timeout(1500)
+            await page.wait_for_timeout(800)  # Reduced from 1500
             
             # Select the third option (index 2) specifically
             try:
@@ -308,11 +308,11 @@ async def _apply_search_filters(page: Page) -> bool:
                     
                     # Press Down arrow 3 times to get to third option (index 2)
                     await page.keyboard.press("ArrowDown")  # Option 0
-                    await page.wait_for_timeout(200)
+                    await page.wait_for_timeout(100)  # Reduced from 200
                     await page.keyboard.press("ArrowDown")  # Option 1  
-                    await page.wait_for_timeout(200)
+                    await page.wait_for_timeout(100)  # Reduced from 200
                     await page.keyboard.press("ArrowDown")  # Option 2 (third option)
-                    await page.wait_for_timeout(200)
+                    await page.wait_for_timeout(100)  # Reduced from 200
                     
                     # Press Enter to select
                     await page.keyboard.press("Enter")
@@ -338,7 +338,7 @@ async def _apply_search_filters(page: Page) -> bool:
                 _log(f"❌ Error selecting specific option: {e}")
                 return False
             
-            await page.wait_for_timeout(500)
+            await page.wait_for_timeout(200)  # Reduced from 500
             
             # Verify the selection by checking the input value
             try:
@@ -370,10 +370,10 @@ async def _execute_search(page: Page) -> bool:
             
             # Wait for search results to load
             _log("⏳ Waiting for search results to load...")
-            await page.wait_for_load_state("networkidle", timeout=30000)
+            await page.wait_for_load_state("networkidle", timeout=15000)  # Reduced from 30000
             
             # Additional wait for Angular to update the results
-            await page.wait_for_timeout(5000)
+            await page.wait_for_timeout(2000)  # Reduced from 5000
             
             _log("✅ Search results should be loaded")
             return True
@@ -400,7 +400,7 @@ async def _execute_search(page: Page) -> bool:
                         
                         # Scroll the button into view if needed
                         await page.locator(selector).scroll_into_view_if_needed()
-                        await page.wait_for_timeout(500)
+                        await page.wait_for_timeout(200)  # Reduced from 500
                         
                         # Click the search button
                         await page.locator(selector).click()
@@ -420,10 +420,10 @@ async def _execute_search(page: Page) -> bool:
             _log("⏳ Waiting for search results to load...")
             try:
                 # Wait for the page to finish loading after search
-                await page.wait_for_load_state("networkidle", timeout=30000)
-                await page.wait_for_timeout(10000)
+                await page.wait_for_load_state("networkidle", timeout=15000)  # Reduced from 30000
+                await page.wait_for_timeout(3000)  # Reduced from 10000
                 # Additional wait for Angular to update the results
-                await page.wait_for_timeout(10000)
+                
                 
                 _log("✅ Search results should be loaded")
                 return True
@@ -725,6 +725,8 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                             rows = page.locator(rows_selector_used)
                         except Exception as recovery_error:
                             _log(f"⚠️ Error recovering to results page: {recovery_error}")
+                else:
+                    _log(f"⚡ Skipping address extraction for {document_number} (disabled for speed)")
                 
                 # Create record
                 record_data = {
@@ -1083,11 +1085,11 @@ async def _screenshot_full_iframe_content(page: Page, iframe_element, screenshot
             _log(f"🖼️ Taking simple iframe screenshot")
             
             # Wait briefly for iframe content to load
-            await frame.wait_for_load_state("networkidle", timeout=5000)
-            await frame.wait_for_timeout(1000)
+            await frame.wait_for_load_state("networkidle", timeout=3000)  # Reduced from 5000
+            await frame.wait_for_timeout(500)  # Reduced from 1000
             
-            # Take simple screenshot of iframe body
-            await frame.screenshot(path=screenshot_path)
+            # Take simple screenshot of iframe body with timeout
+            await frame.screenshot(path=screenshot_path, timeout=8000)  # 8 second timeout
             _log(f"✅ Iframe screenshot captured")
         else:
             raise Exception("Could not access iframe content")
@@ -1116,7 +1118,7 @@ async def _screenshot_full_scrollable_content(page: Page, element, screenshot_pa
             # Content is not much larger - try to scroll to show all content and screenshot
             # First scroll to top
             await element.evaluate("el => el.scrollTop = 0")
-            await page.wait_for_timeout(500)
+            await page.wait_for_timeout(300)  # Reduced from 500
             
             # Try to adjust element size to show full content if possible
             try:
@@ -1128,16 +1130,16 @@ async def _screenshot_full_scrollable_content(page: Page, element, screenshot_pa
                         el.style.overflow = 'visible';
                     }
                 """)
-                await page.wait_for_timeout(1000)
+                await page.wait_for_timeout(500)  # Reduced from 1000
                 
-                # Take screenshot
-                await element.screenshot(path=screenshot_path)
+                # Take screenshot with timeout
+                await element.screenshot(path=screenshot_path, timeout=8000)  # 8 second timeout
                 _log(f"✅ Captured full content by adjusting element size")
                 
             except Exception as e:
                 _log(f"Warning: Could not adjust element size: {e}")
-                # Fallback to regular screenshot
-                await element.screenshot(path=screenshot_path)
+                # Fallback to regular screenshot with timeout
+                await element.screenshot(path=screenshot_path, timeout=8000)  # 8 second timeout
                 _log(f"✅ Captured content with regular screenshot")
                 
     except Exception as e:
@@ -1168,11 +1170,11 @@ async def _screenshot_with_stitching(page: Page, element, screenshot_path: str, 
                 # Scroll to the section
                 scroll_position = i * section_height * 0.8  # 20% overlap
                 await element.evaluate(f"el => el.scrollTop = {scroll_position}")
-                await page.wait_for_timeout(1000)  # Wait for scroll
+                await page.wait_for_timeout(500)  # Reduced from 1000
                 
-                # Take screenshot of this section
+                # Take screenshot of this section with timeout
                 section_path = screenshot_path.replace(".png", f"_section_{i}.png")
-                await element.screenshot(path=section_path)
+                await element.screenshot(path=section_path, timeout=6000)  # 6 second timeout for sections
                 screenshot_sections.append(section_path)
                 _log(f"📸 Captured section {i+1}/{sections_needed}")
                 
@@ -1254,8 +1256,8 @@ async def _extract_property_address_from_document(page: Page, document_number: s
     """
     try:
         # Wait for document to load
-        await page.wait_for_load_state("networkidle", timeout=15000)
-        await page.wait_for_timeout(3000)  # Increased wait for content to fully render
+        await page.wait_for_load_state("networkidle", timeout=10000)  # Reduced from 15000
+        await page.wait_for_timeout(1500)  # Reduced from 3000
         
         _log(f"📄 Document page URL: {page.url}")
         
@@ -1329,15 +1331,15 @@ async def _extract_property_address_from_document(page: Page, document_number: s
                     else:
                         # Only scroll for non-iframe elements with short timeout
                         try:
-                            await element.scroll_into_view_if_needed(timeout=5000)  # 5 second timeout instead of 30
-                            await page.wait_for_timeout(500)  # Reduced wait time
+                            await element.scroll_into_view_if_needed(timeout=3000)  # Reduced from 5000
+                            await page.wait_for_timeout(300)  # Reduced from 500
                         except Exception as e:
                             _log(f"Warning: Could not scroll element into view: {e}")
                     
                     if not screenshot_taken:
-                        # Simple element screenshot - no scrolling logic
+                        # Simple element screenshot with shorter timeout
                         try:
-                            await element.screenshot(path=screenshot_path)
+                            await element.screenshot(path=screenshot_path, timeout=10000)  # 10 second timeout instead of default 30
                             screenshot_taken = True
                             used_selector = selector
                             _log(f"📸 Document screenshot saved using {selector}: {screenshot_path}")
@@ -1375,8 +1377,8 @@ async def _extract_property_address_from_document(page: Page, document_number: s
                 _log(f"Warning: Could not screenshot with selector {selector}: {e}")
         
         if not screenshot_taken:
-            # Fallback: take full page screenshot
-            await page.screenshot(path=screenshot_path)
+            # Fallback: take full page screenshot with timeout
+            await page.screenshot(path=screenshot_path, timeout=10000)  # 10 second timeout
             _log(f"📸 Full page screenshot saved: {screenshot_path}")
             used_selector = "full page"
         
@@ -1397,7 +1399,7 @@ async def _extract_property_address_from_document(page: Page, document_number: s
                 for parent_sel in parent_selectors:
                     try:
                         if await page.locator(parent_sel).count():
-                            await page.locator(parent_sel).screenshot(path=expanded_path)
+                            await page.locator(parent_sel).screenshot(path=expanded_path, timeout=8000)  # Shorter timeout for expanded screenshots
                             _log(f"📸 Expanded screenshot saved using {parent_sel}: {expanded_path}")
                             
                             # Check if expanded screenshot is larger
@@ -1565,7 +1567,7 @@ def _parse_addresses_from_text(text: str) -> List[str]:
             # Pattern 1: Capture text AFTER "residence" on the SAME line, include "manchester" line if present
             r'(?i)residence\s+([^\n]+)(?:\n([^\n]*manchester[^\n]*))?',
             
-            # Pattern 2: If no "residence", capture line above "manchester" and the "manchester" line
+            # Pattern 3: If no "residence", capture line above "manchester" and the "manchester" line
             r'(?i)([^\n]*)\n(manchester[^\n]*)',
             
             # Pattern 3: If no "residence", capture line above "pelham" and the "pelham" line
@@ -1579,6 +1581,9 @@ def _parse_addresses_from_text(text: str) -> List[str]:
             
             # Pattern 6: More flexible "residence" pattern - capture everything after residence on same line
             r'(?i)residence[^a-zA-Z]*([A-Z0-9][^\n]*)',
+
+            # Pattern 2: Unit Number to Condominium Name - Capture address starting with Unit Number and ending with Name of Condominium
+            r'(?i)(Unit\s+\w+[A-Z0-9]*\s+[^.]*?)\s+(?:\w+\s+)*(?:Condominium)',
             
             # Pattern 7: Capture address block that contains both street and manchester
             r'(?i)([A-Z0-9][^\n]*(?:AVE|AVENUE|ST|STREET|RD|ROAD|DR|DRIVE|LN|LANE|WAY|CT|COURT|CIR|CIRCLE|PL|PLACE)[^\n]*\n[^\n]*manchester[^\n]*)',
@@ -1845,7 +1850,7 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> t
         try:
             await row.click()
             _log(f"✅ Clicked row for document {document_number}")
-            await page.wait_for_timeout(1000)  # Wait for expansion
+            await page.wait_for_timeout(500)  # Reduced from 1000
         except Exception as e:
             _log(f"Warning: Could not click row: {e}")
         
@@ -1874,7 +1879,7 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> t
             return "", ""
         
         # Step 3: Wait for document to open (might be new tab/window)
-        await page.wait_for_timeout(3000)
+        await page.wait_for_timeout(1500)  # Reduced from 3000
         
         # Check if a new page/tab opened
         context = page.context
@@ -1910,7 +1915,7 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> t
             # Go back to results if needed
             try:
                 await page.go_back()
-                await page.wait_for_load_state("networkidle", timeout=5000)
+                await page.wait_for_load_state("networkidle", timeout=3000)  # Reduced from 5000
             except:
                 pass  # If go_back fails, continue
             
@@ -1941,8 +1946,8 @@ async def _ensure_back_to_results(page: Page, target_url: str, rows_selector: st
         try:
             _log("🔙 Trying browser back button...")
             await page.go_back()
-            await page.wait_for_load_state("networkidle", timeout=10000)
-            await page.wait_for_timeout(1000)
+            await page.wait_for_load_state("networkidle", timeout=5000)  # Reduced from 10000
+            await page.wait_for_timeout(500)  # Reduced from 1000
             
             # Check if we have results now
             current_rows = await page.locator(rows_selector).count()
@@ -1961,7 +1966,7 @@ async def _ensure_back_to_results(page: Page, target_url: str, rows_selector: st
             # Re-apply search filters and execute search
             if await _apply_search_filters(page):
                 if await _execute_search(page):
-                    await page.wait_for_timeout(3000)
+                    await page.wait_for_timeout(1500)  # Reduced from 3000
                     
                     # Check if we have results now
                     current_rows = await page.locator(rows_selector).count()
@@ -1982,7 +1987,7 @@ async def _ensure_back_to_results(page: Page, target_url: str, rows_selector: st
             try:
                 _log(f"🔗 Trying direct navigation to: {target_url}")
                 await page.goto(target_url, wait_until="networkidle")
-                await page.wait_for_timeout(2000)
+                await page.wait_for_timeout(1000)  # Reduced from 2000
                 
                 current_rows = await page.locator(rows_selector).count()
                 if current_rows > 0:
@@ -2110,11 +2115,11 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
         context = await browser.new_context(user_agent=USER_AGENT)
         page = await context.new_page()
         
-        # Minimize browser after 5 seconds (same as other scripts)
+        # Minimize browser after 3 seconds (reduced for speed)
         if not test_mode and not HEADLESS:  # Skip minimization in test mode and headless mode
             try:
-                _log("[TIMER] Browser will minimize in 5 seconds - please click 'Agree' on any disclaimers if needed...")
-                await page.wait_for_timeout(5000)
+                _log("[TIMER] Browser will minimize in 3 seconds - please click 'Agree' on any disclaimers if needed...")
+                await page.wait_for_timeout(3000)  # Reduced from 5000
                 
                 # Minimize all Chromium windows using pygetwindow (same as other scripts)
                 try:
@@ -2224,8 +2229,8 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
         
         finally:
             if test_mode:
-                _log("🖥️  Browser will stay open for 10 seconds for inspection...")
-                await page.wait_for_timeout(10000)
+                _log("🖥️  Browser will stay open for 5 seconds for inspection...")
+                await page.wait_for_timeout(5000)  # Reduced from 10000
             await browser.close()
 
 async def main():
