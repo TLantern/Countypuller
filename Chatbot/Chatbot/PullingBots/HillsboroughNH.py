@@ -55,11 +55,13 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
 )
-MAX_NEW_RECORDS = 10   # Maximum number of new records to scrape per run (default)
+MAX_NEW_RECORDS = 15   # Maximum number of new records to scrape per run (default)
+MIN_NEW_RECORDS = 10   # Minimum number of new records required per run
 USER_ID = None  # Will be set from command line argument
 COUNTY_NAME = "Hillsborough NH"
 EXTRACT_ADDRESSES = True  # Enable/disable address extraction via OCR
 DOWNLOAD_ORIGINAL_IMAGES = True  # Enable/disable downloading original document images (better quality)
+MAX_DATE_RANGE_DAYS = 90  # Maximum days to expand date range when looking for records
 
 # Environment variables
 load_dotenv()
@@ -373,7 +375,7 @@ async def _execute_search(page: Page) -> bool:
             await page.wait_for_load_state("networkidle", timeout=15000)  # Reduced from 30000
             
             # Additional wait for Angular to update the results
-            await page.wait_for_timeout(2000)  # Reduced from 5000
+            await page.wait_for_timeout(3000)  # Increased from 2000 to give more time for results
             
             _log("✅ Search results should be loaded")
             return True
@@ -421,7 +423,7 @@ async def _execute_search(page: Page) -> bool:
             try:
                 # Wait for the page to finish loading after search
                 await page.wait_for_load_state("networkidle", timeout=15000)  # Reduced from 30000
-                await page.wait_for_timeout(3000)  # Reduced from 10000
+                await page.wait_for_timeout(4000)  # Increased from 3000 to give more time
                 # Additional wait for Angular to update the results
                 
                 
@@ -448,7 +450,10 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
     # Get existing document numbers to check against (unless in test mode)
     try:
         existing_doc_numbers = await get_existing_document_numbers()
-        _log(f"📊 Found {len(existing_doc_numbers)} existing records in database")
+        if USER_ID:
+            _log(f"📊 Found {len(existing_doc_numbers)} existing records for user {USER_ID}")
+        else:
+            _log(f"📊 Found {len(existing_doc_numbers)} existing records (test mode)")
     except Exception as e:
         _log(f"⚠️ Could not fetch existing records (test mode?): {e}")
         existing_doc_numbers = set()  # Empty set for test mode
@@ -595,7 +600,46 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
                 
                 _log(f"Row {i+1}: Found {label_count} labels")
                 
-                # Extract text from all labels in this row
+                # If no labels found, try comprehensive extraction strategy
+                if label_count == 0:
+                    _log(f"Row {i+1}: No labels found, trying comprehensive extraction...")
+                    
+                    # Get the full text content of this row for debugging
+                    row_text = await row.text_content()
+                    _log(f"Row {i+1} full text content: {row_text}")
+                    
+                    # Try to extract data using comprehensive method
+                    extracted_data = await _extract_row_data_comprehensive(row, i+1)
+                    if extracted_data and extracted_data.get('document_number'):
+                        _log(f"Row {i+1}: Comprehensive extraction succeeded!")
+                        
+                        # Use the extracted data directly
+                        document_number = extracted_data['document_number']
+                        
+                        # Check for duplicates and existing records
+                        if document_number in seen_document_numbers:
+                            _log(f"Skipping duplicate document number: {document_number}")
+                            continue
+                        seen_document_numbers.add(document_number)
+                        
+                        if document_number in existing_doc_numbers:
+                            _log(f"Skipping existing record: {document_number}")
+                            continue
+                        
+                        # This is a NEW record
+                        new_records_count += 1
+                        _log(f"📝 Processing NEW record {new_records_count}/{max_records}: {document_number}")
+                        
+                        # Use extracted data and create record
+                        record_data = _clean_record_data(extracted_data)
+                        records.append(record_data)
+                        _log(f"✅ Extracted record {i+1} via comprehensive method: Doc#{record_data['document_number']}")
+                        continue
+                    else:
+                        _log(f"Row {i+1}: Comprehensive extraction also failed - skipping")
+                        continue
+                
+                # Extract text from all labels in this row (traditional method)
                 label_texts = []
                 for j in range(label_count):
                     try:
@@ -762,6 +806,298 @@ async def _extract_records_from_results(page: Page, max_records: int = 100) -> L
     except Exception as e:
         _log(f"❌ Error extracting records from results: {e}")
         return records
+
+async def _extract_row_data_comprehensive(row, row_number: int) -> dict:
+    """Comprehensive data extraction from a row using multiple strategies"""
+    extracted_data = {
+        'document_number': '',
+        'instrument_type': '',
+        'recorded_date': '',
+        'grantor': '',
+        'grantee': '',
+        'book_page': '',
+        'consideration': '',
+        'legal_description': '',
+        'property_address': '',
+        'document_url': ''
+    }
+    
+    try:
+        # Strategy 1: Try traditional label.resultRowLabel selector
+        labels = row.locator("label.resultRowLabel")
+        label_count = await labels.count()
+        
+        if label_count > 0:
+            _log(f"Row {row_number}: Found {label_count} traditional labels")
+            label_texts = []
+            for j in range(label_count):
+                try:
+                    label_text = await labels.nth(j).inner_text()
+                    if label_text and label_text.strip():
+                        label_texts.append(label_text.strip())
+                except Exception as e:
+                    _log(f"Warning: Could not extract label {j}: {e}")
+            
+            if len(label_texts) >= 3:
+                return _parse_traditional_labels(label_texts)
+        
+        # Strategy 2: Look for ANY label elements (not just .resultRowLabel)
+        any_labels = row.locator("label")
+        any_label_count = await any_labels.count()
+        
+        if any_label_count > 0:
+            _log(f"Row {row_number}: Found {any_label_count} any labels")
+            any_label_texts = []
+            for j in range(any_label_count):
+                try:
+                    label_text = await any_labels.nth(j).inner_text()
+                    if label_text and label_text.strip():
+                        any_label_texts.append(label_text.strip())
+                except Exception:
+                    continue
+            
+            if len(any_label_texts) >= 3:
+                _log(f"Row {row_number}: Using any labels: {any_label_texts}")
+                return _parse_traditional_labels(any_label_texts)
+        
+        # Strategy 3: Try finding clickable buttons or links that might contain data
+        clickable_elements = row.locator("button, a, [ng-click], [data-ng-click]")
+        clickable_count = await clickable_elements.count()
+        
+        if clickable_count > 0:
+            _log(f"Row {row_number}: Found {clickable_count} clickable elements")
+            clickable_texts = []
+            for j in range(min(clickable_count, 10)):  # Limit to 10
+                try:
+                    element_text = await clickable_elements.nth(j).text_content()
+                    if element_text and element_text.strip() and len(element_text.strip()) > 3:
+                        clickable_texts.append(element_text.strip())
+                except Exception:
+                    continue
+            
+            if clickable_texts:
+                combined_text = " | ".join(clickable_texts)
+                _log(f"Row {row_number}: Clickable text: {combined_text[:200]}...")
+                parsed_data = _parse_text_content(combined_text)
+                if parsed_data.get('document_number'):
+                    return parsed_data
+        
+        # Strategy 4: Try extracting from any text content in the row
+        row_text = await row.text_content()
+        if row_text and len(row_text.strip()) > 20:
+            _log(f"Row {row_number}: Found {len(row_text)} chars of text content")
+            parsed_data = _parse_text_content(row_text)
+            if parsed_data.get('document_number'):
+                return parsed_data
+        
+        # Strategy 5: Try finding nested divs or spans with data
+        nested_elements = row.locator("div, span, td, p")
+        nested_count = await nested_elements.count()
+        
+        if nested_count > 0:
+            _log(f"Row {row_number}: Found {nested_count} nested elements")
+            all_texts = []
+            for i in range(min(nested_count, 20)):  # Limit to avoid infinite processing
+                try:
+                    element_text = await nested_elements.nth(i).text_content()
+                    if element_text and element_text.strip() and len(element_text.strip()) > 2:
+                        all_texts.append(element_text.strip())
+                except Exception:
+                    continue
+            
+            if all_texts:
+                combined_text = " | ".join(all_texts)
+                _log(f"Row {row_number}: Combined text: {combined_text[:200]}...")
+                parsed_data = _parse_text_content(combined_text)
+                if parsed_data.get('document_number'):
+                    return parsed_data
+        
+        # Strategy 6: Try HTML content parsing
+        row_html = await row.inner_html()
+        if row_html and len(row_html) > 50:
+            parsed_data = _parse_html_content(row_html)
+            if parsed_data.get('document_number'):
+                return parsed_data
+        
+        _log(f"Row {row_number}: No extraction strategy succeeded")
+        
+    except Exception as e:
+        _log(f"Error in comprehensive extraction for row {row_number}: {e}")
+    
+    return None
+
+def _parse_traditional_labels(label_texts: List[str]) -> dict:
+    """Parse data from traditional label format"""
+    extracted_data = {
+        'document_number': '',
+        'instrument_type': '',
+        'recorded_date': '',
+        'grantor': '',
+        'grantee': '',
+        'book_page': '',
+        'consideration': '',
+        'legal_description': '',
+        'property_address': '',
+        'document_url': ''
+    }
+    
+    # Extract document number with improved regex
+    for text in label_texts:
+        doc_patterns = [
+            r'(\d{9,})',                    # 9+ digit numbers like 250017944
+            r'Doc(?:ument)?[#\s]*(\d{8,})', # "Doc #12345678" or "Document 12345678"
+            r'(\d{6,})',                    # 6+ digit numbers as fallback
+            r'#(\d{5,})',                   # Numbers prefixed with #
+        ]
+        
+        for pattern in doc_patterns:
+            doc_match = re.search(pattern, text, re.IGNORECASE)
+            if doc_match:
+                extracted_data['document_number'] = doc_match.group(1)
+                break
+        
+        if extracted_data['document_number']:
+            break
+    
+    # Look for LIEN type
+    for text in label_texts:
+        if "LIEN" in text.upper():
+            extracted_data['instrument_type'] = "LIEN"
+            break
+    
+    # Look for date pattern
+    for text in label_texts:
+        date_match = re.search(r'(\d{1,2}/\d{1,2}/\d{4})', text)
+        if date_match:
+            extracted_data['recorded_date'] = date_match.group(1)
+            break
+    
+    # Extract party names (typically the longer text labels)
+    party_labels = [text for text in label_texts if len(text) > 10 and not re.search(r'^\d', text)]
+    if len(party_labels) >= 1:
+        extracted_data['grantor'] = party_labels[0]
+    if len(party_labels) >= 2:
+        extracted_data['grantee'] = party_labels[1]
+    if len(party_labels) >= 3:
+        extracted_data['legal_description'] = party_labels[2]
+        extracted_data['book_page'] = party_labels[2]  # Use legal info as book_page
+    
+    return extracted_data
+
+def _parse_text_content(text: str) -> dict:
+    """Parse data from raw text content"""
+    extracted_data = {
+        'document_number': '',
+        'instrument_type': '',
+        'recorded_date': '',
+        'grantor': '',
+        'grantee': '',
+        'book_page': '',
+        'consideration': '',
+        'legal_description': '',
+        'property_address': '',
+        'document_url': ''
+    }
+    
+    # Log the text being parsed for debugging
+    _log(f"Parsing text content: {text[:200]}...")
+    
+    # Extract document number with enhanced patterns
+    doc_patterns = [
+        r'(\d{9,})',                    # 9+ digit numbers
+        r'Doc(?:ument)?[#\s]*(\d{8,})', # "Doc #12345678"
+        r'(\d{7,})',                    # 7+ digit numbers (relaxed)
+        r'(\d{6,})',                    # 6+ digit numbers
+        r'#(\d{5,})',                   # Numbers with #
+        r'Document[:\s#]*(\d{5,})',     # "Document: 12345" or "Document #12345"
+        r'Record[:\s#]*(\d{5,})',       # "Record: 12345"
+        r'ID[:\s#]*(\d{5,})',           # "ID: 12345"
+        r'\b(\d{5,})\b',                # Any 5+ digit number as last resort
+    ]
+    
+    for pattern in doc_patterns:
+        doc_match = re.search(pattern, text, re.IGNORECASE)
+        if doc_match:
+            potential_doc_num = doc_match.group(1)
+            # Validate it looks like a document number (not a year, etc.)
+            if len(potential_doc_num) >= 5 and not potential_doc_num.startswith('20'):  # Not a year
+                extracted_data['document_number'] = potential_doc_num
+                _log(f"Found document number: {potential_doc_num} using pattern: {pattern}")
+                break
+    
+    # Extract instrument type with more variations
+    text_upper = text.upper()
+    if "LIEN" in text_upper or "LEIN" in text_upper:  # Handle common misspelling
+        extracted_data['instrument_type'] = "LIEN"
+    elif "DEED" in text_upper:
+        extracted_data['instrument_type'] = "DEED"
+    elif "MORTGAGE" in text_upper:
+        extracted_data['instrument_type'] = "MORTGAGE"
+    elif "TAX" in text_upper and "LIEN" in text_upper:
+        extracted_data['instrument_type'] = "TAX LIEN"
+    elif "NOTICE" in text_upper:
+        extracted_data['instrument_type'] = "NOTICE"
+    
+    # Extract date with multiple formats
+    date_patterns = [
+        r'(\d{1,2}/\d{1,2}/\d{4})',      # MM/DD/YYYY
+        r'(\d{1,2}-\d{1,2}-\d{4})',      # MM-DD-YYYY
+        r'(\d{4}-\d{1,2}-\d{1,2})',      # YYYY-MM-DD
+        r'(\d{1,2}\.\d{1,2}\.\d{4})',    # MM.DD.YYYY
+    ]
+    
+    for pattern in date_patterns:
+        date_match = re.search(pattern, text)
+        if date_match:
+            extracted_data['recorded_date'] = date_match.group(1)
+            _log(f"Found date: {date_match.group(1)}")
+            break
+    
+    # Extract names (look for patterns with capitalized words)
+    # More sophisticated name extraction
+    name_patterns = re.findall(r'\b[A-Z][A-Z\s]+[A-Z]\b', text)
+    # Filter out common non-name patterns
+    filtered_names = []
+    for name in name_patterns:
+        name = name.strip()
+        # Skip if it's likely not a person name
+        if len(name) > 3 and not any(word in name.upper() for word in ['HILLSBOROUGH', 'COUNTY', 'REGISTRY', 'DOCUMENT', 'LIEN', 'TAX']):
+            filtered_names.append(name)
+    
+    if len(filtered_names) >= 1:
+        extracted_data['grantor'] = filtered_names[0].strip()
+        _log(f"Found grantor: {filtered_names[0]}")
+    if len(filtered_names) >= 2:
+        extracted_data['grantee'] = filtered_names[1].strip()
+        _log(f"Found grantee: {filtered_names[1]}")
+    
+    # Try to extract any additional relevant info as legal description
+    if len(filtered_names) >= 3:
+        extracted_data['legal_description'] = filtered_names[2].strip()
+    
+    return extracted_data
+
+def _parse_html_content(html: str) -> dict:
+    """Parse data from HTML content"""
+    extracted_data = {
+        'document_number': '',
+        'instrument_type': '',
+        'recorded_date': '',
+        'grantor': '',
+        'grantee': '',
+        'book_page': '',
+        'consideration': '',
+        'legal_description': '',
+        'property_address': '',
+        'document_url': ''
+    }
+    
+    # Remove HTML tags and parse as text
+    import re
+    clean_text = re.sub(r'<[^>]+>', ' ', html)
+    clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+    
+    return _parse_text_content(clean_text)
 
 async def _extract_cell_text(row, selectors: List[str]) -> Optional[str]:
     """Extract text from a cell using multiple possible selectors"""
@@ -1079,24 +1415,36 @@ async def _try_download_image_via_url(page: Page, image_url: str, document_numbe
 async def _screenshot_full_iframe_content(page: Page, iframe_element, screenshot_path: str, document_number: str):
     """Screenshot iframe content - simplified for speed"""
     try:
-        # Get the iframe frame
-        frame = await iframe_element.content_frame()
-        if frame:
-            _log(f"🖼️ Taking simple iframe screenshot")
-            
-            # Wait briefly for iframe content to load
-            await frame.wait_for_load_state("networkidle", timeout=3000)  # Reduced from 5000
-            await frame.wait_for_timeout(500)  # Reduced from 1000
-            
-            # Take simple screenshot of iframe body with timeout
-            await frame.screenshot(path=screenshot_path, timeout=8000)  # 8 second timeout
-            _log(f"✅ Iframe screenshot captured")
-        else:
-            raise Exception("Could not access iframe content")
+        # Get the iframe frame using the locator properly
+        frame_handle = await iframe_element.element_handle()
+        if frame_handle:
+            frame = await frame_handle.content_frame()
+            if frame:
+                _log(f"🖼️ Taking simple iframe screenshot")
+                
+                # Wait briefly for iframe content to load
+                await frame.wait_for_load_state("networkidle", timeout=2000)
+                await frame.wait_for_timeout(200)
+                
+                # Take simple screenshot of iframe body with shorter timeout
+                await frame.screenshot(path=screenshot_path, timeout=3000)  # 3 second timeout
+                _log(f"✅ Iframe screenshot captured")
+                return
+        
+        # Fallback: Just screenshot the iframe element itself
+        _log(f"⚠️ Could not access iframe content, taking element screenshot instead")
+        await iframe_element.screenshot(path=screenshot_path, timeout=3000)
+        _log(f"✅ Iframe element screenshot captured")
             
     except Exception as e:
         _log(f"❌ Failed to capture iframe content: {e}")
-        raise
+        # Final fallback: Just screenshot the iframe element
+        try:
+            await iframe_element.screenshot(path=screenshot_path, timeout=3000)
+            _log(f"✅ Fallback iframe element screenshot captured")
+        except Exception as fallback_error:
+            _log(f"❌ Fallback screenshot also failed: {fallback_error}")
+            raise
 
 async def _screenshot_full_scrollable_content(page: Page, element, screenshot_path: str, document_number: str):
     """Screenshot the full scrollable content of an element by scrolling through it"""
@@ -1133,13 +1481,13 @@ async def _screenshot_full_scrollable_content(page: Page, element, screenshot_pa
                 await page.wait_for_timeout(500)  # Reduced from 1000
                 
                 # Take screenshot with timeout
-                await element.screenshot(path=screenshot_path, timeout=8000)  # 8 second timeout
+                await element.screenshot(path=screenshot_path, timeout=3000)  # 3 second timeout
                 _log(f"✅ Captured full content by adjusting element size")
                 
             except Exception as e:
                 _log(f"Warning: Could not adjust element size: {e}")
                 # Fallback to regular screenshot with timeout
-                await element.screenshot(path=screenshot_path, timeout=8000)  # 8 second timeout
+                await element.screenshot(path=screenshot_path, timeout=3000)  # 3 second timeout
                 _log(f"✅ Captured content with regular screenshot")
                 
     except Exception as e:
@@ -1174,7 +1522,7 @@ async def _screenshot_with_stitching(page: Page, element, screenshot_path: str, 
                 
                 # Take screenshot of this section with timeout
                 section_path = screenshot_path.replace(".png", f"_section_{i}.png")
-                await element.screenshot(path=section_path, timeout=6000)  # 6 second timeout for sections
+                await element.screenshot(path=section_path, timeout=2000)  # 2 second timeout for sections
                 screenshot_sections.append(section_path)
                 _log(f"📸 Captured section {i+1}/{sections_needed}")
                 
@@ -1256,8 +1604,8 @@ async def _extract_property_address_from_document(page: Page, document_number: s
     """
     try:
         # Wait for document to load
-        await page.wait_for_load_state("networkidle", timeout=10000)  # Reduced from 15000
-        await page.wait_for_timeout(1500)  # Reduced from 3000
+        await page.wait_for_load_state("networkidle", timeout=5000)  # Further reduced 
+        await page.wait_for_timeout(500)  # Further reduced
         
         _log(f"📄 Document page URL: {page.url}")
         
@@ -1378,7 +1726,7 @@ async def _extract_property_address_from_document(page: Page, document_number: s
         
         if not screenshot_taken:
             # Fallback: take full page screenshot with timeout
-            await page.screenshot(path=screenshot_path, timeout=10000)  # 10 second timeout
+            await page.screenshot(path=screenshot_path, timeout=3000)  # 3 second timeout
             _log(f"📸 Full page screenshot saved: {screenshot_path}")
             used_selector = "full page"
         
@@ -1399,7 +1747,7 @@ async def _extract_property_address_from_document(page: Page, document_number: s
                 for parent_sel in parent_selectors:
                     try:
                         if await page.locator(parent_sel).count():
-                            await page.locator(parent_sel).screenshot(path=expanded_path, timeout=8000)  # Shorter timeout for expanded screenshots
+                            await page.locator(parent_sel).screenshot(path=expanded_path, timeout=3000)  # Reduced from 8000ms
                             _log(f"📸 Expanded screenshot saved using {parent_sel}: {expanded_path}")
                             
                             # Check if expanded screenshot is larger
@@ -1867,59 +2215,113 @@ async def _click_and_extract_address(page: Page, row, document_number: str) -> t
         for selector in document_button_selectors:
             try:
                 if await page.locator(selector).count():
-                    await page.locator(selector).click()
+                    # Use safer direct click approach instead of page.evaluate
+                    element = page.locator(selector).first
+                    
+                    # Try to remove target="_blank" attribute safely
+                    try:
+                        await element.evaluate("el => el.removeAttribute('target')")
+                    except:
+                        pass  # Ignore if attribute doesn't exist
+                    
+                    # Simple direct click without JavaScript injection
+                    await element.click()
                     _log(f"✅ Clicked document button using {selector}")
                     document_clicked = True
                     break
             except Exception as e:
                 _log(f"Warning: Could not click document button with {selector}: {e}")
+                # Continue to try other selectors
         
         if not document_clicked:
             _log(f"❌ Could not find document button for {document_number}")
-            return "", ""
+            
+            # Fallback: Try to find any clickable element with the document number
+            _log("🔄 Trying fallback approach to find document link...")
+            fallback_selectors = [
+                f"*:has-text('{document_number}')",
+                f"[ng-click*='{document_number}']",
+                f"[onclick*='{document_number}']",
+                "*[data-document-id]",
+                "button, a, [role='button']"
+            ]
+            
+            for fallback_selector in fallback_selectors:
+                try:
+                    elements = page.locator(fallback_selector)
+                    count = await elements.count()
+                    if count > 0:
+                        _log(f"🎯 Found {count} potential elements with fallback selector: {fallback_selector}")
+                        # Try the first few elements
+                        for i in range(min(count, 3)):
+                            try:
+                                element = elements.nth(i)
+                                element_text = await element.text_content()
+                                if document_number in str(element_text):
+                                    _log(f"📋 Trying element with text: {element_text[:50]}...")
+                                    await element.click()
+                                    document_clicked = True
+                                    _log(f"✅ Fallback click successful!")
+                                    break
+                            except Exception as e:
+                                _log(f"Warning: Fallback element {i} failed: {e}")
+                        if document_clicked:
+                            break
+                except Exception as e:
+                    _log(f"Warning: Fallback selector {fallback_selector} failed: {e}")
+            
+            if not document_clicked:
+                _log(f"❌ All fallback approaches failed for {document_number}")
+                return "", ""
         
-        # Step 3: Wait for document to open (might be new tab/window)
+        # Step 3: Wait for document to open (should be in same page now)
         await page.wait_for_timeout(1500)  # Reduced from 3000
         
-        # Check if a new page/tab opened
+        # Check context pages to ensure no new pages were created
         context = page.context
         all_pages = context.pages
         
+        # Close any new pages that might have opened despite our prevention
         if len(all_pages) > 1:
-            # Document opened in new tab
-            document_page = all_pages[-1]  # Get the newest page
-            _log(f"✅ Document opened in new tab")
-            
-            # Capture the document URL
-            document_url = document_page.url
-            _log(f"📄 Captured document URL: {document_url}")
-            
-            # Extract address from the new page
-            address = await _extract_property_address_from_document(document_page, document_number)
-            
-            # Close the document tab
-            await document_page.close()
-            
-            return address or "", document_url
-        else:
-            # Document opened in same page
-            _log(f"✅ Document opened in same page")
-            
-            # Capture the document URL
-            document_url = page.url
-            _log(f"📄 Captured document URL: {document_url}")
-            
-            # Extract address from the page
-            address = await _extract_property_address_from_document(page, document_number)
-            
-            # Go back to results if needed
-            try:
-                await page.go_back()
-                await page.wait_for_load_state("networkidle", timeout=3000)  # Reduced from 5000
-            except:
-                pass  # If go_back fails, continue
-            
-            return address or "", document_url
+            _log(f"⚠️ {len(all_pages)-1} extra page(s) detected - closing them")
+            for extra_page in all_pages[1:]:  # Keep the first page, close others
+                try:
+                    document_url = extra_page.url
+                    _log(f"📄 Captured document URL from extra page: {document_url}")
+                    
+                    # Extract address from the extra page before closing
+                    address = await _extract_property_address_from_document(extra_page, document_number)
+                    
+                    # Close the extra page
+                    await extra_page.close()
+                    _log(f"🗑️ Closed extra page")
+                    
+                    return address or "", document_url
+                except Exception as e:
+                    _log(f"Warning: Error handling extra page: {e}")
+                    try:
+                        await extra_page.close()
+                    except:
+                        pass
+        
+        # Document should have opened in same page
+        _log(f"✅ Document opened in same page")
+        
+        # Capture the document URL
+        document_url = page.url
+        _log(f"📄 Captured document URL: {document_url}")
+        
+        # Extract address from the page
+        address = await _extract_property_address_from_document(page, document_number)
+        
+        # Go back to results if needed
+        try:
+            await page.go_back()
+            await page.wait_for_load_state("networkidle", timeout=3000)  # Reduced from 5000
+        except:
+            pass  # If go_back fails, continue
+        
+        return address or "", document_url
         
     except Exception as e:
         _log(f"❌ Error extracting address and URL for {document_number}: {e}")
@@ -2007,12 +2409,17 @@ async def _ensure_back_to_results(page: Page, target_url: str, rows_selector: st
 # DATABASE OPERATIONS
 # ─────────────────────────────────────────────────────────────────────────────
 async def get_existing_document_numbers() -> set:
-    """Get existing document numbers from database to avoid duplicates"""
+    """Get existing document numbers from database to avoid duplicates for this specific user"""
     try:
+        # If no USER_ID (test mode), return empty set so all records are considered new
+        if not USER_ID:
+            _log("No USER_ID specified - treating all records as new (test mode)")
+            return set()
+            
         async with AsyncSession(engine) as session:
             result = await session.execute(
-                text("SELECT document_number FROM hillsborough_nh_filing WHERE county = :county"),
-                {"county": COUNTY_NAME}
+                text("SELECT document_number FROM hillsborough_nh_filing WHERE county = :county AND \"userId\" = :user_id"),
+                {"county": COUNTY_NAME, "user_id": USER_ID}
             )
             return {row[0] for row in result.fetchall()}
     except Exception as e:
@@ -2103,17 +2510,137 @@ def _push_to_google_sheets(df: pd.DataFrame):
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN EXECUTION
 # ─────────────────────────────────────────────────────────────────────────────
+async def _expand_date_range_and_retry(page: Page, current_days: int = 14) -> int:
+    """Expand the date range when insufficient records are found"""
+    max_days = MAX_DATE_RANGE_DAYS
+    new_days = min(current_days * 2, max_days)  # Double the range but cap at max
+    
+    if new_days > max_days:
+        _log(f"⚠️ Already at maximum date range of {max_days} days")
+        return current_days
+    
+    _log(f"🔄 Expanding date range from {current_days} to {new_days} days to find more records")
+    
+    # Calculate new date range
+    from datetime import date, timedelta
+    end_date = date.today()
+    start_date = end_date - timedelta(days=new_days)
+    
+    _log(f"📅 New date range: {start_date.strftime('%m/%d/%Y')} to {end_date.strftime('%m/%d/%Y')}")
+    
+    # Apply the new date range
+    try:
+        # Navigate back to search form
+        await page.goto(BASE_URL, wait_until="networkidle")
+        await _wait_for_page_load(page)
+        
+        # Set new date range
+        start_date_input = page.locator("input[placeholder*='From' i], input[id*='from' i], input[id*='start' i]")
+        end_date_input = page.locator("input[placeholder*='To' i], input[id*='to' i], input[id*='end' i]")
+        
+        if await start_date_input.count():
+            await start_date_input.fill(start_date.strftime('%m/%d/%Y'))
+            _log(f"✅ Set start date to {start_date.strftime('%m/%d/%Y')}")
+        
+        if await end_date_input.count():
+            await end_date_input.fill(end_date.strftime('%m/%d/%Y'))
+            _log(f"✅ Set end date to {end_date.strftime('%m/%d/%Y')}")
+        
+        return new_days
+        
+    except Exception as e:
+        _log(f"❌ Error expanding date range: {e}")
+        return current_days
+
 async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
-    """Main execution function"""
-    _log(f"🚀 Starting Hillsborough County NH scraper (max {max_new_records} records)")
+    """Main execution function with minimum record enforcement"""
+    min_required = MIN_NEW_RECORDS
+    _log(f"🚀 Starting Hillsborough County NH scraper (min {min_required}, max {max_new_records} records)")
     
     if test_mode:
         _log("🧪 Running in TEST MODE - no database operations")
     
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=HEADLESS, args=["--disable-blink-features=AutomationControlled"])
-        context = await browser.new_context(user_agent=USER_AGENT)
+        browser = await p.chromium.launch(
+            headless=HEADLESS, 
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-popup-blocking",  # Prevent popup blocking that might cause issues
+                "--disable-extensions",      # Disable extensions that might interfere
+                "--no-first-run",           # Skip first run setup
+                "--disable-default-apps"    # Disable default apps
+            ]
+        )
+        
+        # Configure context to prevent new windows and popups
+        context = await browser.new_context(
+            user_agent=USER_AGENT,
+            # Prevent new windows/tabs from opening
+            viewport={"width": 1280, "height": 720},
+            # Block popup windows
+            java_script_enabled=True,
+            # Intercept new page creation
+            ignore_https_errors=True
+        )
+        
+        # Set up event handlers to prevent unwanted new windows (but not legitimate ones)
+        main_page_created = False
+        
+        async def handle_page(new_page):
+            nonlocal main_page_created
+            
+            # Allow the first page (our main page)
+            if not main_page_created:
+                main_page_created = True
+                _log("✅ Main page created - allowing")
+                return
+            
+            # For subsequent pages, check if they're legitimate or popup windows
+            try:
+                await new_page.wait_for_load_state("domcontentloaded", timeout=2000)
+                page_url = new_page.url
+                
+                # Allow pages that are part of the same domain/application
+                if "ava.fidlar.com" in page_url or "hillsborough" in page_url.lower():
+                    _log(f"🔗 Allowing same-domain page: {page_url}")
+                    return
+                
+                # Close obvious popup/external pages
+                _log(f"⚠️ Closing potentially unwanted page: {page_url}")
+                await new_page.close()
+                
+            except Exception as e:
+                # If we can't determine the page type, close it to be safe
+                _log(f"❌ Closing unknown page due to error: {e}")
+                try:
+                    await new_page.close()
+                except:
+                    pass
+        
+        context.on("page", handle_page)
+        
         page = await context.new_page()
+        
+        # Block popup creation at the page level (with error handling)
+        try:
+            await page.evaluate("""
+                // Override window.open to prevent popups
+                window.open = function() {
+                    console.log('window.open blocked');
+                    return null;
+                };
+                
+                // Override target='_blank' behavior
+                document.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'A' && e.target.target === '_blank') {
+                        e.target.target = '_self';
+                    }
+                });
+            """)
+            _log("✅ Popup blocking JavaScript injected successfully")
+        except Exception as e:
+            _log(f"⚠️ Could not inject popup blocking JavaScript: {e}")
+            # Continue anyway - the other prevention methods should still work
         
         # Minimize browser after 3 seconds (reduced for speed)
         if not test_mode and not HEADLESS:  # Skip minimization in test mode and headless mode
@@ -2123,7 +2650,9 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
                 
                 # Minimize all Chromium windows using pygetwindow (same as other scripts)
                 try:
-                    for w in gw.getWindowsWithTitle('Chromium'):
+                    chromium_windows = gw.getWindowsWithTitle('Chromium')
+                    _log(f"Found {len(chromium_windows)} Chromium windows")
+                    for w in chromium_windows:
                         w.minimize()
                     _log("[SUCCESS] Browser minimized using pygetwindow")
                 except Exception as e:
@@ -2168,9 +2697,38 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
             # Execute search
             if await _execute_search(page):
                 _log("✅ Search executed")
+                await page.wait_for_timeout(1000)
             else:
                 _log("❌ Failed to execute search")
                 return
+            
+            # Give search results more time to fully load
+            _log("⏳ Waiting additional time for search results to fully load...")
+            await page.wait_for_timeout(5000)  # Additional 5 seconds as requested
+            
+            # Wait for results to be fully rendered
+            try:
+                # Wait for any loading indicators to disappear
+                loading_selectors = [
+                    ".loading", 
+                    ".spinner", 
+                    "[class*='loading']",
+                    "[class*='spinner']"
+                ]
+                for selector in loading_selectors:
+                    try:
+                        await page.wait_for_selector(selector, state="hidden", timeout=2000)
+                        _log(f"✅ Loading indicator {selector} disappeared")
+                    except:
+                        continue  # Loading indicator might not exist
+                
+                # Wait for network activity to settle
+                await page.wait_for_load_state("networkidle", timeout=10000)
+                _log("✅ Network activity settled")
+                
+            except Exception as e:
+                _log(f"⚠️ Timeout waiting for loading to complete: {e}")
+                _log("Continuing anyway - results might still be available")
             
             # Take screenshot of results
             try:
@@ -2231,6 +2789,14 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False):
             if test_mode:
                 _log("🖥️  Browser will stay open for 5 seconds for inspection...")
                 await page.wait_for_timeout(5000)  # Reduced from 10000
+            
+            # Ensure all pages are closed before closing browser
+            for page_obj in context.pages:
+                try:
+                    await page_obj.close()
+                except:
+                    pass
+            
             await browser.close()
 
 async def main():

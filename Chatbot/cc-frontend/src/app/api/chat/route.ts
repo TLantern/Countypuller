@@ -109,4 +109,110 @@ export async function POST(req: NextRequest) {
       county ? `county=${encodeURIComponent(county)}` : 'county=US'
     ].filter(Boolean).join('&');
   }
+
+  // 3. If SERP results are insufficient and we have address, try ATTOM API
+  let attomData = null;
+  if (!serpResultsSufficient && hasAddress && process.env.ATTOM_API_KEY) {
+    const attomParams = buildAttomParams();
+    console.log('ATTOM API params:', attomParams);
+    
+    try {
+      const attomRes = await fetch(
+        `https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detail?${attomParams}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'apikey': process.env.ATTOM_API_KEY,
+          },
+        }
+      );
+      
+      if (attomRes.ok) {
+        attomData = await attomRes.json();
+        console.log('ATTOM API response received');
+      } else {
+        console.log('ATTOM API request failed:', attomRes.status);
+      }
+    } catch (e) {
+      console.error('ATTOM API Error:', e);
+    }
+  }
+
+  // 4. Prepare context for LLM
+  let context = '';
+  
+  if (webResults.length > 0) {
+    context += '\n\nWeb Search Results:\n';
+    webResults.slice(0, 5).forEach((result: any, i: number) => {
+      context += `${i + 1}. ${result.title}\n${result.snippet}\nURL: ${result.url}\n\n`;
+    });
+  }
+  
+  if (attomData && attomData.property && attomData.property.length > 0) {
+    context += '\n\nProperty Data:\n';
+    const property = attomData.property[0];
+    if (property.address) {
+      context += `Address: ${property.address.oneLine || 'N/A'}\n`;
+    }
+    if (property.assessment) {
+      context += `Assessed Value: $${property.assessment.assessed?.total || 'N/A'}\n`;
+      context += `Market Value: $${property.assessment.market?.mktTtlValue || 'N/A'}\n`;
+    }
+    if (property.building) {
+      context += `Year Built: ${property.building.yearBuilt || 'N/A'}\n`;
+      context += `Square Feet: ${property.building.size?.livingSize || 'N/A'}\n`;
+    }
+  }
+
+  // 5. Call OpenAI/LLM with the context
+  try {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY not configured');
+    }
+
+    const systemPrompt = `You are a helpful real estate and property information assistant. Use the provided context to answer user questions about properties, real estate, and related topics. If you don't have enough information in the context, say so clearly.`;
+
+    const userPrompt = `User message: "${message}"
+
+Context:${context}
+
+Please provide a helpful response based on the available information.`;
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const aiResponse = data.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
+
+    return NextResponse.json({
+      message: aiResponse,
+      sources: webResults.slice(0, 3),
+      hasPropertyData: !!attomData
+    });
+
+  } catch (error) {
+    console.error('Chat API Error:', error);
+    return NextResponse.json(
+      { error: 'Failed to process chat request' },
+      { status: 500 }
+    );
+  }
 }

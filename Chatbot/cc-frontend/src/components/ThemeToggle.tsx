@@ -1,8 +1,15 @@
 "use client";
 import { useTheme } from "@/context/ThemeContext";
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  isHidden?: boolean;
+}
+
+export default function ThemeToggle({ isHidden = false }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme();
+  
+  if (isHidden) return null;
+  
   return (
     <button
       onClick={toggleTheme}

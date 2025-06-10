@@ -131,11 +131,11 @@
     "search_form_selector": "form",
     "search_fields": {
       "party_type": "select[name='PartyType']",
-      "instrument_type": "select[name='InstrumentType']",
-      "county": "select[name='County']",
-      "search_name": "input[name='SearchName']",
-      "date_from": "input[name='DateFrom']",
-      "date_to": "input[name='DateTo']",
+      "instrument_type": "select[name='txtInstrCode']",
+      "county": "select[name='intCountyID']",
+      "search_name": "input[name='txtSearchName']",
+      "date_from": "input[name='txtFromDate']",
+      "date_to": "input[name='txtToDate']",
       "results_per_page": "select[name='DisplayResults']"
     },
     "submit_button_selector": "input[type='submit']",

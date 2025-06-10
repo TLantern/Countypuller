@@ -18,9 +18,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // On mount, check localStorage for theme
   useEffect(() => {
-
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light' || saved === 'dark') setTheme(saved);
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') setTheme(saved);
+    } catch (error) {
+      console.warn('Failed to load theme from localStorage:', error);
+    }
   }, []);
 
   // Update body class and localStorage on theme change

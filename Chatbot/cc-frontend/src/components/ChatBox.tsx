@@ -29,7 +29,10 @@ const BouncingDots = () => (
 );
 
 // Helper to convert URLs to clickable 'link' text
-function linkify(text: string) {
+function linkify(text: string | undefined | null) {
+  if (!text || typeof text !== 'string') {
+    return '';
+  }
   const urlRegex = /(https?:\/\/[^\s)]+)/g;
   return text.replace(urlRegex, (url) => `<a href="${url}" target="_blank" rel="noopener noreferrer">link</a>`);
 }
@@ -126,10 +129,17 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
 
   // Custom message rendering for clickable links in bot messages
   const renderMessage = (msg: any, idx: number) => {
+    // Safety check for message structure
+    if (!msg) {
+      return null;
+    }
+
+    const messageText = msg.text || '';
+
     if (msg.type === 'box') {
       return (
         <div key={idx} style={{ textAlign: 'right', margin: '6px 0' }}>
-          <span style={{ background: '#1976d2', color: '#fff', padding: '8px 18px', borderRadius: 12, fontWeight: 700, fontSize: 18, display: 'inline-block', letterSpacing: 2, boxShadow: '0 2px 8px rgba(25,118,210,0.08)' }}>{msg.text}</span>
+          <span style={{ background: '#1976d2', color: '#fff', padding: '8px 18px', borderRadius: 12, fontWeight: 700, fontSize: 18, display: 'inline-block', letterSpacing: 2, boxShadow: '0 2px 8px rgba(25,118,210,0.08)' }}>{messageText}</span>
         </div>
       );
     }
@@ -139,7 +149,7 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
         <div key={idx} style={{ textAlign: 'left', margin: '6px 0' }}>
           <span
             style={{ background: '#d1d5db', color: '#111', padding: '6px 12px', borderRadius: 16, display: 'inline-block' }}
-            dangerouslySetInnerHTML={{ __html: linkify(msg.text) }}
+            dangerouslySetInnerHTML={{ __html: linkify(messageText) }}
           />
         </div>
       );
@@ -147,7 +157,7 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
       // User message: plain text
       return (
         <div key={idx} style={{ textAlign: 'right', margin: '6px 0' }}>
-          <span style={{ background: '#b3e5fc', color: '#111', padding: '6px 12px', borderRadius: 16, display: 'inline-block' }}>{msg.text}</span>
+          <span style={{ background: '#b3e5fc', color: '#111', padding: '6px 12px', borderRadius: 16, display: 'inline-block' }}>{messageText}</span>
         </div>
       );
     }

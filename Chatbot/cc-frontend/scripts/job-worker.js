@@ -186,6 +186,112 @@ async function processJob(job) {
       } else {
         throw new Error(result.error);
       }
+    } else if (job.job_type === 'FULTON_GA_PULL') {
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/FultonGA.py');
+      const limit = job.parameters?.limit || 10;
+      const dateFilter = job.parameters?.dateFilter || 7;
+      console.log(`[DEBUG] Fulton GA Job userId: ${job.userId}`);
+      console.log(`[DEBUG] Fulton GA Job object:`, JSON.stringify(job, null, 2));
+      
+      // Calculate date range from dateFilter (days back from today)
+      const toDate = new Date();
+      const fromDate = new Date();
+      fromDate.setDate(toDate.getDate() - dateFilter);
+      
+      // Format dates as MM/DD/YYYY for FultonGA.py
+      const formatDate = (date) => {
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}/${day}/${year}`;
+      };
+      
+      const fromDateStr = formatDate(fromDate);
+      const toDateStr = formatDate(toDate);
+      
+      const args = [
+        '--max-records', limit.toString(), 
+        '--user-id', job.userId,
+        '--from-date', fromDateStr,
+        '--to-date', toDateStr
+      ];
+      console.log(`[DEBUG] Fulton GA Arguments being passed:`, args);
+      console.log(`[DEBUG] Date range: ${fromDateStr} to ${toDateStr} (${dateFilter} days back)`);
+      
+      const result = await runPython(scriptPath, args);
+      if (result.success) {
+        // Look for records processed in the output
+        const recordsMatch = result.output.match(/(\d+)\s+new records/i) ||
+                           result.output.match(/(\d+)\s+records/i) ||
+                           result.output.match(/Found\s+(\d+)\s+records/i) ||
+                           result.output.match(/Successfully processed\s+(\d+)\s+new records/i);
+        const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
+        await prisma.scraping_job.update({
+          where: { id: job.id },
+          data: {
+            status: JobStatus.COMPLETED,
+            completed_at: new Date(),
+            result: { output: result.output },
+            records_processed: recordsProcessed
+          }
+        });
+        console.log(`[SUCCESS] Fulton GA Job ${job.id} completed successfully`);
+      } else {
+        throw new Error(result.error);
+      }
+    } else if (job.job_type === 'COBB_GA_PULL') {
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/CobbGA.py');
+      const limit = job.parameters?.limit || 10;
+      const dateFilter = job.parameters?.dateFilter || 7;
+      console.log(`[DEBUG] Cobb GA Job userId: ${job.userId}`);
+      console.log(`[DEBUG] Cobb GA Job object:`, JSON.stringify(job, null, 2));
+      
+      // Calculate date range from dateFilter (days back from today)
+      const toDate = new Date();
+      const fromDate = new Date();
+      fromDate.setDate(toDate.getDate() - dateFilter);
+      
+      // Format dates as MM/DD/YYYY for CobbGA.py
+      const formatDate = (date) => {
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}/${day}/${year}`;
+      };
+      
+      const fromDateStr = formatDate(fromDate);
+      const toDateStr = formatDate(toDate);
+      
+      const args = [
+        '--max-records', limit.toString(), 
+        '--user-id', job.userId,
+        '--from-date', fromDateStr,
+        '--to-date', toDateStr
+      ];
+      console.log(`[DEBUG] Cobb GA Arguments being passed:`, args);
+      console.log(`[DEBUG] Date range: ${fromDateStr} to ${toDateStr} (${dateFilter} days back)`);
+      
+      const result = await runPython(scriptPath, args);
+      if (result.success) {
+        // Look for records processed in the output
+        const recordsMatch = result.output.match(/(\d+)\s+new records/i) ||
+                           result.output.match(/(\d+)\s+records/i) ||
+                           result.output.match(/Found\s+(\d+)\s+records/i) ||
+                           result.output.match(/Successfully processed\s+(\d+)\s+new records/i);
+        const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
+        await prisma.scraping_job.update({
+          where: { id: job.id },
+          data: {
+            status: JobStatus.COMPLETED,
+            completed_at: new Date(),
+            result: { output: result.output },
+            records_processed: recordsProcessed
+          }
+        });
+        console.log(`[SUCCESS] Cobb GA Job ${job.id} completed successfully`);
+      } else {
+        throw new Error(result.error);
+      }
     } else if (job.job_type === 'TEST_SCRAPE') {
       // Test job type for system testing - just marks as completed
       console.log(`[DEBUG] Test scrape job - simulating completion`);

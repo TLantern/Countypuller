@@ -2,8 +2,8 @@
 Image: ocr_debug/document_250019015.png
 Image dimensions: 1280x720
 OCR method used: grayscale
-OCR text length: 532 characters
-Timestamp: 2025-06-09 12:24:24.899235
+OCR text length: 538 characters
+Timestamp: 2025-06-10 09:33:03.780468
 === FULL OCR TEXT ===
 
 NEWHAMPSHIRE
@@ -15,7 +15,7 @@ ManchesterWaterWorks Book9861Page2407 Page1of1
 June22025 WaterLienNo 2025L1852
 NoticeOfLienUponRealEstate
 ForCollectionofUnpaidWaterCharges
-AsprovidedunderNewHampshireRSA3822andasstatedin theRulesandRegulationsofthe
+AsprovidedunderNewHampshireRSA3822andasstatedin theRulesandRegulationsofthe FiapI
 ManchesterWaterWorksinArticle9d5themunicipallyownedCityofManchesterWater
 WorksDepartmentherebyrequeststheHillsboroughCountyRegistryofDeedstorecordano coe
 tHaeafliennaanthefallawingdeecrjhedrealectatefarthecallectinnafunnaidwatercharges vv

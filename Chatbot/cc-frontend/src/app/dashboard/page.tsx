@@ -23,6 +23,9 @@ import ChatBox from '../../components/ChatBox';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Typography } from '@mui/material';
+import FeedbackPanel from '@/components/FeedbackPanel';
+import { useFeedback } from '@/context/FeedbackContext';
+import { MessageSquare } from 'lucide-react';
 // Dynamic imports used in export functions to avoid SSR issues
 
 // Custom CSS for the slider
@@ -136,6 +139,34 @@ const brevardFlColumns: GridColDef[] = [
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
 ];
 
+// Columns for Fulton GA users
+const fultonGaColumns: GridColDef[] = [
+  { field: 'case_number', headerName: 'Case #', minWidth: 120, maxWidth: 140, flex: 0.8 },
+  { field: 'document_link', headerName: 'Doc Link', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => params.value ? <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> : '' },
+  { field: 'filing_date', headerName: 'Filing Date', minWidth: 110, maxWidth: 130, flex: 0.7 },
+  { field: 'document_type', headerName: 'Doc Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
+  { field: 'debtor_name', headerName: 'Debtor', minWidth: 150, maxWidth: 200, flex: 1.2 },
+  { field: 'claimant_name', headerName: 'Claimant', minWidth: 150, maxWidth: 200, flex: 1.2 },
+  { field: 'book_page', headerName: 'Book/Page', minWidth: 100, maxWidth: 120, flex: 0.7 },
+  { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
+  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+];
+
+// Columns for Cobb GA users
+const cobbGaColumns: GridColDef[] = [
+  { field: 'case_number', headerName: 'Case #', minWidth: 120, maxWidth: 140, flex: 0.8 },
+  { field: 'document_link', headerName: 'Doc Link', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => params.value ? <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> : '' },
+  { field: 'filing_date', headerName: 'Filing Date', minWidth: 110, maxWidth: 130, flex: 0.7 },
+  { field: 'document_type', headerName: 'Doc Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
+  { field: 'debtor_name', headerName: 'Debtor', minWidth: 150, maxWidth: 200, flex: 1.2 },
+  { field: 'claimant_name', headerName: 'Claimant', minWidth: 150, maxWidth: 200, flex: 1.2 },
+  { field: 'book_page', headerName: 'Book/Page', minWidth: 100, maxWidth: 120, flex: 0.7 },
+  { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
+  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+];
+
 // Types for different record types
 interface LisPendensRecord {
   case_number: string;
@@ -196,6 +227,34 @@ interface BrevardFlRecord {
   party_name: string;
   property_address: string;
   county: string;
+  created_at: string;
+  is_new: boolean;
+}
+
+interface FultonGaRecord {
+  case_number: string;
+  document_type: string;
+  filing_date: string;
+  debtor_name: string;
+  claimant_name: string;
+  county: string;
+  book_page: string;
+  document_link: string;
+  state: string;
+  created_at: string;
+  is_new: boolean;
+}
+
+interface CobbGaRecord {
+  case_number: string;
+  document_type: string;
+  filing_date: string;
+  debtor_name: string;
+  claimant_name: string;
+  county: string;
+  book_page: string;
+  document_link: string;
+  state: string;
   created_at: string;
   is_new: boolean;
 }
@@ -402,7 +461,7 @@ export default function Dashboard() {
   const router = useRouter();
   
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord)[]>([]);
+  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord | FultonGaRecord | CobbGaRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
   const [userType, setUserType] = useState<string>('LPH');
   const [county, setCounty] = useState('Harris');
@@ -416,6 +475,9 @@ export default function Dashboard() {
   // State for focused cell display
   const [focusedCellContent, setFocusedCellContent] = useState<string>('');
   const [focusedCellField, setFocusedCellField] = useState<string>('');
+  
+  // Get feedback panel state from context
+  const { isFeedbackPanelOpen, setIsFeedbackPanelOpen } = useFeedback();
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
@@ -423,6 +485,8 @@ export default function Dashboard() {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/hillsborough-nh' : 
                       userType === 'BREVARD_FL' ? '/api/brevard-fl' :
+                      userType === 'FULTON_GA' ? '/api/fulton-ga' :
+                      userType === 'COBB_GA' ? '/api/cobb-ga' :
                       '/api/lis-pendens';
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -492,6 +556,10 @@ export default function Dashboard() {
         ? `/api/pull-hillsborough-nh?job_id=${jobId}`
         : userType === 'BREVARD_FL'
         ? `/api/pull-brevard-fl?job_id=${jobId}`
+        : userType === 'FULTON_GA'
+        ? `/api/pull-fulton-ga?job_id=${jobId}`
+        : userType === 'COBB_GA'
+        ? `/api/pull-cobb-ga?job_id=${jobId}`
         : `/api/pull-lph?job_id=${jobId}`;
       
       const res = await fetch(endpoint);
@@ -540,6 +608,8 @@ export default function Dashboard() {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/pull-hillsborough-nh' : 
                       userType === 'BREVARD_FL' ? '/api/pull-brevard-fl' :
+                      userType === 'FULTON_GA' ? '/api/pull-fulton-ga' :
+                      userType === 'COBB_GA' ? '/api/pull-cobb-ga' :
                       '/api/pull-lph';
       
       // Include the date filter in the request body
@@ -576,7 +646,7 @@ export default function Dashboard() {
     let recordId;
     if (userType === 'HILLSBOROUGH_NH') {
       recordId = params.row.document_number;
-    } else if (userType === 'BREVARD_FL') {
+    } else if (userType === 'BREVARD_FL' || userType === 'FULTON_GA' || userType === 'COBB_GA') {
       recordId = params.row.case_number;
     } else {
       recordId = params.row.case_number;
@@ -592,6 +662,10 @@ export default function Dashboard() {
           (r as HillsboroughNhRecord).document_number :
           userType === 'BREVARD_FL' ?
           (r as BrevardFlRecord).case_number :
+          userType === 'FULTON_GA' ?
+          (r as FultonGaRecord).case_number :
+          userType === 'COBB_GA' ?
+          (r as CobbGaRecord).case_number :
           (r as LisPendensRecord | MdCaseSearchRecord).case_number;
         return currentId === recordId ? { ...r, is_new: false } : r;
       })
@@ -609,6 +683,12 @@ export default function Dashboard() {
         body = JSON.stringify({ document_number: recordId, is_new: false });
       } else if (userType === 'BREVARD_FL') {
         endpoint = `/api/brevard-fl`;
+        body = JSON.stringify({ case_number: recordId, is_new: false });
+      } else if (userType === 'FULTON_GA') {
+        endpoint = `/api/fulton-ga`;
+        body = JSON.stringify({ case_number: recordId, is_new: false });
+      } else if (userType === 'COBB_GA') {
+        endpoint = `/api/cobb-ga`;
         body = JSON.stringify({ case_number: recordId, is_new: false });
       } else {
         endpoint = `/api/lis-pendens/${recordId}`;
@@ -630,10 +710,14 @@ export default function Dashboard() {
   const columns = userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : 
                   userType === 'HILLSBOROUGH_NH' ? hillsboroughNhColumns : 
                   userType === 'BREVARD_FL' ? brevardFlColumns :
+                  userType === 'FULTON_GA' ? fultonGaColumns :
+                  userType === 'COBB_GA' ? cobbGaColumns :
                   lphColumns;
   const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
                        userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH Records' : 
                        userType === 'BREVARD_FL' ? 'Brevard FL Records' :
+                       userType === 'FULTON_GA' ? 'Fulton GA Records' :
+                       userType === 'COBB_GA' ? 'Cobb GA Records' :
                        `${county} County Records`;
   const loadingMessage = userType === 'MD_CASE_SEARCH' 
     ? 'Scraping records from Maryland Case Search...'
@@ -641,6 +725,10 @@ export default function Dashboard() {
     ? 'Scraping records from Hillsborough NH Registry...'
     : userType === 'BREVARD_FL'
     ? 'Scraping records from Brevard FL Official Records...'
+    : userType === 'FULTON_GA'
+    ? 'Scraping records from Fulton GA GSCCCA...'
+    : userType === 'COBB_GA'
+    ? 'Scraping records from Cobb GA GSCCCA...'
     : `Scraping records from ${county} County...`;
 
   // Handle cell focus to show content in the wide box
@@ -685,6 +773,14 @@ export default function Dashboard() {
             </Breadcrumb>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-200 cursor-pointer"
+              onClick={() => setIsFeedbackPanelOpen(true)}
+              title="Provide Feedback"
+            >
+              <MessageSquare className="w-5 h-5" />
+            </button>
+            
             <button
               className="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-200 cursor-pointer"
               onClick={() => signOut({ callbackUrl: '/' })}
@@ -770,6 +866,10 @@ export default function Dashboard() {
                       id = (row as HillsboroughNhRecord).document_number;
                     } else if (userType === 'BREVARD_FL') {
                       id = (row as BrevardFlRecord).case_number;
+                    } else if (userType === 'FULTON_GA') {
+                      id = (row as FultonGaRecord).case_number;
+                    } else if (userType === 'COBB_GA') {
+                      id = (row as CobbGaRecord).case_number;
                     } else {
                       id = (row as LisPendensRecord | MdCaseSearchRecord).case_number;
                     }
@@ -859,6 +959,12 @@ export default function Dashboard() {
           <div className="fixed bottom-6 left-6 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">Error pulling records.</div>
         )}
       </SidebarInset>
+      
+      {/* Feedback Panel */}
+      <FeedbackPanel 
+        isOpen={isFeedbackPanelOpen}
+        onClose={() => setIsFeedbackPanelOpen(false)}
+      />
     </SidebarProvider>
   )
 }

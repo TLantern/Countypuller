@@ -156,7 +156,7 @@ export default function UserSettings() {
                   </Typography>
                   
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    Manage account types for all users. LPH users access Harris County records, MD users access Maryland case search, Hillsborough NH users access New Hampshire registry records, and Brevard FL users access Florida official records.
+                    Manage account types for all users. LPH users access Harris County records, MD users access Maryland case search, Hillsborough NH users access New Hampshire registry records, Brevard FL users access Florida official records, Fulton GA users access Fulton County Georgia records, and Cobb GA users access Cobb County Georgia records.
                   </Typography>
                   
                   <Table>
@@ -183,6 +183,8 @@ export default function UserSettings() {
                                   <MenuItem value="MD_CASE_SEARCH">Maryland Case Search</MenuItem>
                                   <MenuItem value="HILLSBOROUGH_NH">Hillsborough NH</MenuItem>
                                   <MenuItem value="BREVARD_FL">Brevard FL</MenuItem>
+                                  <MenuItem value="FULTON_GA">Fulton GA</MenuItem>
+                                  <MenuItem value="COBB_GA">Cobb GA</MenuItem>
                                 </Select>
                               </FormControl>
                             ) : (

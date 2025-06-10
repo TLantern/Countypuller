@@ -5,15 +5,24 @@ import ChatBox from './ChatBox';
 
 const CHAT_HISTORY_KEY = 'chatbot_messages';
 
-const ChatbotWidget = () => {
+interface ChatbotWidgetProps {
+  isHidden?: boolean;
+}
+
+const ChatbotWidget = ({ isHidden = false }: ChatbotWidgetProps) => {
   const [expanded, setExpanded] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
 
   // Load chat history from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem(CHAT_HISTORY_KEY);
-    if (saved) {
-      setMessages(JSON.parse(saved));
+    if (saved && saved !== "undefined" && saved !== "null") {
+      try {
+        setMessages(JSON.parse(saved));
+      } catch (error) {
+        console.warn('Failed to parse chat history from localStorage:', error);
+        setMessages([]);
+      }
     }
   }, []);
 
@@ -26,6 +35,8 @@ const ChatbotWidget = () => {
   const handleNewChat = () => {
     setMessages([]);
   };
+
+  if (isHidden) return null;
 
   return (
     <div

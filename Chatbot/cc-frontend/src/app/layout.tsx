@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NextAuthSessionProvider from "@/components/session-provider";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
+import { FeedbackProvider } from "@/context/FeedbackContext";
 import React from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import ChatbotWidget from "@/components/ChatbotWidget";
@@ -35,10 +36,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <ClientOnlyToggles />
-          <NextAuthSessionProvider>
-            {children}
-          </NextAuthSessionProvider>
+          <FeedbackProvider>
+            <NextAuthSessionProvider>
+              <ClientOnlyToggles />
+              {children}
+            </NextAuthSessionProvider>
+          </FeedbackProvider>
         </ThemeProvider>
       </body>
     </html>

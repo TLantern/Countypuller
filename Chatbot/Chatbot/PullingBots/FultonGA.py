@@ -143,8 +143,8 @@ async def _safe(desc: str, coro):
 class FultonScraper(SearchFormScraper):
     """Fulton County Georgia lien index scraper implementation"""
     
-    async def setup_search_parameters(self, task_params: Dict[str, Any]):
-        """Setup Fulton County-specific search parameters"""
+    async def navigate_to_search_results(self, task_params: Dict[str, Any]):
+        """Navigate to search results page and execute search"""
         
         # Load saved cookies FIRST to maintain session state
         await self.load_cookies()
@@ -153,63 +153,7 @@ class FultonScraper(SearchFormScraper):
         await self.navigate_to_url(self.config.search_config.search_url)
         await self.page.wait_for_timeout(2000)
         
-        # Set instrument type to focus on lis pendens
-        instrument_types = task_params.get('instrument_types', ['Lis Pendens'])
-        if instrument_types and instrument_types != ['All Instruments']:
-            # Map instrument type names to their values
-            instrument_value_map = {
-                'Lien': '8',
-                'Lis Pendens': '9',
-                'Federal Tax Lien': '3',
-                'Assignment': '14',
-                'Cancellation': '52',
-                'FIFA': '2',
-                'Levy': '54',
-                'Notice': '10',
-                'Order': '7',
-                'Preliminary Notice of Lien': '11',
-                'Personal Property Lien': '12',
-                'Release': '4'
-            }
-            
-            for instrument_type in instrument_types:
-                instrument_value = instrument_value_map.get(instrument_type, '8')  # Default to Lien
-                await self.page.select_option('select[name="txtInstrCode"]', instrument_value)
-                _log(f"✅ Selected instrument type: {instrument_type} (value: {instrument_value})")
-                break  # Select first one for now
-        
-        # Set party type if specified (commented out - PartyType field doesn't exist on this form)
-        # party_type = task_params.get('party_type', 'All Parties')
-        # await self.page.select_option('select[name="PartyType"]', party_type)
-        _log("✅ Skipped party type selection (field not available on form)")
-        
-        # Always set county to FULTON for this scraper (value=60)
-        await self.page.select_option('select[name="intCountyID"]', '60')
-        _log(f"✅ Selected county: FULTON (value: 60)")
-        
-        # Set records per page to 25
-        await self.page.select_option('select[name="MaxRows"]', '25')
-        _log(f"✅ Set records per page: 25")
-        
-        # Set name search if provided (for letter-based searching)
-        search_name = task_params.get('search_name')
-        if search_name:
-            await self.page.fill('input[name="txtSearchName"]', search_name)
-            _log(f"✅ Set search name: {search_name}")
-        
-        # Set date range
-        date_from = task_params.get('date_from')
-        date_to = task_params.get('date_to')
-        
-        if date_from:
-            await self.page.fill('input[name="txtFromDate"]', date_from)
-        if date_to:
-            await self.page.fill('input[name="txtToDate"]', date_to)
-        
-        # Set results per page to maximum
-        await self.page.select_option('select[name="MaxRows"]', '50')
-        
-        # Click the search button (handle both active and inactive states)
+        # Click the search button to initiate search flow
         search_button = await self.find_search_button()
         await search_button.click()
         _log("✅ Clicked search button")
@@ -220,329 +164,242 @@ class FultonScraper(SearchFormScraper):
         # Handle login if required
         await self.handle_login()
         
-        _log(f"✅ Search parameters configured and search executed")
+        _log(f"✅ Search initiated")
         
-        # DEBUG: Check if snooze and continue elements are present on the page
-        _log("🔍 DEBUG: Checking for Customer Communications elements on current page...")
+        # Handle Customer Communications page if it appears
+        await self.handle_customer_communications()
         
+        # Navigate through the search menu sequence
+        await self.navigate_search_menu(task_params)
+        
+        _log("✅ Successfully navigated to search results")
+    
+    async def detect_customer_communications_page(self) -> bool:
+        """Detect if we're on a Customer Communications page by looking for snooze element"""
         try:
-            # Check for snooze dropdown
-            snooze_count = await self.page.locator('select[name="Options"]').count()
-            snooze_generic_count = await self.page.locator('select').count()
-            _log(f"📊 Found {snooze_count} select[name='Options'] elements")
-            _log(f"📊 Found {snooze_generic_count} total select elements")
+            # Primary detection: Look for the snooze dropdown element
+            snooze_element = self.page.locator('select[name="Options"]')
+            snooze_count = await snooze_element.count()
             
-            if snooze_generic_count > 0:
-                # Get details about the select elements
-                select_elements = self.page.locator('select')
-                for i in range(min(3, snooze_generic_count)):  # Check first 3 select elements
-                    try:
-                        select_name = await select_elements.nth(i).get_attribute('name')
-                        select_id = await select_elements.nth(i).get_attribute('id')
-                        _log(f"  Select {i+1}: name='{select_name}', id='{select_id}'")
-                        
-                        # Check options in this select
-                        options = select_elements.nth(i).locator('option')
-                        option_count = await options.count()
-                        _log(f"    Has {option_count} options")
-                        
-                        for j in range(min(5, option_count)):  # Check first 5 options
-                            option_value = await options.nth(j).get_attribute('value')
-                            option_text = await options.nth(j).text_content()
-                            _log(f"      Option {j+1}: value='{option_value}', text='{option_text}'")
-                    except Exception as e:
-                        _log(f"  Error checking select element {i+1}: {e}")
+            if snooze_count > 0:
+                # Verify it's actually a snooze dropdown by checking its options
+                options = snooze_element.locator('option')
+                option_count = await options.count()
+                
+                if option_count > 0:
+                    # Check if any option contains "snooze" text
+                    for i in range(min(option_count, 5)):  # Check first 5 options
+                        try:
+                            option_text = await options.nth(i).text_content()
+                            option_value = await options.nth(i).get_attribute('value')
+                            if option_text and ('snooze' in option_text.lower() or 
+                                              (option_value and 'snooze' in option_value.lower())):
+                                _log(f"🎯 Customer Communications page detected via snooze element")
+                                _log(f"   Found snooze option: '{option_text}' (value: '{option_value}')")
+                                return True
+                        except Exception:
+                            continue
             
-            # Check for continue button
-            continue_count = await self.page.locator('input[value="Continue"]').count()
-            continue_submit_count = await self.page.locator('input[type="submit"]').count()
-            _log(f"📊 Found {continue_count} input[value='Continue'] elements")
-            _log(f"📊 Found {continue_submit_count} total submit input elements")
+            # Secondary detection: URL-based check
+            current_url = self.page.url
+            if "CustomerCommunicationApi" in current_url or "Announcement" in current_url:
+                _log(f"🎯 Customer Communications page detected via URL: {current_url}")
+                return True
             
-            if continue_submit_count > 0:
-                # Get details about submit elements
-                submit_elements = self.page.locator('input[type="submit"]')
-                for i in range(min(3, continue_submit_count)):  # Check first 3 submit elements
-                    try:
-                        submit_name = await submit_elements.nth(i).get_attribute('name')
-                        submit_value = await submit_elements.nth(i).get_attribute('value')
-                        _log(f"  Submit {i+1}: name='{submit_name}', value='{submit_value}'")
-                    except Exception as e:
-                        _log(f"  Error checking submit element {i+1}: {e}")
+            # Tertiary detection: Look for Continue button with specific characteristics
+            continue_button = self.page.locator('input[value="Continue"]')
+            continue_count = await continue_button.count()
             
-            # Check current page URL and title
+            if continue_count > 0 and snooze_count > 0:
+                _log(f"🎯 Customer Communications page detected via Continue button + select element")
+                return True
+            
+            return False
+            
+        except Exception as e:
+            _log(f"⚠️ Error detecting Customer Communications page: {e}")
+            return False
+    
+    async def handle_customer_communications(self):
+        """Handle the Customer Communications page that appears after login"""
+        try:
+            # Use the detection function to check if we're on the page
+            is_customer_comm_page = await self.detect_customer_communications_page()
+            
+            if not is_customer_comm_page:
+                _log("ℹ️ Not on Customer Communications page")
+                return False
+            
+            _log("🎯 Handling Customer Communications page...")
+            
+            # Log current page details
             current_url = self.page.url
             page_title = await self.page.title()
             _log(f"📄 Current page URL: {current_url}")
             _log(f"📄 Current page title: {page_title}")
             
-            # Check if we're on Customer Communications page and handle it
-            if "CustomerCommunicationApi" in current_url or "Announcement" in current_url:
-                _log("🎯 We ARE on Customer Communications page - handling it now")
-                
-                # Take a debug screenshot
-                await self.page.screenshot(path="debug_fulton_after_search.png")
-                _log("📸 Debug screenshot saved: debug_fulton_after_search.png")
-                
-                # First, scroll down the page to make sure all elements are visible
-                _log("📜 Scrolling down to reveal all page elements...")
-                
-                # Scroll to bottom of page first
-                await self.page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                await self.page.wait_for_timeout(1000)
-                
-                # Then scroll back to top
-                await self.page.evaluate("window.scrollTo(0, 0)")
-                await self.page.wait_for_timeout(500)
-                
-                # Scroll down in increments to reveal content gradually
-                page_height = await self.page.evaluate("document.body.scrollHeight")
-                current_scroll = 0
-                scroll_increment = 300  # Scroll 300px at a time
-                
-                while current_scroll < page_height:
-                    await self.page.evaluate(f"window.scrollTo(0, {current_scroll})")
-                    await self.page.wait_for_timeout(300)
-                    current_scroll += scroll_increment
-                    
-                    # Check if snooze dropdown appears as we scroll
-                    try:
-                        if await self.page.locator('select').count() > 0:
-                            _log(f"✅ Found select elements at scroll position {current_scroll}")
-                            break
-                    except:
-                        continue
-                
-                _log("✅ Completed page scrolling - now looking for snooze elements")
-                
-                # Look for the snooze options dropdown/select (based on debug logs)
-                snooze_selectors = [
-                    'select[name="Options"]',    # Specific selector from debug logs
-                    'select[id="Options"]',      # Alternative by ID
-                    'select',                    # Generic fallback
-                ]
-                
-                snooze_element = None
-                for selector in snooze_selectors:
-                    try:
-                        elem = self.page.locator(selector)
-                        if await elem.count() > 0:
-                            snooze_element = elem.first
-                            _log(f"✅ Found snooze dropdown using selector: {selector}")
-                            break
-                    except Exception as e:
-                        _log(f"Warning: Could not use snooze selector {selector}: {e}")
-                        continue
-                
-                if snooze_element:
-                    # Select "Snooze 1 Day" option (value="snooze1d" based on debug logs)
-                    try:
-                        await snooze_element.select_option(value="snooze1d")
-                        _log("✅ Selected 'Snooze 1 Day' option (value='snooze1d')")
-                        await self.page.wait_for_timeout(1000)
-                        
-                        # Verify the selection was successful
-                        selected_value = await snooze_element.input_value()
-                        _log(f"📋 Snooze dropdown now shows selected value: '{selected_value}'")
-                        
-                    except Exception as e:
-                        _log(f"❌ Failed to select snooze1d option: {e}")
-                        # Try alternative selection methods
-                        try:
-                            await snooze_element.select_option(label="Snooze 1 Day")
-                            _log("✅ Selected 'Snooze 1 Day' option by label")
-                            await self.page.wait_for_timeout(1000)
-                            
-                            # Verify the alternative selection
-                            selected_value = await snooze_element.input_value()
-                            _log(f"📋 Snooze dropdown now shows selected value: '{selected_value}'")
-                            
-                        except Exception as e2:
-                            _log(f"❌ Failed to select by label: {e2}")
-                            _log("⚠️ Could not select snooze option, trying to continue anyway")
-                else:
-                    _log("⚠️ Could not find snooze dropdown, trying to continue anyway")
-                
-                # Scroll again to make sure Continue button is visible
-                _log("📜 Scrolling to find Continue button...")
-                
-                # Try different scroll positions to find the Continue button
-                scroll_positions = [0, 200, 400, 600, 800, page_height // 2, page_height]
-                continue_found = False
-                
-                for scroll_pos in scroll_positions:
-                    await self.page.evaluate(f"window.scrollTo(0, {scroll_pos})")
-                    await self.page.wait_for_timeout(200)
-                    
-                    # Check if Continue button is visible at this scroll position
-                    try:
-                        if await self.page.locator('input[value="Continue"]').count() > 0:
-                            _log(f"✅ Found Continue button at scroll position {scroll_pos}")
-                            continue_found = True
-                            break
-                    except:
-                        continue
-                
-                if not continue_found:
-                    _log("⚠️ Continue button not found after scrolling - trying all selectors anyway")
-                
-                # Click the Continue button (based on debug logs)
-                continue_selectors = [
-                    'input[name="Continue"][value="Continue"]',  # Specific from debug logs
-                    'input[value="Continue"]',                   # Generic by value
-                    'input[type="submit"][value="Continue"]',    # By type and value
-                    'button:has-text("Continue")'                # Button fallback
-                ]
-                
-                continue_clicked = False
-                for selector in continue_selectors:
-                    try:
-                        continue_button = self.page.locator(selector)
-                        if await continue_button.count() > 0:
-                            _log(f"🎯 Found Continue button using selector: {selector}")
-                            
-                            # Check if button is visible
-                            is_visible = await continue_button.is_visible()
-                            _log(f"📍 Continue button visible: {is_visible}")
-                            
-                            if is_visible:
-                                await continue_button.click()
-                                _log("✅ Clicked Continue button")
-                                
-                                # Log immediately after clicking
-                                _log("⏳ Waiting for page response after clicking Continue...")
-                                await self.page.wait_for_timeout(2000)  # Wait for initial response
-                                
-                                # Check if page is loading
-                                loading_url = self.page.url
-                                _log(f"📍 Current URL after Continue click: {loading_url}")
-                                
-                                continue_clicked = True
-                                break
-                            else:
-                                # Try to scroll to make it visible
-                                try:
-                                    await continue_button.scroll_into_view_if_needed()
-                                    await self.page.wait_for_timeout(500)
-                                    await continue_button.click()
-                                    _log("✅ Clicked Continue button after scrolling into view")
-                                    
-                                    # Log immediately after clicking
-                                    _log("⏳ Waiting for page response after clicking Continue...")
-                                    await self.page.wait_for_timeout(2000)  # Wait for initial response
-                                    
-                                    # Check if page is loading
-                                    loading_url = self.page.url
-                                    _log(f"📍 Current URL after Continue click: {loading_url}")
-                                    
-                                    continue_clicked = True
-                                    break
-                                except Exception as scroll_error:
-                                    _log(f"⚠️ Failed to scroll and click: {scroll_error}")
-                                    continue
-                        else:
-                            _log(f"⚠️ No Continue button found with selector: {selector}")
-                    except Exception as e:
-                        _log(f"⚠️ Failed to click continue with selector {selector}: {e}")
-                        continue
-                
-                if not continue_clicked:
-                    _log("❌ Could not find or click Continue button")
-                    raise Exception("Failed to click Continue button on Customer Communications page")
-                
-                # Ensure browser is in standard view (not minimized)
-                _log("🖥️ Ensuring browser is in standard view...")
-                try:
-                    await self.page.bring_to_front()
-                    _log("✅ Brought browser window to front")
-                except Exception as e:
-                    _log(f"⚠️ Could not bring browser to front: {e}")
-                
-                # Wait for page to fully load after clicking Continue (staying on same browser)
-                _log("⏳ Waiting for full page load after Continue click...")
-                _log("🌐 Using same browser instance - no new browser will open")
-                try:
-                    # Wait for network to be idle (page fully loaded)
-                    await self.page.wait_for_load_state("networkidle", timeout=15000)
-                    _log("✅ Page load state: networkidle achieved on same browser")
-                except Exception as e:
-                    _log(f"⚠️ Network idle timeout (continuing anyway): {e}")
-                
-                # Additional wait for any JavaScript to complete
-                await self.page.wait_for_timeout(3000)
-                _log("✅ Additional wait completed for JavaScript execution")
-                
-                # Verify we're now on the correct search page (same browser instance)
-                final_url = self.page.url
-                page_title = await self.page.title()
-                _log(f"📄 Final page URL (same browser): {final_url}")
-                _log(f"📄 Final page title (same browser): {page_title}")
-                _log("✅ Successfully stayed on same browser instance throughout process")
-                
-                # Take screenshot of final page for verification
-                try:
-                    await self.page.screenshot(path="debug_fulton_after_continue.png")
-                    _log("📸 Final page screenshot saved: debug_fulton_after_continue.png")
-                except Exception as screenshot_error:
-                    _log(f"⚠️ Could not take final screenshot: {screenshot_error}")
-                
-                # Check if we're still on the announcement page
-                if "CustomerCommunicationApi" in final_url or "Announcement" in final_url:
-                    _log("⚠️ Still on announcement page after handling, may need manual intervention")
-                else:
-                    _log("✅ Successfully handled Customer Communications page and proceeded to search")
-                    
-                    # Now navigate through the search menu sequence
-                    await self.navigate_search_menu()
-                    
-                    # Verify we can see search form elements
-                    try:
-                        search_form_count = await self.page.locator('form').count()
-                        input_count = await self.page.locator('input').count()
-                        select_count = await self.page.locator('select').count()
-                        _log(f"📊 Search page verification - Forms: {search_form_count}, Inputs: {input_count}, Selects: {select_count}")
-                        
-                        if input_count > 0 and select_count > 0:
-                            _log("✅ Search form elements detected - page appears to be ready")
-                        else:
-                            _log("⚠️ Limited form elements detected - page may still be loading")
-                    except Exception as verify_error:
-                        _log(f"⚠️ Could not verify search form elements: {verify_error}")
+            # Scroll to reveal all elements
+            _log("📜 Scrolling to reveal page elements...")
+            await self.page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            await self.page.wait_for_timeout(1000)
+            await self.page.evaluate("window.scrollTo(0, 0)")
+            await self.page.wait_for_timeout(500)
+            
+            # Handle snooze selection
+            await self.select_snooze_option()
+            
+            # Handle continue button
+            success = await self.click_continue_button()
+            
+            if success:
+                _log("✅ Customer Communications page handled successfully")
+                return True
             else:
-                _log("ℹ️ Not on Customer Communications page - continuing with normal flow")
-                # Take a debug screenshot anyway
-                await self.page.screenshot(path="debug_fulton_after_search.png")
-                _log("📸 Debug screenshot saved: debug_fulton_after_search.png")
-        
+                _log("❌ Failed to handle Customer Communications page")
+                return False
+                
         except Exception as e:
-            _log(f"❌ Error during Customer Communications page handling: {e}")
-            # Fallback: require manual intervention
-            _log("⚠️ MANUAL INTERVENTION REQUIRED:")
-            _log("   - Customer Communications page could not be handled automatically")
-            _log("   - Please manually handle the page (select snooze option and click Continue)")
-            _log("   - Script will wait for 60 seconds for manual intervention...")
-            _log("   - Press Ctrl+C to abort if needed")
-            
-            # Wait for manual intervention
-            for i in range(60, 0, -5):
-                _log(f"⏳ Waiting {i} seconds for manual intervention...")
-                await self.page.wait_for_timeout(5000)
-                
-                # Check if we're still on the Customer Communications page
-                current_url = self.page.url
-                if "CustomerCommunicationApi" not in current_url and "Announcement" not in current_url:
-                    _log("✅ Manual intervention successful - page has changed")
-                    break
-            else:
-                _log("⚠️ Manual intervention timeout - continuing with current page state")
-            
-            # Final verification
-            final_url = self.page.url
-            _log(f"📄 Current page after manual intervention: {final_url}")
-        
-        _log("✅ Continuing with script execution...")
+            _log(f"❌ Error handling Customer Communications page: {e}")
+            raise
     
-    async def navigate_search_menu(self):
+    async def select_snooze_option(self, snooze_option: str = "snooze1d"):
+        """Select a snooze option from the dropdown"""
+        try:
+            _log(f"🔧 Selecting snooze option: {snooze_option}")
+            
+            # Find the snooze dropdown
+            snooze_element = self.page.locator('select[name="Options"]')
+            
+            if await snooze_element.count() > 0:
+                # List available options first
+                options = snooze_element.locator('option')
+                option_count = await options.count()
+                _log(f"📋 Found {option_count} snooze options:")
+                
+                available_options = []
+                for i in range(option_count):
+                    try:
+                        option_value = await options.nth(i).get_attribute('value')
+                        option_text = await options.nth(i).text_content()
+                        available_options.append((option_value, option_text))
+                        _log(f"   Option {i+1}: value='{option_value}', text='{option_text}'")
+                    except Exception:
+                        continue
+                
+                # Try to select the requested option
+                try:
+                    await snooze_element.select_option(value=snooze_option)
+                    _log(f"✅ Selected snooze option: {snooze_option}")
+                    await self.page.wait_for_timeout(1000)
+                    
+                    # Verify selection
+                    selected_value = await snooze_element.input_value()
+                    _log(f"📋 Confirmed selection: {selected_value}")
+                    return True
+                    
+                except Exception as select_error:
+                    _log(f"⚠️ Failed to select '{snooze_option}': {select_error}")
+                    
+                    # Try to select first available snooze option as fallback
+                    for option_value, option_text in available_options:
+                        if option_value and 'snooze' in option_value.lower():
+                            try:
+                                await snooze_element.select_option(value=option_value)
+                                _log(f"✅ Selected fallback snooze option: {option_value}")
+                                await self.page.wait_for_timeout(1000)
+                                return True
+                            except Exception:
+                                continue
+                    
+                    _log("❌ Could not select any snooze option")
+                    return False
+            else:
+                _log("⚠️ Snooze dropdown not found")
+                return False
+                
+        except Exception as e:
+            _log(f"❌ Error selecting snooze option: {e}")
+            return False
+    
+    async def click_continue_button(self):
+        """Click the Continue button on Customer Communications page"""
+        try:
+            _log("🔧 Looking for Continue button...")
+            
+            # Try different selectors for the Continue button
+            continue_selectors = [
+                'input[name="Continue"][value="Continue"]',
+                'input[value="Continue"]',
+                'input[type="submit"][value="Continue"]',
+                'button:has-text("Continue")'
+            ]
+            
+            for selector in continue_selectors:
+                try:
+                    continue_button = self.page.locator(selector)
+                    if await continue_button.count() > 0:
+                        _log(f"🎯 Found Continue button with selector: {selector}")
+                        
+                        # Check if button is visible and enabled
+                        is_visible = await continue_button.is_visible()
+                        is_enabled = await continue_button.is_enabled()
+                        _log(f"   Button status - Visible: {is_visible}, Enabled: {is_enabled}")
+                        
+                        if is_visible and is_enabled:
+                            await continue_button.click()
+                            _log("✅ Clicked Continue button")
+                            
+                            # Wait for page transition
+                            _log("⏳ Waiting for page transition...")
+                            await self.page.wait_for_timeout(3000)
+                            
+                            try:
+                                await self.page.wait_for_load_state("networkidle", timeout=15000)
+                                _log("✅ Page transition completed")
+                            except Exception as load_error:
+                                _log(f"⚠️ Page load timeout: {load_error}")
+                            
+                            # Verify we left the Customer Communications page
+                            new_url = self.page.url
+                            _log(f"📄 New URL after Continue: {new_url}")
+                            
+                            # Check if we're still on Customer Communications page
+                            still_on_comm_page = await self.detect_customer_communications_page()
+                            if not still_on_comm_page:
+                                _log("✅ Successfully left Customer Communications page")
+                                return True
+                            else:
+                                _log("⚠️ Still on Customer Communications page after clicking Continue")
+                                return False
+                        else:
+                            _log(f"   Button not ready - Visible: {is_visible}, Enabled: {is_enabled}")
+                            
+                            # Try scrolling to button and clicking
+                            try:
+                                await continue_button.scroll_into_view_if_needed()
+                                await self.page.wait_for_timeout(500)
+                                await continue_button.click()
+                                _log("✅ Clicked Continue button after scrolling")
+                                
+                                await self.page.wait_for_timeout(3000)
+                                await self.page.wait_for_load_state("networkidle", timeout=15000)
+                                return True
+                                
+                            except Exception as scroll_error:
+                                _log(f"⚠️ Scroll and click failed: {scroll_error}")
+                                continue
+                except Exception as selector_error:
+                    _log(f"⚠️ Failed with selector {selector}: {selector_error}")
+                    continue
+            
+            _log("❌ Could not find or click Continue button")
+            return False
+            
+        except Exception as e:
+            _log(f"❌ Error clicking Continue button: {e}")
+            return False
+    
+    async def navigate_search_menu(self, task_params: Dict[str, Any]):
         """Navigate through the search menu sequence: Search -> Lien Index -> Name Search"""
         try:
             _log("🔄 Starting search menu navigation sequence...")
@@ -672,95 +529,275 @@ class FultonScraper(SearchFormScraper):
             _log("✅ Search menu navigation sequence completed successfully")
             
             # Now apply search filters on the name search page
-            await self.apply_search_filters()
+            await self.apply_search_filters(task_params)
             
         except Exception as e:
             _log(f"❌ Error during search menu navigation: {e}")
             raise
     
-    async def apply_search_filters(self):
+    async def apply_search_filters(self, task_params: Dict[str, Any]):
         """Apply search filters on the name search page"""
         try:
             _log("🔧 Applying search filters on name search page...")
             
             # Wait for the search form to load
-            await self.page.wait_for_timeout(2000)
+            await self.page.wait_for_timeout(3000)
+            _log("⏳ Page loaded, checking for search form elements...")
             
-            # Clear and set instrument type to Lis Pendens (value='9')
-            instrument_select = self.page.locator('select[name="txtInstrCode"]')
-            if await instrument_select.count() > 0:
-                await instrument_select.select_option('9')  # Lis Pendens
-                _log("✅ Set instrument type to Lis Pendens (value: 9)")
+            # Log current URL to verify we're on the correct page
+            current_url = self.page.url
+            _log(f"📄 Current URL: {current_url}")
+            
+            # Set date range FIRST - ensure we always have dates
+            date_from = task_params.get('date_from')
+            date_to = task_params.get('date_to')
+            
+            # Always set default dates if not provided
+            if not date_from:
+                from datetime import datetime, timedelta
+                date_from = (datetime.now() - timedelta(days=30)).strftime('%m/%d/%Y')
+                _log(f"📅 Using default from date: {date_from}")
+            
+            if not date_to:
+                from datetime import datetime
+                date_to = datetime.now().strftime('%m/%d/%Y')
+                _log(f"📅 Using default to date: {date_to}")
+            
+            _log(f"📅 Date range: {date_from} to {date_to}")
+            
+            # Fill from date with enhanced error handling
+            _log("📅 Setting FROM date...")
+            from_date_input = self.page.locator('input[name="txtFromDate"]')
+            if await from_date_input.count() > 0:
+                _log(f"🎯 Found txtFromDate input field")
+                # Click to focus first
+                await from_date_input.click()
+                await self.page.wait_for_timeout(500)
+                # Clear using multiple methods
+                await from_date_input.fill('')
+                await from_date_input.clear()
+                await self.page.wait_for_timeout(500)
+                # Fill with date
+                await from_date_input.fill(date_from)
+                await self.page.wait_for_timeout(1000)
+                # Press Tab to trigger any onchange events
+                await from_date_input.press('Tab')
+                await self.page.wait_for_timeout(500)
+                # Verify the date was entered
+                entered_value = await from_date_input.input_value()
+                _log(f"✅ Set from date to {date_from} (verified: '{entered_value}')")
+                if entered_value != date_from:
+                    _log(f"⚠️ Date verification mismatch! Expected: '{date_from}', Got: '{entered_value}'")
             else:
-                _log("⚠️ Instrument type selector not found")
+                _log("❌ From date input (txtFromDate) not found!")
+                # List all available input fields for debugging
+                all_inputs = self.page.locator('input')
+                input_count = await all_inputs.count()
+                _log(f"🔍 Found {input_count} total input fields on page:")
+                for i in range(min(input_count, 10)):  # Show first 10
+                    try:
+                        input_name = await all_inputs.nth(i).get_attribute('name')
+                        input_type = await all_inputs.nth(i).get_attribute('type')
+                        _log(f"   Input {i+1}: name='{input_name}', type='{input_type}'")
+                    except:
+                        pass
             
-            # Clear and set county to FULTON (value='60')
-            county_select = self.page.locator('select[name="intCountyID"]')
-            if await county_select.count() > 0:
-                await county_select.select_option('60')  # FULTON
-                _log("✅ Set county to FULTON (value: 60)")
+            # Fill to date with enhanced error handling
+            _log("📅 Setting TO date...")
+            to_date_input = self.page.locator('input[name="txtToDate"]')
+            if await to_date_input.count() > 0:
+                _log(f"🎯 Found txtToDate input field")
+                # Click to focus first
+                await to_date_input.click()
+                await self.page.wait_for_timeout(500)
+                # Clear using multiple methods
+                await to_date_input.fill('')
+                await to_date_input.clear()
+                await self.page.wait_for_timeout(500)
+                # Fill with date
+                await to_date_input.fill(date_to)
+                await self.page.wait_for_timeout(1000)
+                # Press Tab to trigger any onchange events
+                await to_date_input.press('Tab')
+                await self.page.wait_for_timeout(500)
+                # Verify the date was entered
+                entered_value = await to_date_input.input_value()
+                _log(f"✅ Set to date to {date_to} (verified: '{entered_value}')")
+                if entered_value != date_to:
+                    _log(f"⚠️ Date verification mismatch! Expected: '{date_to}', Got: '{entered_value}'")
             else:
-                _log("⚠️ County selector not found")
+                _log("❌ To date input (txtToDate) not found!")
             
-            # Clear and set records per page to maximum (50)
-            maxrows_select = self.page.locator('select[name="MaxRows"]')
-            if await maxrows_select.count() > 0:
-                await maxrows_select.select_option('50')
-                _log("✅ Set records per page to 50")
-            else:
-                _log("⚠️ MaxRows selector not found")
-            
-            # Clear and set search name (using 'A' for broad search)
+            # Set search name
+            search_name = task_params.get('search_name', 'A')
+            _log(f"🔤 Setting search name to '{search_name}'...")
             search_name_input = self.page.locator('input[name="txtSearchName"]')
             if await search_name_input.count() > 0:
-                await search_name_input.clear()  # Clear existing text
-                await search_name_input.fill('A')
-                _log("✅ Set search name to 'A' (cleared previous input)")
+                await search_name_input.click()
+                await search_name_input.clear()
+                await search_name_input.fill(search_name)
+                await self.page.wait_for_timeout(500)
+                entered_name = await search_name_input.input_value()
+                _log(f"✅ Set search name to '{search_name}' (verified: '{entered_name}')")
             else:
                 _log("⚠️ Search name input not found")
             
-            # Clear and set date range (last 30 days)
-            from datetime import datetime, timedelta
-            from_date = (datetime.now() - timedelta(days=30)).strftime('%m/%d/%Y')
-            to_date = datetime.now().strftime('%m/%d/%Y')
-            
-            from_date_input = self.page.locator('input[name="txtFromDate"]')
-            if await from_date_input.count() > 0:
-                await from_date_input.clear()  # Clear existing text
-                await from_date_input.fill(from_date)
-                _log(f"✅ Set from date to {from_date} (cleared previous input)")
+            # Set instrument type to Lis Pendens (value='9')
+            _log("🔧 Setting instrument type to Lis Pendens...")
+            instrument_select = self.page.locator('select[name="txtInstrCode"]')
+            if await instrument_select.count() > 0:
+                await instrument_select.select_option('9')  # Lis Pendens
+                selected_value = await instrument_select.input_value()
+                _log(f"✅ Set instrument type to Lis Pendens (value: 9, verified: '{selected_value}')")
             else:
-                _log("⚠️ From date input not found")
+                _log("⚠️ Instrument type selector not found")
             
-            to_date_input = self.page.locator('input[name="txtToDate"]')
-            if await to_date_input.count() > 0:
-                await to_date_input.clear()  # Clear existing text
-                await to_date_input.fill(to_date)
-                _log(f"✅ Set to date to {to_date} (cleared previous input)")
+            # Set county to FULTON (value='60')
+            _log("🏛️ Setting county to FULTON...")
+            county_select = self.page.locator('select[name="intCountyID"]')
+            if await county_select.count() > 0:
+                await county_select.select_option('60')  # FULTON
+                selected_value = await county_select.input_value()
+                _log(f"✅ Set county to FULTON (value: 60, verified: '{selected_value}')")
             else:
-                _log("⚠️ To date input not found")
+                _log("⚠️ County selector not found")
+            
+            # Set records per page to maximum (50)
+            _log("📊 Setting max rows to 50...")
+            maxrows_select = self.page.locator('select[name="MaxRows"]')
+            if await maxrows_select.count() > 0:
+                await maxrows_select.select_option('50')
+                selected_value = await maxrows_select.input_value()
+                _log(f"✅ Set records per page to 50 (verified: '{selected_value}')")
+            else:
+                _log("⚠️ MaxRows selector not found")
+            
+            # Set table display type to "1 Line" (value = 2)
+            _log("📋 Setting table display type to 1 Line...")
+            try:
+                table_type_select = self.page.locator('select[name="TableType"]')
+                if await table_type_select.count() > 0:
+                    await table_type_select.select_option('2')
+                    selected_value = await table_type_select.input_value()
+                    _log(f"✅ Set table display type: 1 Line (value: 2, verified: '{selected_value}')")
+                else:
+                    _log("⚠️ Table type selector not found")
+            except Exception as table_type_error:
+                _log(f"⚠️ Could not set table display type: {table_type_error}")
+            
+            # Final verification of all form fields before search
+            _log("🔍 Final verification of form fields before search...")
+            try:
+                # Re-check all the critical fields
+                from_date_final = await from_date_input.input_value() if await from_date_input.count() > 0 else "NOT FOUND"
+                to_date_final = await to_date_input.input_value() if await to_date_input.count() > 0 else "NOT FOUND"
+                search_name_final = await search_name_input.input_value() if await search_name_input.count() > 0 else "NOT FOUND"
+                
+                _log(f"📋 Final form state:")
+                _log(f"   From Date: '{from_date_final}'")
+                _log(f"   To Date: '{to_date_final}'")
+                _log(f"   Search Name: '{search_name_final}'")
+                
+                # Check if dates are actually filled
+                if from_date_final == "" or from_date_final == "NOT FOUND":
+                    _log("❌ FROM DATE IS EMPTY! This will cause the search to fail.")
+                if to_date_final == "" or to_date_final == "NOT FOUND":
+                    _log("❌ TO DATE IS EMPTY! This will cause the search to fail.")
+                    
+            except Exception as verify_error:
+                _log(f"⚠️ Error during final verification: {verify_error}")
             
             # Click the search button
-            _log("🔍 Clicking search button...")
-            search_button = await self.find_search_button()
-            await search_button.click()
-            _log("✅ Clicked search button - executing search")
+            _log("🔍 Looking for and clicking search button...")
+            try:
+                search_button = await self.find_search_button()
+                _log(f"✅ Found search button, preparing to click...")
+                
+                # Scroll to button if needed
+                await search_button.scroll_into_view_if_needed()
+                await self.page.wait_for_timeout(500)
+                
+                # Click the search button
+                await search_button.click()
+                _log("✅ Clicked search button - executing search")
+                
+                # Wait longer for search results
+                _log("⏳ Waiting for search to complete...")
+                await self.page.wait_for_timeout(8000)  # Increased wait time
+                
+                # Check if we're still on the search form or moved to results
+                new_url = self.page.url
+                _log(f"📄 URL after search click: {new_url}")
+                
+                # Look for search results or errors
+                await self.verify_search_execution()
+                
+            except Exception as search_error:
+                _log(f"❌ Failed to click search button: {search_error}")
+                raise
             
-            # Wait for search results
-            _log("⏳ Waiting for search results...")
-            await self.page.wait_for_timeout(5000)
-            
-            # Handle login if required
+            # Handle login if required (this might redirect us)
             await self.handle_login()
             
             # Final verification
             result_url = self.page.url
-            _log(f"📄 Search results URL: {result_url}")
+            _log(f"📄 Final search results URL: {result_url}")
             _log("✅ Search filters applied and search executed successfully")
             
         except Exception as e:
             _log(f"❌ Error applying search filters: {e}")
             raise
+    
+    async def verify_search_execution(self):
+        """Verify that the search was actually executed"""
+        try:
+            _log("🔍 Verifying search execution...")
+            
+            # Wait a bit more for results to load
+            await self.page.wait_for_timeout(3000)
+            
+            # Check for various indicators of search results
+            result_indicators = [
+                'table.name_results',          # Results table
+                'table[class*="result"]',      # Alternative results table
+                'div:has-text("Search Results")',  # Results heading
+                'div:has-text("No records found")',  # No results message
+                'tr:has(td)',                  # Any table rows with data
+                'form:has-text("Display")'     # Results form
+            ]
+            
+            found_results = False
+            for indicator in result_indicators:
+                try:
+                    element = self.page.locator(indicator)
+                    if await element.count() > 0:
+                        _log(f"✅ Found search results indicator: {indicator}")
+                        found_results = True
+                        break
+                except:
+                    continue
+            
+            if not found_results:
+                _log("⚠️ No clear search results indicators found")
+                # Log page content for debugging
+                page_text = await self.page.text_content('body')
+                if page_text:
+                    # Look for error messages or other clues
+                    if 'error' in page_text.lower():
+                        _log(f"❌ Error detected in page content")
+                    if 'invalid' in page_text.lower():
+                        _log(f"❌ Invalid input detected in page content")
+                    if 'required' in page_text.lower():
+                        _log(f"❌ Required field message detected")
+                        
+                    # Show first 500 characters of page content
+                    preview = page_text[:500].replace('\n', ' ').replace('\r', ' ')
+                    _log(f"📄 Page content preview: {preview}")
+            else:
+                _log("✅ Search execution verified - results found")
+                
+        except Exception as e:
+            _log(f"⚠️ Error during search execution verification: {e}")
     
     async def load_cookies(self):
         """Load saved cookies to maintain session state"""
@@ -896,6 +933,313 @@ class FultonScraper(SearchFormScraper):
             document_link=record_data.get('document_link', '')
         )
 
+    async def extract_search_results(self) -> List[Dict[str, Any]]:
+        """Extract records from search results table by scanning row by row and clicking on data inputs and Display Details"""
+        _log("🔍 Starting custom table extraction for Fulton GA results")
+        
+        try:
+            # Wait for results table to load
+            await self.page.wait_for_selector('table.name_results', timeout=10000)
+            _log("✅ Found results table with class 'name_results'")
+            
+            # Get existing names for this user to avoid duplicates
+            existing_names = await get_existing_names_for_user(USER_ID)
+            _log(f"📋 Loaded {len(existing_names)} existing names for user {USER_ID}")
+            
+            # Log some example existing names for debugging (first 5)
+            if existing_names:
+                example_names = list(existing_names)[:5]
+                _log(f"📝 Example existing names: {example_names}")
+            
+            # Get the results table
+            results_table = self.page.locator('table.name_results')
+            
+            # Get all table rows (excluding header if present)
+            table_rows = results_table.locator('tbody tr, tr').filter(lambda row: row.locator('td').count() > 0)
+            row_count = await table_rows.count()
+            _log(f"📊 Found {row_count} data rows in results table")
+            
+            if row_count == 0:
+                _log("⚠️ No data rows found in results table")
+                return []
+            
+            records = []
+            skipped_count = 0
+            processed_names_this_session = set()  # Track names processed in this session
+            
+            # Process each row in order
+            for row_index in range(row_count):
+                try:
+                    _log(f"🔄 Processing row {row_index + 1} of {row_count}")
+                    
+                    # Get the current row
+                    current_row = table_rows.nth(row_index)
+                    
+                    # Get all cells in this row
+                    row_cells = current_row.locator('td')
+                    cell_count = await row_cells.count()
+                    _log(f"   📋 Row has {cell_count} cells")
+                    
+                    # Extract the name from the last td (cell) in this row
+                    if cell_count > 0:
+                        last_cell = row_cells.nth(cell_count - 1)
+                        row_name = await last_cell.text_content()
+                        row_name = row_name.strip() if row_name else ""
+                        _log(f"   👤 Row name: '{row_name}'")
+                        
+                        # Normalize the name for comparison (lowercase, remove extra spaces)
+                        normalized_name = " ".join(row_name.lower().split()) if row_name else ""
+                        
+                        # Check if this name already exists in the database for this user
+                        if normalized_name and normalized_name in existing_names:
+                            _log(f"   ⏭️ SKIPPING row {row_index + 1} - Name '{row_name}' already exists in database for user {USER_ID}")
+                            skipped_count += 1
+                            continue
+                        # Also check if we've already processed this name in this session
+                        elif normalized_name and normalized_name in processed_names_this_session:
+                            _log(f"   ⏭️ SKIPPING row {row_index + 1} - Name '{row_name}' already processed in this session")
+                            skipped_count += 1
+                            continue
+                        elif row_name:
+                            _log(f"   ✅ Name '{row_name}' is new, proceeding with extraction")
+                            # Add to processed names for this session
+                            processed_names_this_session.add(normalized_name)
+                        else:
+                            _log(f"   ⚠️ Row {row_index + 1} has empty name, proceeding anyway")
+                    else:
+                        _log(f"   ⚠️ Row {row_index + 1} has no cells, skipping")
+                        continue
+                    
+                    # First, click on any data inputs in this row
+                    data_inputs = current_row.locator('input[type="radio"], input[type="checkbox"], input[name*="data"], input[name*="select"]')
+                    input_count = await data_inputs.count()
+                    
+                    if input_count > 0:
+                        _log(f"   🎯 Found {input_count} data input(s) in row {row_index + 1}")
+                        for input_index in range(input_count):
+                            try:
+                                data_input = data_inputs.nth(input_index)
+                                input_name = await data_input.get_attribute('name')
+                                input_type = await data_input.get_attribute('type')
+                                _log(f"   ✅ Clicking data input: name='{input_name}', type='{input_type}'")
+                                await data_input.click()
+                                await self.page.wait_for_timeout(500)  # Brief pause between clicks
+                            except Exception as input_error:
+                                _log(f"   ⚠️ Failed to click data input {input_index + 1}: {input_error}")
+                    else:
+                        _log(f"   ℹ️ No data inputs found in row {row_index + 1}")
+                    
+                    # Extract basic row data before clicking Display Details
+                    row_data = {}
+                    for cell_index in range(cell_count):
+                        try:
+                            cell = row_cells.nth(cell_index)
+                            cell_text = await cell.text_content()
+                            if cell_text and cell_text.strip():
+                                row_data[f'column_{cell_index}'] = cell_text.strip()
+                        except Exception as cell_error:
+                            _log(f"   ⚠️ Failed to extract cell {cell_index} text: {cell_error}")
+                    
+                    # Look for Display Details button in this row
+                    display_details_selectors = [
+                        'input[value*="Display Details"]',
+                        'input[value*="Details"]', 
+                        'button:has-text("Display Details")',
+                        'input[type="submit"][value*="Display"]',
+                        'input[onclick*="Display"]'
+                    ]
+                    
+                    display_details_clicked = False
+                    for selector in display_details_selectors:
+                        try:
+                            details_button = current_row.locator(selector)
+                            if await details_button.count() > 0:
+                                button_value = await details_button.get_attribute('value')
+                                _log(f"   🎯 Found Display Details button: value='{button_value}'")
+                                
+                                # Click the Display Details button
+                                await details_button.click()
+                                _log(f"   ✅ Clicked Display Details button in row {row_index + 1}")
+                                
+                                # Wait for details page to load
+                                await self.page.wait_for_timeout(2000)
+                                await self.page.wait_for_load_state('networkidle', timeout=10000)
+                                
+                                # Extract detailed record information from the details page
+                                detailed_data = await self.extract_record_details()
+                                
+                                # Combine row data with detailed data
+                                record_data = {**row_data, **detailed_data}
+                                record_data['source_url'] = self.page.url
+                                
+                                records.append(record_data)
+                                _log(f"   ✅ Extracted detailed record data for row {row_index + 1}")
+                                
+                                # Navigate back to results table
+                                await self.navigate_back_to_results()
+                                
+                                display_details_clicked = True
+                                break
+                                
+                        except Exception as details_error:
+                            _log(f"   ⚠️ Failed to click Display Details with selector {selector}: {details_error}")
+                            continue
+                    
+                    if not display_details_clicked:
+                        _log(f"   ⚠️ No Display Details button found in row {row_index + 1}, using basic row data")
+                        # Still add the basic row data as a record
+                        row_data['source_url'] = self.page.url
+                        records.append(row_data)
+                    
+                except Exception as row_error:
+                    _log(f"❌ Failed to process row {row_index + 1}: {row_error}")
+                    continue
+            
+            _log(f"✅ Completed table extraction, found {len(records)} new records, skipped {skipped_count} existing records")
+            return records
+            
+        except Exception as e:
+            _log(f"❌ Table extraction failed: {e}")
+            # Fallback to base class implementation
+            return await super().extract_search_results()
+    
+    async def extract_record_details(self) -> Dict[str, Any]:
+        """Extract detailed record information from the record details page"""
+        _log("🔍 Extracting detailed record information")
+        
+        try:
+            record_data = {}
+            
+            # Common selectors for record details
+            detail_selectors = {
+                'case_number': ['td:has-text("Case Number")', 'td:has-text("Case #")', '*:has-text("Case Number")'],
+                'document_type': ['td:has-text("Document Type")', 'td:has-text("Type")', '*:has-text("Document Type")'],
+                'filing_date': ['td:has-text("Filing Date")', 'td:has-text("Date Filed")', '*:has-text("Filing Date")'],
+                'debtor_name': ['td:has-text("Debtor")', 'td:has-text("Defendant")', '*:has-text("Debtor")'],
+                'claimant_name': ['td:has-text("Claimant")', 'td:has-text("Plaintiff")', '*:has-text("Claimant")'],
+                'book_page': ['td:has-text("Book/Page")', 'td:has-text("Book")', '*:has-text("Book")'],
+                'county': ['td:has-text("County")', '*:has-text("County")']
+            }
+            
+            # Extract each field using multiple selector strategies
+            for field_name, selectors in detail_selectors.items():
+                for selector in selectors:
+                    try:
+                        # Find the label element
+                        label_element = self.page.locator(selector).first
+                        if await label_element.count() > 0:
+                            # Try to find the value in the next cell or sibling
+                            value_element = label_element.locator('.. >> td').nth(1)
+                            if await value_element.count() == 0:
+                                # Try next sibling approach
+                                value_element = label_element.locator('xpath=following-sibling::td[1]')
+                            
+                            if await value_element.count() > 0:
+                                value = await value_element.text_content()
+                                if value and value.strip():
+                                    record_data[field_name] = value.strip()
+                                    _log(f"   ✅ {field_name}: {value.strip()}")
+                                    break
+                    except Exception as field_error:
+                        continue
+            
+            # Also extract any document links
+            try:
+                link_elements = self.page.locator('a[href*=".pdf"], a[href*="document"], a[href*="view"]')
+                if await link_elements.count() > 0:
+                    first_link = await link_elements.first.get_attribute('href')
+                    if first_link:
+                        # Convert relative URL to absolute if needed
+                        if first_link.startswith('/'):
+                            base_url = f"{self.page.url.split('/')[0]}//{self.page.url.split('/')[2]}"
+                            first_link = base_url + first_link
+                        record_data['document_link'] = first_link
+                        _log(f"   ✅ document_link: {first_link}")
+            except Exception as link_error:
+                _log(f"   ⚠️ Failed to extract document link: {link_error}")
+            
+            return record_data
+            
+        except Exception as e:
+            _log(f"❌ Failed to extract record details: {e}")
+            return {}
+    
+    async def navigate_back_to_results(self):
+        """Navigate back to the search results table"""
+        try:
+            _log("🔙 Navigating back to search results")
+            
+            # Try different methods to go back
+            back_selectors = [
+                'input[value*="Back"]',
+                'button:has-text("Back")',
+                'a:has-text("Back")',
+                'input[type="submit"][value*="Return"]',
+                'a:has-text("Return to Results")'
+            ]
+            
+            back_clicked = False
+            for selector in back_selectors:
+                try:
+                    back_button = self.page.locator(selector)
+                    if await back_button.count() > 0:
+                        _log(f"   ✅ Found back button: {selector}")
+                        await back_button.click()
+                        back_clicked = True
+                        break
+                except Exception as back_error:
+                    continue
+            
+            if not back_clicked:
+                # Fallback: use browser back button
+                _log("   ⚠️ No back button found, using browser back")
+                await self.page.go_back()
+            
+            # Wait for results table to load again
+            await self.page.wait_for_timeout(2000)
+            await self.page.wait_for_selector('table.name_results', timeout=10000)
+            _log("   ✅ Successfully returned to results table")
+            
+        except Exception as e:
+            _log(f"❌ Failed to navigate back to results: {e}")
+            raise
+    
+    async def scrape(self, task_params: Dict[str, Any]) -> ScrapingResult:
+        """Override base class scrape method to use custom flow"""
+        try:
+            _log(f"🚀 Starting Fulton GA custom scraping flow")
+            
+            # Navigate to search results using our custom method
+            await self.navigate_to_search_results(task_params)
+            
+            # Extract search results using our custom method
+            records_data = await self.extract_search_results()
+            
+            # Convert to ScrapingRecord objects
+            records = []
+            for record_data in records_data:
+                clean_record = self.clean_record_data(record_data)
+                records.append(ScrapingRecord(
+                    data=clean_record,
+                    source_url=record_data.get('source_url', self.page.url)
+                ))
+            
+            _log(f"✅ Fulton GA scraping completed successfully, found {len(records)} records")
+            
+            return ScrapingResult(
+                success=True,
+                records=records,
+                error_message=None
+            )
+            
+        except Exception as e:
+            _log(f"❌ Fulton GA scraping failed: {e}")
+            return ScrapingResult(
+                success=False,
+                records=[],
+                error_message=str(e)
+            )
+
 # ─────────────────────────────────────────────────────────────────────────────
 # DATABASE FUNCTIONS
 # ─────────────────────────────────────────────────────────────────────────────
@@ -911,6 +1255,27 @@ async def get_existing_case_numbers() -> set:
             return existing
     except Exception as e:
         _log(f"⚠️ Database check failed: {e}")
+        return set()
+
+async def get_existing_names_for_user(user_id: str) -> set:
+    """Get existing debtor names from database for a specific user to avoid duplicates"""
+    try:
+        async with AsyncSession(engine) as session:
+            result = await session.execute(
+                text("SELECT DISTINCT debtor_name FROM fulton_ga_filing WHERE userId = :user_id AND debtor_name IS NOT NULL AND debtor_name != ''"),
+                {"user_id": user_id}
+            )
+            # Normalize names consistently (lowercase, remove extra spaces)
+            existing = set()
+            for row in result.fetchall():
+                if row[0] and row[0].strip():
+                    normalized = " ".join(row[0].strip().lower().split())
+                    existing.add(normalized)
+            
+            _log(f"📊 Found {len(existing)} existing names in database for user {user_id}")
+            return existing
+    except Exception as e:
+        _log(f"⚠️ Database check for existing names failed: {e}")
         return set()
 
 async def upsert_records(records: List[dict]):
@@ -1033,7 +1398,6 @@ async def run(max_new_records: int = MAX_NEW_RECORDS, test_mode: bool = False,
     try:
         # Run scraper once
         async with FultonScraper(config) as scraper:
-            await scraper.setup_search_parameters(task_params)
             result = await scraper.scrape(task_params)
             
             if result.success and result.records:

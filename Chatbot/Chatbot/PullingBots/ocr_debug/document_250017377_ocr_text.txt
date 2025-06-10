@@ -2,11 +2,11 @@
 Image: ocr_debug/document_250017377.png
 Image dimensions: 1280x720
 OCR method used: grayscale
-OCR text length: 1296 characters
-Timestamp: 2025-06-09 08:19:14.402401
+OCR text length: 1298 characters
+Timestamp: 2025-06-09 13:48:39.720403
 === FULL OCR TEXT ===
 
-oe
+came
 BACK
 Book9858Page1983
 3005
