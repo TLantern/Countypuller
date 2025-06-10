@@ -18,6 +18,7 @@ const FeedbackPanel: React.FC<FeedbackPanelProps> = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleSubmit = async () => {
     if (!feedback.trim()) {
@@ -28,18 +29,40 @@ const FeedbackPanel: React.FC<FeedbackPanelProps> = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
     setHasError(false);
 
+    console.log('🔄 FEEDBACK PANEL: Starting feedback submission');
+
     try {
-      // Here you would typically send the feedback to your API
-      console.log('Feedback submitted:', { rating, feedback });
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Reset form and close panel
-      setRating(0);
-      setFeedback('');
-      onClose();
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          rating,
+          feedback: feedback.trim(),
+        }),
+      });
+
+      console.log(`📡 FEEDBACK PANEL: API response status: ${response.status}`);
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('✅ FEEDBACK PANEL: Feedback submitted successfully', responseData);
+        setSubmitSuccess(true);
+        // Reset form and close panel after showing success
+        setTimeout(() => {
+          setRating(0);
+          setFeedback('');
+          setSubmitSuccess(false);
+          onClose();
+        }, 2000);
+      } else {
+        const errorData = await response.json();
+        console.error('❌ FEEDBACK PANEL: Feedback submission failed:', errorData);
+        setHasError(true);
+      }
     } catch (error) {
+      console.error('❌ FEEDBACK PANEL: Error submitting feedback:', error);
       setHasError(true);
     } finally {
       setIsSubmitting(false);
@@ -89,77 +112,94 @@ const FeedbackPanel: React.FC<FeedbackPanelProps> = ({ isOpen, onClose }) => {
               </button>
             </div>
 
-            {/* Star Rating */}
-            <div className="mb-6">
-              <Label className="text-sm font-medium text-gray-700 mb-3 block">
-                How would you rate your experience?
-              </Label>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    className="p-1 rounded-md hover:bg-gray-50 transition-colors"
-                    onClick={() => handleRatingClick(star)}
-                    onMouseEnter={() => setHoverRating(star)}
-                    onMouseLeave={() => setHoverRating(0)}
-                  >
-                    <Star
-                      className={`w-6 h-6 transition-colors ${
-                        star <= (hoverRating || rating)
-                          ? 'fill-yellow-400 text-yellow-400'
-                          : 'text-gray-300'
-                      }`}
+            {submitSuccess ? (
+              // Success message
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Thank you!</h3>
+                  <p className="text-gray-600">Your feedback has been sent to our team.</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Star Rating */}
+                <div className="mb-6">
+                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                    How would you rate your experience?
+                  </Label>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        className="p-1 rounded-md hover:bg-gray-50 transition-colors"
+                        onClick={() => handleRatingClick(star)}
+                        onMouseEnter={() => setHoverRating(star)}
+                        onMouseLeave={() => setHoverRating(0)}
+                      >
+                        <Star
+                          className={`w-6 h-6 transition-colors ${
+                            star <= (hoverRating || rating)
+                              ? 'fill-yellow-400 text-yellow-400'
+                              : 'text-gray-300'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Feedback Text Area */}
+                <div className="flex-1 mb-6">
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    What can we improve?
+                  </Label>
+                  <div className="relative">
+                    <textarea
+                      value={feedback}
+                      onChange={handleTextareaChange}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      placeholder="Share your thoughts, suggestions, or report any issues..."
+                      className={`w-full h-32 p-3 border-2 rounded-lg resize-none transition-all duration-200 text-black ${
+                        hasError
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                          : isFocused
+                          ? 'border-blue-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+                          : 'border-gray-300 hover:border-gray-400'
+                      } focus:outline-none placeholder-gray-400`}
                     />
+                  </div>
+                  {hasError && (
+                    <p className="text-red-500 text-sm mt-2">
+                      {feedback.trim() ? 'Failed to submit feedback. Please try again.' : 'Please provide your feedback before submitting.'}
+                    </p>
+                  )}
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-3 pt-6 border-t border-gray-100">
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+                  </Button>
+                  <button
+                    onClick={onClose}
+                    className="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium transition-colors hover:bg-gray-50 rounded-lg"
+                  >
+                    Dismiss
                   </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Feedback Text Area */}
-            <div className="flex-1 mb-6">
-              <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                What can we improve?
-              </Label>
-              <div className="relative">
-                <textarea
-                  value={feedback}
-                  onChange={handleTextareaChange}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => setIsFocused(false)}
-                  placeholder="Share your thoughts, suggestions, or report any issues..."
-                  className={`w-full h-32 p-3 border-2 rounded-lg resize-none transition-all duration-200 text-black ${
-                    hasError
-                      ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                      : isFocused
-                      ? 'border-blue-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
-                      : 'border-gray-300 hover:border-gray-400'
-                  } focus:outline-none placeholder-gray-400`}
-                />
-              </div>
-              {hasError && (
-                <p className="text-red-500 text-sm mt-2">
-                  Please provide your feedback before submitting.
-                </p>
-              )}
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-3 pt-6 border-t border-gray-100">
-              <Button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
-              </Button>
-              <button
-                onClick={onClose}
-                className="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium transition-colors hover:bg-gray-50 rounded-lg"
-              >
-                Dismiss
-              </button>
-            </div>
+                </div>
+              </>
+            )}
           </div>
         </Card>
       </div>
