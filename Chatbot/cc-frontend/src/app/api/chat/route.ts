@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { normalizeAttomParams } from '@/lib/utils';
+import { normalizeAttomParams, createFallbackSearchQuery } from '@/lib/utils';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/authOptions";
 import prisma from '../../../lib/prisma';
@@ -76,6 +76,10 @@ export async function POST(req: NextRequest) {
     // If we have address info but no explicit web search intent, search by address
     if (!hasWebSearchIntent(message) && hasAddress) {
       searchQuery = [street, city, state, zip].filter(Boolean).join(', ');
+    } else if (!hasAddress && !hasWebSearchIntent(message)) {
+      // If address parsing failed, create a better search query
+      searchQuery = createFallbackSearchQuery(message);
+      console.log('Using fallback search query:', searchQuery);
     }
     
     console.log('SERP Search Query:', searchQuery);
@@ -94,6 +98,26 @@ export async function POST(req: NextRequest) {
       console.log(`SERP returned ${webResults.length} results`);
       serpResultsSufficient = areSerpResultsSufficient(webResults, hasWebSearchIntent(message));
       console.log('SERP results sufficient:', serpResultsSufficient);
+      
+      // If the original search failed but we used a fallback query, try the original too
+      if (webResults.length === 0 && searchQuery !== message) {
+        console.log('Fallback search failed, trying original message...');
+        const originalSerpRes = await fetch(
+          `https://serpapi.com/search.json?q=${encodeURIComponent(message)}&engine=google&api_key=${process.env.SERPAPI_KEY}`
+        );
+        const originalSerpData = await originalSerpRes.json();
+        const originalResults = (originalSerpData.organic_results || []).map((item: any) => ({
+          title: item.title,
+          url: item.link,
+          snippet: item.snippet,
+        }));
+        
+        if (originalResults.length > webResults.length) {
+          webResults = originalResults;
+          console.log(`Original search returned ${webResults.length} results`);
+          serpResultsSufficient = areSerpResultsSufficient(webResults, hasWebSearchIntent(message));
+        }
+      }
     } catch (e) {
       console.error('SERP Fetch Error:', e);
     }
@@ -170,13 +194,27 @@ export async function POST(req: NextRequest) {
       throw new Error('OPENAI_API_KEY not configured');
     }
 
-    const systemPrompt = `You are a helpful real estate and property information assistant. Use the provided context to answer user questions about properties, real estate, and related topics. If you don't have enough information in the context, say so clearly.`;
+    const systemPrompt = `You are a helpful real estate and property information assistant. Use the provided context to answer user questions about properties, real estate, and related topics. 
 
-    const userPrompt = `User message: "${message}"
+If you don't have enough information in the context:
+- For property address queries, suggest the user provide a properly formatted address (e.g., "123 Main Street, City, State ZIP")
+- For general real estate questions, provide helpful general information
+- Always be helpful and provide actionable guidance
+
+If the user's message appears to contain a malformed address, help them understand the correct format.`;
+
+    let userPrompt = `User message: "${message}"
 
 Context:${context}
 
 Please provide a helpful response based on the available information.`;
+
+    // Add special handling for malformed addresses
+    if (!hasAddress && /\d+[A-Z]+(?:ST|AVE|RD|DR|LN|WAY|CT|CIR|PL|BLVD).*NH\d+/i.test(message)) {
+      userPrompt += `
+
+Note: The user's message appears to contain a property address that may be formatted incorrectly or from OCR scanning. Consider suggesting they provide the address in a standard format like "123 Main Street, Manchester, NH 03103" for better results.`;
+    }
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',

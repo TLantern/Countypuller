@@ -2,11 +2,10 @@
 Image: ocr_debug/document_250018969.png
 Image dimensions: 1280x720
 OCR method used: grayscale
-OCR text length: 644 characters
-Timestamp: 2025-06-10 09:33:41.489344
+OCR text length: 728 characters
+Timestamp: 2025-06-10 10:39:33.503437
 === FULL OCR TEXT ===
 
-mmm
 BACK
 Book9861Page2182
 CroninBissonZalinskyPC EDoc25001896906092025110209AM
@@ -22,11 +21,16 @@ InaccordancewiththeDeclarationandBylawsofEastviewCondominiumAssociationand
 
 NHRSA356B46theBoardofDirectorshasauthorizedtheterminationofallcommonarea
 
-privilegesandservicesnormallysuppliedorpaidforbytheAssociationanduseofcommonareas ry
+privilegesandservicesnormallysuppliedorpaidforbytheAssociationanduseofcommonareas
 
 andfacilitiesforthefollowingunit
 
-OWNERKerryABrady Meshal
+OWNERKerryABrady
+UNITUnit8Building1
+alka508EastviewDrive
+WiltonNH03086
+RESETDQQ6MOHWPHGoTOPage Go oo
+Contact FAQ s
 
 
 === END OCR TEXT ===

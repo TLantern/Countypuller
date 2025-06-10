@@ -2,11 +2,11 @@
 Image: ocr_debug/document_250018677.png
 Image dimensions: 1280x720
 OCR method used: grayscale
-OCR text length: 807 characters
-Timestamp: 2025-06-10 10:25:04.969791
+OCR text length: 810 characters
+Timestamp: 2025-06-10 10:41:47.991845
 === FULL OCR TEXT ===
 
-es
+cares
 BACK
 Book9861Page514
 VRichardsWardJrPLLCLawOffices

@@ -109,19 +109,31 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
     setInput('');
     setLoading(true);
     try {
+      console.log('Sending message:', input);
       // Prepare chat history for backend (user/bot roles)
       const chatHistory = newMessages.map(msg => ({
         role: msg.position === 'right' ? 'user' : 'assistant',
         content: msg.text
       }));
+      console.log('Chat history:', chatHistory);
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input, chatHistory }),
       });
+      console.log('Response status:', res.status);
+      console.log('Response ok:', res.ok);
       const data = await res.json();
-      setMessages(msgs => [...msgs, { position: 'left', type: 'text', text: data.reply }]);
+      console.log('Response data:', data);
+      if (data.message) {
+        console.log('Adding bot message to chat:', data.message);
+        setMessages(msgs => [...msgs, { position: 'left', type: 'text', text: data.message }]);
+      } else {
+        console.error('No message field in response:', data);
+        setMessages(msgs => [...msgs, { position: 'left', type: 'text', text: 'Error: No response message received.' }]);
+      }
     } catch (e) {
+      console.error('Chat error:', e);
       setMessages(msgs => [...msgs, { position: 'left', type: 'text', text: 'Error: Could not get response.' }]);
     }
     setLoading(false);
