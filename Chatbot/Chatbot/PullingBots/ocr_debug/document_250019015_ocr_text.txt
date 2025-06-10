@@ -2,23 +2,28 @@
 Image: ocr_debug/document_250019015.png
 Image dimensions: 1280x720
 OCR method used: grayscale
-OCR text length: 538 characters
-Timestamp: 2025-06-10 09:33:03.780468
+OCR text length: 664 characters
+Timestamp: 2025-06-10 16:59:16.457606
 === FULL OCR TEXT ===
 
-NEWHAMPSHIRE
-ddd
+aes
 BACK
 Book9861Page2407
-RET4561 Doc250019015 06092025021215PM
+RET561 Doc25001901506092025021215PM
 ManchesterWaterWorks Book9861Page2407 Page1of1
+DennisCHogan
+RegisterofDeedsHillsboroughCounty
 June22025 WaterLienNo 2025L1852
 NoticeOfLienUponRealEstate
 ForCollectionofUnpaidWaterCharges
-AsprovidedunderNewHampshireRSA3822andasstatedin theRulesandRegulationsofthe FiapI
+AsprovidedunderNewHampshireRSA3822andasstatedintheRulesandRegulationsofthe
 ManchesterWaterWorksinArticle9d5themunicipallyownedCityofManchesterWater
-WorksDepartmentherebyrequeststheHillsboroughCountyRegistryofDeedstorecordano coe
-tHaeafliennaanthefallawingdeecrjhedrealectatefarthecallectinnafunnaidwatercharges vv
+WorksDepartmentherebyrequeststheHillsboroughCountyRegistryofDeedstorecordano
+ticeoflienuponthefollowingdescribedrealestateforthecollectionofunpaidwatercharges
+LocationofProperty1315OldMammothRoadManchesterNH
+ManJLot 71514 z
+RESETDQQ6MOHWPHGoTOPage Go oo
+ContactFAQ a
 
 
 === END OCR TEXT ===

@@ -1912,11 +1912,17 @@ def _parse_addresses_from_text(text: str) -> List[str]:
             # Pattern 0: HIGHEST PRIORITY - Capture address between "being know and numbered as" and "and described as followed"
             r'(?i)being\s+know\s+and\s+numbered\s+as\s+([^.]*?)\s+and\s+described\s+as\s+followed',
             
-            # Pattern 1: Capture text AFTER "residence" on the SAME line, include "manchester" line if present
+            # Pattern 1: 2ND PRIORITY - Capture address beginning with "residence" and ending with "register of deeds", also target manchester and line above manchester
+            r'(?i)residence\s+([^]*?(?:manchester[^\n]*)?[^]*?)\s+register\s+of\s+deeds|([^\n]*)\n([^\n]*manchester[^\n]*)',
+            
+            # Pattern 2: Capture text AFTER "residence" on the SAME line, include "manchester" line if present
             r'(?i)residence\s+([^\n]+)(?:\n([^\n]*manchester[^\n]*))?',
             
             # Pattern 3: If no "residence", capture line above "manchester" and the "manchester" line
             r'(?i)([^\n]*)\n(manchester[^\n]*)',
+            
+            # Pattern 4: 4TH PRIORITY - Target "description of units", "unit numbers", and "town/city" lines after
+            r'(?i)(?:description\s+of\s+unit(?:s)?\s*:?\s*([^\n]+)|unit\s+number(?:s)?\s*:?\s*([^\n]+)|town/city\s*:?\s*([^\n]+))',
             
             # Pattern 3: If no "residence", capture line above "pelham" and the "pelham" line
             r'(?i)([^\n]*)\n(pelham[^\n]*)',

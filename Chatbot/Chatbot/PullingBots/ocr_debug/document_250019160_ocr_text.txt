@@ -1,0 +1,35 @@
+=== OCR DEBUG OUTPUT ===
+Image: ocr_debug/document_250019160.png
+Image dimensions: 1280x720
+OCR method used: grayscale
+OCR text length: 808 characters
+Timestamp: 2025-06-10 16:58:09.383588
+=== FULL OCR TEXT ===
+
+cares
+BACK
+Book9862Page100
+EDoc25001916006102025103918AM
+RetumtoGaryMDaddarioEsq Book9862Page100 Page1of2
+MarcusErricoEmmer8BrooksPC DennisCHogan
+32DanielWebsterHighwaySte12 isterof ittsboraughCount
+MerrimackNH03054 RegisterofDeedsWilsboroughCounty
+MEMORANDUMOFLIEN
+PursuanttotheprovisionsoftheNewHampshireRSA356B46Lienfor
+AssessmentsaMemorandumofLienisherebyleviedupontheCondominiumunitsdescribed
+belowforunpaidassessmentsasfollows
+ADescriptionofUnits 14MerrimackDrive
+UnitNumbers Unit7
+NameofCondominiumHarrisPondCondominiumAssociation
+TownCity Merrimack
+County Hillsborough
+RecordingInformation DeclarationofCondominiumdatedMay291985
+andrecordedinBook3357Page557
+BNameofallOwnersoftheUnitsAatifRathod
+Deedforeachindividualunit
+recordedasfollows Book8577Page0121
+RESETDQQ6MOHWPHGoTOPage Go oo
+ContactFAQ a
+
+
+=== END OCR TEXT ===
