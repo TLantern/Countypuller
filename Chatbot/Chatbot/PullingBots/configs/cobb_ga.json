@@ -1,8 +1,8 @@
 {
-  "name": "Cobb County GA Lien Index",
+  "name": "Cobb County GA Public Notice",
   "state": "GA",
-  "base_url": "https://search.gsccca.org",
-  "description": "Cobb County Georgia lien records via GSCCCA system",
+  "base_url": "https://www.georgiapublicnotice.com",
+  "description": "Cobb County Georgia public notice records via Georgia Public Notice website",
   "scraper_type": "search_form",
   "field_mappings": [
     {
@@ -127,19 +127,10 @@
     }
   ],
   "search_config": {
-    "search_url": "https://search.gsccca.org/Lien/namesearch.asp",
-    "search_form_selector": "form",
-    "search_fields": {
-      "party_type": "select[name='PartyType']",
-      "instrument_type": "select[name='txtInstrCode']",
-      "county": "select[name='intCountyID']",
-      "search_name": "input[name='txtSearchName']",
-      "date_from": "input[name='txtFromDate']",
-      "date_to": "input[name='txtToDate']",
-      "results_per_page": "select[name='DisplayResults']"
-    },
-    "submit_button_selector": "input[type='submit']",
-    "results_container_selector": "table"
+    "search_url": "https://search.gsccca.org/RealEstate/namesearch.asp",
+    "base_url": "https://search.gsccca.org",
+    "search_type": "real_estate",
+    "requires_login": true
   },
   "pagination_config": {
     "pagination_type": "numbered",
@@ -149,24 +140,107 @@
     "max_pages": 20
   },
   "auth_config": null,
-  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
   "headless": true,
-  "timeout": 30,
-  "delay_between_requests": 2.0,
+  "timeout": 30000,
+  "wait_for_selector_timeout": 10000,
+  "delay_between_requests": 1000,
+  "retry_attempts": 3,
   "duplicate_check_field": "case_number",
   "required_fields": ["case_number", "document_type", "filing_date", "county"],
   "javascript_enabled": true,
-  "cookies_file": null,
+  "cookies_file": "cobb_ga_cookies.json",
   "proxy_config": null,
   "custom_headers": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-    "Accept-Encoding": "gzip, deflate, br",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
     "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1"
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1",
+    "Sec-Ch-Ua": "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": "\"Windows\"",
+    "Sec-Ch-Ua-Platform-Version": "\"15.0.0\"",
+    "Cache-Control": "max-age=0"
+  },
+  "browser_args": [
+    "--disable-blink-features=AutomationControlled",
+    "--exclude-switches=enable-automation",
+    "--disable-extensions-except=/path/to/extension",
+    "--disable-plugins-discovery",
+    "--disable-default-apps",
+    "--disable-sync",
+    "--disable-translate",
+    "--hide-scrollbars",
+    "--disable-logging",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-client-side-phishing-detection",
+    "--disable-crash-reporter",
+    "--disable-oopr-debug-crash-dump",
+    "--no-crash-upload",
+    "--disable-low-res-tiling",
+    "--disable-background-media-suspend",
+    "--disable-background-timer-throttling",
+    "--disable-features=TranslateUI,BlinkGenPropertyTrees",
+    "--disable-component-extensions-with-background-pages",
+    "--disable-dev-shm-usage",
+    "--disable-gpu-sandbox",
+    "--disable-software-rasterizer",
+    "--disable-background-networking",
+    "--disable-default-apps",
+    "--disable-device-discovery-notifications",
+    "--disable-domain-reliability",
+    "--disable-background-timer-throttling",
+    "--enable-features=NetworkService,NetworkServiceLogging",
+    "--disable-features=VizDisplayCompositor",
+    "--ignore-certificate-errors",
+    "--ignore-ssl-errors",
+    "--ignore-certificate-errors-spki-list",
+    "--disable-web-security",
+    "--allow-running-insecure-content",
+    "--disable-site-isolation-trials"
+  ],
+  "stealth_mode": true,
+  "viewport": {
+    "width": 1366,
+    "height": 768
+  },
+  "screen_resolution": {
+    "width": 1366,
+    "height": 768
+  },
+  "human_behavior": {
+    "mouse_movements": true,
+    "random_delays": true,
+    "scroll_behavior": true,
+    "focus_events": true
+  },
+  "fingerprint_evasion": {
+    "canvas": true,
+    "webgl": true,
+    "audio": true,
+    "fonts": true,
+    "timezone": "America/New_York",
+    "language": "en-US",
+    "platform": "Win32"
   },
   "created_at": "2024-12-28T10:30:00",
   "updated_at": "2024-12-28T10:30:00",
   "version": "1.0.0",
-  "tested": false
+  "tested": false,
+  "county_name": "Cobb GA",
+  "filters": {
+    "instrument_type": "28",
+    "instrument_name": "DEED - FORECLOSURE",
+    "county_id": "31",
+    "party_type": "All Parties",
+    "table_type": "2",
+    "max_rows": "50"
+  }
 } 

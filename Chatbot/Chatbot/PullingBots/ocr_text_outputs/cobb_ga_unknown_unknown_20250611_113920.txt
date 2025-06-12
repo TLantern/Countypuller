@@ -1,0 +1,58 @@
+# ======================================
+# OCR TEXT EXTRACTION RESULTS
+# ======================================
+# Source Image: cobb_ga_unknown_unknown_20250611_113920.png
+# Image Path: screenshots\cobb_ga_unknown_unknown_20250611_113920.png
+# Extracted on: 2025-06-11 11:39:27
+# OCR Method: config_3
+# Image Size: 900x600 pixels
+# Image Mode: RGB
+# Case Number: unknown
+# Document Type: unknown
+# Filing Date: SELECTION
+# Debtor Name: unknown
+# Claimant Name: unknown
+# Text Length: 1550 characters
+# ======================================
+
+me CLERKS “2, COBB PT-61 033-2025-010952 Report this Image | Need Hein?
+
+(Prev) (Mest >) ~ (033-2025-010952 + »|—| op | [Fe with (28%) v 1@| f=
+
+‘PT61 033-2025-010952
+
+roti. 20n To _be filed in COBB COUNTY PT-61_033-2025-010952
+
+=== ‘SECTION A SELLER'S INFORMATION Do not uee agents information) “SECTION - TAX COMPUTATION
+—S SELLERS CAST RAE sonia oOLE 7 First transferee
+tenner, Jr. Ravin Foo cnompt code eter NONE Foreclosure
+
+TILING KOORESS (STREET E MOWER ‘Act Val of onan recived by sll
+
+1001 Semmes Avenue Compe ne 1A acu wae ow 94,000.00
+Richmond, VA 23224 USA 5/6/2028 Persona propery $0.00
+‘SECTION B - BUYER'S INFORMATION (00 not use agents information) 2. Foirmerat ave of Persona! Property ony 30.00
+‘BUYERS BUSINESS ONGANZATION OTHER WANE + Amounl often nd eoumances
+Victor Warren Properties, Inc. totenowed by ence 90.00
+TWAILNG RDORESS ost oe bija are Tr x ig EAS Papo] sais vane
+754 toliwater Road Northeast “Uiatr tales ines 2an¢3) 00
+‘BY STATE PROVE REGION. ZP CODE COUNTRY) ak eae vc spr ats
+Atlanta, GA 30307 USA (papescenal ( } Commer | © itniman ¥0) eet 90.00
+‘SECTION D- PROPERTY INFORMATION (Location of Property (Steet, Route, Hwy ee)
+| HOUSE WOMBER & EXTENSION fr 202R) | PREDIRECTION STREET WAME AND TYPE. POSTORECTION—————— Sure wos]
+2608 Fonwood Place S¥
+‘wouNTY ‘OY OF APPUICABLET WAP PARCEL OMBER ‘RECOUNT HOMER
+cons 119056600200
+AXDISTRCT ou DS BISTRIET RES ‘NDOT sus toraacock
+
+‘SECTION E- RECORDING INFORMATION (Oficial Use Oni)
+
+—E—E one ‘DEED BOOK ‘DEED PROE FATSOOR PORT PAGE
+a= = 16286 3230
+amon. auvens
+= None
+
+
+# ======================================
+# END OF OCR EXTRACTION
+# ======================================

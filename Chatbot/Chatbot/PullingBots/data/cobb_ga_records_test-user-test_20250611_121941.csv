@@ -1,0 +1,2 @@
+case_number,document_type,filing_date,debtor_name,claimant_name,parsed_address,book_page,county,state,document_link,ocr_text_file,screenshot_path,source_url,extraction_timestamp,user_id
+,,SELECTION,,,,SELECTION,Cobb GA,GA,,,,,2025-06-11 12:19:41,test-user-test

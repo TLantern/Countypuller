@@ -1,0 +1,33 @@
+=== OCR DEBUG OUTPUT ===
+Image: cobb_ga_unknown_unknown_20250611_121816.png
+Image path: screenshots\cobb_ga_unknown_unknown_20250611_121816.png
+OCR method used: grayscale_whitelist
+OCR text length: 450 characters
+Timestamp: 2025-06-11 12:18:22.133402
+Case Number: unknown
+Document Type: unknown
+Filing Date: SELECTION
+Debtor Name: unknown
+Claimant Name: unknown
+=== FULL OCR TEXT ===
+
+meCLERKS2y COBBPT610332025010952 ReportthisimageNeedHelp2
+Autuonty
+0332025010952 pritwiatn287at
+PI610332025010952 ee x
+massyTobefiledinCOBBCOUNTY Pr610332025010952
+BeoneoemeFene
+avin PIES roneciesere
+SOVERSSBUSHEISTORGRAENORTOTERRE
+Muneiaae AOTOPinant f00
+SSATETPRCETR2COOECOINTRYCeEBeSUS1toue2wvoonboawe
+detantach303070sA paieerejemertetueo root 000
+a
+aT aV9FPLEET TOTP RESORT
+conn 19086600200
+TACDREY as cannicrronek aster oscars
+ratssansones
+2 Nc
+
+
+=== END OCR TEXT ===

@@ -1,0 +1,64 @@
+# ======================================
+# OCR TEXT EXTRACTION RESULTS
+# ======================================
+# Source Image: cobb_ga_unknown_unknown_20250611_113135.png
+# Image Path: screenshots\cobb_ga_unknown_unknown_20250611_113135.png
+# Extracted on: 2025-06-11 11:31:42
+# OCR Method: config_3
+# Image Size: 900x600 pixels
+# Image Mode: RGB
+# Case Number: unknown
+# Document Type: unknown
+# Filing Date: SELECTION
+# Debtor Name: unknown
+# Claimant Name: unknown
+# Text Length: 1301 characters
+# ======================================
+
+me CLERKS “2, COBB PT-61 033-2025-010663 Report this Image | Need Hein?
+
+(033-2025-010663 + »|—| +] Fit Width (88%) ¥ 1@| f=
+
+roti. 20n To _be filed in COBB COUNTY PT-61_033-2025-010663
+
+=== ‘SECTION A SELLER'S INFORMATION Do not uee agents information) “SECTION - TAX COMPUTATION
+=—— ‘SELES CAST AE RST AE ‘WOOLE cou yinst sramateree
+som mous » Fp tot adn enter HONE Foreclosure
+
+TAIL KOORESS (STREET E NOWBER ‘Act Val of onan recived by sll
+
+975 W-MILL BND NW ‘Complete Line 1A tf actual value unknown $365,618.00
+KENNESAM, GA 30152 USA 5/6/2025 ‘Personal property. $0.00
+SECTION 8 RUYER'S MFORNATIN (Oot ee agents infomation) | 2 Farmar  Pene Popey ny 40.00
+
+TERS USHERS ORGAOATON OTHER HAE an
+
+mnmac LOAM SERVICES, 1c ‘creme once 40.00
+TRCN ADOREE rt os i Tr ig IPT 7
+
+3043 TORNSGATE ROAD “Uiatr tales ines 2an¢3) 9.00
+‘SY STATE PROVE REIN 2 CODE COUNTRY Ce SRS ue pert rtrd)
+
+SOrTE 200, cA 91361 USA eel (femme | * pa ap iad 40.00
+
+{SECTIOND- PROPERTY NFORWATION cata of rope (tet Rout yc)
+
+[RODE ROR TERT STAT) PRESIRETON PTET RAE AO TWP, POPE SSE ——]
+ms nas. Bend
+
+oor VF APPHBLET ar EPR HOE ECON ER
+conn 20025801540
+
+aT oy caisiset —— ans ToS }aoscaraecoeK
+
+‘SECTION E- RECORDING INFORMATION (Oficial Use Oni)
+
+Es one ‘DEED BOOK ‘DEED PROE FATSOOR PORT PAGE
+_ = 16205 3909
+amon. auvens
+= None
+
+
+# ======================================
+# END OF OCR EXTRACTION
+# ======================================

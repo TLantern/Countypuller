@@ -626,7 +626,20 @@ export default function Dashboard() {
       });
       const data = await res.json();
       
-      if (data.success && data.job_id) {
+      // Handle Cobb GA immediate response (no job polling)
+      if (userType === 'COBB_GA') {
+        if (data.success && data.records_created !== undefined) {
+          setPullResult('success');
+          setPulling(false);
+          // Refresh data immediately
+          await fetchData();
+        } else {
+          setPullResult('error');
+          setPulling(false);
+        }
+      } 
+      // Handle other endpoints with job polling
+      else if (data.success && data.job_id) {
         setCurrentJobId(data.job_id);
         setJobStatus(data.status);
         // Start polling for job status

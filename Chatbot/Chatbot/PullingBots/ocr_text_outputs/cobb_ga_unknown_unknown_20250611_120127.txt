@@ -1,0 +1,26 @@
+# ======================================
+# OCR TEXT EXTRACTION RESULTS
+# ======================================
+# Source Image: cobb_ga_unknown_unknown_20250611_120127.png
+# Image Path: screenshots\cobb_ga_unknown_unknown_20250611_120127.png
+# Extracted on: 2025-06-11 12:01:35
+# OCR Method: processed_document_optimized
+# Image Size: 900x600 pixels
+# Image Mode: RGB
+# Quality Score: 45/100
+# Text Length: 1163 characters
+# Word Count: 545 words
+# Line Count: 1 lines
+# Quality Issues: High noise level (many single characters)
+# Case Number: unknown
+# Document Type: unknown
+# Filing Date: SELECTION
+# Debtor Name: unknown
+# Claimant Name: unknown
+# ======================================
+
+(o r v e ww e m t0)//5132025910883 O S T) e s 5 F i g e n T e b e f i l e d a n C O B B C O U N T Y P T619332025910663 p o- S E C T I O N AE L L E W SR A O R A T I O NE e t e a p6e m n e I s e c r i o mT A R C o m P u t a T i O n S s e x e s e t a b e b i t e : a ) o m c: S t p u c o t n e s A t o m a t o e e a o e e e L a s e a d i a d e e : e m e e n c a w.-G A3012C a A s v e r n e a s P e r e e n e o o n a e b e t h e d H C T I O N U T E R S M T O R M A T I O N O yn e t w n ea p E A r D h e r m a t n -k F a r m a r e c a t f P o a n o a g e r y a y w e S7R E S R O E R EC R E A N E A T E S O T H E R G E a w a i w u e e r a c v e a s e E E v I C E SL c s e e d y h o t b e d S t e s A I S S A E A E E S M e s w e t a e e n n f a s w b l n g B n a i n e u r p e n c m e t e o a ev a t e 1 (304T o m m n G a r E e n a e e S a e S e w e e9a b a t e d S e : , 7 c o e C o t t e n a o r e s H S E E a m a r A A a e t o e O e s e c T m9P R G B E R T Y M a e o R M A A Z I Me n t i n o P e p e e y f h r e t R t ee y) o o - - 6m E L L B e n o w - S o n w w m o n n a e e s S a n e . A E C H O N E R I C C R E I N E M P O R I N A E f o mO eO t y) 2 a e e n s a w
+
+# ======================================
+# END OF OCR EXTRACTION
+# ======================================

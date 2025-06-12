@@ -94,45 +94,45 @@ model brevard_fl_filing {
 }
 
 model fulton_ga_filing {
-  id               String    @id @default(uuid())
-  case_number      String    @unique
-  document_type    String?
-  filing_date      DateTime?
-  debtor_name      String?
-  claimant_name    String?
-  county           String    @default("Fulton GA")
-  book_page        String?
-  document_link    String?
-  state            String    @default("GA")
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
-  is_new           Boolean   @default(true)
-  userId           String
-  user             User      @relation(fields: [userId], references: [id])
+  id            String    @id @default(uuid())
+  case_number   String    @unique
+  document_type String?
+  filing_date   DateTime?
+  debtor_name   String?
+  claimant_name String?
+  county        String    @default("Fulton GA")
+  book_page     String?
+  document_link String?
+  state         String    @default("GA")
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  is_new        Boolean   @default(true)
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([case_number])
 }
 
 model cobb_ga_filing {
-  id               String    @id @default(uuid())
-  case_number      String    @unique
-  document_type    String?
-  filing_date      DateTime?
-  debtor_name      String?
-  claimant_name    String?
-  county           String    @default("Cobb GA")
-  book_page        String?
-  document_link    String?
-  state            String    @default("GA")
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
-  is_new           Boolean   @default(true)
-  userId           String
-  user             User      @relation(fields: [userId], references: [id])
+  case_number   String    @id @db.VarChar(255)
+  document_type String?   @db.VarChar(255)
+  filing_date   DateTime? @db.Date
+  debtor_name   String?
+  claimant_name String?
+  county        String?   @default("Cobb GA") @db.VarChar(255)
+  book_page     String?   @default("") @db.VarChar(255)
+  document_link String?   @default("")
+  state         String?   @default("GA") @db.VarChar(10)
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+  updated_at    DateTime? @default(now()) @updatedAt @db.Timestamp(6)
+  is_new        Boolean?  @default(true)
+  userId        String    @db.VarChar(255)
+  user          String?   @default("user") @db.VarChar(255)
 
-  @@index([userId])
-  @@index([case_number])
+  @@index([case_number], map: "idx_cobb_ga_filing_case_number")
+  @@index([filing_date], map: "idx_cobb_ga_filing_filing_date")
+  @@index([userId], map: "idx_cobb_ga_filing_user_id")
 }
 
 model User {
@@ -145,7 +145,6 @@ model User {
   accounts              Account[]
   brevardFlFilings      brevard_fl_filing[]
   fultonGaFilings       fulton_ga_filing[]
-  cobbGaFilings         cobb_ga_filing[]
   hillsboroughNhFilings hillsborough_nh_filing[]
   lisPendensFilings     lis_pendens_filing[]
   mdCaseSearchFilings   md_case_search_filing[]
@@ -205,4 +204,18 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model cobb_ga_filings {
+  id              Int       @id @default(autoincrement())
+  street_address  String
+  mortgage_amount String?   @db.VarChar(255)
+  tax_deed_dated  DateTime? @db.Date
+  user_id         String    @db.VarChar(255)
+  user_type       String?   @default("COBB_GA") @db.VarChar(50)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  updated_at      DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([tax_deed_dated], map: "idx_cobb_ga_filings_tax_deed_dated")
+  @@index([user_id], map: "idx_cobb_ga_filings_user_id")
 }

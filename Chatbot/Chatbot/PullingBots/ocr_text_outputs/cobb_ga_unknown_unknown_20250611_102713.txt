@@ -1,0 +1,26 @@
+# ======================================
+# OCR TEXT EXTRACTION RESULTS
+# ======================================
+# Source Image: cobb_ga_unknown_unknown_20250611_102713.png
+# Image Path: screenshots\cobb_ga_unknown_unknown_20250611_102713.png
+# Extracted on: 2025-06-11 11:58:00
+# OCR Method: processed_document_optimized
+# Image Size: 900x600 pixels
+# Image Mode: RGB
+# Quality Score: 45/100
+# Text Length: 1571 characters
+# Word Count: 752 words
+# Line Count: 1 lines
+# Quality Issues: High noise level (many single characters)
+# Case Number: TEST-002
+# Document Type: DEED - FORECLOSURE
+# Filing Date: 2024-06-11
+# Debtor Name: TEST DEBTOR 2
+# Claimant Name: TEST CLAIMANT 2
+# ======================================
+
+. r e P r e ei e a t91533205007712 O S T) e S) f e g e o n T e b e f i l e d a n C O B B C O U N T Y P T61933202$-907712 e s- S E C T I O N A M E L AE H YB H C I N A T I O N f E m t s a g6m n a n n T m e c r i o mT A R C o m m T A T I O N P e e r u m u s r e a s m e r e e nt e n u t e c e e S a a s t o n e . a s o r e s b a v ebb e i a a t e t n e p a i e d e r u e c t e r e s w o r rs T m o m e t a m E D C O B K C O U I T E Y S A T U L S e G a l b e r ta s49308o a a a a r n e a s P e r e e n e p o n n e h a m h e m n i t e d l C e C R O8e W T E F S W O R A T E N e n o m e w e r v e c e m a n n d t R r e e s n n t m e r w o w w e A T R S h a i n d G R A A N E A T E C S O T O E R a a t a v a t a r s T h eS a s ko f M o w T e r e m e l i o n f8e T h e R a n k o f G e w T a s t o a e t c m m u w m l t y b m a t e w e A L I G E A S S R E M u w a s S a y r s e i i n g K n p a r p n 1 I t e e t e o r e a t n g e s a b E e o a a S e e r i e S S e n e e e s S i v t e t e ut e o s o n a S S S S e s a r n e S S e a c n c i0M r e n T Y S P O R R A T E D f a m e a d P e s e y p a m N a m o p r u i p a l o n t o s o u y t e n w o m u a n, e s r w e o o r u m n c o m e M e e e r e e e r s e 7 S M E C T o m E A S O M E I N E C R A L A T I v M N O y i o s O a a a R A T S R a r 1 p o r t s t e e d e s 7 a s e 7T h a ge p m t e e a g r f i n s O u t G u e d o n s w e s1o nb e g H e e O o e a i d T h e c e i g i r a v r t e r sa r ee t c i e s S e e S i r e o s e c a e n o a e t a r n i a w s Y o k t s o n e s T p R o o t a e W e h w r o m o n r b e t t a n o n e8
+
+# ======================================
+# END OF OCR EXTRACTION
+# ======================================

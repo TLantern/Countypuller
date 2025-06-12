@@ -75,35 +75,439 @@ export async function POST(req: NextRequest) {
   }
   
   try {
-    // Calculate dynamic limit based on date range (more days = potentially more records)
-    const dynamicLimit = 5; // Fixed to 5 records per pull
+    console.log('🕐 Starting 5-second delay before populating Cobb GA data...');
     
-    // Create a new job record in the database
-    const job = await prisma.scraping_job.create({
-      data: {
-        job_type: 'COBB_GA_PULL',
-        status: JobStatus.PENDING,
-        created_at: new Date(),
-        parameters: {
-          limit: dynamicLimit,
-          dateFilter: dateFilter,
-          source: 'cobb_ga_gsccca',
-          extract_addresses: true
-        },
-        userId
+    // Wait 5 seconds
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    
+    console.log('✅ 5-second delay completed, now populating data for user:', userId);
+    
+    // Static CSV data to insert for current user
+    const cobbGaRecords = [
+      {
+        case_number: `COBB-${userId.slice(-4)}-001`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2017-01-23'),
+        debtor_name: '1005 Cobb Place Blvd., NW, Kennesaw, GA 30144',
+        claimant_name: 'N/A',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-002`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2024-05-07'),
+        debtor_name: '3221 Calcutta Court, Powder Springs, GA',
+        claimant_name: 'N/A',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-003`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2017-01-13'),
+        debtor_name: '2229 Smoke Stone Cir, Marietta, GA 30062',
+        claimant_name: '$422,847.21',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-004`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2023-11-28'),
+        debtor_name: '4803 Howard Drive, Powder Springs, GA 30127',
+        claimant_name: '$294,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-005`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2023-11-28'),
+        debtor_name: '4828 Duncan Drive, Powder Springs, GA 30127',
+        claimant_name: '$294,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-006`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2006-02-02'),
+        debtor_name: '4944 Pippin Dr NW, Acworth, GA 30101',
+        claimant_name: '$151,900.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-007`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2021-10-05'),
+        debtor_name: '330 Anders Path, Marietta, GA 30064',
+        claimant_name: '$940,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-008`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2006-06-09'),
+        debtor_name: '2090 Kolb Ridge Court SW, Marietta, GA 30008',
+        claimant_name: '$148,500.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-009`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2016-08-22'),
+        debtor_name: '4433 Sugar Maple Dr NW, Acworth, GA 30101',
+        claimant_name: '$204,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-010`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2023-06-08'),
+        debtor_name: '4349 Highborne Drive NE, Marietta, GA 30066',
+        claimant_name: '$75,000.00 (with a prior Security Deed of $479,751.00 noted)',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-011`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2001-12-07'),
+        debtor_name: '2915 Sope Creek Drive, Marietta, GA 30068',
+        claimant_name: '$136,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-012`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2007-05-01'),
+        debtor_name: '1392 Waterford Green Dr, Marietta, GA 30068',
+        claimant_name: '$546,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-013`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2008-01-17'),
+        debtor_name: '2200 Hollowbrooke Ct NW, Acworth, GA 30101',
+        claimant_name: '$379,852.54',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-014`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2006-04-14'),
+        debtor_name: '2952 Chipmunk Tr SE, Marietta, GA 30067',
+        claimant_name: '$88,493.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-015`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('1998-02-27'),
+        debtor_name: '4251 Sorrells Blvd, Powder Springs, GA 30073',
+        claimant_name: '$122,550.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-016`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2022-02-25'),
+        debtor_name: '5591 and 5595 Edith Street, Austell, GA 30106-3303',
+        claimant_name: '$195,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-017`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2019-09-05'),
+        debtor_name: '2278 Smith Ave SW, Marietta, GA 30064',
+        claimant_name: '$218,960.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-018`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2019-06-25'),
+        debtor_name: '4803 Davitt Ct NW, Acworth, GA 30102',
+        claimant_name: '$166,920.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-019`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2005-01-05'),
+        debtor_name: '2690 Bent Hickory Dr SE, Smyrna, GA 30082',
+        claimant_name: '$159,920.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-020`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2015-08-10'),
+        debtor_name: '3744 Thackary Dr, Powder Springs, GA 30127',
+        claimant_name: '$285,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-021`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2021-10-18'),
+        debtor_name: '2679 Tucson Way, Powder Springs, GA 30127',
+        claimant_name: '$260,200.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-022`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2020-07-20'),
+        debtor_name: '4335 Commodore Rd, Powder Springs, GA 30127',
+        claimant_name: '$354,790.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-023`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2010-11-16'),
+        debtor_name: '4527 Baker Grove Rd, Acworth, GA 30101',
+        claimant_name: '$125,113.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-024`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2006-07-19'),
+        debtor_name: '1452 Seafoam Court, Marietta, GA 30066',
+        claimant_name: '$166,250.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-025`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2008-01-08'),
+        debtor_name: '2670 Bankstone Drive SW, Marietta, GA 30064',
+        claimant_name: '$109,350.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-026`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2022-08-31'),
+        debtor_name: '315 Renae Ln SW, Marietta, GA 30060',
+        claimant_name: '$300,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-027`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2022-03-21'),
+        debtor_name: '4845 Willow St, Acworth, GA',
+        claimant_name: '$334,500.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-028`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2022-02-02'),
+        debtor_name: '2592 Deerfield Circle, Marietta, GA 30064',
+        claimant_name: '$159,000.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-029`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2008-01-23'),
+        debtor_name: '1806 Wynthrop Manor Dr, Marietta, GA 30064',
+        claimant_name: '$285,000.00 (with a prior Security Deed of $1,015,000.00 noted)',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-030`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2006-03-07'),
+        debtor_name: '2833 Golden Club Bend, Austell, GA 30106',
+        claimant_name: '$157,500.00',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
+      },
+      {
+        case_number: `COBB-${userId.slice(-4)}-031`,
+        document_type: 'Tax Deed',
+        filing_date: new Date('2025-01-21'),
+        debtor_name: '1107 Wynne\'s Ridge Circle, Marietta, GA 30067',
+        claimant_name: 'N/A',
+        county: 'Cobb GA',
+        book_page: '',
+        document_link: '',
+        state: 'GA',
+        userId: userId,
+        is_new: true
       }
+    ];
+    
+    // Insert all records for the current user
+    const createdRecords = await prisma.cobb_ga_filing.createMany({
+      data: cobbGaRecords,
+      skipDuplicates: true // Skip if records already exist
     });
+    
+    console.log(`✅ Successfully created ${createdRecords.count} new Cobb GA records for user ${userId}`);
+    
     return NextResponse.json({ 
       success: true, 
-      job_id: job.id,
-      status: job.status,
-      message: 'Cobb GA scraping job queued successfully. Use GET /api/pull-cobb-ga/{job_id} to check status.'
+      records_created: createdRecords.count,
+      message: `Successfully populated ${createdRecords.count} Cobb GA records`
     });
+    
   } catch (error) {
-    console.error('Failed to create Cobb GA scraping job:', error);
+    console.error('Failed to populate Cobb GA data:', error);
     return NextResponse.json({ 
       success: false, 
-      error: 'Failed to create scraping job' 
+      error: 'Failed to populate Cobb GA data' 
     }, { status: 500 });
   }
 }

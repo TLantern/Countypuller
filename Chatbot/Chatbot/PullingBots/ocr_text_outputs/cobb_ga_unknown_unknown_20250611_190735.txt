@@ -1,0 +1,44 @@
+=== OCR DEBUG OUTPUT ===
+Image: cobb_ga_unknown_unknown_20250611_190735.png
+Image path: screenshots\cobb_ga_unknown_unknown_20250611_190735.png
+OCR method used: cobb_optimized_full_document
+OCR text length: 829 characters
+Timestamp: 2025-06-11 19:07:41.023706
+Case Number: unknown
+Document Type: unknown
+Filing Date: unknown
+Debtor Name: unknown
+Claimant Name: unknown
+=== FULL OCR TEXT ===
+
+=== full_document ===
+yc Cuerks COBB PT-61 033-2025-010663 ‘Reportthis Image | Need Heln?
+Kira &
+~ /033-2025-010663 +) >) =) +} | [ritwiatn (28%) ~) | at
+Prt 033.2025.010665 i — .
+rann2m To _be filed in COBB COUNTY Pr-61_033-2025-010663
+Se ee |
+Fore eet none roreciensre
+i ADORERS REET ERY “pcan ve son can
+‘SERS BURNERS ORGANERTON TER WE 7
+NCA TOT anette a smon a
+‘EY, STATETPROVNCETREGON ZF CODE, COUNTRY — | ake nsedUse 1 aus so prstn oxeaciononal |
+form 200, en #136) Osh «Feira Teammert | © AOU one $0.00
+conn 20025901540
+“aR OTRET is ao BETRET ees uaoter sue careecoci
+Prt 033.2025.010665
+
+=== property_region ===
+3043 TOWNSGATE ROAD “(ihe TortA lec Lines 2an63) $0.00
+= ye lene
+033.2025 010665 one EES eo nee RR arc waren
+
+=== seller_region ===
+=== ‘Fr-6t Rev. 2018 To be filed in COBB COUNTY
+ee E>
+Si
+es =
+Ce Sor | EOE =
+
+
+=== END OCR TEXT ===

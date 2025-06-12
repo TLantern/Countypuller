@@ -1,0 +1,71 @@
+{
+    "url": "https://www.georgiapublicnotice.com/(S(tv0ve0wmyued4k422mekjrk1))/Search.aspx",
+    "domain": "www.georgiapublicnotice.com", 
+    "cookies": [
+      {
+        "name": "__utmc",
+        "value": "221851150",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "__utmz",
+        "value": "221851150.1749095315.1.1.utmccn",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "_gid",
+        "value": "GA1.2.384284148.1749579303",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "_ga",
+        "value": "GA1.1.1626166099.1749095315",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "__utma",
+        "value": "221851150.609453673.1749095315.1749579303.1749596663.3",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "__utmb",
+        "value": "221851150",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "_ga_B006WQ2LXZ",
+        "value": "GS2.1.s1749596662$o3$g1$t1749598636$j59$l0$h1732334882",
+        "domain": "www.georgiapublicnotice.com",
+        "path": "/",
+        "httpOnly": false,
+        "secure": true,
+        "sameSite": "Lax"
+      }
+    ],
+    "timestamp": "2025-06-10T23:45:32.131Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+  }
