@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -459,6 +459,10 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
+  const onboardingCounties = ["Harris", "Dallas", "Tarrant", "Bexar", "Travis"];
   
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
   const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord | FultonGaRecord | CobbGaRecord)[]>([]);
@@ -478,6 +482,15 @@ export default function Dashboard() {
   
   // Get feedback panel state from context
   const { isFeedbackPanelOpen, setIsFeedbackPanelOpen } = useFeedback();
+
+  const [onboardingStep, setOnboardingStep] = useState(1);
+  const [selectedDocTypes, setSelectedDocTypes] = useState<string[]>([]);
+  const docTypes = [
+    "Lis Pendens",
+    "Notice of Default (NOD)",
+    "Auction",
+    "Bankruptcy"
+  ];
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
@@ -536,6 +549,41 @@ export default function Dashboard() {
     }
     console.log('Session found, staying on dashboard');
   }, [session, status, router]);
+
+  // Show onboarding if just logged in or if no county is selected (use sessionStorage to persist)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const onboarded = sessionStorage.getItem('onboarded');
+      if (!onboarded) {
+        setShowOnboarding(true);
+      }
+    }
+  }, []);
+
+  const handleCountySelect = (county: string) => {
+    setSelectedCounty(county);
+    setOnboardingStep(2);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('selectedCounty', county);
+    }
+    setCounty(county);
+  };
+
+  const handleDocTypeToggle = (docType: string) => {
+    setSelectedDocTypes((prev) =>
+      prev.includes(docType)
+        ? prev.filter((d) => d !== docType)
+        : [...prev, docType]
+    );
+  };
+
+  const handleOnboardingFinish = () => {
+    setShowOnboarding(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('onboarded', '1');
+      sessionStorage.setItem('selectedDocTypes', JSON.stringify(selectedDocTypes));
+    }
+  };
 
   // NOW we can do conditional rendering AFTER all hooks are called
   if (status === "loading") {
@@ -763,221 +811,341 @@ export default function Dashboard() {
   };
 
   return (
-    <SidebarProvider>
-      <style dangerouslySetInnerHTML={{ __html: sliderStyles }} />
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b justify-between pr-6">
-          <div className="flex items-center gap-2 px-3">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Clerk Crawler
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <div className="flex items-center gap-4">
-            <button
-              className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-200 cursor-pointer"
-              onClick={() => setIsFeedbackPanelOpen(true)}
-              title="Provide Feedback"
-            >
-              <MessageSquare className="w-5 h-5" />
-            </button>
-            
-            <button
-              className="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-200 cursor-pointer"
-              onClick={() => signOut({ callbackUrl: '/' })}
-            >
-              Sign Out
-            </button>
-            
-            {/* Date Filter Slider */}
-            <div className="flex items-center gap-3 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg">
-              <span className="text-sm font-medium whitespace-nowrap">Pull from last:</span>
-              <input
-                type="range"
-                min="1"
-                max="90"
-                value={dateFilter}
-                onChange={(e) => setDateFilter(Number(e.target.value))}
-                className="w-24 h-2 bg-blue-400 rounded-lg appearance-none cursor-pointer slider"
-                style={{
-                  background: `linear-gradient(to right, #93c5fd 0%, #93c5fd ${((dateFilter - 1) / 89) * 100}%, #1e40af ${((dateFilter - 1) / 89) * 100}%, #1e40af 100%)`
-                }}
-              />
-              <input
-                type="number"
-                min="1"
-                max="90"
-                value={dateFilter}
-                onChange={(e) => {
-                  const value = Math.min(90, Math.max(1, Number(e.target.value) || 1));
-                  setDateFilter(value);
-                }}
-                className="w-12 h-8 text-center text-blue-900 bg-white rounded border-0 focus:ring-2 focus:ring-blue-300"
-                style={{ fontSize: '20px' }}
-              />
-              <span className="text-sm font-medium whitespace-nowrap">
-                day{dateFilter !== 1 ? 's' : ''}
-              </span>
-            </div>
-            
-            <button
-              className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
-              style={{ fontSize: '1.1rem' }}
-              onClick={handlePullRecord}
-              disabled={pulling}
-            >
-              Pull Records
-            </button>
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
-            <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  {userType === 'LPH' && (
-                    <Select
-                      value={county}
-                      onChange={e => setCounty(e.target.value)}
-                      variant="outlined"
-                      sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
+    <>
+      {/* Onboarding Flex Panel */}
+      {showOnboarding && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(20, 20, 40, 0.85)',
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #1e2a78 0%, #3a3d9f 100%)',
+            borderRadius: 24,
+            boxShadow: '0 8px 48px 0 rgba(30,42,120,0.25)',
+            padding: '2.5rem 2rem',
+            minWidth: 340,
+            maxWidth: '90vw',
+            color: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '2rem',
+          }}>
+            {onboardingStep === 1 && (
+              <>
+                <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: 8, textAlign: 'center', letterSpacing: 1 }}>Welcome!<br/>Choose Your County</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', width: '100%' }}>
+                  {onboardingCounties.map((county) => (
+                    <button
+                      key={county}
+                      onClick={() => handleCountySelect(county)}
+                      style={{
+                        background: '#fff',
+                        color: '#1e2a78',
+                        fontWeight: 700,
+                        fontSize: '1.2rem',
+                        borderRadius: 12,
+                        padding: '1rem 0',
+                        border: 'none',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 12px 0 rgba(30,42,120,0.10)',
+                        transition: 'background 0.2s, color 0.2s',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.background = '#3a3d9f';
+                        e.currentTarget.style.color = '#fff';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.background = '#fff';
+                        e.currentTarget.style.color = '#1e2a78';
+                      }}
                     >
-                      {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c} County</MenuItem>)}
-                    </Select>
-                  )}
-                  
-                  <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
-                    {displayTitle}
+                      {county} County
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+            {onboardingStep === 2 && (
+              <>
+                <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: 8, textAlign: 'center', letterSpacing: 1 }}>Select Document Types</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', width: '100%' }}>
+                  {docTypes.map((docType) => (
+                    <label key={docType} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      background: selectedDocTypes.includes(docType) ? '#3a3d9f' : '#fff',
+                      color: selectedDocTypes.includes(docType) ? '#fff' : '#1e2a78',
+                      fontWeight: 600,
+                      fontSize: '1.1rem',
+                      borderRadius: 10,
+                      padding: '0.8rem 1rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 1px 6px 0 rgba(30,42,120,0.08)',
+                      transition: 'background 0.2s, color 0.2s',
+                    }}>
+                      <input
+                        type="checkbox"
+                        checked={selectedDocTypes.includes(docType)}
+                        onChange={() => handleDocTypeToggle(docType)}
+                        style={{ marginRight: 12, accentColor: '#3a3d9f', width: 18, height: 18 }}
+                      />
+                      {docType}
+                    </label>
+                  ))}
+                </div>
+                <button
+                  onClick={handleOnboardingFinish}
+                  disabled={selectedDocTypes.length === 0}
+                  style={{
+                    marginTop: 24,
+                    background: selectedDocTypes.length === 0 ? '#aaa' : '#fff',
+                    color: selectedDocTypes.length === 0 ? '#fff' : '#1e2a78',
+                    fontWeight: 700,
+                    fontSize: '1.2rem',
+                    borderRadius: 12,
+                    padding: '1rem 0',
+                    border: 'none',
+                    cursor: selectedDocTypes.length === 0 ? 'not-allowed' : 'pointer',
+                    boxShadow: '0 2px 12px 0 rgba(30,42,120,0.10)',
+                    transition: 'background 0.2s, color 0.2s',
+                    width: '100%'
+                  }}
+                >
+                  Continue
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+      {/* Dashboard content, visually dimmed/blurred if onboarding is open */}
+      <div style={showOnboarding ? { filter: 'blur(2px)', pointerEvents: 'none', userSelect: 'none', opacity: 0.5 } : {}}>
+        <SidebarProvider>
+          <style dangerouslySetInnerHTML={{ __html: sliderStyles }} />
+          <AppSidebar />
+          <SidebarInset>
+            <header className="flex h-16 shrink-0 items-center gap-2 border-b justify-between pr-6">
+              <div className="flex items-center gap-2 px-3">
+                <SidebarTrigger />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href="#">
+                        Clerk Crawler
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+              <div className="flex items-center gap-4">
+                <button
+                  className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-200 cursor-pointer"
+                  onClick={() => setIsFeedbackPanelOpen(true)}
+                  title="Provide Feedback"
+                >
+                  <MessageSquare className="w-5 h-5" />
+                </button>
+                
+                <button
+                  className="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-200 cursor-pointer"
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                >
+                  Sign Out
+                </button>
+                
+                {/* Date Filter Slider */}
+                <div className="flex items-center gap-3 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg">
+                  <span className="text-sm font-medium whitespace-nowrap">Pull from last:</span>
+                  <input
+                    type="range"
+                    min="1"
+                    max="90"
+                    value={dateFilter}
+                    onChange={(e) => setDateFilter(Number(e.target.value))}
+                    className="w-24 h-2 bg-blue-400 rounded-lg appearance-none cursor-pointer slider"
+                    style={{
+                      background: `linear-gradient(to right, #93c5fd 0%, #93c5fd ${((dateFilter - 1) / 89) * 100}%, #1e40af ${((dateFilter - 1) / 89) * 100}%, #1e40af 100%)`
+                    }}
+                  />
+                  <input
+                    type="number"
+                    min="1"
+                    max="90"
+                    value={dateFilter}
+                    onChange={(e) => {
+                      const value = Math.min(90, Math.max(1, Number(e.target.value) || 1));
+                      setDateFilter(value);
+                    }}
+                    className="w-12 h-8 text-center text-blue-900 bg-white rounded border-0 focus:ring-2 focus:ring-blue-300"
+                    style={{ fontSize: '20px' }}
+                  />
+                  <span className="text-sm font-medium whitespace-nowrap">
+                    day{dateFilter !== 1 ? 's' : ''}
                   </span>
                 </div>
                 
-                <ExportButton 
-                  data={rows} 
-                  userType={userType} 
-                  displayTitle={displayTitle}
-                />
+                <button
+                  className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
+                  style={{ fontSize: '1.1rem' }}
+                  onClick={handlePullRecord}
+                  disabled={pulling}
+                >
+                  Pull Records
+                </button>
               </div>
-              <div style={{ position: 'relative', color: 'black' }}>
-                <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  getRowId={(row) => {
-                    let id;
-                    if (userType === 'HILLSBOROUGH_NH') {
-                      id = (row as HillsboroughNhRecord).document_number;
-                    } else if (userType === 'BREVARD_FL') {
-                      id = (row as BrevardFlRecord).case_number;
-                    } else if (userType === 'FULTON_GA') {
-                      id = (row as FultonGaRecord).case_number;
-                    } else if (userType === 'COBB_GA') {
-                      id = (row as CobbGaRecord).case_number;
-                    } else {
-                      id = (row as LisPendensRecord | MdCaseSearchRecord).case_number;
-                    }
-                    
-                    // Ensure we always return a valid string ID
-                    if (!id || typeof id !== 'string' || id.trim() === '') {
-                      // Fallback: create a unique ID using other available fields
-                      const fallbackId = `${row.county || 'unknown'}-${row.created_at || Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-                      console.warn('Row missing valid ID, using fallback:', fallbackId, 'Row:', row);
-                      return fallbackId;
-                    }
-                    
-                    return id;
-                  }}
-                  paginationModel={paginationModel}
-                  onPaginationModelChange={setPaginationModel}
-                  pageSizeOptions={[10, 25, 50]}
-                  checkboxSelection
-                  disableRowSelectionOnClick
-                  onRowClick={handleRowClick}
-                  onCellClick={handleCellFocus}
-                  sx={{ 
-                    color: 'black', 
-                    background: 'white', 
-                    '& .MuiDataGrid-cell': { 
-                      color: 'black',
-                      cursor: 'pointer'
-                    }, 
-                    '& .MuiDataGrid-columnHeaders': { color: 'black' } 
-                  }}
-                />
-              </div>
-              
-              {/* Wide Text Display Box for Focused Cell */}
-              {focusedCellContent && (
-                <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-gray-700 capitalize">
-                      {focusedCellField.replace(/_/g, ' ')} Content:
-                    </h3>
-                    <button 
-                      onClick={handleCellBlur}
-                      className="text-gray-400 hover:text-gray-600 text-xl leading-none"
-                      title="Close"
-                    >
-                      ×
-                    </button>
-                  </div>
-                  <div className="bg-white p-3 rounded border border-gray-100 max-h-40 overflow-y-auto">
-                    <p className="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed">
-                      {focusedCellContent}
-                    </p>
-                  </div>
-                </div>
-              )}
-              
-              {/* Loader inside content box */}
-              {pulling && (
-                <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
-                  <div className="flex flex-col items-center justify-center p-8">
-                    <div className="flex space-x-2 mt-2">
-                      <span className="dot-bounce bg-blue-600"></span>
-                      <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
-                      <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.4s' }}></span>
+            </header>
+            <div className="flex flex-1 flex-col gap-4 p-4">
+              <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
+                <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      {userType === 'LPH' && (
+                        <Select
+                          value={county}
+                          onChange={e => setCounty(e.target.value)}
+                          variant="outlined"
+                          sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
+                        >
+                          {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c} County</MenuItem>)}
+                        </Select>
+                      )}
+                      
+                      <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
+                        {displayTitle}
+                      </span>
                     </div>
-                    <div className="mt-4 text-blue-700 font-semibold">
-                      {jobStatus === 'PENDING' && 'Job queued, waiting to start...'}
-                      {jobStatus === 'IN_PROGRESS' && loadingMessage}
-                      {!jobStatus && 'Creating scraping job...'}
-                    </div>
-                    {currentJobId && (
-                      <div className="mt-2 text-gray-600 text-sm">
-                        Job ID: {currentJobId}
+                    
+                    <ExportButton 
+                      data={rows} 
+                      userType={userType} 
+                      displayTitle={displayTitle}
+                    />
+                  </div>
+                  <div style={{ position: 'relative', color: 'black' }}>
+                    <DataGrid
+                      rows={rows}
+                      columns={columns}
+                      getRowId={(row) => {
+                        let id;
+                        if (userType === 'HILLSBOROUGH_NH') {
+                          id = (row as HillsboroughNhRecord).document_number;
+                        } else if (userType === 'BREVARD_FL') {
+                          id = (row as BrevardFlRecord).case_number;
+                        } else if (userType === 'FULTON_GA') {
+                          id = (row as FultonGaRecord).case_number;
+                        } else if (userType === 'COBB_GA') {
+                          id = (row as CobbGaRecord).case_number;
+                        } else {
+                          id = (row as LisPendensRecord | MdCaseSearchRecord).case_number;
+                        }
+                        
+                        // Ensure we always return a valid string ID
+                        if (!id || typeof id !== 'string' || id.trim() === '') {
+                          // Fallback: create a unique ID using other available fields
+                          const fallbackId = `${row.county || 'unknown'}-${row.created_at || Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                          console.warn('Row missing valid ID, using fallback:', fallbackId, 'Row:', row);
+                          return fallbackId;
+                        }
+                        
+                        return id;
+                      }}
+                      paginationModel={paginationModel}
+                      onPaginationModelChange={setPaginationModel}
+                      pageSizeOptions={[10, 25, 50]}
+                      checkboxSelection
+                      disableRowSelectionOnClick
+                      onRowClick={handleRowClick}
+                      onCellClick={handleCellFocus}
+                      sx={{ 
+                        color: 'black', 
+                        background: 'white', 
+                        '& .MuiDataGrid-cell': { 
+                          color: 'black',
+                          cursor: 'pointer'
+                        }, 
+                        '& .MuiDataGrid-columnHeaders': { color: 'black' } 
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Wide Text Display Box for Focused Cell */}
+                  {focusedCellContent && (
+                    <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-sm font-semibold text-gray-700 capitalize">
+                          {focusedCellField.replace(/_/g, ' ')} Content:
+                        </h3>
+                        <button 
+                          onClick={handleCellBlur}
+                          className="text-gray-400 hover:text-gray-600 text-xl leading-none"
+                          title="Close"
+                        >
+                          ×
+                        </button>
                       </div>
-                    )}
-                  </div>
+                      <div className="bg-white p-3 rounded border border-gray-100 max-h-40 overflow-y-auto">
+                        <p className="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed">
+                          {focusedCellContent}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Loader inside content box */}
+                  {pulling && (
+                    <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
+                      <div className="flex flex-col items-center justify-center p-8">
+                        <div className="flex space-x-2 mt-2">
+                          <span className="dot-bounce bg-blue-600"></span>
+                          <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
+                          <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.4s' }}></span>
+                        </div>
+                        <div className="mt-4 text-blue-700 font-semibold">
+                          {jobStatus === 'PENDING' && 'Job queued, waiting to start...'}
+                          {jobStatus === 'IN_PROGRESS' && loadingMessage}
+                          {!jobStatus && 'Creating scraping job...'}
+                        </div>
+                        {currentJobId && (
+                          <div className="mt-2 text-gray-600 text-sm">
+                            Job ID: {currentJobId}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
-        </div>
-        {/* Toast for result */}
-        {pullResult === 'success' && (
-          <div className="fixed bottom-6 left-6 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">Records pulled successfully!</div>
-        )}
-        {pullResult === 'error' && (
-          <div className="fixed bottom-6 left-6 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">Error pulling records.</div>
-        )}
-      </SidebarInset>
-      
-      {/* Feedback Panel */}
-      <FeedbackPanel 
-        isOpen={isFeedbackPanelOpen}
-        onClose={() => setIsFeedbackPanelOpen(false)}
-      />
-    </SidebarProvider>
+            {/* Toast for result */}
+            {pullResult === 'success' && (
+              <div className="fixed bottom-6 left-6 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">Records pulled successfully!</div>
+            )}
+            {pullResult === 'error' && (
+              <div className="fixed bottom-6 left-6 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">Error pulling records.</div>
+            )}
+          </SidebarInset>
+          
+          {/* Feedback Panel */}
+          <FeedbackPanel 
+            isOpen={isFeedbackPanelOpen}
+            onClose={() => setIsFeedbackPanelOpen(false)}
+          />
+        </SidebarProvider>
+      </div>
+    </>
   )
 }

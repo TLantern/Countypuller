@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function ProviderIcon({ provider }: { provider: string }) {
   switch (provider) {
@@ -41,6 +41,7 @@ function CredentialLogin() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,8 +59,13 @@ function CredentialLogin() {
         setError("Invalid email or password");
         setLoading(false);
       } else if (res?.ok) {
-        // Successful login, redirect to dashboard
-        window.location.href = "/dashboard";
+        // Check for onboard param
+        const onboard = searchParams && searchParams.get('onboard');
+        if (onboard) {
+          window.location.href = "/signup";
+        } else {
+          window.location.href = "/dashboard";
+        }
       }
     } catch (error) {
       setError("An error occurred during sign in");
@@ -101,13 +107,19 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (status === "loading") return;
     if (session) {
-      router.push("/dashboard");
+      const onboard = searchParams && searchParams.get('onboard');
+      if (onboard) {
+        router.push("/signup");
+      } else {
+        router.push("/dashboard");
+      }
     }
-  }, [session, status, router]);
+  }, [session, status, router, searchParams]);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -139,7 +151,10 @@ export function LoginForm({
             <Button
               variant="outline"
               className="w-full flex items-center justify-center"
-              onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+              onClick={() => {
+                const onboard = searchParams && searchParams.get('onboard');
+                signIn("github", { callbackUrl: onboard ? "/signup" : "/dashboard" });
+              }}
             >
               <ProviderIcon provider="github" />
               Sign in with GitHub
@@ -147,7 +162,10 @@ export function LoginForm({
             <Button
               variant="outline"
               className="w-full flex items-center justify-center"
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              onClick={() => {
+                const onboard = searchParams && searchParams.get('onboard');
+                signIn("google", { callbackUrl: onboard ? "/signup" : "/dashboard" });
+              }}
             >
               <ProviderIcon provider="google" />
               Sign in with Google
@@ -155,7 +173,10 @@ export function LoginForm({
             <Button
               variant="outline"
               className="w-full flex items-center justify-center"
-              onClick={() => signIn("azure-ad", { callbackUrl: "/dashboard" })}
+              onClick={() => {
+                const onboard = searchParams && searchParams.get('onboard');
+                signIn("azure-ad", { callbackUrl: onboard ? "/signup" : "/dashboard" });
+              }}
             >
               <ProviderIcon provider="azure-ad" />
               Sign in with Microsoft

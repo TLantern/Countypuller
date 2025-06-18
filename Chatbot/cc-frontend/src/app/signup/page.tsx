@@ -58,6 +58,12 @@ function CredentialSignup() {
         if (result?.error) {
           setError("Failed to sign in after registration");
         } else {
+          // Clear onboarding flags so onboarding always shows for new users
+          if (typeof window !== 'undefined') {
+            sessionStorage.removeItem('onboarded');
+            sessionStorage.removeItem('selectedCounty');
+            sessionStorage.removeItem('selectedDocTypes');
+          }
           // Successful signin, redirect to dashboard
           router.push("/dashboard");
         }

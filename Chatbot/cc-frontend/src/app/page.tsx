@@ -74,11 +74,11 @@ export default function Home() {
             Revolutionize County Property Research
           </h1>
           <p style={{ fontSize: isMobile ? "1rem" : "1.25rem", marginBottom: "2.5rem", color: "#c3c6f1" }}>
-            Instantly search and analyze property records across 200+ counties. 
+            Find profitable foreclosure deals weeks before everyone else.
             Save hours of manual work and close more deals with our powerful, automated research platform.
           </p>
           <div style={{ display: "flex", gap: isMobile ? "0.75rem" : "1.5rem", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined }}>
-            <Link href="/pricing">
+            <Link href="/login?onboard=1">
               <Button asChild size="lg" className="glow-pulse-btn" style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginBottom: isMobile ? 8 : 0, position: 'relative', zIndex: 1 }}>
                 <span style={{ color: "#000", position: 'relative', zIndex: 2 }}>Get Started</span>
               </Button>
@@ -91,6 +91,33 @@ export default function Home() {
                 <span style={{ color: "#000" }}>Log In</span>
               </Button>
             </Link>
+            <div style={{
+              background: 'linear-gradient(90deg, #3b82f6 0%, #7c3aed 100%)',
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: isMobile ? '1.08rem' : '1.18rem',
+              borderRadius: 16,
+              padding: isMobile ? '0.75rem 1rem' : '1rem 2rem',
+              marginTop: isMobile ? 8 : 0,
+              boxShadow: '0 4px 24px 0 rgba(59,130,246,0.18)',
+              textAlign: 'center',
+              letterSpacing: '0.01em',
+              lineHeight: 1.4,
+              border: '2px solid #3b82f6',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              position: 'relative',
+              zIndex: 2,
+            }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: 8 }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ marginRight: 4 }} xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#3b82f6" stroke="#7c3aed" strokeWidth="2"/><path d="M8 12l2.5 2.5L16 9" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </span>
+              <em style={{ fontStyle: 'normal', background: 'none', color: '#fff' }}>
+                Used by 74 investors in TX to close 38+ deals this year. <span style={{ color: '#ffe066', fontWeight: 800, marginLeft: 4 }}>Now live in Harris, Dallas, and Travis Counties — new counties weekly.</span>
+              </em>
+            </div>
           </div>
         </div>
         {/* Clerk Crawler Demo Video to the right of hero text */}
