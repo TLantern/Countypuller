@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -459,7 +459,6 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
   const onboardingCounties = ["Harris", "Dallas", "Tarrant", "Bexar", "Travis"];
