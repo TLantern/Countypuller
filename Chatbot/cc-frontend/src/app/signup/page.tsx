@@ -27,16 +27,32 @@ function ProviderIcon({ provider }: { provider: string }) {
 function CredentialSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
+  function getPasswordStrength(pw: string) {
+    if (!pw || pw.length < 6) return 'Weak';
+    // Strong: 8+ chars, upper, lower, number
+    const strong = pw.length >= 8 && /[A-Z]/.test(pw) && /[a-z]/.test(pw) && /[0-9]/.test(pw);
+    // Excellent: 10+ chars, upper, lower, number, symbol
+    const excellent = pw.length >= 10 && /[A-Z]/.test(pw) && /[a-z]/.test(pw) && /[0-9]/.test(pw) && /[^A-Za-z0-9]/.test(pw);
+    if (excellent) return 'Excellent';
+    if (strong) return 'Strong';
+    return 'Weak';
+  }
+  const passwordStrength = getPasswordStrength(password);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-    
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    setLoading(true);
     try {
       // First, register the user
       const res = await fetch("/api/auth/register", {
@@ -44,9 +60,7 @@ function CredentialSignup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, firstName }),
       });
-      
       const data = await res.json();
-      
       if (res.ok) {
         // Registration successful, now sign in
         const result = await signIn("credentials", {
@@ -54,7 +68,6 @@ function CredentialSignup() {
           password,
           redirect: false, // Don't redirect automatically
         });
-        
         if (result?.error) {
           setError("Failed to sign in after registration");
         } else {
@@ -106,7 +119,29 @@ function CredentialSignup() {
         required
         autoComplete="new-password"
       />
-      <Button type="submit" className="w-full" disabled={loading}>
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={e => setConfirmPassword(e.target.value)}
+        className="border border-gray-400 rounded px-3 py-2 bg-white text-black placeholder-black"
+        required
+        autoComplete="new-password"
+      />
+      {/* Password strength bar and label */}
+      <div style={{ height: 8, width: '100%', background: '#eee', borderRadius: 4, marginBottom: 8 }}>
+        <div style={{
+          height: '100%',
+          borderRadius: 4,
+          width: passwordStrength === 'Weak' ? '33%' : passwordStrength === 'Strong' ? '66%' : passwordStrength === 'Excellent' ? '100%' : '0%',
+          background: passwordStrength === 'Weak' ? '#e53e3e' : passwordStrength === 'Strong' ? '#d69e2e' : passwordStrength === 'Excellent' ? '#38a169' : 'transparent',
+          transition: 'width 0.3s, background 0.3s'
+        }} />
+      </div>
+      <div style={{ fontSize: 13, marginBottom: 4, color: passwordStrength === 'Weak' ? '#e53e3e' : passwordStrength === 'Strong' ? '#d69e2e' : '#38a169', fontWeight: 600 }}>
+        Password strength: {passwordStrength}
+      </div>
+      <Button type="submit" className="w-full" disabled={loading || password !== confirmPassword}>
         {loading ? "Signing up..." : "Sign up with Credentials"}
       </Button>
       {error && <div className="text-red-500 text-xs mt-1">{error}</div>}

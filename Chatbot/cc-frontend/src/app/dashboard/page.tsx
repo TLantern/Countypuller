@@ -1012,17 +1012,7 @@ export default function Dashboard() {
                 <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-4">
-                      {userType === 'LPH' && (
-                        <Select
-                          value={county}
-                          onChange={e => setCounty(e.target.value)}
-                          variant="outlined"
-                          sx={{ color: 'black', background: 'white', minWidth: 160, borderColor: '#ccc', '.MuiOutlinedInput-notchedOutline': { borderColor: '#ccc' } }}
-                        >
-                          {counties.map(c => <MenuItem key={c} value={c} style={{ color: 'black' }}>{c} County</MenuItem>)}
-                        </Select>
-                      )}
-                      
+                      {/* Remove the dropdown, only show the county name */}
                       <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
                         {displayTitle}
                       </span>

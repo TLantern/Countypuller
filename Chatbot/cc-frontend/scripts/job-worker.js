@@ -15,7 +15,9 @@ const JobStatus = {
 function runPython(scriptPath, args) {
   return new Promise((resolve) => {
     const scriptDir = path.dirname(scriptPath);
-    const pythonExecutable = process.platform === 'win32' ? 'python' : 'python3';
+    const pythonExecutable = process.platform === 'win32'
+      ? 'C:\\Users\\tmbor\\AppData\\Local\\Programs\\Python\\Python313\\python.exe'
+      : 'python3';
     console.log(`[DEBUG] Running: ${pythonExecutable} ${scriptPath} ${args.join(' ')} in ${scriptDir}`);
     const pythonProcess = spawn(pythonExecutable, [path.basename(scriptPath), ...args], {
       cwd: scriptDir,
