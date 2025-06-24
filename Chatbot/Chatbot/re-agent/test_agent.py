@@ -30,7 +30,7 @@ async def test_cache_system():
     try:
         from cache import CacheManager
         
-        cache = CacheManager()
+        cache = CacheManager(redis_url="redis://localhost:6379/0")
         
         # Test set/get
         test_key = "test_key"
@@ -71,11 +71,11 @@ async def test_harris_scraper():
     try:
         from tools_1.scrape_harris_records import scrape_harris_records
         
-        # Test with small dataset
+        # Test with real data for June 2025
         filters = {
             'document_type': 'LisPendens',
-            'date_from': '2025-01-01',
-            'date_to': '2025-01-31',
+            'date_from': '2025-06-10',
+            'date_to': '2025-06-24',
             'page_size': 3,
             'user_id': 'test_user'
         }
@@ -83,12 +83,12 @@ async def test_harris_scraper():
         records = await scrape_harris_records(filters)
         
         assert isinstance(records, list), "Scraper should return a list"
-        assert len(records) > 0, "Should return at least some records (mock data)"
+        assert len(records) > 0, "Should return at least some records (real data)"
         
         # Verify record structure
         if records:
             record = records[0]
-            required_fields = ['case_number', 'file_date', 'subdivision', 'county']
+            required_fields = ['caseNumber', 'filingDate', 'subdivision', 'docType']
             for field in required_fields:
                 assert field in record, f"Missing required field: {field}"
         

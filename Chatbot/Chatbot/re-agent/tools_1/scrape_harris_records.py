@@ -12,9 +12,9 @@ Features:
 
 import asyncio
 import aiohttp
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import re
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, cast
 from urllib.parse import urlencode
 import logging
 import datetime
@@ -57,9 +57,10 @@ class HarrisCountyScraper:
     
     async def _get_hidden_fields(self) -> bool:
         """
-        Get the hidden form fields (__VIEWSTATE, __EVENTVALIDATION) 
-        from a preliminary GET request
+        Get all hidden form fields from a preliminary GET request and log them.
         """
+        if self.session is None:
+            raise HarrisCountySearchError("Session is not initialized.")
         try:
             logger.info("Getting hidden form fields from Harris County search page")
             async with self.session.get(self.base_url) as response:
@@ -69,20 +70,25 @@ class HarrisCountyScraper:
                 html = await response.text()
                 soup = BeautifulSoup(html, 'html.parser')
                 
-                # Extract __VIEWSTATE
-                viewstate_input = soup.find('input', {'name': '__VIEWSTATE'})
-                if viewstate_input:
-                    self.viewstate = viewstate_input.get('value')
+                # Extract all hidden fields
+                self.hidden_fields = {}
+                for input_tag in soup.find_all('input', {'type': 'hidden'}):
+                    if not isinstance(input_tag, Tag):
+                        continue
+                    name = input_tag.get('name')
+                    value = input_tag.get('value', '')
+                    if name:
+                        self.hidden_fields[name] = value
+                logger.info(f"Extracted hidden fields: {self.hidden_fields}")
                 
-                # Extract __EVENTVALIDATION
-                eventvalidation_input = soup.find('input', {'name': '__EVENTVALIDATION'})
-                if eventvalidation_input:
-                    self.eventvalidation = eventvalidation_input.get('value')
+                # For backward compatibility
+                self.viewstate = self.hidden_fields.get('__VIEWSTATE')
+                self.eventvalidation = self.hidden_fields.get('__EVENTVALIDATION')
                 
                 if not self.viewstate or not self.eventvalidation:
                     logger.warning("Could not extract all hidden fields")
                     return False
-                    
+                
                 logger.info("Successfully extracted hidden form fields")
                 return True
                 
@@ -92,15 +98,10 @@ class HarrisCountyScraper:
     
     def _build_form_data(self, filters: Dict[str, Any]) -> Dict[str, str]:
         """
-        Build the form data payload for the POST request
+        Build the form data payload for the POST request, including all hidden fields.
         """
-        # Base form data with hidden fields
-        form_data = {
-            '__VIEWSTATE': self.viewstate or '',
-            '__EVENTVALIDATION': self.eventvalidation or '',
-            '__EVENTTARGET': '',
-            '__EVENTARGUMENT': ''
-        }
+        # Start with all hidden fields
+        form_data = dict(self.hidden_fields) if hasattr(self, 'hidden_fields') else {}
         # Instrument Type (doc_type) - default to 'L/P'
         doc_type = filters.get('doc_type', 'L/P')
         if doc_type:
@@ -124,50 +125,52 @@ class HarrisCountyScraper:
         # defendant = filters.get('defendant')
         # if defendant:
         #     form_data['ctl00$ContentPlaceHolder1$txtDefendant'] = defendant
+        logger.info(f"Form data to be posted: {form_data}")
         return form_data
     
     def _parse_results(self, html: str) -> List[Dict[str, str]]:
         """
-        Parse the HTML results and extract record data
+        Parse the HTML results and extract record data, including nested tables in the 6th <td>.
         """
         soup = BeautifulSoup(html, 'html.parser')
         records = []
-        
-        try:
-            # Find the results table
-            results_table = soup.find('table', {'id': 'ctl00_ContentPlaceHolder1_gvResults'})
-            if not results_table:
-                logger.warning("No results table found in response")
-                return records
-            
-            # Get all data rows (skip header)
-            rows = results_table.find_all('tr')[1:]  # Skip header row
-            
-            for row in rows:
-                cells = row.find_all('td')
-                if len(cells) < 6:  # Ensure we have enough columns
-                    continue
-                
-                # Extract data from cells
-                record = {
-                    'caseNumber': self._clean_text(cells[0].get_text()),
-                    'filingDate': self._clean_text(cells[1].get_text()),
-                    'docType': self._clean_text(cells[2].get_text()),
-                    'plaintiff': self._clean_text(cells[3].get_text()),
-                    'respondent': self._clean_text(cells[4].get_text()),
-                    'description': self._clean_text(cells[5].get_text()) if len(cells) > 5 else ''
-                }
-                
-                # Extract subdivision, block, lot from description
-                legal_info = self._parse_legal_description(record['description'])
-                record.update(legal_info)
-                
-                records.append(record)
-                
-        except Exception as e:
-            logger.error(f"Error parsing results: {e}")
-            raise HarrisCountySearchError(f"Failed to parse results: {e}")
-        
+
+        # Find the main results table (update selector if needed)
+        results_table = soup.find('table', class_='table-condensed table-hover table-striped')
+        if not results_table:
+            logger.warning("No results table found in response")
+            return records
+
+        # Cast to Tag to appease type checker
+        results_table = cast(Tag, results_table)  # type: ignore[arg-type]
+
+        # Iterate over direct child rows
+        rows_iter = (r for r in results_table.children if isinstance(r, Tag) and r.name == 'tr')
+        # Skip header row (first <tr>)
+        rows_list: List[Tag] = list(rows_iter)
+        if len(rows_list) <= 1:
+            return records
+        for row in rows_list[1:]:
+            cells = [c for c in row.children if isinstance(c, Tag) and c.name == 'td']
+            if len(cells) < 6:
+                continue
+
+            record = {
+                'file_number': cells[0].get_text(strip=True),
+                'file_date': cells[1].get_text(strip=True),
+                'type_vol_page': cells[2].get_text(strip=True),
+                'names': cells[3].get_text(strip=True),
+                'pages_film_code': cells[4].get_text(strip=True),
+                'legal_description_raw': str(cells[5]),
+                'legal_description_text': cells[5].get_text(separator=' ', strip=True)
+            }
+
+            nested_table = cells[5].find('table')
+            if isinstance(nested_table, Tag):
+                record['legal_description_table'] = nested_table.get_text(separator=' ', strip=True)
+
+            records.append(record)
+
         return records
     
     def _clean_text(self, text: str) -> str:
@@ -226,7 +229,7 @@ class HarrisCountyScraper:
         
         return result
     
-    async def search(self, filters: Dict[str, Any] = None) -> List[Dict[str, str]]:
+    async def search(self, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, str]]:
         """
         Main search method - queries the Harris County search form
         """
@@ -249,6 +252,8 @@ class HarrisCountyScraper:
             form_data = self._build_form_data(filters)
             # Step 3: Submit search
             logger.info(f"Submitting search with filters: {filters}")
+            if self.session is None:
+                raise HarrisCountySearchError("Session is not initialized.")
             async with self.session.post(
                 self.base_url,
                 data=form_data,
@@ -275,7 +280,7 @@ class HarrisCountyScraper:
             raise HarrisCountySearchError(f"Search failed: {e}")
 
 # Main async function for the tool
-async def scrape_harris_records(filters: Dict[str, Any] = None) -> List[Dict[str, str]]:
+async def scrape_harris_records(filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, str]]:
     """
     Scrape Harris County records using the public search form
     
@@ -348,7 +353,7 @@ def get_mock_harris_records() -> List[Dict[str, str]]:
     ]
 
 # Sync wrapper for compatibility
-def scrape_harris_records_sync(filters: Dict[str, Any] = None) -> List[Dict[str, str]]:
+def scrape_harris_records_sync(filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, str]]:
     """Synchronous wrapper for scrape_harris_records"""
     return asyncio.run(scrape_harris_records(filters))
 
