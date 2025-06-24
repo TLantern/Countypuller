@@ -1,0 +1,6 @@
+aiohttp>=3.8.0
+playwright>=1.40.0
+redis>=4.5.0
+asyncio-mqtt>=0.11.0
+python-dotenv>=1.0.0
+beautifulsoup4>=4.12.0

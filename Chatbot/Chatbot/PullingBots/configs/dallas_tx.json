@@ -1,0 +1,163 @@
+{
+  "name": "Dallas County TX Official Records",
+  "state": "TX",
+  "base_url": "https://dallas.tx.publicsearch.us",
+  "description": "Dallas County Texas official property and legal records via GovOS portal.",
+  "scraper_type": "search_form",
+  "field_mappings": [
+    {
+      "field_name": "document_number",
+      "field_type": "case_number",
+      "selectors": [
+        {
+          "selector": "td:nth-child(1)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": true,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace",
+      "validation": "^[A-Z0-9-]+$",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "recorded_date",
+      "field_type": "date",
+      "selectors": [
+        {
+          "selector": "td:nth-child(2)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": true,
+          "multiple": false
+        }
+      ],
+      "post_process": "parse_date",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "grantor",
+      "field_type": "person_name",
+      "selectors": [
+        {
+          "selector": "td:nth-child(3)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "grantee",
+      "field_type": "person_name",
+      "selectors": [
+        {
+          "selector": "td:nth-child(4)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "legal_description",
+      "field_type": "text",
+      "selectors": [
+        {
+          "selector": "td:nth-child(5)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "property_address",
+      "field_type": "address",
+      "selectors": [
+        {
+          "selector": "td:nth-child(6)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "document_type",
+      "field_type": "text",
+      "selectors": [
+        {
+          "selector": "td:nth-child(7)",
+          "selector_type": "css",
+          "attribute": "text",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "post_process": "clean_whitespace",
+      "requires_ocr": false
+    },
+    {
+      "field_name": "document_link",
+      "field_type": "url",
+      "selectors": [
+        {
+          "selector": "td a",
+          "selector_type": "css",
+          "attribute": "href",
+          "required": false,
+          "multiple": false
+        }
+      ],
+      "requires_ocr": false
+    }
+  ],
+  "search_config": {
+    "search_url": "https://dallas.tx.publicsearch.us/",
+    "search_form_selector": "form#searchForm",
+    "search_fields": {
+      "grantor_grantee": "input[name='searchName']",
+      "document_number": "input[name='docNumber']",
+      "date_from": "input[name='dateFrom']",
+      "date_to": "input[name='dateTo']"
+    },
+    "submit_button_selector": "button[type='submit']",
+    "results_container_selector": "table.results-table"
+  },
+  "pagination_config": {
+    "pagination_type": "numbered",
+    "next_button_selector": ".pagination-next",
+    "page_number_selector": ".pagination-page",
+    "results_per_page": 25,
+    "max_pages": 10
+  },
+  "auth_config": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+  "headless": false,
+  "timeout": 30,
+  "delay_between_requests": 2.0,
+  "duplicate_check_field": "document_number",
+  "required_fields": ["document_number", "recorded_date", "grantor", "grantee"],
+  "javascript_enabled": true,
+  "cookies_file": null,
+  "proxy_config": null,
+  "custom_headers": {},
+  "created_at": "2025-06-13T00:00:00",
+  "updated_at": "2025-06-13T00:00:00",
+  "version": "1.0.0",
+  "tested": false
+} 

@@ -9,7 +9,6 @@ from typing import Optional, TypedDict, List, Dict, Any
 from urllib.parse import urljoin
 from playwright.async_api import async_playwright, Page, Frame
 import pytesseract
-import pdf2image
 from PIL import Image, ImageFilter, ImageEnhance
 import tempfile
 import re

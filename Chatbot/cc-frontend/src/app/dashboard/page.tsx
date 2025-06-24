@@ -456,13 +456,53 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
   );
 };
 
+interface ProgressBarProps {
+  jobStatus: string;
+  pulling: boolean;
+  recordsProcessed?: number;
+  maxRecords?: number;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ jobStatus, pulling, recordsProcessed, maxRecords }) => {
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    if (pulling && typeof recordsProcessed === 'number' && typeof maxRecords === 'number' && maxRecords > 0) {
+      setProgress(Math.min(100, Math.round((recordsProcessed / maxRecords) * 100)));
+    } else if (pulling) {
+      setProgress(0);
+      let pct = 0;
+      const interval = setInterval(() => {
+        pct += Math.random() * 8 + 2;
+        if (pct >= 98) pct = 98;
+        setProgress(pct);
+      }, 300);
+      return () => clearInterval(interval);
+    } else {
+      setProgress(0);
+    }
+  }, [pulling, recordsProcessed, maxRecords]);
+  React.useEffect(() => {
+    if (jobStatus === 'COMPLETED') setProgress(100);
+  }, [jobStatus]);
+  return (
+    <div style={{ width: '100%', maxWidth: 400, margin: '0 auto 16px auto' }}>
+      <div style={{ height: 12, background: '#e5e7eb', borderRadius: 6, overflow: 'hidden', marginBottom: 8 }}>
+        <div style={{ width: `${progress}%`, height: '100%', background: '#1e40af', transition: 'width 0.3s' }} />
+      </div>
+      <div style={{ textAlign: 'center', color: '#1e40af', fontWeight: 600, fontSize: 14 }}>{Math.round(progress)}%</div>
+      {typeof recordsProcessed === 'number' && typeof maxRecords === 'number' && (
+        <div style={{ textAlign: 'center', color: '#1e40af', fontSize: 13 }}>{recordsProcessed} / {maxRecords} records saved</div>
+      )}
+    </div>
+  );
+};
+
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
   const onboardingCounties = ["Harris", "Dallas", "Tarrant", "Bexar", "Travis"];
-  
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
   const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord | FultonGaRecord | CobbGaRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
@@ -474,14 +514,11 @@ export default function Dashboard() {
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
   const [jobStatus, setJobStatus] = useState<string>('');
   const [dateFilter, setDateFilter] = useState<number>(7); // Default to 7 days
-  
   // State for focused cell display
   const [focusedCellContent, setFocusedCellContent] = useState<string>('');
   const [focusedCellField, setFocusedCellField] = useState<string>('');
-  
   // Get feedback panel state from context
   const { isFeedbackPanelOpen, setIsFeedbackPanelOpen } = useFeedback();
-
   const [onboardingStep, setOnboardingStep] = useState(1);
   const [selectedDocTypes, setSelectedDocTypes] = useState<string[]>([]);
   const docTypes = [
@@ -490,6 +527,9 @@ export default function Dashboard() {
     "Auction",
     "Bankruptcy"
   ];
+  // Progress bar state hooks (must be before any returns)
+  const [recordsProcessed, setRecordsProcessed] = useState<number>(0);
+  const [maxRecords, setMaxRecords] = useState<number>(0);
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
@@ -626,7 +666,6 @@ export default function Dashboard() {
           setPullResult('error');
           setPulling(false);
           setCurrentJobId(null);
-          return;
         }
         
         // Continue polling if job is still pending or in progress
@@ -647,10 +686,8 @@ export default function Dashboard() {
   };
 
   const handlePullRecord = async () => {
-    setPulling(true);
     setPullResult(null);
     setJobStatus('');
-    
     try {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/pull-hillsborough-nh' : 
@@ -658,12 +695,10 @@ export default function Dashboard() {
                       userType === 'FULTON_GA' ? '/api/pull-fulton-ga' :
                       userType === 'COBB_GA' ? '/api/pull-cobb-ga' :
                       '/api/pull-lph';
-      
       // Include the date filter in the request body
       const requestBody = {
         dateFilter: dateFilter // Number of days back to pull records from
       };
-      
       const res = await fetch(endpoint, { 
         method: 'POST',
         headers: {
@@ -672,7 +707,6 @@ export default function Dashboard() {
         body: JSON.stringify(requestBody)
       });
       const data = await res.json();
-      
       // Handle Cobb GA immediate response (no job polling)
       if (userType === 'COBB_GA') {
         if (data.success && data.records_created !== undefined) {
@@ -687,6 +721,7 @@ export default function Dashboard() {
       } 
       // Handle other endpoints with job polling
       else if (data.success && data.job_id) {
+        setPulling(true);
         setCurrentJobId(data.job_id);
         setJobStatus(data.status);
         // Start polling for job status
@@ -695,6 +730,7 @@ export default function Dashboard() {
         setPullResult('error');
         setPulling(false);
       }
+      if (typeof requestBody.dateFilter === 'number') setMaxRecords(requestBody.dateFilter * 2); // fallback for LPH, adjust as needed
     } catch (e) {
       setPullResult('error');
       setPulling(false);
@@ -1016,6 +1052,11 @@ export default function Dashboard() {
                       <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
                         {displayTitle}
                       </span>
+                      {selectedDocTypes.length > 0 && (
+                        <span style={{ color: '#1e40af', fontWeight: 600, fontSize: 24, marginLeft: 12 }}>
+                          {selectedDocTypes.join(', ')}
+                        </span>
+                      )}
                     </div>
                     
                     <ExportButton 
@@ -1095,18 +1136,38 @@ export default function Dashboard() {
                   )}
                   
                   {/* Loader inside content box */}
-                  {pulling && (
+                  {pulling && jobStatus === 'IN_PROGRESS' && (
                     <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
-                      <div className="flex flex-col items-center justify-center p-8">
+                      <div className="flex flex-col items-center justify-center p-8 w-full">
+                        {/* Progress Bar */}
+                        <ProgressBar jobStatus={jobStatus} pulling={pulling} recordsProcessed={recordsProcessed} maxRecords={maxRecords} />
                         <div className="flex space-x-2 mt-2">
                           <span className="dot-bounce bg-blue-600"></span>
                           <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
                           <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.4s' }}></span>
                         </div>
                         <div className="mt-4 text-blue-700 font-semibold">
-                          {jobStatus === 'PENDING' && 'Job queued, waiting to start...'}
                           {jobStatus === 'IN_PROGRESS' && loadingMessage}
-                          {!jobStatus && 'Creating scraping job...'}
+                        </div>
+                        {currentJobId && (
+                          <div className="mt-2 text-gray-600 text-sm">
+                            Job ID: {currentJobId}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {/* Show only a simple message when job is queued */}
+                  {pulling && jobStatus === 'PENDING' && (
+                    <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
+                      <div className="flex flex-col items-center justify-center p-8 w-full">
+                        <div className="flex space-x-2 mt-2">
+                          <span className="dot-bounce bg-blue-600"></span>
+                          <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
+                          <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.4s' }}></span>
+                        </div>
+                        <div className="mt-4 text-blue-700 font-semibold">
+                          Job queued, waiting to start...
                         </div>
                         {currentJobId && (
                           <div className="mt-2 text-gray-600 text-sm">

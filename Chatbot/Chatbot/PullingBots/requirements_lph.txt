@@ -17,9 +17,12 @@ psycopg2-binary==2.9.9
 # OCR capabilities (optional)
 pytesseract==0.3.10
 Pillow==10.1.0
+opencv-python==4.11.0.86
 
 # Address parsing (optional but recommended)
 pyap==0.3.1
+openai==1.88.0
+textblob==0.19.0
 
 # Utility libraries
 python-dotenv==1.0.0
@@ -28,6 +31,8 @@ pydantic==2.5.0
 # Development and debugging
 pytest==7.4.3
 pytest-asyncio==0.21.1
+gspread==6.2.1
+google-auth-oauthlib==1.2.2
 
 # System dependencies notes:
 # For OCR: Install Tesseract OCR binary
