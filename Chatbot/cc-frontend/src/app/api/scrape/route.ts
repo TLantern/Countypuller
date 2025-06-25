@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/authOptions";
-import { agentScrape } from '../../../lib/agents/agent-core';
+import { agentScrape } from '../../../../lib/agents/agent-core';
 
 export async function POST(request: NextRequest) {
   try {
