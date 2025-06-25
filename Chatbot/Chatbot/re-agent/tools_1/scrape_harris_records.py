@@ -19,6 +19,7 @@ from urllib.parse import urlencode
 import logging
 import datetime
 import os
+from bs4.element import Tag as Bs4Tag  # local alias for clarity
 
 logger = logging.getLogger(__name__)
 
@@ -144,32 +145,80 @@ class HarrisCountyScraper:
         # Cast to Tag to appease type checker
         results_table = cast(Tag, results_table)  # type: ignore[arg-type]
 
-        # Iterate over direct child rows
+        logger.info("Results table found - beginning parse")
+
+        # Iterate over direct child rows (skip non-Tag nodes)
         rows_iter = (r for r in results_table.children if isinstance(r, Tag) and r.name == 'tr')
-        # Skip header row (first <tr>)
         rows_list: List[Tag] = list(rows_iter)
+
+        logger.info(f"Total <tr> rows (including header): {len(rows_list)}")
+
+        # Skip header row (first <tr>)
         if len(rows_list) <= 1:
+            logger.warning("Results table contained only header row – no data rows to parse")
             return records
+
         for row in rows_list[1:]:
             cells = [c for c in row.children if isinstance(c, Tag) and c.name == 'td']
-            if len(cells) < 6:
+            if len(cells) < 7:
                 continue
 
+            # -------- Corrected column mapping (current site layout) --------
+            # cells[0] – row number/icon
+            # cells[1] – instrument / file number
+            # cells[2] – filing date (MM/DD/YYYY)
+            # cells[3] – document type (e.g., LIS PENDENS)
+            # cells[4] – Grantor / Grantee nested table
+            # cells[5] – Legal description nested table
+            # cells[6] – pages / film code (ignored)
+
+            instrument_number = self._clean_text(cells[1].get_text())
+            filing_date = self._clean_text(cells[2].get_text())
+            doc_type = self._clean_text(cells[3].get_text())
+
+            # -------- Parse Grantor / Grantee (nested table in col[4]) --------
+            names_cell = cast(Bs4Tag, cells[4])
+            grantors: List[str] = []
+            grantees: List[str] = []
+            for name_row in names_cell.find_all('tr'):
+                name_row = cast(Bs4Tag, name_row)
+                header_b_opt = name_row.find('b')
+                if not isinstance(header_b_opt, Bs4Tag):
+                    continue
+                header_b = header_b_opt  # safe Tag
+                label = header_b.get_text(strip=True).rstrip(':').lower()
+                # The value is in the sibling <td>
+                value_td = cast(Optional[Bs4Tag], header_b.parent.find_next_sibling('td') if header_b.parent else None)
+                if not value_td:
+                    continue
+                value_text = value_td.get_text(separator=' ', strip=True)
+                if label == 'grantor':
+                    grantors.append(value_text)
+                elif label == 'grantee':
+                    grantees.append(value_text)
+
+            # -------- Parse Legal Description (nested table in col[5]) --------
+            legal_cell = cast(Bs4Tag, cells[5])
+            legal_description_text = legal_cell.get_text(separator=' ', strip=True)
+            legal_info = self._parse_legal_description(legal_description_text)
+
             record = {
-                'file_number': cells[0].get_text(strip=True),
-                'file_date': cells[1].get_text(strip=True),
-                'type_vol_page': cells[2].get_text(strip=True),
-                'names': cells[3].get_text(strip=True),
-                'pages_film_code': cells[4].get_text(strip=True),
-                'legal_description_raw': str(cells[5]),
-                'legal_description_text': cells[5].get_text(separator=' ', strip=True)
+                'caseNumber': instrument_number,
+                'filingDate': filing_date,
+                'docType': doc_type,
+                'subdivision': legal_info.get('subdivision', ''),
+                'block': legal_info.get('block', ''),
+                'lot': legal_info.get('lot', ''),
+                'grantor': grantors,
+                'grantee': grantees,
+                'description': legal_description_text
             }
 
-            nested_table = cells[5].find('table')
-            if isinstance(nested_table, Tag):
-                record['legal_description_table'] = nested_table.get_text(separator=' ', strip=True)
+            logger.debug(f"Parsed record - Instrument#: {record['caseNumber']} Date: {record['filingDate']}")
 
             records.append(record)
+
+        logger.info(f"Completed parsing results table – total records extracted: {len(records)}")
 
         return records
     
@@ -192,6 +241,29 @@ class HarrisCountyScraper:
         if not description:
             return result
         
+        # ------------------------------------------------------------------
+        # First, try to parse the explicit label format used on the site:
+        # "Desc: SOMESUBDIV Sec: 3 Lot: 18 Block: 1"
+        # ------------------------------------------------------------------
+        label_desc = re.search(r"Desc:\s*([^\n\r]+?)(?:\s+Sec:|\s+Lot:|\s+Block:|$)", description, flags=re.I)
+        if label_desc:
+            result['subdivision'] = self._clean_text(label_desc.group(1)).upper()
+
+        label_lot = re.search(r"Lot:\s*(\d+)", description, flags=re.I)
+        if label_lot:
+            result['lot'] = label_lot.group(1)
+
+        label_blk = re.search(r"Block:\s*(\d+)", description, flags=re.I)
+        if label_blk:
+            result['block'] = label_blk.group(1)
+
+        # If we already extracted all three, return early
+        if result['subdivision'] or result['block'] or result['lot']:
+            return result
+
+        # ------------------------------------------------------------------
+        # Fallback: pattern-based extraction from unlabelled text
+        # ------------------------------------------------------------------
         # Common patterns for legal descriptions
         patterns = [
             # Pattern: SUBDIVISION NAME BLK 3 LOT 14
@@ -297,8 +369,8 @@ async def scrape_harris_records(filters: Optional[Dict[str, Any]] = None) -> Lis
             subdivision: "MEMORIAL NORTHWEST",
             block: "3",
             lot: "14",
-            plaintiff: "ADAM EPSTEIN…",
-            respondent: "MASSOUMI PAULINE S"
+            grantor: "ADAM EPSTEIN…",
+            grantee: "MASSOUMI PAULINE S"
           }
         ]
     """
@@ -324,8 +396,8 @@ def get_mock_harris_records() -> List[Dict[str, str]]:
             "subdivision": "MEMORIAL NORTHWEST",
             "block": "3",
             "lot": "14",
-            "plaintiff": "ADAM EPSTEIN",
-            "respondent": "MASSOUMI PAULINE S",
+            "grantor": "ADAM EPSTEIN",
+            "grantee": "MASSOUMI PAULINE S",
             "description": "LOT 14 BLK 3 MEMORIAL NORTHWEST"
         },
         {
@@ -335,8 +407,8 @@ def get_mock_harris_records() -> List[Dict[str, str]]:
             "subdivision": "VENTANA LAKES",
             "block": "5",
             "lot": "34",
-            "plaintiff": "WELLS FARGO BANK",
-            "respondent": "RODRIGUEZ MARIA",
+            "grantor": "WELLS FARGO BANK",
+            "grantee": "RODRIGUEZ MARIA",
             "description": "VENTANA LAKES BLK 5 LOT 34"
         },
         {
@@ -346,8 +418,8 @@ def get_mock_harris_records() -> List[Dict[str, str]]:
             "subdivision": "SPRING MEADOWS",
             "block": "7",
             "lot": "12",
-            "plaintiff": "JPMORGAN CHASE BANK",
-            "respondent": "JOHNSON ROBERT",
+            "grantor": "JPMORGAN CHASE BANK",
+            "grantee": "JOHNSON ROBERT",
             "description": "SPRING MEADOWS BLOCK 7 LOT 12"
         }
     ]

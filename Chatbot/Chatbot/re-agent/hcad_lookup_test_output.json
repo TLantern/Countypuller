@@ -1,0 +1,262 @@
+[
+  {
+    "legal_params": {
+      "subdivision": "HUNIERS CREEK",
+      "section": "",
+      "block": "1",
+      "lot": "18"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ROSEWOOD ESTATES",
+      "section": "",
+      "block": "",
+      "lot": "489"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "LIBERTY ROAD MANOR",
+      "section": "",
+      "block": "3",
+      "lot": "21"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "COMMONS OF LAKE HOUSTON",
+      "section": "",
+      "block": "3",
+      "lot": "16"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "COMMONS WATERWAY",
+      "section": "",
+      "block": "3",
+      "lot": "28"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "STABLEWOOD FARMS",
+      "section": "",
+      "block": "3",
+      "lot": "13"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "MEMORIAL NORTHWEST",
+      "section": "",
+      "block": "3",
+      "lot": "14"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "FOXWOOD MEADOWS",
+      "section": "",
+      "block": "1",
+      "lot": "31"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "",
+      "section": "",
+      "block": "",
+      "lot": ""
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "Insufficient legal description data"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES AT TOUR 18",
+      "section": "",
+      "block": "5",
+      "lot": "2"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "THE HARRIS COUNTY SCHOOL LAND ABSTRACT: 332 COMMENT: 4.1024 RELATED DOCS",
+      "section": "",
+      "block": "",
+      "lot": ""
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "FAIRLANE VILLAGE",
+      "section": "",
+      "block": "3",
+      "lot": "22"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "PARKSIDE AT PERRY",
+      "section": "",
+      "block": "2",
+      "lot": "34"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "PARKSIDE AT PERRY",
+      "section": "",
+      "block": "2",
+      "lot": "34"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF CYPRESS LAKES",
+      "section": "",
+      "block": "3",
+      "lot": "61"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF CYPRESS LAKES",
+      "section": "",
+      "block": "2",
+      "lot": "3"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES AT LAKEPOINTE",
+      "section": "",
+      "block": "3",
+      "lot": "9"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "FAIRMOUNT PARK EAST",
+      "section": "",
+      "block": "21",
+      "lot": "1"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "LIBERTY LAKES",
+      "section": "",
+      "block": "2",
+      "lot": "20"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "WESTPORT BUSINESS PARK",
+      "section": "",
+      "block": "2",
+      "lot": ""
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": null
+    }
+  }
+]

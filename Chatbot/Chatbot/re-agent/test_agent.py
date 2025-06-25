@@ -15,6 +15,8 @@ import logging
 import sys
 import os
 from datetime import datetime, timedelta
+import pandas as pd
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(
@@ -73,14 +75,24 @@ async def test_harris_scraper():
         
         # Test with real data for June 2025
         filters = {
-            'document_type': 'LisPendens',
-            'date_from': '2025-06-10',
-            'date_to': '2025-06-24',
-            'page_size': 3,
-            'user_id': 'test_user'
+            # Clerk instrument code for Lis Pendens
+            'doc_type': 'L/P',
+            # Use MM/DD/YYYY format expected by the form
+            'from_date': '06/10/2025',
+            'to_date': '06/24/2025'
         }
         
         records = await scrape_harris_records(filters)
+        
+        # Always export results to JSON only
+        output_dir = Path(__file__).parent
+        json_path = output_dir / 'harris_scraper_test_output.json'
+        try:
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(records, f, indent=2, ensure_ascii=False)
+            logger.info(f"📝 Exported Harris scraper results to {json_path}")
+        except Exception as export_err:
+            logger.error(f"❌ Failed to export Harris scraper results: {export_err}")
         
         assert isinstance(records, list), "Scraper should return a list"
         assert len(records) > 0, "Should return at least some records (real data)"
@@ -97,6 +109,16 @@ async def test_harris_scraper():
         
     except Exception as e:
         logger.error(f"❌ Harris scraper test failed: {e}")
+        # Try to export records if they exist
+        try:
+            if 'records' in locals() and records:
+                output_dir = Path(__file__).parent
+                json_path = output_dir / 'harris_scraper_test_output.json'
+                with open(json_path, 'w', encoding='utf-8') as f:
+                    json.dump(records, f, indent=2, ensure_ascii=False)
+                logger.info(f"📝 Exported Harris scraper results to {json_path} (after failure)")
+        except Exception as export_err:
+            logger.error(f"❌ Failed to export Harris scraper results after failure: {export_err}")
         return False
 
 async def test_hcad_lookup():
@@ -105,22 +127,58 @@ async def test_hcad_lookup():
     
     try:
         from tools_2.hcad_lookup import hcad_lookup
+        from tools_1.scrape_harris_records import scrape_harris_records
         
-        # Test lookup with mock data
-        legal_params = {
-            'subdivision': 'MOCK SUBDIVISION',
-            'section': '1',
-            'block': '2',
-            'lot': '5'
-        }
-        
-        result = await hcad_lookup(legal_params)
-        
-        assert isinstance(result, dict), "HCAD lookup should return a dict"
-        assert 'address' in result, "Result should have address field"
-        assert 'parcel_id' in result, "Result should have parcel_id field"
-        
-        logger.info(f"✅ HCAD lookup test passed - {result}")
+        # Derive legal description from previously scraped results
+        json_path = Path(__file__).parent / 'harris_scraper_test_output.json'
+        if json_path.exists():
+            with open(json_path, 'r', encoding='utf-8') as f:
+                scraped_records = json.load(f)
+        else:
+            logger.warning("No prior scraper output found – scraping quickly for HCAD test")
+            scraped_records = await scrape_harris_records({
+                'doc_type': 'L/P',
+                'from_date': (datetime.now() - timedelta(days=7)).strftime('%m/%d/%Y'),
+                'to_date': datetime.now().strftime('%m/%d/%Y')
+            })
+
+        if not scraped_records:
+            raise AssertionError("HCAD lookup test requires real Lis-Pendens records but none were found.")
+
+        # Use up to 20 records to exercise the lookup
+        lookup_inputs = scraped_records[:20]
+
+        results_collection = []
+
+        for rec in lookup_inputs:
+            legal_params = {
+                'subdivision': rec.get('subdivision', ''),
+                'section': rec.get('section', ''),
+                'block': rec.get('block', ''),
+                'lot': rec.get('lot', '')
+            }
+            result = await hcad_lookup(legal_params)
+            results_collection.append({
+                'legal_params': legal_params,
+                'lookup_result': result
+            })
+
+        # Export aggregated results to JSON
+        output_dir = Path(__file__).parent
+        hcad_json_path = output_dir / 'hcad_lookup_test_output.json'
+        try:
+            with open(hcad_json_path, 'w', encoding='utf-8') as f:
+                json.dump(results_collection, f, indent=2, ensure_ascii=False)
+            logger.info(f"📝 Exported {len(results_collection)} HCAD lookup results to {hcad_json_path}")
+        except Exception as export_err:
+            logger.error(f"❌ Failed to export HCAD lookup results: {export_err}")
+
+        # Basic assertions on the first result
+        first_res = results_collection[0]['lookup_result']
+        assert isinstance(first_res, dict), "HCAD lookup should return a dict"
+        assert 'address' in first_res and 'parcel_id' in first_res, "Lookup result missing expected keys"
+
+        logger.info(f"✅ HCAD lookup test passed - processed {len(results_collection)} lookups")
         return True
         
     except Exception as e:

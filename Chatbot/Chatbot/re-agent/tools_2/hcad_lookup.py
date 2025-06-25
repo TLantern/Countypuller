@@ -18,6 +18,36 @@ logger = logging.getLogger(__name__)
 # HCAD search URLs
 HCAD_SEARCH_URL = "https://public.hcad.org/records/Real.asp"
 HCAD_DETAIL_URL = "https://public.hcad.org/records/PropertyDetail.asp"
+HCAD_ADVANCED_URL = "https://public.hcad.org/records/Real/Advanced.asp"
+
+# ---------------------------------------------------------------------------
+# 🏗️  Utility: canonical legal-description builder
+# ---------------------------------------------------------------------------
+
+def build_hcad_legal(subdivision: str | None = None,
+                     section: str | int | None = None,
+                     block: str | int | None = None,
+                     lot: str | int | None = None) -> str:
+    """Return canonical HCAD legal-description string using available parts only.
+
+    Parts order: LT <lot> BLK <block> <SUBDIVISION> SEC <section>
+    Any element that is ``None``/empty is omitted.
+    """
+    parts: list[str] = []
+
+    if lot not in (None, ""):
+        parts.append(f"LT {int(lot)}")
+    if block not in (None, ""):
+        parts.append(f"BLK {int(block)}")
+
+    if subdivision not in (None, ""):
+        subdivision_clean = " ".join(str(subdivision).upper().split())
+        parts.append(subdivision_clean)
+
+    if section not in (None, ""):
+        parts.append(f"SEC {int(section)}")
+
+    return " ".join(parts)
 
 async def hcad_lookup(legal_params: Dict[str, str]) -> Dict[str, Any]:
     """
@@ -55,7 +85,8 @@ async def hcad_lookup(legal_params: Dict[str, str]) -> Dict[str, Any]:
     except ImportError:
         logger.warning("Cache not available for HCAD lookup")
     
-    result = {
+    # Use explicit Optional[str] typing for result values to satisfy static type checkers
+    result: Dict[str, Optional[str]] = {
         'address': None,
         'parcel_id': None,
         'error': None
@@ -68,9 +99,9 @@ async def hcad_lookup(legal_params: Dict[str, str]) -> Dict[str, Any]:
     
     try:
         # Try multiple search strategies
+        # Only two strategies: (1) canonical legal-description search, (2) full owner-name search
         strategies = [
-            _search_by_subdivision_lot_block,
-            _search_by_address_pattern,
+            _search_by_legal_description,
             _search_by_owner_name
         ]
         
@@ -78,7 +109,8 @@ async def hcad_lookup(legal_params: Dict[str, str]) -> Dict[str, Any]:
             try:
                 strategy_result = await strategy(legal_params)
                 if strategy_result.get('address'):
-                    result.update(strategy_result)
+                    from typing import cast
+                    result.update(cast(Dict[str, Optional[str]], strategy_result))
                     break
             except Exception as e:
                 logger.warning(f"HCAD strategy failed: {e}")
@@ -97,6 +129,45 @@ async def hcad_lookup(legal_params: Dict[str, str]) -> Dict[str, Any]:
         logger.error(f"❌ HCAD lookup failed: {e}")
         result['error'] = str(e)
         return result
+
+async def _search_by_legal_description(legal_params: Dict[str, str]) -> Dict[str, Any]:
+    """Search HCAD using the full legal-description string (LT/BLK/SEC)."""
+    subdivision = legal_params.get('subdivision', '').strip()
+    section = legal_params.get('section', '').strip()
+    block = legal_params.get('block', '').strip()
+    lot = legal_params.get('lot', '').strip()
+
+    if not any([subdivision, section, block, lot]):
+        raise ValueError("No usable legal description components provided")
+
+    legal_string = build_hcad_legal(subdivision, section, block, lot)
+    logger.info(f"🔍 HCAD Strategy 0: Legal description search – '{legal_string}'")
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            # STEP 1: Load Advanced search page to establish session cookies
+            async with session.get(HCAD_ADVANCED_URL) as resp_init:
+                if resp_init.status != 200:
+                    logger.warning("Advanced page request failed – falling back")
+            # STEP 2: Submit the form with the legal description.
+            # The Advanced form uses HTTP GET; field id & name are `LegalDscr`.
+            search_params = {
+                'search': 'legal',      # tells backend we are searching legal description
+                'LegalDscr': legal_string,
+                'exact': 'Y'            # request exact match where available
+            }
+            async with session.get(HCAD_SEARCH_URL, params=search_params) as response:
+                if response.status == 200:
+                    html = await response.text()
+                    return _parse_hcad_results(html, lot, block)
+        except Exception as e:
+            logger.warning(f"Legal description search failed: {e}")
+
+    return {
+        'address': None,
+        'parcel_id': None,
+        'error': None
+    }
 
 async def _search_by_subdivision_lot_block(legal_params: Dict[str, str]) -> Dict[str, Any]:
     """Search HCAD by subdivision, lot, and block"""
@@ -123,7 +194,11 @@ async def _search_by_subdivision_lot_block(legal_params: Dict[str, str]) -> Dict
                 html = await response.text()
                 return _parse_hcad_results(html, lot, block)
     
-    return {'address': None, 'parcel_id': None}
+    return {
+        'address': None,
+        'parcel_id': None,
+        'error': None
+    }
 
 async def _search_by_address_pattern(legal_params: Dict[str, str]) -> Dict[str, Any]:
     """Search HCAD using address-like patterns"""
@@ -169,14 +244,45 @@ async def _search_by_address_pattern(legal_params: Dict[str, str]) -> Dict[str, 
                 logger.warning(f"Address search failed for '{search_term}': {e}")
                 continue
     
-    return {'address': None, 'parcel_id': None}
+    return {
+        'address': None,
+        'parcel_id': None,
+        'error': None
+    }
 
 async def _search_by_owner_name(legal_params: Dict[str, str]) -> Dict[str, Any]:
-    """Search HCAD by owner name if available"""
-    # This would be used if we had owner information from the lis pendens
-    # For now, return empty result
-    logger.info(f"🔍 HCAD Strategy 3: Owner name search (not implemented)")
-    return {'address': None, 'parcel_id': None}
+    """Search HCAD by owner / grantee name as fallback.
+
+    The heuristic is: take the first two words of the name and append the
+    initial of the *last* word (e.g. "GRAY JAMES H" → "GRAY JAMES H").
+    """
+    full_name = legal_params.get('owner_name', '').strip().upper()
+
+    if not full_name:
+        raise ValueError("No owner name provided for owner-name search")
+
+    search_name = full_name  # Use full name exactly as provided
+    logger.info(f"🔍 HCAD Strategy 2: Owner name search – '{search_name}'")
+
+    async with aiohttp.ClientSession() as session:
+        search_params = {
+            'search': 'name',  # owner name search option
+            'ownername': search_name,
+            'exact': 'N'
+        }
+        try:
+            async with session.get(HCAD_SEARCH_URL, params=search_params) as response:
+                if response.status == 200:
+                    html = await response.text()
+                    return _parse_hcad_results(html)
+        except Exception as e:
+            logger.warning(f"Owner name search failed: {e}")
+
+    return {
+        'address': None,
+        'parcel_id': None,
+        'error': None
+    }
 
 def _parse_hcad_results(html: str, target_lot: str = "", target_block: str = "") -> Dict[str, Any]:
     """
@@ -190,7 +296,12 @@ def _parse_hcad_results(html: str, target_lot: str = "", target_block: str = "")
     Returns:
         Dictionary with address and parcel_id if found
     """
-    result = {'address': None, 'parcel_id': None}
+    # Use explicit Optional[str] typing for result values to satisfy static type checkers
+    result: Dict[str, Optional[str]] = {
+        'address': None,
+        'parcel_id': None,
+        'error': None
+    }
     
     try:
         # Look for property records in the HTML
@@ -218,7 +329,9 @@ def _parse_hcad_results(html: str, target_lot: str = "", target_block: str = "")
             if target_lot or target_block:
                 better_match = _find_best_lot_block_match(html, target_lot, target_block)
                 if better_match:
-                    result.update(better_match)
+                    # Cast to satisfy type checkers that better_match is not None
+                    from typing import cast
+                    result.update(cast(Dict[str, Optional[str]], better_match))
         
         logger.info(f"📋 HCAD parsed: {result}")
         
@@ -270,37 +383,6 @@ def _find_best_lot_block_match(html: str, target_lot: str, target_block: str) ->
     
     return None
 
-# Mock implementation for testing
-async def _mock_hcad_lookup(legal_params: Dict[str, str]) -> Dict[str, Any]:
-    """
-    Mock HCAD lookup for testing purposes
-    
-    Returns mock data based on input parameters
-    """
-    subdivision = legal_params.get('subdivision', '')
-    lot = legal_params.get('lot', '')
-    block = legal_params.get('block', '')
-    
-    if subdivision and lot:
-        # Generate mock address
-        street_number = int(lot) * 100 if lot.isdigit() else 1000
-        mock_address = f"{street_number} {subdivision} Drive, Houston, TX 77001"
-        mock_parcel = f"001-{block or '1'}-{lot or '1'}-0001"
-        
-        logger.info(f"🧪 Mock HCAD result: {mock_address}")
-        
-        return {
-            'address': mock_address,
-            'parcel_id': mock_parcel,
-            'error': None
-        }
-    
-    return {
-        'address': None,
-        'parcel_id': None,
-        'error': "Insufficient data for mock lookup"
-    }
-
 # Test function
 async def test_hcad_lookup():
     """Test function for HCAD lookup"""
@@ -325,8 +407,7 @@ async def test_hcad_lookup():
         try:
             logger.info(f"Testing: {test_case}")
             
-            # Use mock for testing
-            result = await _mock_hcad_lookup(test_case)
+            result = await hcad_lookup(test_case)
             
             logger.info(f"Result: {result}")
             

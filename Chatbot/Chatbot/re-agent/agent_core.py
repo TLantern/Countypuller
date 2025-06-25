@@ -155,7 +155,8 @@ class LisPendensAgent:
                             'subdivision': legal_desc.subdivision,
                             'section': legal_desc.section,
                             'block': legal_desc.block,
-                            'lot': legal_desc.lot
+                            'lot': legal_desc.lot,
+                            'owner_name': self._extract_field(record, ['grantee', 'granteeName', 'owner_name'])
                         })
                         
                         if hcad_result.get('address'):
