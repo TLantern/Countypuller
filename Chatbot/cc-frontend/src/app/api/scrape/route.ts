@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/authOptions";
-import agentCore from "../../../../../../chatbot/chatbot/re-agent/agent-core";
+import { agentScrape } from "../../../../../re-agent/agent-core";
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
