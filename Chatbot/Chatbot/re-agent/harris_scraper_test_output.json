@@ -1,5 +1,492 @@
 [
   {
+    "caseNumber": "RP-2025-244638",
+    "filingDate": "06/26/2025",
+    "docType": "L/P",
+    "subdivision": "WARWICK TOWERS UNIT: 6-E-2",
+    "block": "",
+    "lot": "",
+    "grantor": [
+      "WARWICK TOWERS COUNCIL OF CO-OWNERS"
+    ],
+    "grantee": [
+      "KEMAHPROPERTIES LLC",
+      "TARA SPACE AUTOMATION LLC"
+    ],
+    "description": "Desc: WARWICK TOWERS Unit: 6-E-2"
+  },
+  {
+    "caseNumber": "RP-2025-244551",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "GROVES",
+    "block": "2",
+    "lot": "4",
+    "grantor": [
+      "GROVES COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "CARREIRO KARINA",
+      "SHERREL JEREME"
+    ],
+    "description": "Desc: GROVES Sec: 22 Lot: 4 Block: 2"
+  },
+  {
+    "caseNumber": "RP-2025-244544",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "STONE CREEK RANCH",
+    "block": "3",
+    "lot": "9",
+    "grantor": [
+      "STONE CREEK RANCH COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "COTTLE TIGHE"
+    ],
+    "description": "Desc: STONE CREEK RANCH Sec: 2 Lot: 9 Block: 3"
+  },
+  {
+    "caseNumber": "RP-2025-244543",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "GROVES",
+    "block": "3",
+    "lot": "12",
+    "grantor": [
+      "THE GROVES COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "QUINN TAMIKA"
+    ],
+    "description": "Desc: GROVES Sec: 20 Lot: 12 Block: 3"
+  },
+  {
+    "caseNumber": "RP-2025-244539",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "SABLECHASE",
+    "block": "1",
+    "lot": "17",
+    "grantor": [
+      "SABLECHASE CIVIC IMPROVEMENT ASSOCIATION INC"
+    ],
+    "grantee": [
+      "SANCHEZ YESENIA CAROLINA"
+    ],
+    "description": "Desc: SABLECHASE Sec: 4 Lot: 17 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-244522",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "BAY RIVER COLONY",
+    "block": "1",
+    "lot": "9",
+    "grantor": [
+      "BAY RIVER COLONY HOMEOWNERS ASSOCIATION INC"
+    ],
+    "grantee": [
+      "RYAN JONATHON"
+    ],
+    "description": "Desc: BAY RIVER COLONY Sec: 10 Lot: 9 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-244518",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "NORTHWOOD MANOR",
+    "block": "59",
+    "lot": "17",
+    "grantor": [
+      "AVILES CONCEPCION GONZALEZ",
+      "GONZALEZ LUIS ENRIQUE ALBARRAN"
+    ],
+    "grantee": [
+      "CORTEZ REYNA"
+    ],
+    "description": "Desc: NORTHWOOD MANOR Sec: 6 Lot: 17 Block: 59"
+  },
+  {
+    "caseNumber": "RP-2025-244202",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "ISBELL J H ABSTRACT: 474 COMMENT: 1.4662 RELATED DOCS",
+    "block": "",
+    "lot": "",
+    "grantor": [
+      "THE COMMONS OF LAKE HOUSTON PROPERTY OWNERS ASSOCIATION INC"
+    ],
+    "grantee": [
+      "COBB DAVID WAYNE JR",
+      "COBB TOMMIE FAYELYNN"
+    ],
+    "description": "Desc: ISBELL J H Abstract: 474 Comment: 1.4662 Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-244198",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "VILLAGES OF CYPRESS LAKES",
+    "block": "1",
+    "lot": "35",
+    "grantor": [
+      "LAKESIDE RESIDENTIAL COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "ITANI TARIQ ZIAD"
+    ],
+    "description": "Desc: VILLAGES OF CYPRESS LAKES Sec: 6 Lot: 35 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-244195",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "ST GEORGE TOWNHOMES ON RICHMOND",
+    "block": "1",
+    "lot": "9",
+    "grantor": [
+      "ST GEORGE HOME OWNERS ASSOCIATIN INC"
+    ],
+    "grantee": [
+      "JAYNES MONICA"
+    ],
+    "description": "Desc: ST GEORGE TOWNHOMES ON RICHMOND Lot: 9 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-244155",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "FONDREN PARK",
+    "block": "9",
+    "lot": "",
+    "grantor": [
+      "FONDREN PARK COMMUNITY IMPROVEMENT ASSOCIATION"
+    ],
+    "grantee": [
+      "BEATY GAYDRIAN DWAYNE SR"
+    ],
+    "description": "Desc: FONDREN PARK Sec: 2 Block: 9"
+  },
+  {
+    "caseNumber": "RP-2025-243580",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "SOUTH PARK",
+    "block": "1",
+    "lot": "39",
+    "grantor": [
+      "GA DIRECT PROPERTIES ACQUISITIONS LLC"
+    ],
+    "grantee": [
+      "MAGNUS REALE STATE LLC"
+    ],
+    "description": "Desc: SOUTH PARK Sec: 3 Lot: 39 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-243335",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "COPPERFIELD MIDDLEGATE VILLAGE",
+    "block": "12",
+    "lot": "12",
+    "grantor": [
+      "MIDDLEGATE VILLAGE COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "THE SHAVER 15335 GLENWOOD PARK LAND TRUST"
+    ],
+    "description": "Desc: COPPERFIELD MIDDLEGATE VILLAGE Sec: 1 Lot: 12 Block: 12"
+  },
+  {
+    "caseNumber": "RP-2025-243332",
+    "filingDate": "06/25/2025",
+    "docType": "L/P",
+    "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+    "block": "5",
+    "lot": "54",
+    "grantor": [
+      "WILDWOOD AT NORTHPOINTE COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "FERRIS EMILY JANESE"
+    ],
+    "description": "Desc: VILLAGES OF NORTHPOINTE WEST Sec: 4 Lot: 54 Block: 5"
+  },
+  {
+    "caseNumber": "RP-2025-242357",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "STABLEWOOD FARMS NORTH",
+    "block": "2",
+    "lot": "47",
+    "grantor": [
+      "NORTH HARRIS COUNTY REGIONAL WATER AUTHORITY"
+    ],
+    "grantee": [
+      "NORTHWEST HARRIS COUNTY MUNICIPAL UTILITY DISTRICT NO 10"
+    ],
+    "description": "Desc: STABLEWOOD FARMS NORTH Sec: 8 Lot: 47 Block: 2 Reserve: A Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-242242",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "DUNHAM POINTE",
+    "block": "2",
+    "lot": "7",
+    "grantor": [
+      "DAVIS CLIFF",
+      "DUNHAM POINTE HOMEOWNERS ASSOCIATION INC"
+    ],
+    "grantee": [
+      "MACHUKA DICKSON",
+      "MACHUKA GLADYS"
+    ],
+    "description": "Desc: DUNHAM POINTE Sec: 5 Lot: 7 Block: 2"
+  },
+  {
+    "caseNumber": "RP-2025-242240",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+    "block": "1",
+    "lot": "6",
+    "grantor": [
+      "WILDWOOD AT NORTHPOINTE COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "PASQUIER ANGELA",
+      "PASQUIER JOHN GABRIEL"
+    ],
+    "description": "Desc: VILLAGES OF NORTHPOINTE WEST Sec: 4 Lot: 6 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-242153",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+    "block": "3",
+    "lot": "9",
+    "grantor": [
+      "WILDWOOD AT NORTHPOINTE COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "BERTA MATTHEW",
+      "BERTA PAIGE"
+    ],
+    "description": "Desc: VILLAGES OF NORTHPOINTE WEST Sec: 4 Lot: 9 Block: 3"
+  },
+  {
+    "caseNumber": "RP-2025-242058",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "ROBINSON ADDITION RELATED DOCS",
+    "block": "",
+    "lot": "",
+    "grantor": [
+      "BANDMANN KEOLA",
+      "BANDMANN VALERIE MCLEROY"
+    ],
+    "grantee": [
+      "310 PRESTON PARTNERS LLC",
+      "CASEY ROBERT"
+    ],
+    "description": "Desc: ROBINSON ADDITION Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-242019",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "ATASCA WOODS",
+    "block": "3",
+    "lot": "50",
+    "grantor": [
+      "ATASCA WOODS COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "CALLARMAN SONJA",
+      "REDDING SONYA RAE"
+    ],
+    "description": "Desc: ATASCA WOODS Sec: 1 Lot: 50 Block: 3 Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-241990",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "WOODLAND OAKS",
+    "block": "17",
+    "lot": "567",
+    "grantor": [
+      "WOODLAND OAKS COMMUNITY ASSOCIATION"
+    ],
+    "grantee": [
+      "ESCOBAR RUBEN"
+    ],
+    "description": "Desc: WOODLAND OAKS Sec: 3 Lot: 567 Block: 17"
+  },
+  {
+    "caseNumber": "RP-2025-241960",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "BAYOU WOODS",
+    "block": "1",
+    "lot": "2",
+    "grantor": [
+      "MANCHAC FRANCISCA"
+    ],
+    "grantee": [
+      "SMITH BRADLEY"
+    ],
+    "description": "Desc: BAYOU WOODS Sec: 2 Lot: 2 Block: 1"
+  },
+  {
+    "caseNumber": "RP-2025-241950",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "NORTHWOOD MANOR",
+    "block": "44",
+    "lot": "4",
+    "grantor": [
+      "HARRIS COUNTY",
+      "STATE OF TEXAS"
+    ],
+    "grantee": [
+      "SEREAL WILSON",
+      "WEST TRAVIOUS"
+    ],
+    "description": "Desc: NORTHWOOD MANOR Sec: 4 Lot: 4 Block: 44"
+  },
+  {
+    "caseNumber": "RP-2025-241948",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "FLORIDA GARDENS",
+    "block": "8",
+    "lot": "130",
+    "grantor": [
+      "HARRIS COUNTY TEXAS",
+      "STATE OF TEXAS"
+    ],
+    "grantee": [
+      "SEREAL WILSON",
+      "WEST TRAVIOUS"
+    ],
+    "description": "Desc: FLORIDA GARDENS Lot: 130 Block: 8"
+  },
+  {
+    "caseNumber": "RP-2025-241942",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "BUCKINGHAM PLACE",
+    "block": "",
+    "lot": "79",
+    "grantor": [
+      "HARRIS COUNTY",
+      "STATE OF TEXAS"
+    ],
+    "grantee": [
+      "SEREAL WILSON",
+      "WEST TRAVIOUS"
+    ],
+    "description": "Desc: BUCKINGHAM PLACE Sec: 1 Lot: 79-80"
+  },
+  {
+    "caseNumber": "RP-2025-241940",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "WESTCOTT U/R TRACT: 36A",
+    "block": "",
+    "lot": "",
+    "grantor": [
+      "HARRIS COUNTY TEXAS",
+      "STATE OF TEXAS"
+    ],
+    "grantee": [
+      "SEREAL WILSON",
+      "WEST TRAVIOUS"
+    ],
+    "description": "Desc: WESTCOTT U/R Tract: 36A"
+  },
+  {
+    "caseNumber": "RP-2025-241939",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "HOUMONT PARK",
+    "block": "2",
+    "lot": "22",
+    "grantor": [
+      "HARRIS COUNTY"
+    ],
+    "grantee": [
+      "ALLEGIANCE BANK",
+      "HADAD-EZER E AND A PROPERTIES LLC"
+    ],
+    "description": "Desc: HOUMONT PARK Lot: 22 Block: 2 Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-241922",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "HOUMONT PARK",
+    "block": "12",
+    "lot": "43",
+    "grantor": [
+      "HARRIS COUNTY"
+    ],
+    "grantee": [
+      "WEBBER JOSEPH WILLIAM"
+    ],
+    "description": "Desc: HOUMONT PARK Lot: 43 Block: 12 Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-241726",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "WINDSONG",
+    "block": "13",
+    "lot": "27",
+    "grantor": [
+      "WINDSONG COMMUNITY IMPROVEMENT ASSOCIATION INC"
+    ],
+    "grantee": [
+      "GUY CHRISTINA"
+    ],
+    "description": "Desc: WINDSONG Sec: 3 Lot: 27 Block: 13"
+  },
+  {
+    "caseNumber": "RP-2025-241406",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "CYPRESS TELGE PARK",
+    "block": "1",
+    "lot": "",
+    "grantor": [
+      "NORTH HARRIS COUNTY REGIONAL WWTER AUTHORITY"
+    ],
+    "grantee": [
+      "STELLAR BANK",
+      "TELGE SPORTS HOLDINGS LLC"
+    ],
+    "description": "Desc: CYPRESS TELGE PARK Block: 1 Reserve: A Related Docs"
+  },
+  {
+    "caseNumber": "RP-2025-241087",
+    "filingDate": "06/24/2025",
+    "docType": "L/P",
+    "subdivision": "COPPER RIDGE AT INDIAN TRAILS",
+    "block": "4",
+    "lot": "3",
+    "grantor": [
+      "COPPER BEND AT INDIAN TRAILS COMMUNITY ASSOCIATION INC"
+    ],
+    "grantee": [
+      "FINN ROGER AARON",
+      "FINN SANDRA CRUZITA"
+    ],
+    "description": "Desc: COPPER RIDGE AT INDIAN TRAILS Sec: 1 Lot: 3 Block: 4"
+  },
+  {
     "caseNumber": "RP-2025-240723",
     "filingDate": "06/24/2025",
     "docType": "L/P",
@@ -306,812 +793,5 @@
       "SALINAS MAXIMINO JR"
     ],
     "description": "Desc: LIBERTY LAKES Sec: 10 Lot: 20 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-234748",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "WESTPORT BUSINESS PARK",
-    "block": "2",
-    "lot": "",
-    "grantor": [
-      "STATE OF TEXAS"
-    ],
-    "grantee": [
-      "CITY OF HOUSTON",
-      "CLEAR CHANNEL OUTDOOR INC",
-      "CLEAR CHANNEL OUTDOOR LLC",
-      "HARRIS COUNTY",
-      "HARRIS COUNTY DEPARTMENT OF EDUCATION",
-      "HARRIS COUNTY FLOOD CONTROL DISTRICT",
-      "HARRIS COUNTY HOSPITAL DISTRICT",
-      "HENDRICKS DAVID B",
-      "HOUSTON COMMUNITY COLLEGE",
-      "HOUSTON INDEPENDENT SCHOOL DISTRICT",
-      "HOUSTON SOCIETY FOR THE PREVENTION OF CRUELTY TO ANIMALS",
-      "PORT OF HOUSTON AUTHORITY",
-      "SIMMONS BANK",
-      "SPCA",
-      "SPIRIT OF TEXAS BANK"
-    ],
-    "description": "Desc: WESTPORT BUSINESS PARK Block: 2-3 Reserve: B-C Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-234365",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "BALMORAL",
-    "block": "1",
-    "lot": "27",
-    "grantor": [
-      "BOYD SIPRA S",
-      "PROPERTY OWNERS ASSOCIATION OF BALMORAL INC"
-    ],
-    "grantee": [
-      "LOPEZ FERNANDO"
-    ],
-    "description": "Desc: BALMORAL Sec: 3 Lot: 27 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-234360",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "BALMORAL",
-    "block": "3",
-    "lot": "17",
-    "grantor": [
-      "PROPERTY OWNERS ASSOCIATION OF BALMORAL INC"
-    ],
-    "grantee": [
-      "ATKINS KRYSTLE"
-    ],
-    "description": "Desc: BALMORAL Sec: 9 Lot: 17 Block: 3"
-  },
-  {
-    "caseNumber": "RP-2025-234356",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "WHITE W ABSTRACT: 836 COMMENT: 0.2799 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "CITY OF HOUSTON"
-    ],
-    "grantee": [
-      "KIMCO REALTY CORPORATION"
-    ],
-    "description": "Desc: WHITE W Abstract: 836 Comment: 0.2799 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-234346",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "BALMORAL EAST",
-    "block": "2",
-    "lot": "29",
-    "grantor": [
-      "PROPERTY OWNERS ASSOCIATION OF BALMORAL INC"
-    ],
-    "grantee": [
-      "SUAREZ ANASTACIO"
-    ],
-    "description": "Desc: BALMORAL EAST Sec: 2 Lot: 29 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-234334",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "BALMORAL",
-    "block": "5",
-    "lot": "12",
-    "grantor": [
-      "PROPERTY OWNERS ASSOCIATION OF BALMORAL INC"
-    ],
-    "grantee": [
-      "FELIZ KAILYN",
-      "FELIZ KATHERINE",
-      "PEREZ ANA",
-      "PEREZ GENNY"
-    ],
-    "description": "Desc: BALMORAL Sec: 19 Lot: 12 Block: 5"
-  },
-  {
-    "caseNumber": "RP-2025-234306",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "BALMORAL",
-    "block": "5",
-    "lot": "8",
-    "grantor": [
-      "PROPERTY OWNERS ASSOCIATION OF BALMORAL INC"
-    ],
-    "grantee": [
-      "DINGUE FIRMIN ULRICH TCHIENGUE"
-    ],
-    "description": "Desc: BALMORAL Sec: 19 Lot: 8 Block: 5"
-  },
-  {
-    "caseNumber": "RP-2025-233889",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "WEATHERLY WOODS",
-    "block": "2",
-    "lot": "1",
-    "grantor": [
-      "SIMMONS THENA M EST"
-    ],
-    "grantee": [
-      "WEATHERLY WOODS"
-    ],
-    "description": "Desc: WEATHERLY WOODS Lot: 1 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-233851",
-    "filingDate": "06/18/2025",
-    "docType": "L/P",
-    "subdivision": "MOODY J W ABSTRACT: 547 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "NORTH HARRIS COUNTY REGIONAL WATER AUTHORITY"
-    ],
-    "grantee": [
-      "DARNELL VALERIE",
-      "DARNELL WILLIAM J"
-    ],
-    "description": "Desc: MOODY J W Abstract: 547 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-232073",
-    "filingDate": "06/17/2025",
-    "docType": "L/P",
-    "subdivision": "SPRING SHADOWS",
-    "block": "",
-    "lot": "13",
-    "grantor": [
-      "SPRING SHADOWS CIVIC ASSOCIATION"
-    ],
-    "grantee": [
-      "ELLIS ROBERT STEPHEN",
-      "ELLIS STACEY LYNN",
-      "ELLIS STEVEN MICHAEL"
-    ],
-    "description": "Desc: SPRING SHADOWS Sec: 17 Lot: 13 Block: W-42"
-  },
-  {
-    "caseNumber": "RP-2025-231410",
-    "filingDate": "06/17/2025",
-    "docType": "L/P",
-    "subdivision": "WILLOWICK FOREST",
-    "block": "2",
-    "lot": "18",
-    "grantor": [
-      "WILLIAMS JACKIE",
-      "WILLOWICK HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "JOHNSON CARLA S"
-    ],
-    "description": "Desc: WILLOWICK FOREST Sec: 2 Lot: 18 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-230267",
-    "filingDate": "06/16/2025",
-    "docType": "L/P",
-    "subdivision": "V H MACHINE WORKS INC",
-    "block": "1",
-    "lot": "",
-    "grantor": [
-      "PAIK HON HUI"
-    ],
-    "grantee": [
-      "HERNANDEZ VIRGIL"
-    ],
-    "description": "Desc: V H MACHINE WORKS INC Block: 1 Reserve: A Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-230000",
-    "filingDate": "06/16/2025",
-    "docType": "L/P",
-    "subdivision": "LAKES ON ELDRIDGE NORTH",
-    "block": "2",
-    "lot": "6",
-    "grantor": [
-      "HARRIS TORI S",
-      "HARRIS WILEY R III"
-    ],
-    "grantee": [
-      "PREMIER EXPATRIATE SERVICES LTD",
-      "TOGT ANDREA VAN DER",
-      "TOGT JORRIT VAN DER"
-    ],
-    "description": "Desc: LAKES ON ELDRIDGE NORTH Sec: 14 Lot: 6 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-229910",
-    "filingDate": "06/16/2025",
-    "docType": "L/P",
-    "subdivision": "LAKEWOOD PINES",
-    "block": "1",
-    "lot": "1",
-    "grantor": [
-      "CARRINGTON MORTGAGE SERVICES LLC"
-    ],
-    "grantee": [
-      "LAKEWOOD PINES HOMEOWNERS ASSOCIATION INC",
-      "SECRETARY OF HOUSING AND URBAN DEVELOPMENT",
-      "TEZENO ALBERTT JR",
-      "TEZENO AMBER NICOLE"
-    ],
-    "description": "Desc: LAKEWOOD PINES Sec: 6 Lot: 1 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-229756",
-    "filingDate": "06/16/2025",
-    "docType": "L/P",
-    "subdivision": "SCOTTCREST ADDITION",
-    "block": "9",
-    "lot": "26",
-    "grantor": [
-      "BOYKINS GWENDOLYN",
-      "JEFFERSON JACQUELYN",
-      "JEFFERSON ROBERT III",
-      "JEFFERSON-VICTORIAN SHERYL"
-    ],
-    "grantee": [
-      "EDWARDS KENDRICK",
-      "KING OF FLIPS LLC"
-    ],
-    "description": "Desc: SCOTTCREST ADDITION Lot: 26 Block: 9"
-  },
-  {
-    "caseNumber": "RP-2025-228835",
-    "filingDate": "06/16/2025",
-    "docType": "L/P",
-    "subdivision": "SHOREACRES",
-    "block": "40",
-    "lot": "3",
-    "grantor": [
-      "GAGER JENNIFER"
-    ],
-    "grantee": [
-      "COLE LYNN MILLER JR"
-    ],
-    "description": "Desc: SHOREACRES Lot: 3 Block: 40"
-  },
-  {
-    "caseNumber": "RP-2025-228725",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "HOUSTON MANOR",
-    "block": "36",
-    "lot": "18",
-    "grantor": [
-      "CASILLAS ROSALINDA MIRELES AGUIRRE"
-    ],
-    "grantee": [
-      "CASILLAS MARIO OROZCO"
-    ],
-    "description": "Desc: HOUSTON MANOR Lot: 18 Block: 36"
-  },
-  {
-    "caseNumber": "RP-2025-228528",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "CONNER ROGER LEE EST"
-    ],
-    "grantee": [
-      "DUNMAN J AB-231"
-    ],
-    "description": "Comment: SEE INSTRUMENT"
-  },
-  {
-    "caseNumber": "RP-2025-228301",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "PINECREST FOREST",
-    "block": "6",
-    "lot": "10",
-    "grantor": [
-      "PINECREST CIA INC",
-      "THREE LAKES COMMUNITY IMPROVEMENT ASSOCIATION"
-    ],
-    "grantee": [
-      "BLACK GREG",
-      "BLACK KRYSHAUN"
-    ],
-    "description": "Desc: PINECREST FOREST Sec: 9 Lot: 10 Block: 6"
-  },
-  {
-    "caseNumber": "RP-2025-227978",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "WOODSPRING FOREST",
-    "block": "1",
-    "lot": "48",
-    "grantor": [
-      "MILLSBRANCH FOREST HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "SCOTT CLAYTON",
-      "SCOTT MEGHIN A"
-    ],
-    "description": "Desc: WOODSPRING FOREST Sec: 1 Lot: 48 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-227966",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "WOODSPRING FOREST",
-    "block": "1",
-    "lot": "39",
-    "grantor": [
-      "MILLSBRANCH FOREST HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "QUEVEDO MARIO ANTHONY"
-    ],
-    "description": "Desc: WOODSPRING FOREST Sec: 1 Lot: 39 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-227941",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "THE FORT SMITH SURVEY ABSTRACT: 1307 COMMENT: 3.043 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "LAKESIDE COMMERCIAL COMMUNITY IMPROVEMENT ASSOCIATION INC"
-    ],
-    "grantee": [
-      "11490 WESTHEIMER ROAD LLC"
-    ],
-    "description": "Desc: THE FORT SMITH SURVEY Abstract: 1307 Comment: 3.043 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-227231",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "STONE CREEK RANCH",
-    "block": "2",
-    "lot": "19",
-    "grantor": [
-      "STONE CREEK RANCH COMMUNITY ASSOCIATION INC"
-    ],
-    "grantee": [
-      "GABRIEL ESTHER M"
-    ],
-    "description": "Desc: STONE CREEK RANCH Sec: 12 Lot: 19 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-226944",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "ALBURY TRAILS ESTATES",
-    "block": "1",
-    "lot": "24",
-    "grantor": [
-      "PLANET HOME LENDING LLC"
-    ],
-    "grantee": [
-      "ALBURY TRAILS ESTATES COMMUNITY ASSOCIATION INC",
-      "DOES 1 THROUGH 20",
-      "MOORE COURTNEY SUE",
-      "SECRETARY OF HOUSING AND URBAN DEVELOPMENT"
-    ],
-    "description": "Desc: ALBURY TRAILS ESTATES Sec: 2 Lot: 24 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-226873",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "FAIRMONT PARK EAST",
-    "block": "43",
-    "lot": "14",
-    "grantor": [
-      "CARRINGTON MORTGAGE SERVICES LLC"
-    ],
-    "grantee": [
-      "CRAMER ANDREA L",
-      "DOES 1 THROUGH 20",
-      "SECRETARY OF HOUSING AND URBAN DEVELOPMENT"
-    ],
-    "description": "Desc: FAIRMONT PARK EAST Sec: 7 Lot: 14 Block: 43"
-  },
-  {
-    "caseNumber": "RP-2025-226757",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "VENTANA LAKES EAST",
-    "block": "1",
-    "lot": "52",
-    "grantor": [
-      "VENTANA LAKES COMMUNITY ASSOCIATION INC"
-    ],
-    "grantee": [
-      "FORSAB FORSAB BRILIAN"
-    ],
-    "description": "Desc: VENTANA LAKES EAST Sec: 8 Lot: 52 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-226628",
-    "filingDate": "06/13/2025",
-    "docType": "L/P",
-    "subdivision": "BENIGNUS F ABSTRACT: 1463 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "NORTH HARRIS COUNTY REGIONAL WATER AUTHORITY"
-    ],
-    "grantee": [
-      "BABAJI PROPERTIES LLC"
-    ],
-    "description": "Desc: BENIGNUS F Abstract: 1463 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-226211",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "MIRAMAR LAKE",
-    "block": "2",
-    "lot": "47",
-    "grantor": [
-      "MIRAMAR LAKE HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "GUTHRIE WADE W"
-    ],
-    "description": "Desc: MIRAMAR LAKE Sec: 3 Lot: 47 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-226199",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "MEADOW LAKE",
-    "block": "2",
-    "lot": "16",
-    "grantor": [
-      "MEADOWLAKE VILLAGE HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "HERRERA GABRIELA MENDOZA",
-      "REYES JOSE E"
-    ],
-    "description": "Desc: MEADOW LAKE Sec: 3 Lot: 16 Block: 2"
-  },
-  {
-    "caseNumber": "RP-2025-226066",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "KINGS FOREST",
-    "block": "11",
-    "lot": "15",
-    "grantor": [
-      "DDH FUND LP"
-    ],
-    "grantee": [
-      "FAY SERVICING LLC",
-      "LEGACY MORTGAGE ASSET TRUST 2024-INV1",
-      "U S BANK NATIONAL ASSOCIATION"
-    ],
-    "description": "Desc: KINGS FOREST Sec: 2 Lot: 15 Block: 11"
-  },
-  {
-    "caseNumber": "RP-2025-226065",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "RANCHO VERDE",
-    "block": "4",
-    "lot": "25",
-    "grantor": [
-      "SMOL LIVING LLC"
-    ],
-    "grantee": [
-      "CAPITAL FUND I LLC"
-    ],
-    "description": "Desc: RANCHO VERDE Sec: 1 Lot: 25 Block: 4"
-  },
-  {
-    "caseNumber": "RP-2025-225952",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "ROSALIE PARK",
-    "block": "1",
-    "lot": "5",
-    "grantor": [
-      "ROSALIE PARK COMMUNITY ASSOCIATION INC"
-    ],
-    "grantee": [
-      "CHILDS STACI"
-    ],
-    "description": "Desc: ROSALIE PARK Lot: 5 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-225949",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "LIVE OAK PARK",
-    "block": "1",
-    "lot": "3",
-    "grantor": [
-      "LIVE OAK PARK ASSOCIATION INC"
-    ],
-    "grantee": [
-      "MOMIN SONIYA"
-    ],
-    "description": "Desc: LIVE OAK PARK Lot: 3 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-225749",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "BARKER LAKE",
-    "block": "1",
-    "lot": "48",
-    "grantor": [
-      "FEELY KEVIN"
-    ],
-    "grantee": [
-      "LOFTIN BOBBY",
-      "LOFTIN MARGARET"
-    ],
-    "description": "Desc: BARKER LAKE Sec: 2 Lot: 48 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-225258",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "LINCOLN CITY",
-    "block": "10",
-    "lot": "190",
-    "grantor": [
-      "MCMILLIAN LENORA"
-    ],
-    "grantee": [
-      "GALLOWAY AMY",
-      "GALLOWAY BENNIE"
-    ],
-    "description": "Desc: LINCOLN CITY Sec: 5 Lot: 190 Block: 10"
-  },
-  {
-    "caseNumber": "RP-2025-224747",
-    "filingDate": "06/12/2025",
-    "docType": "L/P",
-    "subdivision": "TOWNE LAKE",
-    "block": "1",
-    "lot": "10",
-    "grantor": [
-      "UNITED STATES OF AMERICA"
-    ],
-    "grantee": [
-      "MITCHELL TYNEZA",
-      "MITCHELL TYNEZA P"
-    ],
-    "description": "Desc: TOWNE LAKE Sec: 39 Lot: 10 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-224473",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "GLENMORE ADDITION",
-    "block": "",
-    "lot": "5",
-    "grantor": [
-      "FAY SERVICING LLC"
-    ],
-    "grantee": [
-      "DOES I THROUGH 20 INCLUSIVE",
-      "ESCOBAR BETTY J",
-      "MCNATT BETTY J",
-      "SECRETARY OF HOUSING AND URBAN DEVELOPMENT"
-    ],
-    "description": "Desc: GLENMORE ADDITION Lot: 5"
-  },
-  {
-    "caseNumber": "RP-2025-223350",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "STEFANIDIS SOULA"
-    ],
-    "grantee": [
-      "STEFANIDES GEORGES",
-      "STEFANIDES SAVVAS"
-    ],
-    "description": "Comment: SEE INSTRUMENT"
-  },
-  {
-    "caseNumber": "RP-2025-223344",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "RANKIN F ABSTRACT: 57 COMMENT: 0.0850 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "CITY OF HOUSTON"
-    ],
-    "grantee": [
-      "EASON MICHAEL"
-    ],
-    "description": "Desc: RANKIN F Abstract: 57 Comment: 0.0850 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-223343",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "MCCLELLAND S ABSTRACT: 544 COMMENT: 0.213 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "CITY OF HOUSTON"
-    ],
-    "grantee": [
-      "RE-MART INVESTMENT"
-    ],
-    "description": "Desc: MCCLELLAND S Abstract: 544 Comment: 0.213 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-223342",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "HIGHLAND HEIGHTS ANNEX NO 6",
-    "block": "45",
-    "lot": "4",
-    "grantor": [
-      "CITY OF HOUSTON"
-    ],
-    "grantee": [
-      "MARTINEZ GILBERTO"
-    ],
-    "description": "Desc: HIGHLAND HEIGHTS ANNEX NO 6 Lot: 4-6 Block: 45 Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-222832",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "GOOSE CREEK RESERVE",
-    "block": "5",
-    "lot": "9",
-    "grantor": [
-      "PENNYMAC LOAN SERVICES LLC"
-    ],
-    "grantee": [
-      "DOES 1 THROUGH 20",
-      "RHAME KERRI LYNNE",
-      "RHAME MICHAEL G",
-      "SECRETARY OF HOUSING AND URBAN DEVELOPMENT"
-    ],
-    "description": "Desc: GOOSE CREEK RESERVE Sec: 3 Lot: 9 Block: 5"
-  },
-  {
-    "caseNumber": "RP-2025-222691",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "THE PARK AT GLEN ARBOR REPLAT",
-    "block": "5",
-    "lot": "2",
-    "grantor": [
-      "PARK AT GLEN ARBOR HOMEOWNERS' ASSOCIATION INC"
-    ],
-    "grantee": [
-      "HARSHMAN CURTIS",
-      "HOLDER CATHERINE"
-    ],
-    "description": "Desc: THE PARK AT GLEN ARBOR REPLAT Lot: 2 Block: 5"
-  },
-  {
-    "caseNumber": "RP-2025-222435",
-    "filingDate": "06/11/2025",
-    "docType": "L/P",
-    "subdivision": "FOSTER MILL VILLAGE",
-    "block": "4",
-    "lot": "8",
-    "grantor": [
-      "KINGS POINT TRAIL ASSOCIATION"
-    ],
-    "grantee": [
-      "CINTRON DAVID LEE LOPEZ",
-      "LOPEZ BARBARA PATRICIA"
-    ],
-    "description": "Desc: FOSTER MILL VILLAGE Sec: 1 Lot: 8 Block: 4"
-  },
-  {
-    "caseNumber": "RP-2025-222373",
-    "filingDate": "06/10/2025",
-    "docType": "L/P",
-    "subdivision": "HERITAGE VILLAGE",
-    "block": "4",
-    "lot": "119",
-    "grantor": [
-      "HERITAGE VILLAGE HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "VENCES KITTY",
-      "VENCES SALVADOR"
-    ],
-    "description": "Desc: HERITAGE VILLAGE Sec: 1 Lot: 119 Block: 4"
-  },
-  {
-    "caseNumber": "RP-2025-222109",
-    "filingDate": "06/10/2025",
-    "docType": "L/P",
-    "subdivision": "HARBORGREEN PHASE ONE UNIT: 108",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "HARBORGREEN COMMUNITY ASSOCIATION INC"
-    ],
-    "grantee": [
-      "WANG HSIU LAN"
-    ],
-    "description": "Desc: HARBORGREEN PHASE ONE Unit: 108"
-  },
-  {
-    "caseNumber": "RP-2025-222071",
-    "filingDate": "06/10/2025",
-    "docType": "L/P",
-    "subdivision": "",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "HC"
-    ],
-    "grantee": [
-      "MORALES MARIA",
-      "MORALES VALENTIN"
-    ],
-    "description": "Comment: SEE INSTRUMENT Related Docs"
-  },
-  {
-    "caseNumber": "RP-2025-221902",
-    "filingDate": "06/10/2025",
-    "docType": "L/P",
-    "subdivision": "MIRAMAR LAKE",
-    "block": "1",
-    "lot": "16",
-    "grantor": [
-      "MIRAMAR LAKE HOMEOWNERS ASSOCIATION INC"
-    ],
-    "grantee": [
-      "KELLER AVERY"
-    ],
-    "description": "Desc: MIRAMAR LAKE Sec: 1 Lot: 16 Block: 1"
-  },
-  {
-    "caseNumber": "RP-2025-221124",
-    "filingDate": "06/10/2025",
-    "docType": "L/P",
-    "subdivision": "MEMORIAL VILLAGE",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "MEMORIAL VILLAGE TOWNHOUSE MMINTENANCE ASSOCIATION INC"
-    ],
-    "grantee": [
-      "SCHARES STEVEN"
-    ],
-    "description": "Desc: MEMORIAL VILLAGE Sec: 2"
-  },
-  {
-    "caseNumber": "RP-2025-220769",
-    "filingDate": "06/10/2025",
-    "docType": "L/P",
-    "subdivision": "BODIN A ABSTRACT: 133 COMMENT: 0.0743 RELATED DOCS",
-    "block": "",
-    "lot": "",
-    "grantor": [
-      "NORTH HARRIS COUNTY REGIONAL WATER AUTHORITY"
-    ],
-    "grantee": [
-      "ENCHANTED VALLEY WATER SUPPLY CORPORATION"
-    ],
-    "description": "Desc: BODIN A Abstract: 133 Comment: 0.0743 Related Docs"
   }
 ]

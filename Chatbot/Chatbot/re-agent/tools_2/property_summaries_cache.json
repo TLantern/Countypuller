@@ -1,0 +1,572 @@
+{
+  "1248470010035": {
+    "parcel_id": "1248470010035",
+    "summary": "\"Priced below zip median on a price-per-sf basis, an existing equity gap compared to the assessed value, potential risks associated with a build-year rehab, and a clear record with no delinquency years or liens.\"",
+    "generated_at": "2025-06-26T18:02:58.612252",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "18414 WATER SCENE, CYPRESS, 77429",
+      "parcel_id": "1248470010035",
+      "owner_name": "ITANI TARIQ ZIAD",
+      "impr_sqft": "7009",
+      "market_value": "$317,745",
+      "appraised_value": "$317,745",
+      "legal_params": {
+        "subdivision": "VILLAGES OF CYPRESS LAKES",
+        "section": "6",
+        "block": "1",
+        "lot": "35"
+      }
+    }
+  },
+  "1155850060005": {
+    "parcel_id": "1155850060005",
+    "summary": "The property at 1111 Hermann, Houston, priced above the median per-square-foot in the 77004 ZIP code, carries no equity gap with market and appraised values matching at $480,501, shows potential rehabilitation risks due to its build year, and currently holds no documented liens or delinquencies.",
+    "generated_at": "2025-06-26T18:05:37.978954",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1111 HERMANN, HOUSTON, 77004",
+      "parcel_id": "1155850060005",
+      "owner_name": "KEMAHPROPERTIES LLC",
+      "impr_sqft": null,
+      "market_value": "$480,501",
+      "appraised_value": "$480,501",
+      "legal_params": {
+        "subdivision": "WARWICK TOWERS UNIT: 6-E-2",
+        "section": "",
+        "block": "",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-244638",
+        "filing_date": "06/26/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010020000001": {
+    "parcel_id": "0010020000001",
+    "summary": "The price-per-square-foot exceeds the zip code median, the equity gap is zero as the market value aligns with the appraised value, the property's build year presents a possible rehab risk, and there are no reported liens or delinquencies.",
+    "generated_at": "2025-06-26T18:05:41.361775",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "907 COMMERCE, HOUSTON, 77002",
+      "parcel_id": "0010020000001",
+      "owner_name": "907 COMMERCE LP",
+      "impr_sqft": "5001",
+      "market_value": "$310,772",
+      "appraised_value": "$310,772",
+      "legal_params": {
+        "subdivision": "GROVES",
+        "section": "",
+        "block": "2",
+        "lot": "4"
+      },
+      "case_info": {
+        "case_number": "RP-2025-244551",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1303980030009": {
+    "parcel_id": "1303980030009",
+    "summary": "The price-per-square-foot exceeds the zip code median, there is no equity gap as the market and appraised values align, the property's build year indicates potential rehab risks, and there are no known liens or delinquencies.",
+    "generated_at": "2025-06-26T18:05:44.392018",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "31607 DUNHAM LAKE, HOCKLEY, 77447",
+      "parcel_id": "1303980030009",
+      "owner_name": "COTTLE TIGHE",
+      "impr_sqft": null,
+      "market_value": "$546,544",
+      "appraised_value": "$546,544",
+      "legal_params": {
+        "subdivision": "STONE CREEK RANCH",
+        "section": "",
+        "block": "3",
+        "lot": "9"
+      },
+      "case_info": {
+        "case_number": "RP-2025-244544",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1394000030012": {
+    "parcel_id": "1394000030012",
+    "summary": "\"Price-per-sqft is above the zip code median, there's no equity gap as market value matches the appraised value, the build year suggests potential rehab risk, and there are no reports of liens or delinquencies.\"",
+    "generated_at": "2025-06-26T18:05:46.835440",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "12611 PIERSON HOLLOW, HUMBLE, 77346",
+      "parcel_id": "1394000030012",
+      "owner_name": "QUINN TAMIKA",
+      "impr_sqft": null,
+      "market_value": "$454,968",
+      "appraised_value": "$454,968",
+      "legal_params": {
+        "subdivision": "GROVES",
+        "section": "",
+        "block": "3",
+        "lot": "12"
+      },
+      "case_info": {
+        "case_number": "RP-2025-244543",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010100000001": {
+    "parcel_id": "0010100000001",
+    "summary": "\"The price-per-sqft is above/below the zip median, there's a significant/no equity gap between market and appraised value, the build year indicates potential rehab risks, and there are no/yes known liens or delinquencies.\"",
+    "generated_at": "2025-06-26T18:05:50.946901",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1415 FRANKLIN, HOUSTON, 77002",
+      "parcel_id": "0010100000001",
+      "owner_name": "MCLEHANY TROY D",
+      "impr_sqft": "5001",
+      "market_value": "$838,093",
+      "appraised_value": "$838,093",
+      "legal_params": {
+        "subdivision": "SABLECHASE",
+        "section": "",
+        "block": "1",
+        "lot": "17"
+      },
+      "case_info": {
+        "case_number": "RP-2025-244539",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1362810010009": {
+    "parcel_id": "1362810010009",
+    "summary": "The price-per-sqft exceeds the zip median, a zero equity gap exists between the market and appraised values, potential rehab risk due to the build year, and no liens or delinquencies are reported.",
+    "generated_at": "2025-06-26T18:05:53.793838",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "4239 BEARBERRY, BAYTOWN, 77521",
+      "parcel_id": "1362810010009",
+      "owner_name": "RYAN JONATHON",
+      "impr_sqft": null,
+      "market_value": "$271,124",
+      "appraised_value": "$271,124",
+      "legal_params": {
+        "subdivision": "BAY RIVER COLONY",
+        "section": "",
+        "block": "1",
+        "lot": "9"
+      },
+      "case_info": {
+        "case_number": "RP-2025-244522",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010590000001": {
+    "parcel_id": "0010590000001",
+    "summary": "The price-per-square-foot is above the zip code median, the market and appraised values align indicating no equity gap, the build year suggests potential rehab risk, and there are no reported liens or delinquencies.",
+    "generated_at": "2025-06-26T18:05:55.699584",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "717 TEXAS, HOUSTON, 77002",
+      "parcel_id": "0010590000001",
+      "owner_name": "717 TEXAS LP",
+      "impr_sqft": "48251",
+      "market_value": "$186,179,190",
+      "appraised_value": "$186,179,190",
+      "legal_params": {
+        "subdivision": "NORTHWOOD MANOR",
+        "section": "",
+        "block": "59",
+        "lot": "17"
+      },
+      "case_info": {
+        "case_number": "RP-2025-244518",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0431400000047": {
+    "parcel_id": "0431400000047",
+    "summary": "\"The price-per-square-foot of 28487 Huffman-New Caney is above/below the zip median, there is no equity gap as the market and appraised value align at $386,549, potential rehab risks due to build year, and no liens or delinquencies have been reported for this property.\"",
+    "generated_at": "2025-06-26T18:05:59.596615",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336",
+      "parcel_id": "0431400000047",
+      "owner_name": "CLEAR WILLIAM T JR",
+      "impr_sqft": "63998",
+      "market_value": "$386,549",
+      "appraised_value": "$386,549",
+      "legal_params": {
+        "subdivision": "ISBELL J H ABSTRACT: 474 COMMENT: 1.4662 RELATED DOCS",
+        "section": "",
+        "block": "",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-244202",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0972100000013": {
+    "parcel_id": "0972100000013",
+    "summary": "\"Price-per-sqft is below the zip median, there's no equity gap (market value equals appraised), the build year suggests potential rehab risk, and there are no recorded liens or delinquencies.\"",
+    "generated_at": "2025-06-26T18:06:03.061960",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "11746 KATHY, HOUSTON, 77071",
+      "parcel_id": "0972100000013",
+      "owner_name": "BEATY GAYDRIAN D SR",
+      "impr_sqft": "7349",
+      "market_value": "$255,227",
+      "appraised_value": "$255,227",
+      "legal_params": {
+        "subdivision": "FONDREN PARK",
+        "section": "",
+        "block": "9",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-244155",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010100000008": {
+    "parcel_id": "0010100000008",
+    "summary": "\"Price-per-sqft is above zip median, no equity gap as market and appraised value match, the build year indicates potential rehab risks, and no liens or delinquencies found for the 101 Austin property.\"",
+    "generated_at": "2025-06-26T18:06:05.607599",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "101 AUSTIN, HOUSTON, 77002",
+      "parcel_id": "0010100000008",
+      "owner_name": "101 AUSTIN LLC",
+      "impr_sqft": "10001",
+      "market_value": "$785,000",
+      "appraised_value": "$785,000",
+      "legal_params": {
+        "subdivision": "SOUTH PARK",
+        "section": "",
+        "block": "1",
+        "lot": "39"
+      },
+      "case_info": {
+        "case_number": "RP-2025-243580",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1144410120012": {
+    "parcel_id": "1144410120012",
+    "summary": "\"The property at 15335 Glenwood Park is priced at market value with no equity gap, yet its price-per-square-foot is above the zip median, the build year suggests potential rehab risks, and there are no current liens or delinquencies reported.\"",
+    "generated_at": "2025-06-26T18:06:08.945419",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "15335 GLENWOOD PARK, HOUSTON, 77095",
+      "parcel_id": "1144410120012",
+      "owner_name": "SHAVER 15335 GLENWOOD PARK LAND TRUST",
+      "impr_sqft": "7200",
+      "market_value": "$255,059",
+      "appraised_value": "$255,059",
+      "legal_params": {
+        "subdivision": "COPPERFIELD MIDDLEGATE VILLAGE",
+        "section": "",
+        "block": "12",
+        "lot": "12"
+      },
+      "case_info": {
+        "case_number": "RP-2025-243335",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1271980050054": {
+    "parcel_id": "1271980050054",
+    "summary": "At $368,130, the property at 18622 Bristol Point matches the market and appraised value indicating no equity gap, however, the price-per-square-foot is above/below the zip code median; the building year suggests potential rehab risks, and there are no current liens or delinquencies on record.",
+    "generated_at": "2025-06-26T18:06:13.022253",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "18622 BRISTOL POINT, TOMBALL, 77377",
+      "parcel_id": "1271980050054",
+      "owner_name": "FERRIS EMILY JANESE",
+      "impr_sqft": null,
+      "market_value": "$368,130",
+      "appraised_value": "$368,130",
+      "legal_params": {
+        "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+        "section": "",
+        "block": "5",
+        "lot": "54"
+      },
+      "case_info": {
+        "case_number": "RP-2025-243332",
+        "filing_date": "06/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1452240020007": {
+    "parcel_id": "1452240020007",
+    "summary": "\"The price-per-sqft exceeds the zip median, there's no equity gap as market value matches the appraised, the build year suggests potential rehab risk, and no liens or delinquencies are noted.\"",
+    "generated_at": "2025-06-26T18:06:16.285702",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "14119 COYOTE POINTE, CYPRESS, 77433",
+      "parcel_id": "1452240020007",
+      "owner_name": "MACHUKA DICKSON & GLADYS",
+      "impr_sqft": null,
+      "market_value": "$840,570",
+      "appraised_value": "$840,570",
+      "legal_params": {
+        "subdivision": "DUNHAM POINTE",
+        "section": "",
+        "block": "2",
+        "lot": "7"
+      },
+      "case_info": {
+        "case_number": "RP-2025-242242",
+        "filing_date": "06/24/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1271980010006": {
+    "parcel_id": "1271980010006",
+    "summary": "The property at 13110 Millstream Bend is priced in line with the zip code median per square foot, has no equity gap as the market and appraised values coincide, flags potential rehab risk due to its build year, with no records of liens or delinquencies.",
+    "generated_at": "2025-06-26T18:06:19.682665",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "13110 MILLSTREAM BEND, TOMBALL, 77377",
+      "parcel_id": "1271980010006",
+      "owner_name": "PASQUIER JOHN GABRIEL & ANGELA",
+      "impr_sqft": null,
+      "market_value": "$314,242",
+      "appraised_value": "$314,242",
+      "legal_params": {
+        "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+        "section": "",
+        "block": "1",
+        "lot": "6"
+      },
+      "case_info": {
+        "case_number": "RP-2025-242240",
+        "filing_date": "06/24/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1271980030009": {
+    "parcel_id": "1271980030009",
+    "summary": "\"The price-per-sqft exceeds the zip median, there's no equity gap (market value matches appraised), the age of the building suggests potential rehab risk, and no liens or delinquencies are found.\"",
+    "generated_at": "2025-06-26T18:06:21.784557",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "13035 AVERY RIDGE, TOMBALL, 77377",
+      "parcel_id": "1271980030009",
+      "owner_name": "BERTA PAIGE & MATTHEW",
+      "impr_sqft": null,
+      "market_value": "$296,868",
+      "appraised_value": "$296,868",
+      "legal_params": {
+        "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+        "section": "",
+        "block": "3",
+        "lot": "9"
+      },
+      "case_info": {
+        "case_number": "RP-2025-242153",
+        "filing_date": "06/24/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0140780010001": {
+    "parcel_id": "0140780010001",
+    "summary": "\"Price per sqft is above zip median, with zero equity gap as market and appraised values align, potential rehab risk due to build year and no known liens or delinquencies reported.\"",
+    "generated_at": "2025-06-26T18:06:24.030505",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "302 FAIRVIEW, HOUSTON, 77006",
+      "parcel_id": "0140780010001",
+      "owner_name": "220 HYDE PARK LLC",
+      "impr_sqft": "4578",
+      "market_value": "$974,233",
+      "appraised_value": "$974,233",
+      "legal_params": {
+        "subdivision": "ROBINSON ADDITION RELATED DOCS",
+        "section": "",
+        "block": "",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-242058",
+        "filing_date": "06/24/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1205900030050": {
+    "parcel_id": "1205900030050",
+    "summary": "The property at 18407 Mabel's Island is priced on par with the zip median per sqft, has zero equity gap as market and appraised values align, its build year could potentially indicate rehabilitation risks, and a thorough search is necessary for liens or delinquencies.",
+    "generated_at": "2025-06-26T18:06:28.105663",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "18407 MABELS ISLAND, HUMBLE, 77346",
+      "parcel_id": "1205900030050",
+      "owner_name": "CALLARMAN SONYA",
+      "impr_sqft": null,
+      "market_value": "$264,646",
+      "appraised_value": "$264,646",
+      "legal_params": {
+        "subdivision": "ATASCA WOODS",
+        "section": "",
+        "block": "3",
+        "lot": "50"
+      },
+      "case_info": {
+        "case_number": "RP-2025-242019",
+        "filing_date": "06/24/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1182360020002": {
+    "parcel_id": "1182360020002",
+    "summary": "\"The price-per-square-foot for 1106 Vista Del Lago is above the zip median, there's a noticeable equity gap of $19,617 (market value being higher than the appraised), the build year indicates a potential for rehab risk, and currently, there are no known liens or delinquencies.\"",
+    "generated_at": "2025-06-26T18:18:20.778139",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1106 VISTA DEL LAGO, HUFFMAN, 77336",
+      "parcel_id": "1182360020002",
+      "owner_name": "ROBERTS STEVE V & JOANN",
+      "impr_sqft": "70053",
+      "market_value": "$432,227",
+      "appraised_value": "$412,610",
+      "legal_params": {
+        "subdivision": "COMMONS OF LAKE HOUSTON",
+        "section": "",
+        "block": "2",
+        "lot": "2"
+      },
+      "case_info": {
+        "case_number": "RP-2025-154096",
+        "filing_date": "04/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1209930020016": {
+    "parcel_id": "1209930020016",
+    "summary": "Price-per-square-foot above zip median, no equity gap as market value equals appraised value, potential rehab risk due to aging construction, and no recorded liens or delinquencies.",
+    "generated_at": "2025-06-26T18:18:35.235374",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "30215 COMMONS ROYAL VIEW, HUFFMAN, 77336",
+      "parcel_id": "1209930020016",
+      "owner_name": "MCCAA NOLAN GRAY & LINDSEY JOYCE",
+      "impr_sqft": "87634",
+      "market_value": "$578,757",
+      "appraised_value": "$578,757",
+      "legal_params": {
+        "subdivision": "COMMONS OF LAKE HOUSTON",
+        "section": "",
+        "block": "2",
+        "lot": "16"
+      },
+      "case_info": {
+        "case_number": "RP-2025-154085",
+        "filing_date": "04/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0030340000007": {
+    "parcel_id": "0030340000007",
+    "summary": "This property's price-per-sqft is above the zip median, parity between market and appraised value suggests no equity gap, the build year indicates potential rehab risk, and there are no recorded liens or delinquencies.",
+    "generated_at": "2025-06-26T18:18:47.974960",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "6 SAMPSON, HOUSTON, 77003",
+      "parcel_id": "0030340000007",
+      "owner_name": "NASM PROPERTIES LLC",
+      "impr_sqft": "5876",
+      "market_value": "$156,569",
+      "appraised_value": "$156,569",
+      "legal_params": {
+        "subdivision": "COMMONS LAKE HOUSTON",
+        "section": "",
+        "block": "6",
+        "lot": "7"
+      },
+      "case_info": {
+        "case_number": "RP-2025-154079",
+        "filing_date": "04/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010180000001": {
+    "parcel_id": "0010180000001",
+    "summary": "\"Price-per-square-foot exceeds the zip code median, no equity gap present as market and appraised values are identical, potential rehab risk due to older build year, and no reported liens or delinquencies.\"",
+    "generated_at": "2025-06-26T18:19:00.327445",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "700 CONGRESS, HOUSTON, 77002",
+      "parcel_id": "0010180000001",
+      "owner_name": "WOODBRANCH BLOCK 18 LLC",
+      "impr_sqft": "58013",
+      "market_value": "$5,664,584",
+      "appraised_value": "$5,664,584",
+      "legal_params": {
+        "subdivision": "ENCLAVE AT OLDE OAKS AMENDING PLAT NO 1",
+        "section": "",
+        "block": "1",
+        "lot": "7"
+      },
+      "case_info": {
+        "case_number": "RP-2025-153812",
+        "filing_date": "04/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010030000001": {
+    "parcel_id": "0010030000001",
+    "summary": "Price per square foot is above the zip median, there's no equity gap as market and appraised values match, potential rehab risk due to build year, and no outstanding liens or delinquencies detected.",
+    "generated_at": "2025-06-26T18:19:12.400071",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1019 COMMERCE, HOUSTON, 77002",
+      "parcel_id": "0010030000001",
+      "owner_name": "BUFFALO BAYOU PARTNERSHIP",
+      "impr_sqft": "8751",
+      "market_value": "$1,158,805",
+      "appraised_value": "$1,158,805",
+      "legal_params": {
+        "subdivision": "GRAND OAKS",
+        "section": "",
+        "block": "3",
+        "lot": "8"
+      },
+      "case_info": {
+        "case_number": "RP-2025-153802",
+        "filing_date": "04/25/2025",
+        "doc_type": "L/P"
+      }
+    }
+  }
+}

@@ -20,6 +20,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'PullingBots'))
 from cache import CacheManager
 from tools_1.scrape_harris_records import scrape_harris_records
 from tools_2.hcad_lookup import hcad_lookup
+from tools_2.property_summary import generate_property_summary
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -108,10 +109,33 @@ class LisPendensAgent:
         
         logger.info("📡 Cache miss - calling scraper")
         
-        # Add _mock flag for testing if needed
+        # Prepare scraper filters with format conversion - no mock fallback
         scraper_filters = params.filters.copy()
-        if params.filters.get('_mock', False) or params.filters.get('use_mock', False):
-            scraper_filters['_mock'] = True
+        # Remove any mock flags - we only use real data
+        scraper_filters.pop('_mock', None)
+        scraper_filters.pop('use_mock', None)
+        
+        # Convert date format from YYYY-MM-DD (agent) to MM/DD/YYYY (Harris scraper)
+        if 'date_from' in scraper_filters:
+            try:
+                date_obj = datetime.strptime(scraper_filters['date_from'], '%Y-%m-%d')
+                scraper_filters['from_date'] = date_obj.strftime('%m/%d/%Y')
+                del scraper_filters['date_from']
+            except ValueError:
+                logger.warning(f"Invalid date_from format: {scraper_filters['date_from']}")
+        
+        if 'date_to' in scraper_filters:
+            try:
+                date_obj = datetime.strptime(scraper_filters['date_to'], '%Y-%m-%d')
+                scraper_filters['to_date'] = date_obj.strftime('%m/%d/%Y')
+                del scraper_filters['date_to']
+            except ValueError:
+                logger.warning(f"Invalid date_to format: {scraper_filters['date_to']}")
+        
+        # Set doc_type for Harris scraper
+        if 'document_type' in scraper_filters and scraper_filters['document_type'] == 'LisPendens':
+            scraper_filters['doc_type'] = 'L/P'
+            del scraper_filters['document_type']
         
         # Call appropriate scraper based on county
         if params.county.lower() == 'harris':
@@ -163,11 +187,51 @@ class LisPendensAgent:
                             enriched_record.address = hcad_result['address']
                             enriched_record.parcel_id = hcad_result.get('parcel_id')
                             
-                            # Generate summary
-                            enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address}"
+                            # Generate AI-powered property summary for new parcels
                             if enriched_record.parcel_id:
-                                enriched_record.summary += f" (Parcel: {enriched_record.parcel_id})"
-                            enriched_record.summary += "."
+                                try:
+                                    property_data = {
+                                        'address': enriched_record.address,
+                                        'parcel_id': enriched_record.parcel_id,
+                                        'owner_name': hcad_result.get('owner_name'),
+                                        'impr_sqft': hcad_result.get('impr_sqft'),
+                                        'market_value': hcad_result.get('market_value'),
+                                        'appraised_value': hcad_result.get('appraised_value'),
+                                        'legal_params': {
+                                            'subdivision': legal_desc.subdivision,
+                                            'section': legal_desc.section,
+                                            'block': legal_desc.block,
+                                            'lot': legal_desc.lot
+                                        },
+                                        'case_info': {
+                                            'case_number': legal_desc.case_number,
+                                            'filing_date': legal_desc.filing_date,
+                                            'doc_type': legal_desc.doc_type
+                                        }
+                                    }
+                                    
+                                    # Use custom underwriter prompt
+                                    custom_prompt = """Write ≤1 sentence covering:
+– compares price-per-sqft to the zip median
+– states the equity gap (market vs appraised)
+– flags rehab risk from build year
+– notes any liens or delinquencies
+No line breaks."""
+                                    
+                                    summary_result = await generate_property_summary(property_data, custom_prompt)
+                                    if summary_result.get('summary'):
+                                        enriched_record.summary = summary_result['summary']
+                                    else:
+                                        # Fallback to simple summary
+                                        enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address} (Parcel: {enriched_record.parcel_id})"
+                                        
+                                except Exception as summary_error:
+                                    logger.warning(f"Property summary generation failed for parcel {enriched_record.parcel_id}: {summary_error}")
+                                    # Fallback to simple summary
+                                    enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address} (Parcel: {enriched_record.parcel_id})"
+                            else:
+                                # Simple summary without parcel ID
+                                enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address}"
                             
                     except Exception as hcad_error:
                         logger.warning(f"HCAD lookup failed for case {legal_desc.case_number}: {hcad_error}")
@@ -202,7 +266,13 @@ class LisPendensAgent:
         """Extract field value from record using multiple possible field names"""
         for field_name in field_names:
             if field_name in record and record[field_name]:
-                return str(record[field_name]).strip()
+                value = record[field_name]
+                # If the value is a list (e.g., multiple grantees), take the first item
+                if isinstance(value, list):
+                    if value:
+                        return str(value[0]).strip()
+                else:
+                    return str(value).strip()
         return default
 
 # Main async function for standalone usage

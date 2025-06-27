@@ -1,6 +1,278 @@
 [
   {
     "legal_params": {
+      "subdivision": "DUNHAM POINTE",
+      "section": "",
+      "block": "2",
+      "lot": "7"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+      "section": "",
+      "block": "1",
+      "lot": "6"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+      "section": "",
+      "block": "3",
+      "lot": "9"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ROBINSON ADDITION RELATED DOCS",
+      "section": "",
+      "block": "",
+      "lot": ""
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ATASCA WOODS",
+      "section": "",
+      "block": "3",
+      "lot": "50"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "WOODLAND OAKS",
+      "section": "",
+      "block": "17",
+      "lot": "567"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "BAYOU WOODS",
+      "section": "",
+      "block": "1",
+      "lot": "2"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "NORTHWOOD MANOR",
+      "section": "",
+      "block": "44",
+      "lot": "4"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "FLORIDA GARDENS",
+      "section": "",
+      "block": "8",
+      "lot": "130"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "BUCKINGHAM PLACE",
+      "section": "",
+      "block": "",
+      "lot": "79"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "WESTCOTT U/R TRACT: 36A",
+      "section": "",
+      "block": "",
+      "lot": ""
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "HOUMONT PARK",
+      "section": "",
+      "block": "2",
+      "lot": "22"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "HOUMONT PARK",
+      "section": "",
+      "block": "12",
+      "lot": "43"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "WINDSONG",
+      "section": "",
+      "block": "13",
+      "lot": "27"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "CYPRESS TELGE PARK",
+      "section": "",
+      "block": "1",
+      "lot": ""
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "COPPER RIDGE AT INDIAN TRAILS",
+      "section": "",
+      "block": "4",
+      "lot": "3"
+    },
+    "lookup_result": {
+      "address": null,
+      "parcel_id": null,
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
+    }
+  },
+  {
+    "legal_params": {
       "subdivision": "HUNIERS CREEK",
       "section": "",
       "block": "1",
@@ -9,7 +281,11 @@
     "lookup_result": {
       "address": null,
       "parcel_id": null,
-      "error": null
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
     }
   },
   {
@@ -22,7 +298,11 @@
     "lookup_result": {
       "address": null,
       "parcel_id": null,
-      "error": null
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
     }
   },
   {
@@ -35,7 +315,11 @@
     "lookup_result": {
       "address": null,
       "parcel_id": null,
-      "error": null
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
     }
   },
   {
@@ -48,215 +332,11 @@
     "lookup_result": {
       "address": null,
       "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "COMMONS WATERWAY",
-      "section": "",
-      "block": "3",
-      "lot": "28"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "STABLEWOOD FARMS",
-      "section": "",
-      "block": "3",
-      "lot": "13"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "MEMORIAL NORTHWEST",
-      "section": "",
-      "block": "3",
-      "lot": "14"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "FOXWOOD MEADOWS",
-      "section": "",
-      "block": "1",
-      "lot": "31"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "",
-      "section": "",
-      "block": "",
-      "lot": ""
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": "Insufficient legal description data"
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "VILLAGES AT TOUR 18",
-      "section": "",
-      "block": "5",
-      "lot": "2"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "THE HARRIS COUNTY SCHOOL LAND ABSTRACT: 332 COMMENT: 4.1024 RELATED DOCS",
-      "section": "",
-      "block": "",
-      "lot": ""
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "FAIRLANE VILLAGE",
-      "section": "",
-      "block": "3",
-      "lot": "22"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "PARKSIDE AT PERRY",
-      "section": "",
-      "block": "2",
-      "lot": "34"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "PARKSIDE AT PERRY",
-      "section": "",
-      "block": "2",
-      "lot": "34"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "VILLAGES OF CYPRESS LAKES",
-      "section": "",
-      "block": "3",
-      "lot": "61"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "VILLAGES OF CYPRESS LAKES",
-      "section": "",
-      "block": "2",
-      "lot": "3"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "VILLAGES AT LAKEPOINTE",
-      "section": "",
-      "block": "3",
-      "lot": "9"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "FAIRMOUNT PARK EAST",
-      "section": "",
-      "block": "21",
-      "lot": "1"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "LIBERTY LAKES",
-      "section": "",
-      "block": "2",
-      "lot": "20"
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
-    }
-  },
-  {
-    "legal_params": {
-      "subdivision": "WESTPORT BUSINESS PARK",
-      "section": "",
-      "block": "2",
-      "lot": ""
-    },
-    "lookup_result": {
-      "address": null,
-      "parcel_id": null,
-      "error": null
+      "error": "No owner name provided for HCAD lookup",
+      "owner_name": "",
+      "impr_sqft": null,
+      "market_value": null,
+      "appraised_value": null
     }
   }
 ]

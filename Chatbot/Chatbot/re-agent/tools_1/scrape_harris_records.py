@@ -64,11 +64,16 @@ class HarrisCountyScraper:
             raise HarrisCountySearchError("Session is not initialized.")
         try:
             logger.info("Getting hidden form fields from Harris County search page")
-            async with self.session.get(self.base_url) as response:
+            
+            # Set a longer timeout for the initial request
+            timeout = aiohttp.ClientTimeout(total=30)  # Extended from 15 to 30 seconds
+            
+            async with self.session.get(self.base_url, timeout=timeout) as response:
                 if response.status != 200:
                     raise HarrisCountySearchError(f"Failed to load search page: {response.status}")
                 
-                html = await response.text()
+                # Add extended timeout for reading content
+                html = await asyncio.wait_for(response.text(), timeout=20.0)  # Extended from 10 to 20 seconds
                 soup = BeautifulSoup(html, 'html.parser')
                 
                 # Extract all hidden fields
@@ -80,19 +85,23 @@ class HarrisCountyScraper:
                     value = input_tag.get('value', '')
                     if name:
                         self.hidden_fields[name] = value
-                logger.info(f"Extracted hidden fields: {self.hidden_fields}")
+                logger.info(f"Extracted {len(self.hidden_fields)} hidden fields")
                 
                 # For backward compatibility
                 self.viewstate = self.hidden_fields.get('__VIEWSTATE')
                 self.eventvalidation = self.hidden_fields.get('__EVENTVALIDATION')
                 
                 if not self.viewstate or not self.eventvalidation:
-                    logger.warning("Could not extract all hidden fields")
-                    return False
+                    logger.warning("Could not extract all required hidden fields")
+                    # Don't fail completely - try to proceed anyway
+                    logger.info("Proceeding with available fields...")
                 
                 logger.info("Successfully extracted hidden form fields")
                 return True
                 
+        except asyncio.TimeoutError:
+            logger.error("Timeout while getting hidden fields from Harris County")
+            raise HarrisCountySearchError("Timeout getting hidden fields")
         except Exception as e:
             logger.error(f"Error getting hidden fields: {e}")
             raise HarrisCountySearchError(f"Failed to get hidden fields: {e}")
@@ -103,30 +112,34 @@ class HarrisCountyScraper:
         """
         # Start with all hidden fields
         form_data = dict(self.hidden_fields) if hasattr(self, 'hidden_fields') else {}
+        
+        # Add minimum required fields even if hidden fields failed
+        if not form_data:
+            logger.warning("No hidden fields available - using minimal form data")
+            form_data = {
+                '__VIEWSTATE': '',
+                '__EVENTVALIDATION': '',
+                '__VIEWSTATEGENERATOR': ''
+            }
+        
         # Instrument Type (doc_type) - default to 'L/P'
         doc_type = filters.get('doc_type', 'L/P')
         if doc_type:
             form_data['ctl00$ContentPlaceHolder1$txtInstrument'] = doc_type
+        
         # Date range fields (use MM/DD/YYYY)
         from_date = filters.get('from_date')
         if from_date:
             form_data['ctl00$ContentPlaceHolder1$txtFrom'] = from_date
+        
         to_date = filters.get('to_date')
         if to_date:
             form_data['ctl00$ContentPlaceHolder1$txtTo'] = to_date
+        
         # Search button
         form_data['ctl00$ContentPlaceHolder1$btnSearch'] = 'Search'
-        # Other filters (if needed in future)
-        # case_number = filters.get('case_number')
-        # if case_number:
-        #     form_data['ctl00$ContentPlaceHolder1$txtCaseNumber'] = case_number
-        # plaintiff = filters.get('plaintiff')
-        # if plaintiff:
-        #     form_data['ctl00$ContentPlaceHolder1$txtPlaintiff'] = plaintiff
-        # defendant = filters.get('defendant')
-        # if defendant:
-        #     form_data['ctl00$ContentPlaceHolder1$txtDefendant'] = defendant
-        logger.info(f"Form data to be posted: {form_data}")
+        
+        logger.info(f"Built form data with {len(form_data)} fields")
         return form_data
     
     def _parse_results(self, html: str) -> List[Dict[str, str]]:
@@ -317,36 +330,52 @@ class HarrisCountyScraper:
         if 'to_date' not in filters:
             filters['to_date'] = today.strftime('%m/%d/%Y')
         try:
-            # Step 1: Get hidden form fields
-            if not await self._get_hidden_fields():
-                raise HarrisCountySearchError("Failed to get required form fields")
+            # Step 1: Get hidden form fields with extended timeout
+            await asyncio.wait_for(self._get_hidden_fields(), timeout=40.0)  # Extended from 20 to 40 seconds
+            
             # Step 2: Build form data
             form_data = self._build_form_data(filters)
-            # Step 3: Submit search
+            
+            # Step 3: Submit search with timeout
             logger.info(f"Submitting search with filters: {filters}")
             if self.session is None:
                 raise HarrisCountySearchError("Session is not initialized.")
+            
+            # Set extended timeout for POST request
+            timeout = aiohttp.ClientTimeout(total=90)  # Extended from 45 to 90 seconds
+            
             async with self.session.post(
                 self.base_url,
                 data=form_data,
                 headers={
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Referer': self.base_url
-                }
+                },
+                timeout=timeout
             ) as response:
                 if response.status != 200:
                     raise HarrisCountySearchError(f"Search failed with status: {response.status}")
-                html = await response.text()
+                
+                # Add extended timeout for reading response
+                html = await asyncio.wait_for(response.text(), timeout=30.0)  # Extended from 15 to 30 seconds
+                
                 # Step 4: Parse results
                 records = self._parse_results(html)
                 if not records:
-                    logger.warning("No records found. Logging raw HTML response.")
-                    log_path = os.path.join(os.getcwd(), f"harris_no_results_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.html")
-                    with open(log_path, 'w', encoding='utf-8') as f:
-                        f.write(html)
-                    logger.warning(f"Raw HTML written to file: {log_path}")
+                    logger.warning("No records found. Check if search parameters are valid.")
+                    # Only save debug HTML in development
+                    if os.getenv('DEBUG_HARRIS_SCRAPER'):
+                        log_path = os.path.join(os.getcwd(), f"harris_no_results_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.html")
+                        with open(log_path, 'w', encoding='utf-8') as f:
+                            f.write(html)
+                        logger.warning(f"Raw HTML written to file: {log_path}")
+                
                 logger.info(f"Successfully extracted {len(records)} records")
                 return records
+                
+        except asyncio.TimeoutError:
+            logger.error("Harris County search timed out")
+            raise HarrisCountySearchError("Search timed out")
         except Exception as e:
             logger.error(f"Search failed: {e}")
             raise HarrisCountySearchError(f"Search failed: {e}")

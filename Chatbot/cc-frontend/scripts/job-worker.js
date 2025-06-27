@@ -294,6 +294,67 @@ async function processJob(job) {
       } else {
         throw new Error(result.error);
       }
+    } else if (job.job_type === 'AGENT_SCRAPE') {
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/test_agent.py');
+      const county = job.parameters?.county || 'harris';
+      const filters = job.parameters?.filters || {};
+      console.log(`[DEBUG] Agent Scrape Job userId: ${job.userId}`);
+      console.log(`[DEBUG] Agent Scrape Job object:`, JSON.stringify(job, null, 2));
+      
+      // Convert filters to command line arguments
+      const args = [
+        '--county', county,
+        '--user-id', job.userId
+      ];
+      
+      // Add filter arguments if provided
+      if (filters.dateFrom) {
+        args.push('--date-from', filters.dateFrom);
+      }
+      if (filters.dateTo) {
+        args.push('--date-to', filters.dateTo);
+      }
+      if (filters.documentType) {
+        args.push('--document-type', filters.documentType);
+      }
+      if (filters.pageSize) {
+        args.push('--page-size', filters.pageSize.toString());
+      }
+      
+      console.log(`[DEBUG] Agent Scrape Arguments being passed:`, args);
+      
+      const result = await runPython(scriptPath, args);
+      if (result.success) {
+        // Look for records processed in the output
+        const recordsMatch = result.output.match(/(\d+)\s+records/i) ||
+                           result.output.match(/processed\s+(\d+)\s+records/i) ||
+                           result.output.match(/found\s+(\d+)\s+records/i);
+        const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
+        
+        // Try to parse JSON result if present
+        let parsedResult;
+        try {
+          const jsonMatch = result.output.match(/\{.*\}/s);
+          if (jsonMatch) {
+            parsedResult = JSON.parse(jsonMatch[0]);
+          }
+        } catch (e) {
+          console.log(`[DEBUG] Could not parse JSON from output: ${e.message}`);
+        }
+        
+        await prisma.scraping_job.update({
+          where: { id: job.id },
+          data: {
+            status: JobStatus.COMPLETED,
+            completed_at: new Date(),
+            result: parsedResult || { output: result.output },
+            records_processed: recordsProcessed
+          }
+        });
+        console.log(`[SUCCESS] Agent Scrape Job ${job.id} completed successfully`);
+      } else {
+        throw new Error(result.error);
+      }
     } else if (job.job_type === 'TEST_SCRAPE') {
       // Test job type for system testing - just marks as completed
       console.log(`[DEBUG] Test scrape job - simulating completion`);

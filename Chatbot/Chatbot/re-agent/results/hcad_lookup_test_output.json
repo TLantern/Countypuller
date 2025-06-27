@@ -1,0 +1,430 @@
+[
+  {
+    "legal_params": {
+      "subdivision": "WARWICK TOWERS UNIT: 6-E-2",
+      "section": "",
+      "block": "",
+      "lot": "",
+      "owner_name": [
+        "KEMAHPROPERTIES LLC",
+        "TARA SPACE AUTOMATION LLC"
+      ],
+      "description": "Desc: WARWICK TOWERS Unit: 6-E-2"
+    },
+    "lookup_result": {
+      "address": "1111 HERMANN, HOUSTON, 77004",
+      "parcel_id": "1155850060005",
+      "error": null,
+      "owner_name": "KEMAHPROPERTIES LLC",
+      "impr_sqft": null,
+      "market_value": "$480,501",
+      "appraised_value": "$480,501"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "GROVES",
+      "section": "",
+      "block": "2",
+      "lot": "4",
+      "owner_name": [
+        "CARREIRO KARINA",
+        "SHERREL JEREME"
+      ],
+      "description": "Desc: GROVES Sec: 22 Lot: 4 Block: 2"
+    },
+    "lookup_result": {
+      "address": "907 COMMERCE, HOUSTON, 77002",
+      "parcel_id": "0010020000001",
+      "error": null,
+      "owner_name": "907 COMMERCE LP",
+      "impr_sqft": "5001",
+      "market_value": "$310,772",
+      "appraised_value": "$310,772"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "STONE CREEK RANCH",
+      "section": "",
+      "block": "3",
+      "lot": "9",
+      "owner_name": [
+        "COTTLE TIGHE"
+      ],
+      "description": "Desc: STONE CREEK RANCH Sec: 2 Lot: 9 Block: 3"
+    },
+    "lookup_result": {
+      "address": "31607 DUNHAM LAKE, HOCKLEY, 77447",
+      "parcel_id": "1303980030009",
+      "error": null,
+      "owner_name": "COTTLE TIGHE",
+      "impr_sqft": null,
+      "market_value": "$546,544",
+      "appraised_value": "$546,544"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "GROVES",
+      "section": "",
+      "block": "3",
+      "lot": "12",
+      "owner_name": [
+        "QUINN TAMIKA"
+      ],
+      "description": "Desc: GROVES Sec: 20 Lot: 12 Block: 3"
+    },
+    "lookup_result": {
+      "address": "12611 PIERSON HOLLOW, HUMBLE, 77346",
+      "parcel_id": "1394000030012",
+      "error": null,
+      "owner_name": "QUINN TAMIKA",
+      "impr_sqft": null,
+      "market_value": "$454,968",
+      "appraised_value": "$454,968"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "SABLECHASE",
+      "section": "",
+      "block": "1",
+      "lot": "17",
+      "owner_name": [
+        "SANCHEZ YESENIA CAROLINA"
+      ],
+      "description": "Desc: SABLECHASE Sec: 4 Lot: 17 Block: 1"
+    },
+    "lookup_result": {
+      "address": "1415 FRANKLIN, HOUSTON, 77002",
+      "parcel_id": "0010100000001",
+      "error": null,
+      "owner_name": "MCLEHANY TROY D",
+      "impr_sqft": "5001",
+      "market_value": "$838,093",
+      "appraised_value": "$838,093"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "BAY RIVER COLONY",
+      "section": "",
+      "block": "1",
+      "lot": "9",
+      "owner_name": [
+        "RYAN JONATHON"
+      ],
+      "description": "Desc: BAY RIVER COLONY Sec: 10 Lot: 9 Block: 1"
+    },
+    "lookup_result": {
+      "address": "4239 BEARBERRY, BAYTOWN, 77521",
+      "parcel_id": "1362810010009",
+      "error": null,
+      "owner_name": "RYAN JONATHON",
+      "impr_sqft": null,
+      "market_value": "$271,124",
+      "appraised_value": "$271,124"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "NORTHWOOD MANOR",
+      "section": "",
+      "block": "59",
+      "lot": "17",
+      "owner_name": [
+        "CORTEZ REYNA"
+      ],
+      "description": "Desc: NORTHWOOD MANOR Sec: 6 Lot: 17 Block: 59"
+    },
+    "lookup_result": {
+      "address": "717 TEXAS, HOUSTON, 77002",
+      "parcel_id": "0010590000001",
+      "error": null,
+      "owner_name": "717 TEXAS LP",
+      "impr_sqft": "48251",
+      "market_value": "$186,179,190",
+      "appraised_value": "$186,179,190"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ISBELL J H ABSTRACT: 474 COMMENT: 1.4662 RELATED DOCS",
+      "section": "",
+      "block": "",
+      "lot": "",
+      "owner_name": [
+        "COBB DAVID WAYNE JR",
+        "COBB TOMMIE FAYELYNN"
+      ],
+      "description": "Desc: ISBELL J H Abstract: 474 Comment: 1.4662 Related Docs"
+    },
+    "lookup_result": {
+      "address": "28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336",
+      "parcel_id": "0431400000047",
+      "error": null,
+      "owner_name": "CLEAR WILLIAM T JR",
+      "impr_sqft": "63998",
+      "market_value": "$386,549",
+      "appraised_value": "$386,549"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF CYPRESS LAKES",
+      "section": "",
+      "block": "1",
+      "lot": "35",
+      "owner_name": [
+        "ITANI TARIQ ZIAD"
+      ],
+      "description": "Desc: VILLAGES OF CYPRESS LAKES Sec: 6 Lot: 35 Block: 1"
+    },
+    "lookup_result": {
+      "address": "18414 WATER SCENE, CYPRESS, 77429",
+      "parcel_id": "1248470010035",
+      "error": null,
+      "owner_name": "ITANI TARIQ ZIAD",
+      "impr_sqft": "7009",
+      "market_value": "$317,745",
+      "appraised_value": "$317,745"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ST GEORGE TOWNHOMES ON RICHMOND",
+      "section": "",
+      "block": "1",
+      "lot": "9",
+      "owner_name": [
+        "JAYNES MONICA"
+      ],
+      "description": "Desc: ST GEORGE TOWNHOMES ON RICHMOND Lot: 9 Block: 1"
+    },
+    "lookup_result": {
+      "address": "1415 FRANKLIN, HOUSTON, 77002",
+      "parcel_id": "0010100000001",
+      "error": null,
+      "owner_name": "MCLEHANY TROY D",
+      "impr_sqft": "5001",
+      "market_value": "$838,093",
+      "appraised_value": "$838,093"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "FONDREN PARK",
+      "section": "",
+      "block": "9",
+      "lot": "",
+      "owner_name": [
+        "BEATY GAYDRIAN DWAYNE SR"
+      ],
+      "description": "Desc: FONDREN PARK Sec: 2 Block: 9"
+    },
+    "lookup_result": {
+      "address": "11746 KATHY, HOUSTON, 77071",
+      "parcel_id": "0972100000013",
+      "error": null,
+      "owner_name": "BEATY GAYDRIAN D SR",
+      "impr_sqft": "7349",
+      "market_value": "$255,227",
+      "appraised_value": "$255,227"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "SOUTH PARK",
+      "section": "",
+      "block": "1",
+      "lot": "39",
+      "owner_name": [
+        "MAGNUS REALE STATE LLC"
+      ],
+      "description": "Desc: SOUTH PARK Sec: 3 Lot: 39 Block: 1"
+    },
+    "lookup_result": {
+      "address": "101 AUSTIN, HOUSTON, 77002",
+      "parcel_id": "0010100000008",
+      "error": null,
+      "owner_name": "101 AUSTIN LLC",
+      "impr_sqft": "10001",
+      "market_value": "$785,000",
+      "appraised_value": "$785,000"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "COPPERFIELD MIDDLEGATE VILLAGE",
+      "section": "",
+      "block": "12",
+      "lot": "12",
+      "owner_name": [
+        "THE SHAVER 15335 GLENWOOD PARK LAND TRUST"
+      ],
+      "description": "Desc: COPPERFIELD MIDDLEGATE VILLAGE Sec: 1 Lot: 12 Block: 12"
+    },
+    "lookup_result": {
+      "address": "15335 GLENWOOD PARK, HOUSTON, 77095",
+      "parcel_id": "1144410120012",
+      "error": null,
+      "owner_name": "SHAVER 15335 GLENWOOD PARK LAND TRUST",
+      "impr_sqft": "7200",
+      "market_value": "$255,059",
+      "appraised_value": "$255,059"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+      "section": "",
+      "block": "5",
+      "lot": "54",
+      "owner_name": [
+        "FERRIS EMILY JANESE"
+      ],
+      "description": "Desc: VILLAGES OF NORTHPOINTE WEST Sec: 4 Lot: 54 Block: 5"
+    },
+    "lookup_result": {
+      "address": "18622 BRISTOL POINT, TOMBALL, 77377",
+      "parcel_id": "1271980050054",
+      "error": null,
+      "owner_name": "FERRIS EMILY JANESE",
+      "impr_sqft": null,
+      "market_value": "$368,130",
+      "appraised_value": "$368,130"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "STABLEWOOD FARMS NORTH",
+      "section": "",
+      "block": "2",
+      "lot": "47",
+      "owner_name": [
+        "NORTHWEST HARRIS COUNTY MUNICIPAL UTILITY DISTRICT NO 10"
+      ],
+      "description": "Desc: STABLEWOOD FARMS NORTH Sec: 8 Lot: 47 Block: 2 Reserve: A Related Docs"
+    },
+    "lookup_result": {
+      "address": "907 COMMERCE, HOUSTON, 77002",
+      "parcel_id": "0010020000001",
+      "error": null,
+      "owner_name": "907 COMMERCE LP",
+      "impr_sqft": "5001",
+      "market_value": "$310,772",
+      "appraised_value": "$310,772"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "DUNHAM POINTE",
+      "section": "",
+      "block": "2",
+      "lot": "7",
+      "owner_name": [
+        "MACHUKA DICKSON",
+        "MACHUKA GLADYS"
+      ],
+      "description": "Desc: DUNHAM POINTE Sec: 5 Lot: 7 Block: 2"
+    },
+    "lookup_result": {
+      "address": "14119 COYOTE POINTE, CYPRESS, 77433",
+      "parcel_id": "1452240020007",
+      "error": null,
+      "owner_name": "MACHUKA DICKSON & GLADYS",
+      "impr_sqft": null,
+      "market_value": "$840,570",
+      "appraised_value": "$840,570"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+      "section": "",
+      "block": "1",
+      "lot": "6",
+      "owner_name": [
+        "PASQUIER ANGELA",
+        "PASQUIER JOHN GABRIEL"
+      ],
+      "description": "Desc: VILLAGES OF NORTHPOINTE WEST Sec: 4 Lot: 6 Block: 1"
+    },
+    "lookup_result": {
+      "address": "13110 MILLSTREAM BEND, TOMBALL, 77377",
+      "parcel_id": "1271980010006",
+      "error": null,
+      "owner_name": "PASQUIER JOHN GABRIEL & ANGELA",
+      "impr_sqft": null,
+      "market_value": "$314,242",
+      "appraised_value": "$314,242"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "VILLAGES OF NORTHPOINTE WEST",
+      "section": "",
+      "block": "3",
+      "lot": "9",
+      "owner_name": [
+        "BERTA MATTHEW",
+        "BERTA PAIGE"
+      ],
+      "description": "Desc: VILLAGES OF NORTHPOINTE WEST Sec: 4 Lot: 9 Block: 3"
+    },
+    "lookup_result": {
+      "address": "13035 AVERY RIDGE, TOMBALL, 77377",
+      "parcel_id": "1271980030009",
+      "error": null,
+      "owner_name": "BERTA PAIGE & MATTHEW",
+      "impr_sqft": null,
+      "market_value": "$296,868",
+      "appraised_value": "$296,868"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ROBINSON ADDITION RELATED DOCS",
+      "section": "",
+      "block": "",
+      "lot": "",
+      "owner_name": [
+        "310 PRESTON PARTNERS LLC",
+        "CASEY ROBERT"
+      ],
+      "description": "Desc: ROBINSON ADDITION Related Docs"
+    },
+    "lookup_result": {
+      "address": "302 FAIRVIEW, HOUSTON, 77006",
+      "parcel_id": "0140780010001",
+      "error": null,
+      "owner_name": "220 HYDE PARK LLC",
+      "impr_sqft": "4578",
+      "market_value": "$974,233",
+      "appraised_value": "$974,233"
+    }
+  },
+  {
+    "legal_params": {
+      "subdivision": "ATASCA WOODS",
+      "section": "",
+      "block": "3",
+      "lot": "50",
+      "owner_name": [
+        "CALLARMAN SONJA",
+        "REDDING SONYA RAE"
+      ],
+      "description": "Desc: ATASCA WOODS Sec: 1 Lot: 50 Block: 3 Related Docs"
+    },
+    "lookup_result": {
+      "address": "18407 MABELS ISLAND, HUMBLE, 77346",
+      "parcel_id": "1205900030050",
+      "error": null,
+      "owner_name": "CALLARMAN SONYA",
+      "impr_sqft": null,
+      "market_value": "$264,646",
+      "appraised_value": "$264,646"
+    }
+  }
+]
