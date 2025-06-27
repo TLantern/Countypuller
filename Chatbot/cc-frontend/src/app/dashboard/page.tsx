@@ -751,8 +751,8 @@ export default function Dashboard() {
         setPulling(false);
       }
       // Set max records based on the request type
-      if (endpoint === '/api/scrape') {
-        setMaxRecords(requestBody.filters.pageSize || 50);
+      if (endpoint === '/api/scrape' && 'filters' in requestBody) {
+        setMaxRecords(requestBody.filters?.pageSize || 50);
       } else if (typeof requestBody.dateFilter === 'number') {
         setMaxRecords(requestBody.dateFilter * 2);
       }
