@@ -647,7 +647,7 @@ export default function Dashboard() {
         ? `/api/pull-fulton-ga?job_id=${jobId}`
         : userType === 'COBB_GA'
         ? `/api/pull-cobb-ga?job_id=${jobId}`
-        : `/api/pull-lph?job_id=${jobId}`;
+        : `/api/scrape?job_id=${jobId}`;
       
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -694,11 +694,31 @@ export default function Dashboard() {
                       userType === 'BREVARD_FL' ? '/api/pull-brevard-fl' :
                       userType === 'FULTON_GA' ? '/api/pull-fulton-ga' :
                       userType === 'COBB_GA' ? '/api/pull-cobb-ga' :
-                      '/api/pull-lph';
-      // Include the date filter in the request body
-      const requestBody = {
-        dateFilter: dateFilter // Number of days back to pull records from
-      };
+                      '/api/scrape';
+      
+      // Prepare request body based on endpoint
+      let requestBody;
+      if (endpoint === '/api/scrape') {
+        // Agent scraper expects county and filters
+        const fromDate = new Date();
+        fromDate.setDate(fromDate.getDate() - dateFilter);
+        const toDate = new Date();
+        
+        requestBody = {
+          county: county.toLowerCase(), // 'harris', 'dallas', etc.
+          filters: {
+            documentType: 'LisPendens',
+            dateFrom: fromDate.toISOString().split('T')[0], // YYYY-MM-DD format
+            dateTo: toDate.toISOString().split('T')[0], // YYYY-MM-DD format
+            pageSize: 50
+          }
+        };
+      } else {
+        // Other scrapers expect dateFilter
+        requestBody = {
+          dateFilter: dateFilter // Number of days back to pull records from
+        };
+      }
       const res = await fetch(endpoint, { 
         method: 'POST',
         headers: {
@@ -730,7 +750,12 @@ export default function Dashboard() {
         setPullResult('error');
         setPulling(false);
       }
-      if (typeof requestBody.dateFilter === 'number') setMaxRecords(requestBody.dateFilter * 2); // fallback for LPH, adjust as needed
+      // Set max records based on the request type
+      if (endpoint === '/api/scrape') {
+        setMaxRecords(requestBody.filters.pageSize || 50);
+      } else if (typeof requestBody.dateFilter === 'number') {
+        setMaxRecords(requestBody.dateFilter * 2);
+      }
     } catch (e) {
       setPullResult('error');
       setPulling(false);
@@ -825,7 +850,7 @@ export default function Dashboard() {
     ? 'Scraping records from Fulton GA GSCCCA...'
     : userType === 'COBB_GA'
     ? 'Scraping records from Cobb GA GSCCCA...'
-    : `Scraping records from ${county} County...`;
+    : `AI-Enhanced scraping from ${county} County with address resolution...`;
 
   // Handle cell focus to show content in the wide box
   const handleCellFocus = (params: any) => {

@@ -295,7 +295,7 @@ async function processJob(job) {
         throw new Error(result.error);
       }
     } else if (job.job_type === 'AGENT_SCRAPE') {
-      const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/test_agent.py');
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/agent_cli.py');
       const county = job.parameters?.county || 'harris';
       const filters = job.parameters?.filters || {};
       console.log(`[DEBUG] Agent Scrape Job userId: ${job.userId}`);
@@ -325,21 +325,28 @@ async function processJob(job) {
       
       const result = await runPython(scriptPath, args);
       if (result.success) {
-        // Look for records processed in the output
-        const recordsMatch = result.output.match(/(\d+)\s+records/i) ||
-                           result.output.match(/processed\s+(\d+)\s+records/i) ||
-                           result.output.match(/found\s+(\d+)\s+records/i);
-        const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
-        
-        // Try to parse JSON result if present
+        // Try to parse JSON result from output
         let parsedResult;
         try {
+          // Look for JSON in the output (the CLI script outputs JSON)
           const jsonMatch = result.output.match(/\{.*\}/s);
           if (jsonMatch) {
             parsedResult = JSON.parse(jsonMatch[0]);
           }
         } catch (e) {
           console.log(`[DEBUG] Could not parse JSON from output: ${e.message}`);
+        }
+        
+        // Extract records count from parsed result or output
+        let recordsProcessed = null;
+        if (parsedResult && parsedResult.metadata) {
+          recordsProcessed = parsedResult.metadata.processed || parsedResult.metadata.total_found;
+        } else {
+          // Fallback to regex matching
+          const recordsMatch = result.output.match(/(\d+)\s+records/i) ||
+                             result.output.match(/processed\s+(\d+)\s+records/i) ||
+                             result.output.match(/found\s+(\d+)\s+records/i);
+          recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
         }
         
         await prisma.scraping_job.update({
