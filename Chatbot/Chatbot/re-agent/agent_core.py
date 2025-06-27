@@ -21,6 +21,7 @@ from cache import CacheManager
 from tools_1.scrape_harris_records import scrape_harris_records
 from tools_2.hcad_lookup import hcad_lookup
 from tools_2.property_summary import generate_property_summary
+from harris_db_saver import save_harris_records
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -75,7 +76,16 @@ class LisPendensAgent:
             # Step 2: Enrich records with address lookups
             enriched_records = await self._enrich_records(raw_records)
             
-            # Step 3: Generate summary
+            # Step 3: Save to database (Harris County specific table)
+            if params.county.lower() == 'harris' and params.user_id:
+                records_data = [asdict(record) for record in enriched_records]
+                save_success = await save_harris_records(records_data, params.user_id)
+                if save_success:
+                    logger.info(f"💾 Saved {len(enriched_records)} records to harris_county_filing table")
+                else:
+                    logger.warning("⚠️ Database save failed - records still returned in response")
+            
+            # Step 4: Generate summary
             result = {
                 "records": [asdict(record) for record in enriched_records],
                 "metadata": {

@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "job-worker": "run-job-worker.bat"
+    "dev": "start-dev.bat",
+    "build": "\"C:\\Program Files\\nodejs\\node.exe\" node_modules/next/dist/bin/next build",
+    "start": "\"C:\\Program Files\\nodejs\\node.exe\" node_modules/next/dist/bin/next start",
+    "lint": "\"C:\\Program Files\\nodejs\\node.exe\" node_modules/next/dist/bin/next lint",
+    "job-worker": "\"C:\\Program Files\\nodejs\\node.exe\" start-job-worker.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -27,6 +27,7 @@
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.6.1",
     "file-saver": "^2.0.5",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",

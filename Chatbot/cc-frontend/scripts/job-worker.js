@@ -392,34 +392,80 @@ async function processJob(job) {
 }
 
 async function pollForJobs() {
+  const timestamp = new Date().toISOString();
   try {
+    console.log(`[${timestamp}] [POLL] Checking for pending jobs...`);
+    
     const pendingJobs = await prisma.scraping_job.findMany({
       where: { status: JobStatus.PENDING },
       orderBy: { created_at: 'asc' },
       take: 1
     });
+    
     if (pendingJobs.length > 0) {
+      console.log(`[${timestamp}] [POLL] Found ${pendingJobs.length} pending job(s)`);
       for (const job of pendingJobs) {
+        console.log(`[${timestamp}] [POLL] Processing job ${job.id} (${job.job_type})`);
         await processJob(job);
       }
     } else {
-      console.log('[INFO] No pending jobs found');
+      console.log(`[${timestamp}] [POLL] No pending jobs found`);
     }
+    
+    // Also log current job counts for monitoring
+    const statusCounts = await prisma.scraping_job.groupBy({
+      by: ['status'],
+      _count: true
+    });
+    const counts = statusCounts.reduce((acc, item) => {
+      acc[item.status] = item._count;
+      return acc;
+    }, {});
+    console.log(`[${timestamp}] [STATS] Job counts:`, counts);
+    
   } catch (error) {
-    console.error('[ERROR] Error polling for jobs:', error);
+    console.error(`[${timestamp}] [ERROR] Error polling for jobs:`, error);
+    // Continue polling even if there's an error
   }
 }
 
 async function main() {
   console.log('[INFO] Starting job worker...');
-  setInterval(pollForJobs, 30000);
+  console.log('[INFO] Polling interval: 30 seconds');
+  console.log('[INFO] Will process one job at a time in FIFO order');
+  
+  // Start immediate poll
   await pollForJobs();
+  
+  // Set up interval for continuous polling
+  const intervalId = setInterval(async () => {
+    try {
+      await pollForJobs();
+    } catch (error) {
+      console.error('[ERROR] Unhandled error in polling interval:', error);
+    }
+  }, 30000);
+  
+  // Keep the process alive
+  console.log('[INFO] Job worker is running. Press Ctrl+C to stop.');
+  
+  // Handle graceful shutdown
+  process.on('SIGINT', async () => {
+    console.log('[INFO] Received SIGINT, shutting down job worker...');
+    clearInterval(intervalId);
+    await prisma.$disconnect();
+    process.exit(0);
+  });
+  
+  process.on('SIGTERM', async () => {
+    console.log('[INFO] Received SIGTERM, shutting down job worker...');
+    clearInterval(intervalId);
+    await prisma.$disconnect();
+    process.exit(0);
+  });
 }
 
-process.on('SIGINT', async () => {
-  console.log('[INFO] Shutting down job worker...');
-  await prisma.$disconnect();
-  process.exit(0);
-});
-
-main().catch(console.error); 
+main().catch((error) => {
+  console.error('[FATAL] Job worker crashed:', error);
+  process.exit(1);
+}); 
