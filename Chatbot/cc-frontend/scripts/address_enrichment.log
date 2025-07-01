@@ -1,0 +1,479 @@
+2025-06-30 08:51:04,346 - INFO - Loaded 10 addresses from sample_addresses.csv
+2025-06-30 08:51:04,347 - INFO - Successfully enriched '123 Main Street, Houston, TX'
+2025-06-30 11:39:19,553 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751305157688.csv
+2025-06-30 11:39:19,553 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 11:39:19,829 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 11:39:20,118 - WARNING - ATTOM ID lookup failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 404
+2025-06-30 11:39:20,121 - WARNING - No ATTOM ID found for '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 11:39:20,121 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 11:39:20,130 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751305157688.csv
+2025-06-30 11:45:39,589 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751305538106.csv
+2025-06-30 11:45:39,590 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 11:45:40,086 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 11:45:40,346 - WARNING - ATTOM ID lookup failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 404
+2025-06-30 11:45:40,346 - WARNING - No ATTOM ID found for '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 11:45:40,346 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 11:46:29,387 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751305588190.csv
+2025-06-30 11:46:29,387 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 11:46:29,743 - WARNING - USPS validation failed for '18622 BRISTOL POINT, TOMBALL, 77377': HTTP 200
+2025-06-30 11:46:30,009 - WARNING - ATTOM ID lookup failed for '18622 BRISTOL POINT, TOMBALL, 77377': HTTP 404
+2025-06-30 11:46:30,009 - WARNING - No ATTOM ID found for '18622 BRISTOL POINT, TOMBALL, 77377'
+2025-06-30 11:46:30,009 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 11:54:52,595 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751306091166.csv
+2025-06-30 11:54:52,595 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 11:54:52,954 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 11:54:53,485 - WARNING - ATTOM ID lookup failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 404
+2025-06-30 11:54:53,485 - WARNING - No ATTOM ID found for '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 11:54:53,485 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 11:54:53,492 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751306091166.csv
+2025-06-30 12:19:03,082 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751307541480.csv
+2025-06-30 12:19:03,082 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 12:19:03,358 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 12:19:03,564 - WARNING - ATTOM ID lookup failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 404
+2025-06-30 12:19:03,564 - WARNING - No ATTOM ID found for '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 12:19:03,564 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 12:19:03,572 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751307541480.csv
+2025-06-30 12:25:55,210 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751307953600.csv
+2025-06-30 12:25:55,211 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 12:25:55,615 - WARNING - USPS validation failed for '18622 BRISTOL POINT, TOMBALL, 77377': HTTP 200
+2025-06-30 12:25:55,615 - INFO - ATTOM API attempt 1 for '18622 BRISTOL POINT, TOMBALL, 77377': {'address1': '18622 BRISTOL POINT', 'address2': 'TOMBALL, 77377'}
+2025-06-30 12:25:55,947 - INFO - ATTOM API attempt 2 for '18622 BRISTOL POINT, TOMBALL, 77377': {'address': '18622 BRISTOL POINT, TOMBALL, 77377'}
+2025-06-30 12:25:56,084 - WARNING - All ATTOM API attempts failed for '18622 BRISTOL POINT, TOMBALL, 77377'
+2025-06-30 12:25:56,084 - WARNING - No ATTOM ID found for '18622 BRISTOL POINT, TOMBALL, 77377'
+2025-06-30 12:25:56,084 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 12:25:56,093 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751307953600.csv
+2025-06-30 12:31:10,813 - WARNING - Google Maps validation failed for '14119 COYOTE POINTE, CYPRESS, TX 77433': REQUEST_DENIED
+2025-06-30 12:31:10,833 - INFO - Loaded 3 addresses from C:\Users\tmbor\AppData\Local\Temp\tmpcfpp3k0u.csv
+2025-06-30 12:31:10,833 - INFO - Starting batch enrichment of 3 addresses with max concurrency 10
+2025-06-30 12:31:10,925 - WARNING - Google Maps validation failed for '14119 COYOTE POINTE, CYPRESS, TX 77433': REQUEST_DENIED
+2025-06-30 12:31:10,925 - INFO - ATTOM API attempt 1 for '14119 COYOTE POINTE, CYPRESS, TX 77433': {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, TX 77433'}
+2025-06-30 12:31:10,934 - WARNING - Google Maps validation failed for '123 Main Street, Houston, TX 77001': REQUEST_DENIED
+2025-06-30 12:31:10,935 - WARNING - Google Maps validation failed for '456 Oak Avenue, Dallas, TX 75201': REQUEST_DENIED
+2025-06-30 12:31:11,028 - INFO - ATTOM API attempt 1 for '456 Oak Avenue, Dallas, TX 75201': {'address1': '456 Oak Avenue', 'address2': 'Dallas, TX 75201'}
+2025-06-30 12:31:11,028 - INFO - ATTOM API attempt 1 for '123 Main Street, Houston, TX 77001': {'address1': '123 Main Street', 'address2': 'Houston, TX 77001'}
+2025-06-30 12:31:11,275 - INFO - ATTOM API attempt 2 for '14119 COYOTE POINTE, CYPRESS, TX 77433': {'address': '14119 COYOTE POINTE', 'locality': 'CYPRESS', 'postalcode': '77433'}
+2025-06-30 12:31:11,275 - INFO - ATTOM API attempt 2 for '123 Main Street, Houston, TX 77001': {'address': '123 Main Street', 'locality': 'Houston', 'postalcode': '77001'}
+2025-06-30 12:31:11,304 - INFO - ATTOM API attempt 2 for '456 Oak Avenue, Dallas, TX 75201': {'address': '456 Oak Avenue', 'locality': 'Dallas', 'postalcode': '75201'}
+2025-06-30 12:31:11,427 - INFO - ATTOM API attempt 3 for '123 Main Street, Houston, TX 77001': {'address': '123 Main Street, Houston, TX 77001'}
+2025-06-30 12:31:11,427 - INFO - ATTOM API attempt 3 for '14119 COYOTE POINTE, CYPRESS, TX 77433': {'address': '14119 COYOTE POINTE, CYPRESS, TX 77433'}
+2025-06-30 12:31:11,458 - INFO - ATTOM API attempt 3 for '456 Oak Avenue, Dallas, TX 75201': {'address': '456 Oak Avenue, Dallas, TX 75201'}
+2025-06-30 12:31:11,597 - WARNING - All ATTOM API attempts failed for '14119 COYOTE POINTE, CYPRESS, TX 77433'
+2025-06-30 12:31:11,597 - WARNING - No ATTOM ID found for '14119 COYOTE POINTE, CYPRESS, TX 77433'
+2025-06-30 12:31:11,597 - WARNING - All ATTOM API attempts failed for '456 Oak Avenue, Dallas, TX 75201'
+2025-06-30 12:31:11,598 - WARNING - No ATTOM ID found for '456 Oak Avenue, Dallas, TX 75201'
+2025-06-30 12:31:11,598 - WARNING - All ATTOM API attempts failed for '123 Main Street, Houston, TX 77001'
+2025-06-30 12:31:11,598 - WARNING - No ATTOM ID found for '123 Main Street, Houston, TX 77001'
+2025-06-30 12:31:11,598 - INFO - Completed batch enrichment. 3 results generated.
+2025-06-30 12:35:57,559 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:35:57,564 - INFO - Loaded 3 addresses from C:\Users\tmbor\AppData\Local\Temp\tmpe29945gc.csv
+2025-06-30 12:35:57,564 - INFO - Starting batch enrichment of 3 addresses with max concurrency 10
+2025-06-30 12:35:57,699 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:35:57,699 - INFO - ATTOM API attempt 1 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 12:35:57,750 - INFO - Google Maps validated: '123 Main Street, Houston, TX 77001' -> '123 Main Street, Houston, TX 77002'
+2025-06-30 12:35:57,758 - INFO - Google Maps validated: '456 Oak Avenue, Dallas, TX 75201' -> 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:35:57,795 - INFO - ATTOM API attempt 1 for '123 Main Street, Houston, TX 77002': {'address1': '123 Main Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 12:35:57,796 - INFO - ATTOM API attempt 1 for 'Oak Ave, Dallas, TX 75253': {'address1': 'Oak Ave', 'address2': 'Dallas, TX 75253'}
+2025-06-30 12:35:58,019 - INFO - ATTOM API attempt 2 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address': '14119 Coyote Pointe Dr', 'locality': 'Cypress', 'postalcode': '77433'}
+2025-06-30 12:35:58,060 - INFO - ATTOM API attempt 2 for '123 Main Street, Houston, TX 77002': {'address': '123 Main Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-06-30 12:35:58,061 - INFO - ATTOM API attempt 2 for 'Oak Ave, Dallas, TX 75253': {'address': 'Oak Ave', 'locality': 'Dallas', 'postalcode': '75253'}
+2025-06-30 12:35:58,159 - INFO - ATTOM API attempt 3 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address': '14119 Coyote Pointe Dr, Cypress, TX 77433'}
+2025-06-30 12:35:58,195 - INFO - ATTOM API attempt 3 for 'Oak Ave, Dallas, TX 75253': {'address': 'Oak Ave, Dallas, TX 75253'}
+2025-06-30 12:35:58,195 - INFO - ATTOM API attempt 3 for '123 Main Street, Houston, TX 77002': {'address': '123 Main Street, Houston, TX 77002'}
+2025-06-30 12:35:58,312 - WARNING - All ATTOM API attempts failed for '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:35:58,312 - WARNING - No ATTOM ID found for '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:35:58,342 - WARNING - All ATTOM API attempts failed for '123 Main Street, Houston, TX 77002'
+2025-06-30 12:35:58,342 - WARNING - No ATTOM ID found for '123 Main Street, Houston, TX 77002'
+2025-06-30 12:35:58,343 - WARNING - All ATTOM API attempts failed for 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:35:58,343 - WARNING - No ATTOM ID found for 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:35:58,343 - INFO - Completed batch enrichment. 3 results generated.
+2025-06-30 12:36:58,637 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:36:58,642 - INFO - Loaded 3 addresses from C:\Users\tmbor\AppData\Local\Temp\tmpcygaln08.csv
+2025-06-30 12:36:58,642 - INFO - Starting batch enrichment of 3 addresses with max concurrency 10
+2025-06-30 12:36:58,727 - WARNING - Google Maps validation failed for '456 Oak Avenue, Dallas, TX 75201': REQUEST_DENIED
+2025-06-30 12:36:58,727 - INFO - ATTOM API attempt 1 for '456 Oak Avenue, Dallas, TX 75201': {'address1': '456 Oak Avenue', 'address2': 'Dallas, TX 75201'}
+2025-06-30 12:36:58,733 - WARNING - Google Maps validation failed for '123 Main Street, Houston, TX 77001': REQUEST_DENIED
+2025-06-30 12:36:58,743 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:36:58,825 - INFO - ATTOM API attempt 1 for '123 Main Street, Houston, TX 77001': {'address1': '123 Main Street', 'address2': 'Houston, TX 77001'}
+2025-06-30 12:36:58,825 - INFO - ATTOM API attempt 1 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 12:36:59,145 - INFO - ATTOM API attempt 2 for '456 Oak Avenue, Dallas, TX 75201': {'address': '456 Oak Avenue', 'locality': 'Dallas', 'postalcode': '75201'}
+2025-06-30 12:36:59,211 - INFO - ATTOM API attempt 2 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address': '14119 Coyote Pointe Dr', 'locality': 'Cypress', 'postalcode': '77433'}
+2025-06-30 12:36:59,351 - INFO - ATTOM API attempt 2 for '123 Main Street, Houston, TX 77001': {'address': '123 Main Street', 'locality': 'Houston', 'postalcode': '77001'}
+2025-06-30 12:36:59,351 - INFO - ATTOM API attempt 3 for '456 Oak Avenue, Dallas, TX 75201': {'address': '456 Oak Avenue, Dallas, TX 75201'}
+2025-06-30 12:36:59,457 - INFO - ATTOM API attempt 3 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address': '14119 Coyote Pointe Dr, Cypress, TX 77433'}
+2025-06-30 12:36:59,579 - INFO - ATTOM API attempt 3 for '123 Main Street, Houston, TX 77001': {'address': '123 Main Street, Houston, TX 77001'}
+2025-06-30 12:36:59,579 - WARNING - All ATTOM API attempts failed for '456 Oak Avenue, Dallas, TX 75201'
+2025-06-30 12:36:59,580 - WARNING - No ATTOM ID found for '456 Oak Avenue, Dallas, TX 75201'
+2025-06-30 12:36:59,655 - WARNING - All ATTOM API attempts failed for '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:36:59,655 - WARNING - No ATTOM ID found for '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:36:59,732 - WARNING - All ATTOM API attempts failed for '123 Main Street, Houston, TX 77001'
+2025-06-30 12:36:59,732 - WARNING - No ATTOM ID found for '123 Main Street, Houston, TX 77001'
+2025-06-30 12:36:59,732 - INFO - Completed batch enrichment. 3 results generated.
+2025-06-30 12:43:02,377 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:43:02,381 - INFO - Loaded 3 addresses from C:\Users\tmbor\AppData\Local\Temp\tmpxfvb5ec9.csv
+2025-06-30 12:43:02,381 - INFO - Starting batch enrichment of 3 addresses with max concurrency 10
+2025-06-30 12:43:02,481 - INFO - Google Maps validated: '456 Oak Avenue, Dallas, TX 75201' -> 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:43:02,482 - INFO - ATTOM API attempt 1 for 'Oak Ave, Dallas, TX 75253': {'address1': 'Oak Ave', 'address2': 'Dallas, TX 75253'}
+2025-06-30 12:43:02,486 - INFO - Google Maps validated: '123 Main Street, Houston, TX 77001' -> '123 Main Street, Houston, TX 77002'
+2025-06-30 12:43:02,513 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:43:02,570 - INFO - ATTOM API attempt 1 for '123 Main Street, Houston, TX 77002': {'address1': '123 Main Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 12:43:02,571 - INFO - ATTOM API attempt 1 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 12:43:02,943 - INFO - Found ATTOM ID 334724589 for '14119 Coyote Pointe Dr, Cypress, TX 77433' using params: {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 12:43:02,981 - WARNING - Equity lookup failed for ATTOM ID 334724589: HTTP 404
+2025-06-30 12:43:02,982 - INFO - Successfully enriched '14119 COYOTE POINTE, CYPRESS, TX 77433'
+2025-06-30 12:43:03,169 - INFO - ATTOM API attempt 2 for '123 Main Street, Houston, TX 77002': {'address': '123 Main Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-06-30 12:43:03,489 - INFO - ATTOM API attempt 3 for '123 Main Street, Houston, TX 77002': {'address': '123 Main Street, Houston, TX 77002'}
+2025-06-30 12:43:03,841 - INFO - ATTOM API attempt 2 for 'Oak Ave, Dallas, TX 75253': {'address': 'Oak Ave', 'locality': 'Dallas', 'postalcode': '75253'}
+2025-06-30 12:43:03,918 - WARNING - All ATTOM API attempts failed for '123 Main Street, Houston, TX 77002'
+2025-06-30 12:43:03,918 - WARNING - No ATTOM ID found for '123 Main Street, Houston, TX 77002'
+2025-06-30 12:43:04,164 - INFO - ATTOM API attempt 3 for 'Oak Ave, Dallas, TX 75253': {'address': 'Oak Ave, Dallas, TX 75253'}
+2025-06-30 12:43:04,974 - WARNING - All ATTOM API attempts failed for 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:43:04,974 - WARNING - No ATTOM ID found for 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:43:04,974 - INFO - Completed batch enrichment. 3 results generated.
+2025-06-30 12:48:26,487 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:48:26,491 - INFO - Loaded 3 addresses from C:\Users\tmbor\AppData\Local\Temp\tmp89zvdjfe.csv
+2025-06-30 12:48:26,492 - INFO - Starting batch enrichment of 3 addresses with max concurrency 10
+2025-06-30 12:48:26,638 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 12:48:26,638 - INFO - ATTOM API attempt 1 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 12:48:26,642 - INFO - Google Maps validated: '456 Oak Avenue, Dallas, TX 75201' -> 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:48:26,656 - INFO - Google Maps validated: '123 Main Street, Houston, TX 77001' -> '123 Main Street, Houston, TX 77002'
+2025-06-30 12:48:26,730 - INFO - ATTOM API attempt 1 for 'Oak Ave, Dallas, TX 75253': {'address1': 'Oak Ave', 'address2': 'Dallas, TX 75253'}
+2025-06-30 12:48:26,730 - INFO - ATTOM API attempt 1 for '123 Main Street, Houston, TX 77002': {'address1': '123 Main Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 12:48:27,048 - INFO - Found property data for ATTOM ID 334724589 for '14119 Coyote Pointe Dr, Cypress, TX 77433' using params: {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 12:48:27,048 - INFO - Calculated equity: Market Value $840,570, Total Loans $726,200, Equity $114,370, LTV 86.4%
+2025-06-30 12:48:27,048 - INFO - Successfully enriched '14119 COYOTE POINTE, CYPRESS, TX 77433'
+2025-06-30 12:48:27,177 - INFO - ATTOM API attempt 2 for '123 Main Street, Houston, TX 77002': {'address': '123 Main Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-06-30 12:48:27,177 - INFO - ATTOM API attempt 2 for 'Oak Ave, Dallas, TX 75253': {'address': 'Oak Ave', 'locality': 'Dallas', 'postalcode': '75253'}
+2025-06-30 12:48:27,497 - INFO - ATTOM API attempt 3 for '123 Main Street, Houston, TX 77002': {'address': '123 Main Street, Houston, TX 77002'}
+2025-06-30 12:48:27,497 - INFO - ATTOM API attempt 3 for 'Oak Ave, Dallas, TX 75253': {'address': 'Oak Ave, Dallas, TX 75253'}
+2025-06-30 12:48:27,911 - WARNING - All ATTOM API attempts failed for '123 Main Street, Houston, TX 77002'
+2025-06-30 12:48:27,911 - WARNING - No ATTOM property data found for '123 Main Street, Houston, TX 77002'
+2025-06-30 12:48:27,911 - INFO - Successfully enriched '123 Main Street, Houston, TX 77001'
+2025-06-30 12:48:28,519 - WARNING - All ATTOM API attempts failed for 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:48:28,519 - WARNING - No ATTOM property data found for 'Oak Ave, Dallas, TX 75253'
+2025-06-30 12:48:28,519 - INFO - Successfully enriched '456 Oak Avenue, Dallas, TX 75201'
+2025-06-30 12:48:28,520 - INFO - Completed batch enrichment. 3 results generated.
+2025-06-30 13:08:17,255 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751310494135.csv
+2025-06-30 13:08:17,256 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 13:08:19,052 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 13:08:19,052 - INFO - ATTOM API attempt 1 for '14119 COYOTE POINTE, CYPRESS, 77433': {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, 77433'}
+2025-06-30 13:08:19,642 - INFO - Found property data for ATTOM ID 334724589 for '14119 COYOTE POINTE, CYPRESS, 77433' using params: {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, 77433'}
+2025-06-30 13:08:19,642 - INFO - Calculated equity: Market Value $840,570, Total Loans $726,200, Equity $114,370, LTV 86.4%
+2025-06-30 13:08:19,642 - INFO - Successfully enriched '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 13:08:19,642 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 13:08:19,652 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751310494135.csv
+2025-06-30 13:08:45,492 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751310524187.csv
+2025-06-30 13:08:45,492 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 13:08:46,220 - WARNING - USPS validation failed for '15335 GLENWOOD PARK, HOUSTON, 77095': HTTP 200
+2025-06-30 13:08:46,221 - INFO - ATTOM API attempt 1 for '15335 GLENWOOD PARK, HOUSTON, 77095': {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:08:48,515 - INFO - Found property data for ATTOM ID 26595632 for '15335 GLENWOOD PARK, HOUSTON, 77095' using params: {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:08:48,515 - INFO - Calculated equity: Market Value $255,059, Total Loans $141,523, Equity $113,536, LTV 55.5%
+2025-06-30 13:08:48,515 - INFO - Successfully enriched '15335 GLENWOOD PARK, HOUSTON, 77095'
+2025-06-30 13:08:48,515 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 13:08:48,522 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751310524187.csv
+2025-06-30 13:29:49,700 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751311787779.csv
+2025-06-30 13:29:49,700 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-06-30 13:29:50,156 - WARNING - USPS validation failed for '15335 GLENWOOD PARK, HOUSTON, 77095': HTTP 200
+2025-06-30 13:29:50,156 - INFO - ATTOM API attempt 1 for '15335 GLENWOOD PARK, HOUSTON, 77095': {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:29:50,797 - INFO - Found property data for ATTOM ID 26595632 for '15335 GLENWOOD PARK, HOUSTON, 77095' using params: {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:29:50,797 - INFO - Calculated equity: Market Value $255,059, Total Loans $141,523, Equity $113,536, LTV 55.5%
+2025-06-30 13:29:50,797 - INFO - Successfully enriched '15335 GLENWOOD PARK, HOUSTON, 77095'
+2025-06-30 13:29:50,797 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 13:29:50,807 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751311787779.csv
+2025-06-30 13:43:18,799 - INFO - Loaded 19 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_LPH_1751312597428.csv
+2025-06-30 13:43:18,800 - INFO - Starting batch enrichment of 19 addresses with max concurrency 10
+2025-06-30 13:43:21,704 - WARNING - USPS validation failed for '907 COMMERCE, HOUSTON, 77002': HTTP 200
+2025-06-30 13:43:21,704 - INFO - ATTOM API attempt 1 for '907 COMMERCE, HOUSTON, 77002': {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:21,709 - WARNING - USPS validation failed for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336': HTTP 200
+2025-06-30 13:43:21,717 - WARNING - USPS validation failed for '1415 FRANKLIN, HOUSTON, 77002': HTTP 200
+2025-06-30 13:43:21,725 - WARNING - USPS validation failed for '11746 KATHY, HOUSTON, 77071': HTTP 200
+2025-06-30 13:43:21,744 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 13:43:21,750 - WARNING - USPS validation failed for '15335 GLENWOOD PARK, HOUSTON, 77095': HTTP 200
+2025-06-30 13:43:21,813 - INFO - ATTOM API attempt 1 for '11746 KATHY, HOUSTON, 77071': {'address1': '11746 KATHY', 'address2': 'HOUSTON, 77071'}
+2025-06-30 13:43:21,813 - INFO - ATTOM API attempt 1 for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336': {'address1': '28487 HUFFMAN-NEW CANEY', 'address2': 'HUFFMAN, 77336'}
+2025-06-30 13:43:21,814 - INFO - ATTOM API attempt 1 for '15335 GLENWOOD PARK, HOUSTON, 77095': {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:43:21,814 - INFO - ATTOM API attempt 1 for '1415 FRANKLIN, HOUSTON, 77002': {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:21,814 - INFO - ATTOM API attempt 1 for '14119 COYOTE POINTE, CYPRESS, 77433': {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, 77433'}
+2025-06-30 13:43:21,827 - WARNING - USPS validation failed for '101 AUSTIN, HOUSTON, 77002': HTTP 200
+2025-06-30 13:43:21,899 - INFO - ATTOM API attempt 1 for '101 AUSTIN, HOUSTON, 77002': {'address1': '101 AUSTIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:21,931 - WARNING - USPS validation failed for '18622 BRISTOL POINT, TOMBALL, 77377': HTTP 200
+2025-06-30 13:43:21,942 - WARNING - USPS validation failed for '18414 WATER SCENE, CYPRESS, 77429': HTTP 200
+2025-06-30 13:43:22,001 - WARNING - USPS validation failed for '717 TEXAS, HOUSTON, 77002': HTTP 200
+2025-06-30 13:43:22,002 - INFO - ATTOM API attempt 1 for '717 TEXAS, HOUSTON, 77002': {'address1': '717 TEXAS', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:22,002 - INFO - ATTOM API attempt 1 for '18414 WATER SCENE, CYPRESS, 77429': {'address1': '18414 WATER SCENE', 'address2': 'CYPRESS, 77429'}
+2025-06-30 13:43:22,002 - INFO - ATTOM API attempt 1 for '18622 BRISTOL POINT, TOMBALL, 77377': {'address1': '18622 BRISTOL POINT', 'address2': 'TOMBALL, 77377'}
+2025-06-30 13:43:22,994 - INFO - Found property data for ATTOM ID 17330674 for '11746 KATHY, HOUSTON, 77071' using params: {'address1': '11746 KATHY', 'address2': 'HOUSTON, 77071'}
+2025-06-30 13:43:22,994 - INFO - Calculated equity: Market Value $268,137, Total Loans $180,666, Equity $87,471, LTV 67.4%
+2025-06-30 13:43:22,994 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-06-30 13:43:23,033 - INFO - Found property data for ATTOM ID 334724589 for '14119 COYOTE POINTE, CYPRESS, 77433' using params: {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, 77433'}
+2025-06-30 13:43:23,033 - INFO - Calculated equity: Market Value $840,570, Total Loans $726,200, Equity $114,370, LTV 86.4%
+2025-06-30 13:43:23,033 - INFO - Successfully enriched '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 13:43:23,052 - INFO - Found property data for ATTOM ID 165784821 for '101 AUSTIN, HOUSTON, 77002' using params: {'address1': '101 AUSTIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,052 - INFO - Successfully enriched '101 AUSTIN, HOUSTON, 77002'
+2025-06-30 13:43:23,070 - INFO - Found property data for ATTOM ID 47370044 for '907 COMMERCE, HOUSTON, 77002' using params: {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,070 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-06-30 13:43:23,430 - WARNING - USPS validation failed for '4239 BEARBERRY, BAYTOWN, 77521': HTTP 200
+2025-06-30 13:43:23,430 - INFO - ATTOM API attempt 1 for '4239 BEARBERRY, BAYTOWN, 77521': {'address1': '4239 BEARBERRY', 'address2': 'BAYTOWN, 77521'}
+2025-06-30 13:43:23,469 - WARNING - USPS validation failed for '12611 PIERSON HOLLOW, HUMBLE, 77346': HTTP 200
+2025-06-30 13:43:23,490 - WARNING - USPS validation failed for '31607 DUNHAM LAKE, HOCKLEY, 77447': HTTP 200
+2025-06-30 13:43:23,500 - WARNING - USPS validation failed for '1415 FRANKLIN, HOUSTON, 77002': HTTP 200
+2025-06-30 13:43:23,539 - INFO - ATTOM API attempt 1 for '31607 DUNHAM LAKE, HOCKLEY, 77447': {'address1': '31607 DUNHAM LAKE', 'address2': 'HOCKLEY, 77447'}
+2025-06-30 13:43:23,540 - INFO - ATTOM API attempt 1 for '1415 FRANKLIN, HOUSTON, 77002': {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,540 - INFO - ATTOM API attempt 1 for '12611 PIERSON HOLLOW, HUMBLE, 77346': {'address1': '12611 PIERSON HOLLOW', 'address2': 'HUMBLE, 77346'}
+2025-06-30 13:43:23,567 - INFO - Found property data for ATTOM ID 34624518 for '717 TEXAS, HOUSTON, 77002' using params: {'address1': '717 TEXAS', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,567 - INFO - Successfully enriched '717 TEXAS, HOUSTON, 77002'
+2025-06-30 13:43:23,604 - INFO - ATTOM API attempt 2 for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336': {'address': '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'}
+2025-06-30 13:43:23,611 - INFO - Found property data for ATTOM ID 155547377 for '18622 BRISTOL POINT, TOMBALL, 77377' using params: {'address1': '18622 BRISTOL POINT', 'address2': 'TOMBALL, 77377'}
+2025-06-30 13:43:23,611 - INFO - Calculated equity: Market Value $368,130, Total Loans $228,779, Equity $139,351, LTV 62.1%
+2025-06-30 13:43:23,611 - INFO - Successfully enriched '18622 BRISTOL POINT, TOMBALL, 77377'
+2025-06-30 13:43:23,647 - INFO - Found property data for ATTOM ID 165784818 for '1415 FRANKLIN, HOUSTON, 77002' using params: {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,647 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-06-30 13:43:23,674 - INFO - Found property data for ATTOM ID 24997982 for '18414 WATER SCENE, CYPRESS, 77429' using params: {'address1': '18414 WATER SCENE', 'address2': 'CYPRESS, 77429'}
+2025-06-30 13:43:23,674 - INFO - Calculated equity: Market Value $317,745, Total Loans $257,200, Equity $60,545, LTV 80.9%
+2025-06-30 13:43:23,674 - INFO - Successfully enriched '18414 WATER SCENE, CYPRESS, 77429'
+2025-06-30 13:43:23,700 - INFO - Found property data for ATTOM ID 26595632 for '15335 GLENWOOD PARK, HOUSTON, 77095' using params: {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:43:23,701 - INFO - Calculated equity: Market Value $255,059, Total Loans $141,523, Equity $113,536, LTV 55.5%
+2025-06-30 13:43:23,701 - INFO - Successfully enriched '15335 GLENWOOD PARK, HOUSTON, 77095'
+2025-06-30 13:43:23,747 - WARNING - USPS validation failed for '907 COMMERCE, HOUSTON, 77002': HTTP 200
+2025-06-30 13:43:23,747 - INFO - ATTOM API attempt 1 for '907 COMMERCE, HOUSTON, 77002': {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,767 - INFO - Found property data for ATTOM ID 317192773 for '4239 BEARBERRY, BAYTOWN, 77521' using params: {'address1': '4239 BEARBERRY', 'address2': 'BAYTOWN, 77521'}
+2025-06-30 13:43:23,768 - INFO - Calculated equity: Market Value $271,124, Total Loans $175,000, Equity $96,124, LTV 64.5%
+2025-06-30 13:43:23,768 - INFO - Successfully enriched '4239 BEARBERRY, BAYTOWN, 77521'
+2025-06-30 13:43:23,810 - INFO - Found property data for ATTOM ID 165784818 for '1415 FRANKLIN, HOUSTON, 77002' using params: {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:23,810 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-06-30 13:43:23,820 - WARNING - USPS validation failed for '1111 HERMANN, HOUSTON, 77004': HTTP 200
+2025-06-30 13:43:23,859 - INFO - ATTOM API attempt 1 for '1111 HERMANN, HOUSTON, 77004': {'address1': '1111 HERMANN', 'address2': 'HOUSTON, 77004'}
+2025-06-30 13:43:23,890 - INFO - Found property data for ATTOM ID 326538200 for '12611 PIERSON HOLLOW, HUMBLE, 77346' using params: {'address1': '12611 PIERSON HOLLOW', 'address2': 'HUMBLE, 77346'}
+2025-06-30 13:43:23,890 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-06-30 13:43:23,890 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-06-30 13:43:23,934 - INFO - Found property data for ATTOM ID 246393235 for '31607 DUNHAM LAKE, HOCKLEY, 77447' using params: {'address1': '31607 DUNHAM LAKE', 'address2': 'HOCKLEY, 77447'}
+2025-06-30 13:43:23,934 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-06-30 13:43:23,934 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-06-30 13:43:23,958 - WARNING - USPS validation failed for '17023 MORNING STAR, CROSBY, 77532': HTTP 200
+2025-06-30 13:43:23,966 - INFO - ATTOM API attempt 1 for '17023 MORNING STAR, CROSBY, 77532': {'address1': '17023 MORNING STAR', 'address2': 'CROSBY, 77532'}
+2025-06-30 13:43:23,969 - WARNING - USPS validation failed for '8114 WAHI, KATY, 77433': HTTP 200
+2025-06-30 13:43:24,049 - INFO - Found property data for ATTOM ID 47370044 for '907 COMMERCE, HOUSTON, 77002' using params: {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:43:24,050 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-06-30 13:43:24,072 - INFO - ATTOM API attempt 1 for '8114 WAHI, KATY, 77433': {'address1': '8114 WAHI', 'address2': 'KATY, 77433'}
+2025-06-30 13:43:24,132 - WARNING - USPS validation failed for '6009 MAIN, HOUSTON, 77009': HTTP 200
+2025-06-30 13:43:24,181 - INFO - ATTOM API attempt 1 for '6009 MAIN, HOUSTON, 77009': {'address1': '6009 MAIN', 'address2': 'HOUSTON, 77009'}
+2025-06-30 13:43:24,199 - INFO - Found property data for ATTOM ID 9559378 for '17023 MORNING STAR, CROSBY, 77532' using params: {'address1': '17023 MORNING STAR', 'address2': 'CROSBY, 77532'}
+2025-06-30 13:43:24,199 - INFO - Calculated equity: Market Value $196,200, Total Loans $312,667,000, Equity $-312,470,800, LTV 159361.4%
+2025-06-30 13:43:24,199 - INFO - Successfully enriched '17023 MORNING STAR, CROSBY, 77532'
+2025-06-30 13:43:24,227 - INFO - Found property data for ATTOM ID 252603192 for '1111 HERMANN, HOUSTON, 77004' using params: {'address1': '1111 HERMANN', 'address2': 'HOUSTON, 77004'}
+2025-06-30 13:43:24,227 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-06-30 13:43:24,342 - INFO - Found property data for ATTOM ID 334718590 for '8114 WAHI, KATY, 77433' using params: {'address1': '8114 WAHI', 'address2': 'KATY, 77433'}
+2025-06-30 13:43:24,342 - INFO - Calculated equity: Market Value $433,284, Total Loans $423,679, Equity $9,605, LTV 97.8%
+2025-06-30 13:43:24,343 - INFO - Successfully enriched '8114 WAHI, KATY, 77433'
+2025-06-30 13:43:24,396 - INFO - Found property data for ATTOM ID 167358397 for '6009 MAIN, HOUSTON, 77009' using params: {'address1': '6009 MAIN', 'address2': 'HOUSTON, 77009'}
+2025-06-30 13:43:24,396 - INFO - Successfully enriched '6009 MAIN, HOUSTON, 77009'
+2025-06-30 13:43:24,618 - WARNING - All ATTOM API attempts failed for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 13:43:24,618 - WARNING - No ATTOM property data found for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 13:43:24,618 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 13:43:24,618 - INFO - Completed batch enrichment. 19 results generated.
+2025-06-30 13:43:24,629 - INFO - Saved 19 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751312597433.csv
+2025-06-30 13:44:28,243 - INFO - Loaded 1 addresses from test_sample_address.csv
+2025-06-30 13:44:28,244 - INFO - Starting batch enrichment of 1 addresses with max concurrency 10
+2025-06-30 13:44:28,503 - INFO - Google Maps validated: '14119 COYOTE POINTE DR, CYPRESS, TX 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 13:44:28,504 - INFO - ATTOM API attempt 1 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 13:44:28,919 - INFO - Found property data for ATTOM ID 334724589 for '14119 Coyote Pointe Dr, Cypress, TX 77433' using params: {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 13:44:28,919 - INFO - Calculated equity: Market Value $840,570, Total Loans $726,200, Equity $114,370, LTV 86.4%
+2025-06-30 13:44:28,920 - INFO - Successfully enriched '14119 COYOTE POINTE DR, CYPRESS, TX 77433'
+2025-06-30 13:44:28,920 - INFO - Completed batch enrichment. 1 results generated.
+2025-06-30 13:44:28,927 - INFO - Saved 1 enriched records to test_output.csv
+2025-06-30 13:46:22,915 - INFO - Loaded 19 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_LPH_1751312781338.csv
+2025-06-30 13:46:22,916 - INFO - Starting batch enrichment of 19 addresses with max concurrency 10
+2025-06-30 13:46:23,194 - WARNING - USPS validation failed for '18414 WATER SCENE, CYPRESS, 77429': HTTP 200
+2025-06-30 13:46:23,194 - INFO - ATTOM API attempt 1 for '18414 WATER SCENE, CYPRESS, 77429': {'address1': '18414 WATER SCENE', 'address2': 'CYPRESS, 77429'}
+2025-06-30 13:46:23,196 - WARNING - USPS validation failed for '18622 BRISTOL POINT, TOMBALL, 77377': HTTP 200
+2025-06-30 13:46:23,196 - WARNING - USPS validation failed for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336': HTTP 200
+2025-06-30 13:46:23,197 - WARNING - USPS validation failed for '11746 KATHY, HOUSTON, 77071': HTTP 200
+2025-06-30 13:46:23,204 - WARNING - USPS validation failed for '14119 COYOTE POINTE, CYPRESS, 77433': HTTP 200
+2025-06-30 13:46:23,208 - WARNING - USPS validation failed for '907 COMMERCE, HOUSTON, 77002': HTTP 200
+2025-06-30 13:46:23,213 - WARNING - USPS validation failed for '1415 FRANKLIN, HOUSTON, 77002': HTTP 200
+2025-06-30 13:46:23,222 - WARNING - USPS validation failed for '15335 GLENWOOD PARK, HOUSTON, 77095': HTTP 200
+2025-06-30 13:46:23,272 - WARNING - USPS validation failed for '717 TEXAS, HOUSTON, 77002': HTTP 200
+2025-06-30 13:46:23,286 - INFO - ATTOM API attempt 1 for '907 COMMERCE, HOUSTON, 77002': {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,288 - INFO - ATTOM API attempt 1 for '15335 GLENWOOD PARK, HOUSTON, 77095': {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:46:23,288 - INFO - ATTOM API attempt 1 for '14119 COYOTE POINTE, CYPRESS, 77433': {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, 77433'}
+2025-06-30 13:46:23,314 - INFO - ATTOM API attempt 1 for '1415 FRANKLIN, HOUSTON, 77002': {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,315 - INFO - ATTOM API attempt 1 for '11746 KATHY, HOUSTON, 77071': {'address1': '11746 KATHY', 'address2': 'HOUSTON, 77071'}
+2025-06-30 13:46:23,315 - INFO - ATTOM API attempt 1 for '18622 BRISTOL POINT, TOMBALL, 77377': {'address1': '18622 BRISTOL POINT', 'address2': 'TOMBALL, 77377'}
+2025-06-30 13:46:23,316 - INFO - ATTOM API attempt 1 for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336': {'address1': '28487 HUFFMAN-NEW CANEY', 'address2': 'HUFFMAN, 77336'}
+2025-06-30 13:46:23,318 - INFO - ATTOM API attempt 1 for '717 TEXAS, HOUSTON, 77002': {'address1': '717 TEXAS', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,397 - WARNING - USPS validation failed for '101 AUSTIN, HOUSTON, 77002': HTTP 200
+2025-06-30 13:46:23,399 - INFO - ATTOM API attempt 1 for '101 AUSTIN, HOUSTON, 77002': {'address1': '101 AUSTIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,744 - INFO - Found property data for ATTOM ID 26595632 for '15335 GLENWOOD PARK, HOUSTON, 77095' using params: {'address1': '15335 GLENWOOD PARK', 'address2': 'HOUSTON, 77095'}
+2025-06-30 13:46:23,745 - INFO - Calculated equity: Market Value $255,059, Total Loans $141,523, Equity $113,536, LTV 55.5%
+2025-06-30 13:46:23,745 - INFO - Successfully enriched '15335 GLENWOOD PARK, HOUSTON, 77095'
+2025-06-30 13:46:23,757 - INFO - Found property data for ATTOM ID 17330674 for '11746 KATHY, HOUSTON, 77071' using params: {'address1': '11746 KATHY', 'address2': 'HOUSTON, 77071'}
+2025-06-30 13:46:23,757 - INFO - Calculated equity: Market Value $268,137, Total Loans $180,666, Equity $87,471, LTV 67.4%
+2025-06-30 13:46:23,757 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-06-30 13:46:23,769 - INFO - Found property data for ATTOM ID 334724589 for '14119 COYOTE POINTE, CYPRESS, 77433' using params: {'address1': '14119 COYOTE POINTE', 'address2': 'CYPRESS, 77433'}
+2025-06-30 13:46:23,769 - INFO - Calculated equity: Market Value $840,570, Total Loans $726,200, Equity $114,370, LTV 86.4%
+2025-06-30 13:46:23,769 - INFO - Successfully enriched '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 13:46:23,771 - INFO - Found property data for ATTOM ID 165784821 for '101 AUSTIN, HOUSTON, 77002' using params: {'address1': '101 AUSTIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,771 - INFO - Successfully enriched '101 AUSTIN, HOUSTON, 77002'
+2025-06-30 13:46:23,781 - INFO - ATTOM API attempt 2 for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336': {'address': '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'}
+2025-06-30 13:46:23,784 - INFO - Found property data for ATTOM ID 24997982 for '18414 WATER SCENE, CYPRESS, 77429' using params: {'address1': '18414 WATER SCENE', 'address2': 'CYPRESS, 77429'}
+2025-06-30 13:46:23,784 - INFO - Calculated equity: Market Value $317,745, Total Loans $257,200, Equity $60,545, LTV 80.9%
+2025-06-30 13:46:23,784 - INFO - Successfully enriched '18414 WATER SCENE, CYPRESS, 77429'
+2025-06-30 13:46:23,804 - INFO - Found property data for ATTOM ID 34624518 for '717 TEXAS, HOUSTON, 77002' using params: {'address1': '717 TEXAS', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,805 - INFO - Successfully enriched '717 TEXAS, HOUSTON, 77002'
+2025-06-30 13:46:23,824 - INFO - Found property data for ATTOM ID 165784818 for '1415 FRANKLIN, HOUSTON, 77002' using params: {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,824 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-06-30 13:46:23,825 - INFO - Found property data for ATTOM ID 47370044 for '907 COMMERCE, HOUSTON, 77002' using params: {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,825 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-06-30 13:46:23,841 - INFO - Found property data for ATTOM ID 155547377 for '18622 BRISTOL POINT, TOMBALL, 77377' using params: {'address1': '18622 BRISTOL POINT', 'address2': 'TOMBALL, 77377'}
+2025-06-30 13:46:23,842 - INFO - Calculated equity: Market Value $368,130, Total Loans $228,779, Equity $139,351, LTV 62.1%
+2025-06-30 13:46:23,842 - INFO - Successfully enriched '18622 BRISTOL POINT, TOMBALL, 77377'
+2025-06-30 13:46:23,854 - WARNING - USPS validation failed for '4239 BEARBERRY, BAYTOWN, 77521': HTTP 200
+2025-06-30 13:46:23,855 - INFO - ATTOM API attempt 1 for '4239 BEARBERRY, BAYTOWN, 77521': {'address1': '4239 BEARBERRY', 'address2': 'BAYTOWN, 77521'}
+2025-06-30 13:46:23,907 - WARNING - USPS validation failed for '1415 FRANKLIN, HOUSTON, 77002': HTTP 200
+2025-06-30 13:46:23,908 - WARNING - USPS validation failed for '31607 DUNHAM LAKE, HOCKLEY, 77447': HTTP 200
+2025-06-30 13:46:23,908 - WARNING - USPS validation failed for '12611 PIERSON HOLLOW, HUMBLE, 77346': HTTP 200
+2025-06-30 13:46:23,908 - WARNING - USPS validation failed for '1111 HERMANN, HOUSTON, 77004': HTTP 200
+2025-06-30 13:46:23,909 - WARNING - USPS validation failed for '907 COMMERCE, HOUSTON, 77002': HTTP 200
+2025-06-30 13:46:23,942 - WARNING - USPS validation failed for '6009 MAIN, HOUSTON, 77009': HTTP 200
+2025-06-30 13:46:23,942 - INFO - ATTOM API attempt 1 for '907 COMMERCE, HOUSTON, 77002': {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,943 - INFO - ATTOM API attempt 1 for '6009 MAIN, HOUSTON, 77009': {'address1': '6009 MAIN', 'address2': 'HOUSTON, 77009'}
+2025-06-30 13:46:23,954 - WARNING - USPS validation failed for '8114 WAHI, KATY, 77433': HTTP 200
+2025-06-30 13:46:23,954 - INFO - ATTOM API attempt 1 for '31607 DUNHAM LAKE, HOCKLEY, 77447': {'address1': '31607 DUNHAM LAKE', 'address2': 'HOCKLEY, 77447'}
+2025-06-30 13:46:23,956 - INFO - ATTOM API attempt 1 for '12611 PIERSON HOLLOW, HUMBLE, 77346': {'address1': '12611 PIERSON HOLLOW', 'address2': 'HUMBLE, 77346'}
+2025-06-30 13:46:23,956 - INFO - ATTOM API attempt 1 for '1111 HERMANN, HOUSTON, 77004': {'address1': '1111 HERMANN', 'address2': 'HOUSTON, 77004'}
+2025-06-30 13:46:23,957 - INFO - ATTOM API attempt 1 for '1415 FRANKLIN, HOUSTON, 77002': {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:23,991 - WARNING - USPS validation failed for '17023 MORNING STAR, CROSBY, 77532': HTTP 200
+2025-06-30 13:46:24,016 - WARNING - All ATTOM API attempts failed for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 13:46:24,016 - WARNING - No ATTOM property data found for '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 13:46:24,016 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 13:46:24,046 - INFO - ATTOM API attempt 1 for '8114 WAHI, KATY, 77433': {'address1': '8114 WAHI', 'address2': 'KATY, 77433'}
+2025-06-30 13:46:24,080 - INFO - ATTOM API attempt 1 for '17023 MORNING STAR, CROSBY, 77532': {'address1': '17023 MORNING STAR', 'address2': 'CROSBY, 77532'}
+2025-06-30 13:46:24,089 - INFO - Found property data for ATTOM ID 47370044 for '907 COMMERCE, HOUSTON, 77002' using params: {'address1': '907 COMMERCE', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:24,090 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-06-30 13:46:24,125 - INFO - Found property data for ATTOM ID 317192773 for '4239 BEARBERRY, BAYTOWN, 77521' using params: {'address1': '4239 BEARBERRY', 'address2': 'BAYTOWN, 77521'}
+2025-06-30 13:46:24,125 - INFO - Calculated equity: Market Value $271,124, Total Loans $175,000, Equity $96,124, LTV 64.5%
+2025-06-30 13:46:24,125 - INFO - Successfully enriched '4239 BEARBERRY, BAYTOWN, 77521'
+2025-06-30 13:46:24,170 - INFO - Found property data for ATTOM ID 326538200 for '12611 PIERSON HOLLOW, HUMBLE, 77346' using params: {'address1': '12611 PIERSON HOLLOW', 'address2': 'HUMBLE, 77346'}
+2025-06-30 13:46:24,170 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-06-30 13:46:24,170 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-06-30 13:46:24,171 - INFO - Found property data for ATTOM ID 246393235 for '31607 DUNHAM LAKE, HOCKLEY, 77447' using params: {'address1': '31607 DUNHAM LAKE', 'address2': 'HOCKLEY, 77447'}
+2025-06-30 13:46:24,171 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-06-30 13:46:24,171 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-06-30 13:46:24,237 - INFO - Found property data for ATTOM ID 252603192 for '1111 HERMANN, HOUSTON, 77004' using params: {'address1': '1111 HERMANN', 'address2': 'HOUSTON, 77004'}
+2025-06-30 13:46:24,238 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-06-30 13:46:24,238 - INFO - Found property data for ATTOM ID 165784818 for '1415 FRANKLIN, HOUSTON, 77002' using params: {'address1': '1415 FRANKLIN', 'address2': 'HOUSTON, 77002'}
+2025-06-30 13:46:24,238 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-06-30 13:46:24,247 - INFO - Found property data for ATTOM ID 167358397 for '6009 MAIN, HOUSTON, 77009' using params: {'address1': '6009 MAIN', 'address2': 'HOUSTON, 77009'}
+2025-06-30 13:46:24,247 - INFO - Successfully enriched '6009 MAIN, HOUSTON, 77009'
+2025-06-30 13:46:24,277 - INFO - Found property data for ATTOM ID 9559378 for '17023 MORNING STAR, CROSBY, 77532' using params: {'address1': '17023 MORNING STAR', 'address2': 'CROSBY, 77532'}
+2025-06-30 13:46:24,277 - INFO - Calculated equity: Market Value $196,200, Total Loans $312,667,000, Equity $-312,470,800, LTV 159361.4%
+2025-06-30 13:46:24,277 - INFO - Successfully enriched '17023 MORNING STAR, CROSBY, 77532'
+2025-06-30 13:46:24,289 - INFO - Found property data for ATTOM ID 334718590 for '8114 WAHI, KATY, 77433' using params: {'address1': '8114 WAHI', 'address2': 'KATY, 77433'}
+2025-06-30 13:46:24,289 - INFO - Calculated equity: Market Value $433,284, Total Loans $423,679, Equity $9,605, LTV 97.8%
+2025-06-30 13:46:24,289 - INFO - Successfully enriched '8114 WAHI, KATY, 77433'
+2025-06-30 13:46:24,289 - INFO - Completed batch enrichment. 19 results generated.
+2025-06-30 13:46:24,312 - INFO - Saved 19 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751312781338.csv
+2025-06-30 16:43:17,164 - INFO - Loaded 22 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_LPH_1751323393449.csv
+2025-06-30 16:43:17,175 - INFO - Starting batch enrichment of 22 addresses with max concurrency 10
+2025-06-30 16:43:17,414 - INFO - Google Maps validated: '14119 COYOTE POINTE, CYPRESS, 77433' -> '14119 Coyote Pointe Dr, Cypress, TX 77433'
+2025-06-30 16:43:17,414 - INFO - ATTOM API attempt 1 for '14119 Coyote Pointe Dr, Cypress, TX 77433': {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 16:43:17,414 - INFO - Google Maps validated: '11746 KATHY, HOUSTON, 77071' -> 'Houston, TX'
+2025-06-30 16:43:17,418 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-06-30 16:43:17,418 - INFO - Google Maps validated: '15335 GLENWOOD PARK, HOUSTON, 77095' -> '15335 Glenwood Park Drive, Houston, TX 77095'
+2025-06-30 16:43:17,423 - INFO - Google Maps validated: '1510 CONGRESS, HOUSTON, 77002' -> '1510 Congress Street, Houston, TX 77002'
+2025-06-30 16:43:17,424 - INFO - Google Maps validated: '907 COMMERCE, HOUSTON, 77002' -> '907 Commerce Street, Houston, TX 77002'
+2025-06-30 16:43:17,425 - INFO - Google Maps validated: '101 AUSTIN, HOUSTON, 77002' -> '101 Austin Street, Houston, TX 77002'
+2025-06-30 16:43:17,425 - INFO - Google Maps validated: '18622 BRISTOL POINT, TOMBALL, 77377' -> '18622 Bristol Point Lane, Tomball, TX 77377'
+2025-06-30 16:43:17,430 - INFO - Google Maps validated: '917 FRANKLIN, HOUSTON, 77002' -> '917 Franklin Street, Houston, TX 77002'
+2025-06-30 16:43:17,431 - INFO - Google Maps validated: '16013 DRIFTING ROSE, CYPRESS, 77429' -> '16013 Drifting Rose Cir, Cypress, TX 77429'
+2025-06-30 16:43:17,507 - INFO - ATTOM API attempt 1 for '907 Commerce Street, Houston, TX 77002': {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:17,508 - INFO - ATTOM API attempt 1 for '1510 Congress Street, Houston, TX 77002': {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:17,508 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:17,508 - INFO - ATTOM API attempt 1 for '15335 Glenwood Park Drive, Houston, TX 77095': {'address1': '15335 Glenwood Park Drive', 'address2': 'Houston, TX 77095'}
+2025-06-30 16:43:17,508 - INFO - ATTOM API attempt 1 for '917 Franklin Street, Houston, TX 77002': {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:17,509 - INFO - ATTOM API attempt 1 for '16013 Drifting Rose Cir, Cypress, TX 77429': {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-06-30 16:43:17,509 - INFO - ATTOM API attempt 1 for 'Houston, TX': {'address1': 'Houston', 'address2': 'TX'}
+2025-06-30 16:43:17,509 - INFO - ATTOM API attempt 1 for '18622 Bristol Point Lane, Tomball, TX 77377': {'address1': '18622 Bristol Point Lane', 'address2': 'Tomball, TX 77377'}
+2025-06-30 16:43:17,509 - INFO - ATTOM API attempt 1 for '101 Austin Street, Houston, TX 77002': {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:17,937 - INFO - Found property data for ATTOM ID 165784821 for '101 Austin Street, Houston, TX 77002' using params: {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:17,937 - INFO - Successfully enriched '101 AUSTIN, HOUSTON, 77002'
+2025-06-30 16:43:17,951 - INFO - Found property data for ATTOM ID 155547377 for '18622 Bristol Point Lane, Tomball, TX 77377' using params: {'address1': '18622 Bristol Point Lane', 'address2': 'Tomball, TX 77377'}
+2025-06-30 16:43:17,951 - INFO - Calculated equity: Market Value $368,130, Total Loans $228,779, Equity $139,351, LTV 62.1%
+2025-06-30 16:43:17,951 - INFO - Successfully enriched '18622 BRISTOL POINT, TOMBALL, 77377'
+2025-06-30 16:43:17,985 - INFO - Found property data for ATTOM ID 334724589 for '14119 Coyote Pointe Dr, Cypress, TX 77433' using params: {'address1': '14119 Coyote Pointe Dr', 'address2': 'Cypress, TX 77433'}
+2025-06-30 16:43:17,986 - INFO - Calculated equity: Market Value $840,570, Total Loans $726,200, Equity $114,370, LTV 86.4%
+2025-06-30 16:43:17,986 - INFO - Successfully enriched '14119 COYOTE POINTE, CYPRESS, 77433'
+2025-06-30 16:43:18,002 - INFO - Found property data for ATTOM ID 165784845 for '1510 Congress Street, Houston, TX 77002' using params: {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,002 - INFO - Successfully enriched '1510 CONGRESS, HOUSTON, 77002'
+2025-06-30 16:43:18,025 - INFO - Found property data for ATTOM ID 4100982 for '16013 Drifting Rose Cir, Cypress, TX 77429' using params: {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-06-30 16:43:18,025 - INFO - Successfully enriched '16013 DRIFTING ROSE, CYPRESS, 77429'
+2025-06-30 16:43:18,026 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,026 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-06-30 16:43:18,035 - INFO - Found property data for ATTOM ID 47370044 for '907 Commerce Street, Houston, TX 77002' using params: {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,035 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-06-30 16:43:18,043 - INFO - Google Maps validated: '18414 WATER SCENE, CYPRESS, 77429' -> '18414 Water Scene Trail, Cypress, TX 77429'
+2025-06-30 16:43:18,043 - INFO - ATTOM API attempt 1 for '18414 Water Scene Trail, Cypress, TX 77429': {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-06-30 16:43:18,048 - INFO - Found property data for ATTOM ID 167351362 for '917 Franklin Street, Houston, TX 77002' using params: {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,048 - INFO - Calculated equity: Market Value $3,325,478, Total Loans $3,650,000, Equity $-324,522, LTV 109.8%
+2025-06-30 16:43:18,048 - INFO - Successfully enriched '917 FRANKLIN, HOUSTON, 77002'
+2025-06-30 16:43:18,066 - INFO - Google Maps validated: '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336' -> '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-06-30 16:43:18,075 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-06-30 16:43:18,093 - INFO - Google Maps validated: '4239 BEARBERRY, BAYTOWN, 77521' -> '4239 Bearberry Avenue, Baytown, TX 77521'
+2025-06-30 16:43:18,095 - INFO - Google Maps validated: '717 TEXAS, HOUSTON, 77002' -> '717 Texas Street, Houston, TX 77002'
+2025-06-30 16:43:18,095 - INFO - Found property data for ATTOM ID 26595632 for '15335 Glenwood Park Drive, Houston, TX 77095' using params: {'address1': '15335 Glenwood Park Drive', 'address2': 'Houston, TX 77095'}
+2025-06-30 16:43:18,096 - INFO - Calculated equity: Market Value $255,059, Total Loans $141,523, Equity $113,536, LTV 55.5%
+2025-06-30 16:43:18,096 - INFO - Successfully enriched '15335 GLENWOOD PARK, HOUSTON, 77095'
+2025-06-30 16:43:18,097 - INFO - Google Maps validated: '907 COMMERCE, HOUSTON, 77002' -> '907 Commerce Street, Houston, TX 77002'
+2025-06-30 16:43:18,132 - INFO - ATTOM API attempt 1 for '717 Texas Street, Houston, TX 77002': {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,133 - INFO - ATTOM API attempt 1 for '4239 Bearberry Avenue, Baytown, TX 77521': {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-06-30 16:43:18,133 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,134 - INFO - ATTOM API attempt 1 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address1': '28487 Huffman-New Caney Road', 'address2': 'New Caney, TX 77357'}
+2025-06-30 16:43:18,134 - INFO - ATTOM API attempt 1 for '907 Commerce Street, Houston, TX 77002': {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,135 - INFO - Google Maps validated: '31607 DUNHAM LAKE, HOCKLEY, 77447' -> '31607 Dunham Lake Dr, Hockley, TX 77447'
+2025-06-30 16:43:18,142 - INFO - Google Maps validated: '12611 PIERSON HOLLOW, HUMBLE, 77346' -> '12611 Pierson Hollow Drive, Atascocita, TX 77346'
+2025-06-30 16:43:18,214 - INFO - Google Maps validated: '1111 HERMANN, HOUSTON, 77004' -> '1111 Hermann Drive, Houston, TX 77004'
+2025-06-30 16:43:18,245 - INFO - ATTOM API attempt 1 for '1111 Hermann Drive, Houston, TX 77004': {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-06-30 16:43:18,245 - INFO - ATTOM API attempt 1 for '31607 Dunham Lake Dr, Hockley, TX 77447': {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-06-30 16:43:18,246 - INFO - ATTOM API attempt 1 for '12611 Pierson Hollow Drive, Atascocita, TX 77346': {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-06-30 16:43:18,261 - INFO - Found property data for ATTOM ID 24997982 for '18414 Water Scene Trail, Cypress, TX 77429' using params: {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-06-30 16:43:18,261 - INFO - Calculated equity: Market Value $317,745, Total Loans $257,200, Equity $60,545, LTV 80.9%
+2025-06-30 16:43:18,261 - INFO - Successfully enriched '18414 WATER SCENE, CYPRESS, 77429'
+2025-06-30 16:43:18,272 - INFO - Found property data for ATTOM ID 244218207 for 'Houston, TX' using params: {'address1': 'Houston', 'address2': 'TX'}
+2025-06-30 16:43:18,272 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-06-30 16:43:18,287 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,287 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-06-30 16:43:18,315 - INFO - Found property data for ATTOM ID 34624518 for '717 Texas Street, Houston, TX 77002' using params: {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,315 - INFO - Successfully enriched '717 TEXAS, HOUSTON, 77002'
+2025-06-30 16:43:18,329 - INFO - Found property data for ATTOM ID 317192773 for '4239 Bearberry Avenue, Baytown, TX 77521' using params: {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-06-30 16:43:18,329 - INFO - Calculated equity: Market Value $271,124, Total Loans $175,000, Equity $96,124, LTV 64.5%
+2025-06-30 16:43:18,329 - INFO - Successfully enriched '4239 BEARBERRY, BAYTOWN, 77521'
+2025-06-30 16:43:18,347 - INFO - Found property data for ATTOM ID 47370044 for '907 Commerce Street, Houston, TX 77002' using params: {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,347 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-06-30 16:43:18,365 - INFO - Google Maps validated: '8114 WAHI, KATY, 77433' -> '8114 Wahi Ln, Cypress, TX 77433'
+2025-06-30 16:43:18,365 - INFO - ATTOM API attempt 1 for '8114 Wahi Ln, Cypress, TX 77433': {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-06-30 16:43:18,371 - INFO - Google Maps validated: '6009 MAIN, HOUSTON, 77009' -> '6009 Main Street, Houston, TX 77002'
+2025-06-30 16:43:18,394 - INFO - Google Maps validated: '17023 MORNING STAR, CROSBY, 77532' -> '17023 Morning Star Avenue, Crosby, TX 77532'
+2025-06-30 16:43:18,478 - INFO - ATTOM API attempt 1 for '6009 Main Street, Houston, TX 77002': {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:18,478 - INFO - ATTOM API attempt 1 for '17023 Morning Star Avenue, Crosby, TX 77532': {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-06-30 16:43:18,495 - INFO - Found property data for ATTOM ID 326538200 for '12611 Pierson Hollow Drive, Atascocita, TX 77346' using params: {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-06-30 16:43:18,495 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-06-30 16:43:18,495 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-06-30 16:43:18,578 - INFO - Found property data for ATTOM ID 252603192 for '1111 Hermann Drive, Houston, TX 77004' using params: {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-06-30 16:43:18,578 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-06-30 16:43:18,579 - INFO - Found property data for ATTOM ID 246393235 for '31607 Dunham Lake Dr, Hockley, TX 77447' using params: {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-06-30 16:43:18,579 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-06-30 16:43:18,579 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-06-30 16:43:18,579 - INFO - Found property data for ATTOM ID 334718590 for '8114 Wahi Ln, Cypress, TX 77433' using params: {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-06-30 16:43:18,580 - INFO - Calculated equity: Market Value $433,284, Total Loans $423,679, Equity $9,605, LTV 97.8%
+2025-06-30 16:43:18,580 - INFO - Successfully enriched '8114 WAHI, KATY, 77433'
+2025-06-30 16:43:18,880 - INFO - Found property data for ATTOM ID 9559378 for '17023 Morning Star Avenue, Crosby, TX 77532' using params: {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-06-30 16:43:18,881 - INFO - Calculated equity: Market Value $196,200, Total Loans $312,667,000, Equity $-312,470,800, LTV 159361.4%
+2025-06-30 16:43:18,881 - INFO - Successfully enriched '17023 MORNING STAR, CROSBY, 77532'
+2025-06-30 16:43:19,138 - INFO - ATTOM API attempt 2 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road', 'locality': 'New Caney', 'postalcode': '77357'}
+2025-06-30 16:43:19,433 - INFO - ATTOM API attempt 3 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road, New Caney, TX 77357'}
+2025-06-30 16:43:19,857 - INFO - Found property data for ATTOM ID 167358397 for '6009 Main Street, Houston, TX 77002' using params: {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-06-30 16:43:19,857 - INFO - Successfully enriched '6009 MAIN, HOUSTON, 77009'
+2025-06-30 16:43:20,492 - WARNING - All ATTOM API attempts failed for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-06-30 16:43:20,492 - WARNING - No ATTOM property data found for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-06-30 16:43:20,492 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-06-30 16:43:20,492 - INFO - Completed batch enrichment. 22 results generated.
+2025-06-30 16:43:20,504 - INFO - Saved 22 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751323393451.csv

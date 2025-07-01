@@ -146,6 +146,7 @@ model User {
   brevardFlFilings      brevard_fl_filing[]
   fultonGaFilings       fulton_ga_filing[]
   hillsboroughNhFilings hillsborough_nh_filing[]
+  harrisCountyFilings   harris_county_filing[]
   lisPendensFilings     lis_pendens_filing[]
   mdCaseSearchFilings   md_case_search_filing[]
   scrapingJobs          scraping_job[]
@@ -218,4 +219,28 @@ model cobb_ga_filings {
 
   @@index([tax_deed_dated], map: "idx_cobb_ga_filings_tax_deed_dated")
   @@index([user_id], map: "idx_cobb_ga_filings_user_id")
+}
+
+model harris_county_filing {
+  case_number      String   @id                     // Primary key (case #)
+  filing_date      DateTime?
+  doc_type         String?
+  subdivision      String?
+  section          String?
+  block            String?
+  lot              String?
+  property_address String?
+  parcel_id        String?
+  ai_summary       String?
+  county           String?  @default("Harris")
+  state            String?  @default("TX")
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  is_new           Boolean  @default(true)
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+
+  @@map("harris_county_filing")
 }
