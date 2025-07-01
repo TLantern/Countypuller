@@ -167,22 +167,6 @@ const cobbGaColumns: GridColDef[] = [
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
 ];
 
-// Columns for Harris County Enriched users
-const harrisCountyColumns: GridColDef[] = [
-  { field: 'case_number', headerName: 'Case #', minWidth: 120, maxWidth: 140, flex: 0.8 },
-  { field: 'filing_date', headerName: 'Filing Date', minWidth: 110, maxWidth: 130, flex: 0.7 },
-  { field: 'subdivision', headerName: 'Subdivision', minWidth: 150, maxWidth: 200, flex: 1.2 },
-  { field: 'section', headerName: 'Sec', minWidth: 50, maxWidth: 70, flex: 0.4 },
-  { field: 'block', headerName: 'Block', minWidth: 50, maxWidth: 70, flex: 0.4 },
-  { field: 'lot', headerName: 'Lot', minWidth: 50, maxWidth: 70, flex: 0.4 },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 200, maxWidth: 250, flex: 1.5, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
-  { field: 'parcel_id', headerName: 'Parcel ID', minWidth: 120, maxWidth: 150, flex: 0.9 },
-  { field: 'ai_summary', headerName: 'AI Summary', minWidth: 300, maxWidth: 400, flex: 2, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
-  { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
-  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
-  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-];
-
 // Types for different record types
 interface LisPendensRecord {
   case_number: string;
@@ -270,23 +254,6 @@ interface CobbGaRecord {
   county: string;
   book_page: string;
   document_link: string;
-  state: string;
-  created_at: string;
-  is_new: boolean;
-}
-
-interface HarrisCountyRecord {
-  case_number: string;
-  filing_date: string;
-  doc_type: string;
-  subdivision: string;
-  section: string;
-  block: string;
-  lot: string;
-  property_address: string;
-  parcel_id: string;
-  ai_summary: string;
-  county: string;
   state: string;
   created_at: string;
   is_new: boolean;
@@ -537,12 +504,11 @@ export default function Dashboard() {
   const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
   const onboardingCounties = ["Harris", "Dallas", "Tarrant", "Bexar", "Travis"];
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord | FultonGaRecord | CobbGaRecord | HarrisCountyRecord)[]>([]);
+  const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord | FultonGaRecord | CobbGaRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
   const [userType, setUserType] = useState<string>('LPH');
   const [county, setCounty] = useState('Harris');
   const counties = ['Harris', 'Fort Bend', 'Montgomery'];
-  const [useEnrichedData, setUseEnrichedData] = useState<boolean>(true);
   const [pulling, setPulling] = useState(false);
   const [pullResult, setPullResult] = useState<null | 'success' | 'error'>(null);
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
@@ -573,7 +539,6 @@ export default function Dashboard() {
                       userType === 'BREVARD_FL' ? '/api/brevard-fl' :
                       userType === 'FULTON_GA' ? '/api/fulton-ga' :
                       userType === 'COBB_GA' ? '/api/cobb-ga' :
-                      (userType === 'LPH' && useEnrichedData) ? '/api/harris-county' :
                       '/api/lis-pendens';
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -610,7 +575,7 @@ export default function Dashboard() {
     if (userType) {
       fetchData();
     }
-  }, [userType, useEnrichedData]);
+  }, [userType]);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -822,7 +787,7 @@ export default function Dashboard() {
           (r as FultonGaRecord).case_number :
           userType === 'COBB_GA' ?
           (r as CobbGaRecord).case_number :
-          (r as LisPendensRecord | MdCaseSearchRecord | HarrisCountyRecord).case_number;
+          (r as LisPendensRecord | MdCaseSearchRecord).case_number;
         return currentId === recordId ? { ...r, is_new: false } : r;
       })
     );
@@ -846,9 +811,6 @@ export default function Dashboard() {
       } else if (userType === 'COBB_GA') {
         endpoint = `/api/cobb-ga`;
         body = JSON.stringify({ case_number: recordId, is_new: false });
-      } else if (userType === 'LPH' && useEnrichedData) {
-        endpoint = `/api/harris-county`;
-        body = JSON.stringify({ case_number: recordId, is_new: false });
       } else {
         endpoint = `/api/lis-pendens/${recordId}`;
         body = JSON.stringify({ is_new: false });
@@ -871,14 +833,12 @@ export default function Dashboard() {
                   userType === 'BREVARD_FL' ? brevardFlColumns :
                   userType === 'FULTON_GA' ? fultonGaColumns :
                   userType === 'COBB_GA' ? cobbGaColumns :
-                  (userType === 'LPH' && useEnrichedData) ? harrisCountyColumns :
                   lphColumns;
   const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
                        userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH Records' : 
                        userType === 'BREVARD_FL' ? 'Brevard FL Records' :
                        userType === 'FULTON_GA' ? 'Fulton GA Records' :
                        userType === 'COBB_GA' ? 'Cobb GA Records' :
-                       (userType === 'LPH' && useEnrichedData) ? `${county} County Records (AI Enhanced)` :
                        `${county} County Records`;
   const loadingMessage = userType === 'MD_CASE_SEARCH' 
     ? 'Scraping records from Maryland Case Search...'
@@ -1122,19 +1082,6 @@ export default function Dashboard() {
                           {selectedDocTypes.join(', ')}
                         </span>
                       )}
-                      {userType === 'LPH' && (
-                        <button
-                          onClick={() => setUseEnrichedData(!useEnrichedData)}
-                          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                            useEnrichedData 
-                              ? 'bg-blue-600 text-white' 
-                              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                          }`}
-                          title={useEnrichedData ? 'Switch to basic records' : 'Switch to AI-enhanced records with addresses and summaries'}
-                        >
-                          {useEnrichedData ? '🤖 AI Enhanced' : '📋 Basic'}
-                        </button>
-                      )}
                     </div>
                     
                     <ExportButton 
@@ -1158,7 +1105,7 @@ export default function Dashboard() {
                         } else if (userType === 'COBB_GA') {
                           id = (row as CobbGaRecord).case_number;
                         } else {
-                          id = (row as LisPendensRecord | MdCaseSearchRecord | HarrisCountyRecord).case_number;
+                          id = (row as LisPendensRecord | MdCaseSearchRecord).case_number;
                         }
                         
                         // Ensure we always return a valid string ID
