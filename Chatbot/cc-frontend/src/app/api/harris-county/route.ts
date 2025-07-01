@@ -18,18 +18,16 @@ export async function GET(req: NextRequest) {
       select: { userType: true }
     });
     
-    if (!user || user.userType !== 'LPH') {
+    // Allow both legacy LPH users and new AGENT_SCRAPER users
+    const allowedTypes = ['LPH', 'AGENT', 'AGENT_SCRAPER', 'ADMIN'];
+    if (!user || !allowedTypes.includes(user.userType)) {
       return NextResponse.json({ 
         error: 'Access denied - user not authorized for Harris County records'
       }, { status: 403 });
     }
     
-    // Fetch Harris County enriched records for this user
-    const records = await prisma.harris_county_filing.findMany({
-      where: { userId },
-      orderBy: { created_at: 'desc' },
-      take: 1000  // Limit to 1000 records for performance
-    });
+    // Fetch Harris County records directly via raw SQL to avoid Prisma model mismatch
+    const records: any[] = await prisma.$queryRaw`SELECT * FROM harris_county_filing WHERE "userId" = ${userId} ORDER BY created_at DESC LIMIT 1000`;
     
     // Format the data for the frontend
     const formattedRecords = records.map((record: any) => ({
@@ -73,7 +71,9 @@ export async function PATCH(req: NextRequest) {
       select: { userType: true }
     });
     
-    if (!user || user.userType !== 'LPH') {
+    // Allow both legacy LPH users and new AGENT_SCRAPER users
+    const allowedTypes = ['LPH', 'AGENT', 'AGENT_SCRAPER', 'ADMIN'];
+    if (!user || !allowedTypes.includes(user.userType)) {
       return NextResponse.json({ 
         error: 'Access denied - user not authorized for Harris County records'
       }, { status: 403 });

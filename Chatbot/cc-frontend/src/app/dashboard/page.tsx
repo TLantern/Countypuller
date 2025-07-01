@@ -28,7 +28,391 @@ import { useFeedback } from '@/context/FeedbackContext';
 import { MessageSquare } from 'lucide-react';
 // Dynamic imports used in export functions to avoid SSR issues
 
-// Custom CSS for the slider
+const SkipTraceButton = ({ address }: { address?: string }) => {
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<any>(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const handleSkipTrace = async () => {
+    if (!address || !address.trim()) {
+      alert('No address available for skip trace');
+      return;
+    }
+
+    setLoading(true);
+    setResult(null);
+
+    try {
+      const response = await fetch('/api/skip-trace', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ address }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        setResult(data.data);
+        setShowResult(true);
+      } else {
+        alert(`Skip trace failed: ${data.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Skip trace error:', error);
+      alert('Skip trace failed: Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <button
+        onClick={handleSkipTrace}
+        disabled={loading || !address}
+        className={`text-sm px-2 py-1 rounded ${
+          loading 
+            ? 'bg-gray-400 text-white cursor-not-allowed' 
+            : 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
+        }`}
+        title={address ? `Skip trace for ${address}` : 'No address available'}
+      >
+        {loading ? 'Tracing...' : 'Trace'}
+      </button>
+
+      {/* Results Modal */}
+      {showResult && result && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Skip Trace Results</h3>
+              <button
+                onClick={() => setShowResult(false)}
+                className="text-gray-400 hover:text-gray-600 text-xl"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="space-y-4 text-gray-800">
+              <div>
+                <label className="font-semibold">Original Address:</label>
+                <p className="bg-gray-50 p-2 rounded">{result.raw_address}</p>
+              </div>
+              
+              <div>
+                <label className="font-semibold">Canonical Address:</label>
+                <p className="bg-gray-50 p-2 rounded">{result.canonical_address}</p>
+              </div>
+              
+              {result.attomid && (
+                <div>
+                  <label className="font-semibold">ATTOM Property ID:</label>
+                  <p className="bg-gray-50 p-2 rounded">{result.attomid}</p>
+                </div>
+              )}
+              
+              {result.est_balance && (
+                <div>
+                  <label className="font-semibold">Estimated Loan Balance:</label>
+                  <p className="bg-green-50 p-2 rounded text-green-800 font-semibold">
+                    ${result.est_balance.toLocaleString()}
+                  </p>
+                </div>
+              )}
+              
+              {result.available_equity && (
+                <div>
+                  <label className="font-semibold">Available Equity:</label>
+                  <p className="bg-blue-50 p-2 rounded text-blue-800 font-semibold">
+                    ${result.available_equity.toLocaleString()}
+                  </p>
+                </div>
+              )}
+              
+              {result.ltv && (
+                <div>
+                  <label className="font-semibold">Loan-to-Value (LTV):</label>
+                  <p className="bg-yellow-50 p-2 rounded text-yellow-800 font-semibold">
+                    {(result.ltv * 100).toFixed(1)}%
+                  </p>
+                </div>
+              )}
+              
+              {result.loans_count > 0 && (
+                <div>
+                  <label className="font-semibold">Number of Loans:</label>
+                  <p className="bg-gray-50 p-2 rounded">{result.loans_count}</p>
+                </div>
+              )}
+              
+              <div className="text-sm text-gray-500">
+                <label className="font-semibold">Processed at:</label>
+                <p>{new Date(result.processed_at).toLocaleString()}</p>
+              </div>
+            </div>
+            
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setShowResult(false)}
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
+  const [processing, setProcessing] = useState(false);
+  const [results, setResults] = useState<any[]>([]);
+  const [summary, setSummary] = useState<any>(null);
+  const [showResults, setShowResults] = useState(false);
+
+  const handleHot20Click = async () => {
+    setProcessing(true);
+    setResults([]);
+    setSummary(null);
+    
+    try {
+      console.log('Starting Hot 20 analysis for', data.length, 'current dashboard records');
+      
+      // Extract addresses from current dashboard data
+      const currentProperties = data
+        .filter(record => {
+          // Get property address based on user type
+          const address = userType === 'HILLSBOROUGH_NH' ? record.property_address :
+                         userType === 'BREVARD_FL' ? record.property_address :
+                         userType === 'MD_CASE_SEARCH' ? record.property_address :
+                         userType === 'LPH' ? record.property_address :
+                         null;
+          return address && address.trim() !== '';
+        })
+        .map(record => ({
+          id: record.case_number || record.document_number || record.id,
+          address: userType === 'HILLSBOROUGH_NH' ? record.property_address :
+                  userType === 'BREVARD_FL' ? record.property_address :
+                  userType === 'MD_CASE_SEARCH' ? record.property_address :
+                  userType === 'LPH' ? record.property_address :
+                  '',
+          original_record: record
+        }));
+
+      if (currentProperties.length === 0) {
+        alert('No properties with addresses found in current dashboard data');
+        return;
+      }
+
+      console.log(`Found ${currentProperties.length} properties with addresses to analyze`);
+      
+      const response = await fetch('/api/hot-20', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          userType,
+          properties: currentProperties
+        }),
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success) {
+        setResults(responseData.data);
+        setSummary(responseData.summary);
+        setShowResults(true);
+        console.log('Hot 20 analysis complete:', responseData);
+      } else {
+        alert(`Hot 20 analysis failed: ${responseData.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Hot 20 error:', error);
+      alert('Hot 20 analysis failed: Network error');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  return (
+    <>
+      <button
+        onClick={handleHot20Click}
+        disabled={processing || data.length === 0}
+        className={`
+          hot-gradient text-white font-bold py-2 px-4 rounded-lg shadow-lg 
+          transition-all duration-200 flex items-center gap-2 transform
+          ${processing || data.length === 0 
+            ? 'opacity-50 cursor-not-allowed' 
+            : 'hover:shadow-2xl hover:scale-105 active:scale-95 active:shadow-md cursor-pointer'
+          }
+        `}
+        title={data.length === 0 ? 'No data available' : 'Analyze top 20 hottest prospects by equity and LTV'}
+      >
+        <span className="text-lg">🔥</span>
+        <span className="font-semibold">
+          {processing ? 'Analyzing...' : 'Hot 20'}
+        </span>
+      </button>
+
+      {/* Hot 20 Results Modal */}
+      {showResults && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-2xl">🔥</span>
+                Hot 20 Analysis Results
+              </h2>
+              <button
+                onClick={() => setShowResults(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+            
+            {/* Summary Statistics */}
+            {summary && (
+              <div className="bg-gradient-to-r from-red-50 to-green-50 p-4 rounded-lg mb-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">Analysis Summary</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="bg-white p-3 rounded shadow">
+                    <div className="text-gray-600">Total Properties</div>
+                    <div className="text-xl font-bold text-blue-600">{summary.total_properties_analyzed}</div>
+                  </div>
+                  <div className="bg-white p-3 rounded shadow">
+                    <div className="text-gray-600">With Equity Data</div>
+                    <div className="text-xl font-bold text-green-600">{summary.properties_with_equity}</div>
+                  </div>
+                  <div className="bg-white p-3 rounded shadow">
+                    <div className="text-gray-600">Avg Equity</div>
+                    <div className="text-xl font-bold text-green-700">
+                      ${Math.round(summary.avg_equity).toLocaleString()}
+                    </div>
+                  </div>
+                  <div className="bg-white p-3 rounded shadow">
+                    <div className="text-gray-600">Avg LTV</div>
+                    <div className="text-xl font-bold text-red-600">
+                      {(summary.avg_ltv * 100).toFixed(1)}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Results Table */}
+            {results.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="text-left p-3 font-semibold">#</th>
+                      <th className="text-left p-3 font-semibold">Property Address</th>
+                      <th className="text-left p-3 font-semibold">Available Equity</th>
+                      <th className="text-left p-3 font-semibold">LTV Ratio</th>
+                      <th className="text-left p-3 font-semibold">Loan Balance</th>
+                      <th className="text-left p-3 font-semibold">Market Value</th>
+                      <th className="text-left p-3 font-semibold">ATTOM ID</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {results.map((property, index) => (
+                      <tr key={property.id} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                        <td className="p-3 font-bold text-gray-600">#{index + 1}</td>
+                        <td className="p-3">
+                          <div className="font-medium text-gray-900">{property.property_address}</div>
+                          {property.canonical_address !== property.property_address && (
+                            <div className="text-xs text-gray-500">{property.canonical_address}</div>
+                          )}
+                        </td>
+                        <td className="p-3">
+                          <span className="font-bold text-green-700 text-lg">
+                            ${property.available_equity?.toLocaleString() || 'N/A'}
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <span className={`font-bold text-lg ${
+                            (property.ltv || 0) < 0.8 ? 'text-green-600' : 
+                            (property.ltv || 0) < 0.9 ? 'text-yellow-600' : 'text-red-600'
+                          }`}>
+                            {property.ltv ? `${(property.ltv * 100).toFixed(1)}%` : 'N/A'}
+                          </span>
+                        </td>
+                        <td className="p-3 text-gray-700">
+                          ${property.est_balance?.toLocaleString() || 'N/A'}
+                        </td>
+                        <td className="p-3 text-gray-700">
+                          ${property.market_value?.toLocaleString() || 'N/A'}
+                        </td>
+                        <td className="p-3 text-xs text-gray-500 font-mono">
+                          {property.attomid || 'N/A'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <div className="text-4xl mb-4">🔍</div>
+                <div className="text-lg font-medium">No properties found with equity data</div>
+                <div className="text-sm">Try running data collection first or check your ATTOM API configuration</div>
+              </div>
+            )}
+            
+            <div className="mt-6 flex justify-end gap-3">
+              {results.length > 0 && (
+                <button
+                  onClick={() => {
+                    // Export functionality could be added here
+                    const csvContent = [
+                      ['Rank', 'Property Address', 'Available Equity', 'LTV Ratio', 'Loan Balance', 'Market Value', 'ATTOM ID'],
+                      ...results.map((p, i) => [
+                        i + 1,
+                        p.property_address,
+                        p.available_equity || '',
+                        p.ltv ? (p.ltv * 100).toFixed(2) + '%' : '',
+                        p.est_balance || '',
+                        p.market_value || '',
+                        p.attomid || ''
+                      ])
+                    ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+                    
+                    const blob = new Blob([csvContent], { type: 'text/csv' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `hot20_${userType}_${new Date().toISOString().split('T')[0]}.csv`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                  }}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium"
+                >
+                  Export CSV
+                </button>
+              )}
+              <button
+                onClick={() => setShowResults(false)}
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+// Custom CSS for the slider and Hot 20 button
 const sliderStyles = `
   .slider::-webkit-slider-thumb {
     appearance: none;
@@ -49,36 +433,23 @@ const sliderStyles = `
     border: 2px solid #1e40af;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
+  .hot-gradient {
+    background: linear-gradient(45deg, #dc2626, #16a34a, #dc2626, #16a34a);
+    background-size: 400% 400%;
+    animation: hotGradientShift 3s ease-in-out infinite;
+  }
+  @keyframes hotGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 `;
 
-const PropertyAddressCell = ({ value }: { value: string }) => {
-  const [open, setOpen] = React.useState(false);
+const PropertyAddressCell = ({ value, row }: { value?: string; row: any }) => {
+  // Prefer explicit value, otherwise fallback to row.address / row.property_address
+  const text = (value && value.trim()) ? value : (row.address || row.property_address || '—');
   return (
-    <>
-      <div
-        style={{
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          maxWidth: 200,
-          cursor: 'pointer',
-          borderBottom: '1px dashed #888',
-        }}
-        title="Click to view full address"
-        onClick={() => setOpen(true)}
-      >
-        {value}
-      </div>
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Full Address</DialogTitle>
-        <DialogContent>
-          <div style={{ maxWidth: 400, wordBreak: 'break-word' }}>{value}</div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <span style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>{text}</span>
   );
 };
 
@@ -86,15 +457,14 @@ const PropertyAddressCell = ({ value }: { value: string }) => {
 const lphColumns: GridColDef[] = [
   { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
   { field: 'case_url', headerName: 'Case URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> },
-  { field: 'file_date', headerName: 'File Date', minWidth: 90, maxWidth: 110, flex: 0.7 },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 120, maxWidth: 180, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
-  { field: 'filing_no', headerName: 'Filing No', minWidth: 60, maxWidth: 80, flex: 0.5 },
-  { field: 'volume_no', headerName: 'Volume No', minWidth: 60, maxWidth: 80, flex: 0.5 },
-  { field: 'page_no', headerName: 'Page No', minWidth: 60, maxWidth: 80, flex: 0.5 },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 250, flex: 2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
   { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
   { field: 'doc_type', headerName: 'Doc Type', minWidth: 60, maxWidth: 80, flex: 0.5 },
+  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+    <SkipTraceButton address={params.row.property_address} />
+  ) },
 ];
 
 // Columns for Maryland Case Search users
@@ -105,10 +475,13 @@ const mdCaseSearchColumns: GridColDef[] = [
   { field: 'party_name', headerName: 'Party Name', minWidth: 150, maxWidth: 200, flex: 1 },
   { field: 'case_type', headerName: 'Case Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
   { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 120, maxWidth: 180, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
-  { field: 'defendant_info', headerName: 'Parties', minWidth: 150, maxWidth: 200, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 150, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
+  { field: 'defendant_info', headerName: 'Parties', minWidth: 150, maxWidth: 200, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+    <SkipTraceButton address={params.row.property_address} />
+  ) },
 ];
 
 // Columns for Hillsborough NH users
@@ -119,11 +492,14 @@ const hillsboroughNhColumns: GridColDef[] = [
   { field: 'instrument_type', headerName: 'Type', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'grantor', headerName: 'Grantor', minWidth: 120, maxWidth: 160, flex: 1 },
   { field: 'grantee', headerName: 'Grantee', minWidth: 120, maxWidth: 160, flex: 1 },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 150, maxWidth: 200, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 150, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
   { field: 'consideration', headerName: 'Amount', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'county', headerName: 'County', minWidth: 100, maxWidth: 120, flex: 0.7 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+    <SkipTraceButton address={params.row.property_address} />
+  ) },
 ];
 
 // Columns for Brevard FL users
@@ -133,10 +509,13 @@ const brevardFlColumns: GridColDef[] = [
   { field: 'file_date', headerName: 'Record Date', minWidth: 110, maxWidth: 130, flex: 0.7 },
   { field: 'case_type', headerName: 'Doc Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
   { field: 'party_name', headerName: 'Party Name', minWidth: 150, maxWidth: 200, flex: 1.2 },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 150, maxWidth: 200, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} /> },
+  { field: 'property_address', headerName: 'Property Address', minWidth: 150, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
   { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+    <SkipTraceButton address={params.row.property_address} />
+  ) },
 ];
 
 // Columns for Fulton GA users
@@ -151,6 +530,9 @@ const fultonGaColumns: GridColDef[] = [
   { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+    <SkipTraceButton address={params.row.property_address} />
+  ) },
 ];
 
 // Columns for Cobb GA users
@@ -165,6 +547,9 @@ const cobbGaColumns: GridColDef[] = [
   { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+    <SkipTraceButton address={params.row.property_address} />
+  ) },
 ];
 
 // Types for different record types
@@ -258,6 +643,15 @@ interface CobbGaRecord {
   created_at: string;
   is_new: boolean;
 }
+
+// Add a union type covering every possible record shape used by the grid
+type AnyRecord =
+  | LisPendensRecord
+  | MdCaseSearchRecord
+  | HillsboroughNhRecord
+  | BrevardFlRecord
+  | FultonGaRecord
+  | CobbGaRecord;
 
 // Export Button Component
 interface ExportButtonProps {
@@ -408,7 +802,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-200 flex items-center gap-2"
+        className="bg-blue-800 hover:bg-blue-900 active:bg-blue-950 text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl active:shadow-md transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a4 4 0 01-4-4V5a4 4 0 014-4h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a4 4 0 01-4 4z" />
@@ -424,7 +818,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
           <div className="py-2">
             <button
               onClick={exportToCSV}
-              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-gray-200 transform active:scale-95 transition-all duration-150 flex items-center gap-2"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -433,7 +827,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
             </button>
             <button
               onClick={exportToExcel}
-              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-gray-200 transform active:scale-95 transition-all duration-150 flex items-center gap-2"
             >
               <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -442,7 +836,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
             </button>
             <button
               onClick={exportToPDF}
-              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+              className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-gray-200 transform active:scale-95 transition-all duration-150 flex items-center gap-2"
             >
               <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707L14.586 4.586A1 1 0 0014 4.293V2a1 1 0 00-1-1H7a2 2 0 00-2 2v16a2 2 0 002 2z" />
@@ -459,40 +853,49 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
 interface ProgressBarProps {
   jobStatus: string;
   pulling: boolean;
-  recordsProcessed?: number;
-  maxRecords?: number;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ jobStatus, pulling, recordsProcessed, maxRecords }) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({ jobStatus, pulling }) => {
   const [progress, setProgress] = React.useState(0);
+  const [startTime, setStartTime] = React.useState<number | null>(null);
+  
   React.useEffect(() => {
-    if (pulling && typeof recordsProcessed === 'number' && typeof maxRecords === 'number' && maxRecords > 0) {
-      setProgress(Math.min(100, Math.round((recordsProcessed / maxRecords) * 100)));
-    } else if (pulling) {
-      setProgress(0);
-      let pct = 0;
+    if (pulling && jobStatus === 'IN_PROGRESS') {
+      // Set start time when pulling begins
+      if (!startTime) {
+        setStartTime(Date.now());
+      }
+      
       const interval = setInterval(() => {
-        pct += Math.random() * 8 + 2;
-        if (pct >= 98) pct = 98;
-        setProgress(pct);
-      }, 300);
+        const now = Date.now();
+        const elapsed = now - (startTime || now);
+        const threeMinutes = 3 * 60 * 1000; // 3 minutes in milliseconds
+        
+        // Calculate progress as percentage of 3 minutes, max 98%
+        const calculatedProgress = Math.min(98, (elapsed / threeMinutes) * 100);
+        setProgress(calculatedProgress);
+      }, 100); // Update every 100ms for smooth animation
+      
       return () => clearInterval(interval);
-    } else {
+    } else if (!pulling) {
+      // Reset when not pulling
       setProgress(0);
+      setStartTime(null);
     }
-  }, [pulling, recordsProcessed, maxRecords]);
+  }, [pulling, jobStatus, startTime]);
+  
   React.useEffect(() => {
-    if (jobStatus === 'COMPLETED') setProgress(100);
+    if (jobStatus === 'COMPLETED') {
+      setProgress(100);
+    }
   }, [jobStatus]);
+  
   return (
     <div style={{ width: '100%', maxWidth: 400, margin: '0 auto 16px auto' }}>
       <div style={{ height: 12, background: '#e5e7eb', borderRadius: 6, overflow: 'hidden', marginBottom: 8 }}>
-        <div style={{ width: `${progress}%`, height: '100%', background: '#1e40af', transition: 'width 0.3s' }} />
+        <div style={{ width: `${progress}%`, height: '100%', background: '#1e40af', transition: 'width 0.1s ease-out' }} />
       </div>
       <div style={{ textAlign: 'center', color: '#1e40af', fontWeight: 600, fontSize: 14 }}>{Math.round(progress)}%</div>
-      {typeof recordsProcessed === 'number' && typeof maxRecords === 'number' && (
-        <div style={{ textAlign: 'center', color: '#1e40af', fontSize: 13 }}>{recordsProcessed} / {maxRecords} records saved</div>
-      )}
     </div>
   );
 };
@@ -527,24 +930,42 @@ export default function Dashboard() {
     "Auction",
     "Bankruptcy"
   ];
-  // Progress bar state hooks (must be before any returns)
-  const [recordsProcessed, setRecordsProcessed] = useState<number>(0);
-  const [maxRecords, setMaxRecords] = useState<number>(0);
+
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
     try {
       const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : 
+                      userType === 'LPH' ? '/api/harris-county' : 
                       userType === 'HILLSBOROUGH_NH' ? '/api/hillsborough-nh' : 
                       userType === 'BREVARD_FL' ? '/api/brevard-fl' :
                       userType === 'FULTON_GA' ? '/api/fulton-ga' :
                       userType === 'COBB_GA' ? '/api/cobb-ga' :
                       '/api/lis-pendens';
+      
+      console.log('🔍 Fetching data from endpoint:', endpoint);
+      console.log('👤 Current user ID:', (session?.user as any)?.id);
+      console.log('🏷️ User type:', userType);
+      
       const res = await fetch(endpoint);
       const data = await res.json();
-      setRows(data);
+      
+      console.log('📊 Fetched data response:', data);
+      console.log('📈 Number of records returned:', Array.isArray(data) ? data.length : 'Not an array');
+      
+      if (Array.isArray(data)) {
+        console.log('✅ Setting rows with', data.length, 'records');
+        setRows(data);
+      } else {
+        console.error('❌ Response is not an array:', data);
+        if (data.error) {
+          console.error('🚨 API Error:', data.error);
+        }
+        setRows([]);
+      }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('💥 Error fetching data:', error);
+      setRows([]);
     }
   };
 
@@ -572,10 +993,11 @@ export default function Dashboard() {
   }, [session]);
 
   useEffect(() => {
-    if (userType) {
+    if (userType && session) {
+      console.log('🔄 useEffect triggered - fetching data for userType:', userType);
       fetchData();
     }
-  }, [userType]);
+  }, [userType, session]);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -656,11 +1078,28 @@ export default function Dashboard() {
         setJobStatus(data.status);
         
         if (data.status === 'COMPLETED') {
+          console.log('🎉 Job completed successfully! Refreshing data...');
           setPullResult('success');
           setPulling(false);
           setCurrentJobId(null);
-          // Automatically refresh the data after successful completion
-          await fetchData();
+          
+          // Multiple refresh attempts to ensure data appears
+          const refreshData = async (attempt = 1) => {
+            console.log(`🔄 Attempt ${attempt}: Fetching fresh data after job completion...`);
+            await fetchData();
+            
+            // If this is the first attempt, try again after a longer delay
+            if (attempt === 1) {
+              setTimeout(() => refreshData(2), 2000);
+            }
+            // Third attempt after even longer delay for edge cases
+            if (attempt === 2) {
+              setTimeout(() => refreshData(3), 5000);
+            }
+          };
+          
+          // First immediate refresh
+          setTimeout(() => refreshData(1), 500);
           return;
         } else if (data.status === 'FAILED') {
           setPullResult('error');
@@ -750,12 +1189,6 @@ export default function Dashboard() {
         setPullResult('error');
         setPulling(false);
       }
-      // Set max records based on the request type
-      if (endpoint === '/api/scrape' && 'filters' in requestBody) {
-        setMaxRecords(requestBody.filters?.pageSize || 50);
-      } else if (typeof requestBody.dateFilter === 'number') {
-        setMaxRecords(requestBody.dateFilter * 2);
-      }
     } catch (e) {
       setPullResult('error');
       setPulling(false);
@@ -828,12 +1261,12 @@ export default function Dashboard() {
   };
 
   // Get the appropriate columns and display info based on user type
-  const columns = userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : 
+  const columns = (userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : 
                   userType === 'HILLSBOROUGH_NH' ? hillsboroughNhColumns : 
                   userType === 'BREVARD_FL' ? brevardFlColumns :
                   userType === 'FULTON_GA' ? fultonGaColumns :
                   userType === 'COBB_GA' ? cobbGaColumns :
-                  lphColumns;
+                  lphColumns) as GridColDef[];
   const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
                        userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH Records' : 
                        userType === 'BREVARD_FL' ? 'Brevard FL Records' :
@@ -850,7 +1283,7 @@ export default function Dashboard() {
     ? 'Scraping records from Fulton GA GSCCCA...'
     : userType === 'COBB_GA'
     ? 'Scraping records from Cobb GA GSCCCA...'
-    : `AI-Enhanced scraping from ${county} County with address resolution...`;
+    : `Scraping Records from ${county} County Est. wait time 2-3 mins`;
 
   // Handle cell focus to show content in the wide box
   const handleCellFocus = (params: any) => {
@@ -1082,18 +1515,51 @@ export default function Dashboard() {
                           {selectedDocTypes.join(', ')}
                         </span>
                       )}
+                      {/* Record count display */}
+                      <span style={{ 
+                        color: '#059669', 
+                        fontWeight: 600, 
+                        fontSize: 20, 
+                        marginLeft: 16,
+                        backgroundColor: '#ecfdf5',
+                        padding: '4px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #10b981'
+                      }}>
+                        {rows.length} records
+                      </span>
                     </div>
                     
-                    <ExportButton 
-                      data={rows} 
-                      userType={userType} 
-                      displayTitle={displayTitle}
-                    />
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => {
+                          console.log('🔄 Manual refresh triggered by user');
+                          fetchData();
+                        }}
+                        className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl active:shadow-md transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2"
+                        title="Refresh data manually"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Refresh
+                      </button>
+                      
+                      <Hot20Button 
+                        data={rows} 
+                        userType={userType} 
+                      />
+                      <ExportButton 
+                        data={rows} 
+                        userType={userType} 
+                        displayTitle={displayTitle}
+                      />
+                    </div>
                   </div>
                   <div style={{ position: 'relative', color: 'black' }}>
                     <DataGrid
                       rows={rows}
-                      columns={columns}
+                      columns={columns as any}
                       getRowId={(row) => {
                         let id;
                         if (userType === 'HILLSBOROUGH_NH') {
@@ -1165,7 +1631,7 @@ export default function Dashboard() {
                     <div className="absolute inset-0 z-20 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
                       <div className="flex flex-col items-center justify-center p-8 w-full">
                         {/* Progress Bar */}
-                        <ProgressBar jobStatus={jobStatus} pulling={pulling} recordsProcessed={recordsProcessed} maxRecords={maxRecords} />
+                        <ProgressBar jobStatus={jobStatus} pulling={pulling} />
                         <div className="flex space-x-2 mt-2">
                           <span className="dot-bounce bg-blue-600"></span>
                           <span className="dot-bounce bg-blue-600" style={{ animationDelay: '0.2s' }}></span>
@@ -1207,10 +1673,21 @@ export default function Dashboard() {
             </div>
             {/* Toast for result */}
             {pullResult === 'success' && (
-              <div className="fixed bottom-6 left-6 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">Records pulled successfully!</div>
+              <div className="fixed bottom-6 left-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center gap-2">
+                <span className="text-lg">✅</span>
+                <div>
+                  <div className="font-semibold">Fresh records pulled successfully!</div>
+                  <div className="text-sm opacity-90">
+                    Data refreshed at {new Date().toLocaleTimeString()} • Duplicates automatically skipped
+                  </div>
+                </div>
+              </div>
             )}
             {pullResult === 'error' && (
-              <div className="fixed bottom-6 left-6 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">Error pulling records.</div>
+              <div className="fixed bottom-6 left-6 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center gap-2">
+                <span className="text-lg">❌</span>
+                <span className="font-semibold">Error pulling records. Please try again.</span>
+              </div>
             )}
           </SidebarInset>
           

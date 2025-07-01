@@ -84,10 +84,10 @@ async def save_harris_records(records: List[Dict[str, Any]], user_id: str) -> bo
         # SQL for Harris County filings with UPSERT
         insert_sql = """
         INSERT INTO harris_county_filing
-        (id, case_number, filing_date, doc_type, subdivision, section, block, lot, 
+        (case_number, filing_date, doc_type, subdivision, section, block, lot, 
          property_address, parcel_id, ai_summary, county, state, created_at, updated_at, is_new, "userId")
         VALUES
-        (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
         ON CONFLICT (case_number) DO UPDATE
         SET
             filing_date = EXCLUDED.filing_date,

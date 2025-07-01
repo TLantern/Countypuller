@@ -1,6 +1,7 @@
 import asyncio
 import os
 import random
+import sys
 from datetime import datetime, timedelta
 import time
 from pathlib import Path
@@ -1004,8 +1005,67 @@ async def run():
                     else:
                         _log(f"Failed to search for letter '{letter.upper()}'")
                 
-                # After processing all letters, save everything to DB and export CSV
+                # After processing all letters, apply enhanced duplicate detection if enabled
                 _log(f"Completed processing all letters! Total records collected: {len(all_records)}")
+                
+                # Apply enhanced duplicate detection if --ensure-fresh flag is used
+                if len(sys.argv) > 1 and '--ensure-fresh' in sys.argv:
+                    target_count = 20  # Default target count
+                    if '--target-count' in sys.argv:
+                        try:
+                            target_idx = sys.argv.index('--target-count') + 1
+                            if target_idx < len(sys.argv):
+                                target_count = int(sys.argv[target_idx])
+                        except (ValueError, IndexError):
+                            target_count = 20
+                    
+                    _log(f"🔄 Applying enhanced duplicate detection to ensure {target_count} fresh unique records...")
+                    original_count = len(all_records)
+                    
+                    # Remove duplicates by case number, party name similarity, and other criteria
+                    unique_records = []
+                    seen_case_numbers = set()
+                    seen_party_names = set()
+                    duplicates_removed = 0
+                    
+                    for record in all_records:
+                        case_number = record.get("case_number", "")
+                        party_name = record.get("party_name", "").lower().strip()
+                        
+                        # Check for exact case number duplicates
+                        if case_number in seen_case_numbers:
+                            duplicates_removed += 1
+                            _log(f"⏭️  Skipping duplicate case number: {case_number}")
+                            continue
+                        
+                        # Check for similar party names (basic similarity)
+                        is_duplicate_name = False
+                        for seen_name in seen_party_names:
+                            # Simple similarity check - if 80% of characters match
+                            if len(party_name) > 5 and len(seen_name) > 5:
+                                common_chars = sum(1 for a, b in zip(party_name, seen_name) if a == b)
+                                similarity = common_chars / max(len(party_name), len(seen_name))
+                                if similarity > 0.8:
+                                    is_duplicate_name = True
+                                    duplicates_removed += 1
+                                    _log(f"⏭️  Skipping similar party name: {party_name} (similar to {seen_name})")
+                                    break
+                        
+                        if not is_duplicate_name:
+                            unique_records.append(record)
+                            seen_case_numbers.add(case_number)
+                            seen_party_names.add(party_name)
+                            
+                            # Stop if we've reached our target count
+                            if len(unique_records) >= target_count:
+                                break
+                    
+                    all_records = unique_records
+                    _log(f"✅ Enhanced duplicate detection complete:")
+                    _log(f"   Original records: {original_count}")
+                    _log(f"   Duplicates removed: {duplicates_removed}")
+                    _log(f"   Fresh unique records: {len(all_records)}")
+                    _log(f"   Target achieved: {'✅ Yes' if len(all_records) >= target_count else '⚠️  No (may need more data sources)'}")
                 
                 if all_records:
                     _log("Saving all records to database...")
@@ -1031,7 +1091,12 @@ async def run():
                     ])
                     await _export_csv(df)
                     
-                    _log(f"Successfully processed and saved {len(all_records)} total records from {len(letters_to_process)} letters")
+                    # Check if enhanced mode was used for appropriate messaging
+                    enhanced_mode = len(sys.argv) > 1 and '--ensure-fresh' in sys.argv
+                    if enhanced_mode:
+                        _log(f"✅ Successfully processed and saved {len(all_records)} fresh records from {len(letters_to_process)} letters (duplicates filtered)")
+                    else:
+                        _log(f"Successfully processed and saved {len(all_records)} total records from {len(letters_to_process)} letters")
                     
                     # Summary by letter
                     letter_counts = {}
@@ -1064,6 +1129,8 @@ if __name__ == "__main__":
     parser.add_argument("--limit", type=int, default=5, help="Maximum number of new records to process (default: 5)")
     parser.add_argument("--user-id", type=str, required=False, help="User ID to associate records with (optional for testing)")
     parser.add_argument("--date-filter", type=int, default=7, help="Number of days back to search (default: 7)")
+    parser.add_argument("--ensure-fresh", action="store_true", help="Enable enhanced duplicate detection for fresh records")
+    parser.add_argument("--target-count", type=int, default=20, help="Target number of fresh unique records (default: 20)")
     args = parser.parse_args()
     if args.limit is not None:
         MAX_NEW_RECORDS = args.limit
@@ -1080,5 +1147,11 @@ if __name__ == "__main__":
     # Set the global date filter
     DATE_FILTER_DAYS = args.date_filter
     print(f"[INFO] Using DATE_FILTER: {DATE_FILTER_DAYS} days")
+    
+    # Handle enhanced duplicate detection
+    if args.ensure_fresh:
+        print(f"[INFO] Enhanced duplicate detection enabled - targeting {args.target_count} fresh unique records")
+        MAX_NEW_RECORDS = max(args.target_count * 2, 50)  # Fetch more to ensure we get enough unique ones
+        print(f"[INFO] Increased fetch limit to {MAX_NEW_RECORDS} to ensure {args.target_count} fresh records")
     
     asyncio.run(run()) 

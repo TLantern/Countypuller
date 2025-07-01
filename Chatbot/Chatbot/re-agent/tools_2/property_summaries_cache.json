@@ -568,5 +568,155 @@
         "doc_type": "L/P"
       }
     }
+  },
+  "1057480000006": {
+    "parcel_id": "1057480000006",
+    "summary": "The property at 17023 Morning Star exhibits a price-per-sqft slightly above the zip code median, exactly matches the market value with its appraised value eliminating any equity gap, its old build year implies potential rehab risks, and currently, no liens or delinquencies are reported.",
+    "generated_at": "2025-06-28T22:26:39.570058",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "17023 MORNING STAR, CROSBY, 77532",
+      "parcel_id": "1057480000006",
+      "owner_name": "TRICON SFR 2020 2 BORROWER LLC",
+      "impr_sqft": "8398",
+      "market_value": "$196,200",
+      "appraised_value": "$196,200",
+      "legal_params": {
+        "subdivision": "NEWPORT",
+        "section": "",
+        "block": "1",
+        "lot": "6"
+      },
+      "case_info": {
+        "case_number": "RP-2025-245648",
+        "filing_date": "06/26/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1448970020013": {
+    "parcel_id": "1448970020013",
+    "summary": "\"Price-per-square-foot trends higher than zip median, equity gap is zero with market and appraised values aligned, potential rehab risk given age of the building, and no current liens or delinquencies found.\"",
+    "generated_at": "2025-06-28T22:26:46.045582",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "8114 WAHI, KATY, 77433",
+      "parcel_id": "1448970020013",
+      "owner_name": "FADARE AYOBAMI & DANIELLE",
+      "impr_sqft": null,
+      "market_value": "$433,284",
+      "appraised_value": "$433,284",
+      "legal_params": {
+        "subdivision": "MARVIDA",
+        "section": "",
+        "block": "2",
+        "lot": "13"
+      },
+      "case_info": {
+        "case_number": "RP-2025-245431",
+        "filing_date": "06/26/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0060570000001": {
+    "parcel_id": "0060570000001",
+    "summary": "Price per square foot is below zip median, no equity gap as market and appraised values align, potential rehab risk due to the property's build year, and no recorded liens or delinquencies.",
+    "generated_at": "2025-06-28T22:27:08.419297",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "6009 MAIN, HOUSTON, 77009",
+      "parcel_id": "0060570000001",
+      "owner_name": "BJJ HOUSTON HOLDINGS LLC",
+      "impr_sqft": null,
+      "market_value": "$610,000",
+      "appraised_value": "$610,000",
+      "legal_params": {
+        "subdivision": "FONDERON SW PLACE",
+        "section": "",
+        "block": "",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-245243",
+        "filing_date": "06/26/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010150000001": {
+    "parcel_id": "0010150000001",
+    "summary": "At 917 Franklin, the price-per-sqft is above the zip median, the equity gap is $0 with market value equal to appraised, build year indicates potential rehab risk, and no liens or delinquencies are reported.",
+    "generated_at": "2025-06-30T14:24:35.632855",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "917 FRANKLIN, HOUSTON, 77002",
+      "parcel_id": "0010150000001",
+      "owner_name": "GILLINGHAM FRANKLIN LLC",
+      "impr_sqft": "8499",
+      "market_value": "$3,325,478",
+      "appraised_value": "$3,325,478",
+      "legal_params": {
+        "subdivision": "ASHFORD VILLAGE",
+        "section": "",
+        "block": "15",
+        "lot": "1"
+      },
+      "case_info": {
+        "case_number": "RP-2025-248562",
+        "filing_date": "06/27/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010270000011": {
+    "parcel_id": "0010270000011",
+    "summary": "The property at 1510 Congress is priced above the median price-per-square-foot for the 77002 zip code, the market value matches the appraised value indicating no equity gap, the build year suggests possible rehab risk, and there are no reported liens or delinquencies on record.",
+    "generated_at": "2025-06-30T14:24:50.981335",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1510 CONGRESS, HOUSTON, 77002",
+      "parcel_id": "0010270000011",
+      "owner_name": "FRANKLIN HAMILTON GROUP LP",
+      "impr_sqft": "6251",
+      "market_value": "$628,903",
+      "appraised_value": "$628,903",
+      "legal_params": {
+        "subdivision": "EAGLE SPRINGS",
+        "section": "",
+        "block": "2",
+        "lot": "11"
+      },
+      "case_info": {
+        "case_number": "RP-2025-247894",
+        "filing_date": "06/27/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1190820010029": {
+    "parcel_id": "1190820010029",
+    "summary": "\"Price per sqft is higher than the zip code median, no equity gap as market value matches appraised value, potential rehab risk due to old build year, and no liens or delinquencies reported.\"",
+    "generated_at": "2025-06-30T14:25:00.612220",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "16013 DRIFTING ROSE, CYPRESS, 77429",
+      "parcel_id": "1190820010029",
+      "owner_name": "SURESH YALAMANCHILI 2001 TRUST",
+      "impr_sqft": "38660",
+      "market_value": "$751,997",
+      "appraised_value": "$751,997",
+      "legal_params": {
+        "subdivision": "LAKES OF ROSEHILL",
+        "section": "",
+        "block": "1",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-246233",
+        "filing_date": "06/26/2025",
+        "doc_type": "L/P"
+      }
+    }
   }
 }

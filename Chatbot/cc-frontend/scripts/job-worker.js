@@ -15,13 +15,17 @@ const JobStatus = {
 function runPython(scriptPath, args) {
   return new Promise((resolve) => {
     const scriptDir = path.dirname(scriptPath);
-    const pythonExecutable = process.platform === 'win32'
-      ? 'C:\\Users\\tmbor\\AppData\\Local\\Programs\\Python\\Python313\\python.exe'
-      : 'python3';
+    const pythonExecutable = 'C:\\Users\\tmbor\\.conda\\envs\\lph_env\\python.exe';
     console.log(`[DEBUG] Running: ${pythonExecutable} ${scriptPath} ${args.join(' ')} in ${scriptDir}`);
+    console.log(`[DEBUG] DATABASE_URL available: ${process.env.DATABASE_URL ? 'YES' : 'NO'}`);
     const pythonProcess = spawn(pythonExecutable, [path.basename(scriptPath), ...args], {
       cwd: scriptDir,
-      env: process.env,
+      env: {
+        ...process.env,
+        DATABASE_URL: process.env.DATABASE_URL,
+        NODE_ENV: process.env.NODE_ENV,
+        PATH: process.env.PATH
+      },
     });
     let output = '';
     let errorOutput = '';
@@ -57,41 +61,19 @@ async function processJob(job) {
     data: { status: JobStatus.IN_PROGRESS }
   });
   try {
-    if (job.job_type === 'LIS_PENDENS_PULL') {
-      const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/LpH.py');
-      const limit = job.parameters?.limit || 10;
-      console.log(`[DEBUG] Job userId: ${job.userId}`);
-      console.log(`[DEBUG] Job object:`, JSON.stringify(job, null, 2));
-      const args = ['--limit', limit.toString(), '--user-id', job.userId];
-      console.log(`[DEBUG] Arguments being passed:`, args);
-      const result = await runPython(scriptPath, args);
-      if (result.success) {
-        const recordsMatch = result.output.match(/(\d+)\s+new records/i);
-        const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
-        await prisma.scraping_job.update({
-          where: { id: job.id },
-          data: {
-            status: JobStatus.COMPLETED,
-            completed_at: new Date(),
-            result: { output: result.output },
-            records_processed: recordsProcessed
-          }
-        });
-        console.log(`[SUCCESS] Job ${job.id} completed successfully`);
-      } else {
-        throw new Error(result.error);
-      }
-    } else if (job.job_type === 'MD_CASE_SEARCH') {
+    if (job.job_type === 'MD_CASE_SEARCH') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/MdCaseSearch.py');
-      const limit = job.parameters?.limit || 10;
+      const limit = job.parameters?.limit || 20;
       console.log(`[DEBUG] MD Case Search Job userId: ${job.userId}`);
       console.log(`[DEBUG] MD Case Search Job object:`, JSON.stringify(job, null, 2));
-      const args = ['--limit', limit.toString(), '--user-id', job.userId];
+      const args = ['--limit', limit.toString(), '--user-id', job.userId, '--ensure-fresh', '--target-count', '20'];
       console.log(`[DEBUG] MD Case Search Arguments being passed:`, args);
       const result = await runPython(scriptPath, args);
       if (result.success) {
         // Look for records processed in the output (adjust regex as needed based on actual output)
-        const recordsMatch = result.output.match(/(\d+)\s+total records/i) || 
+        const recordsMatch = result.output.match(/(\d+)\s+fresh records/i) || 
+                           result.output.match(/(\d+)\s+new unique records/i) ||
+                           result.output.match(/(\d+)\s+total records/i) || 
                            result.output.match(/(\d+)\s+records/i) ||
                            result.output.match(/(\d+)\s+unique records/i);
         const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
@@ -110,15 +92,17 @@ async function processJob(job) {
       }
     } else if (job.job_type === 'HILLSBOROUGH_NH_PULL') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/HillsboroughNH.py');
-      const limit = job.parameters?.limit || 10;
+      const limit = job.parameters?.limit || 20;
       console.log(`[DEBUG] Hillsborough NH Job userId: ${job.userId}`);
       console.log(`[DEBUG] Hillsborough NH Job object:`, JSON.stringify(job, null, 2));
-      const args = ['--max-records', limit.toString(), '--user-id', job.userId];
+      const args = ['--max-records', limit.toString(), '--user-id', job.userId, '--ensure-fresh', '--target-count', '20'];
       console.log(`[DEBUG] Hillsborough NH Arguments being passed:`, args);
       const result = await runPython(scriptPath, args);
       if (result.success) {
         // Look for records processed in the output (adjust regex as needed based on actual output)
-        const recordsMatch = result.output.match(/(\d+)\s+new records/i) ||
+        const recordsMatch = result.output.match(/(\d+)\s+fresh records/i) ||
+                           result.output.match(/(\d+)\s+new unique records/i) ||
+                           result.output.match(/(\d+)\s+new records/i) ||
                            result.output.match(/(\d+)\s+records/i) ||
                            result.output.match(/Found\s+(\d+)\s+records/i);
         const recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
@@ -137,7 +121,7 @@ async function processJob(job) {
       }
     } else if (job.job_type === 'BREVARD_FL_PULL') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/BrevardFL.py');
-      const limit = job.parameters?.limit || 10;
+      const limit = job.parameters?.limit || 20;
       const dateFilter = job.parameters?.dateFilter || 7;
       console.log(`[DEBUG] Brevard FL Job userId: ${job.userId}`);
       console.log(`[DEBUG] Brevard FL Job object:`, JSON.stringify(job, null, 2));
@@ -162,7 +146,8 @@ async function processJob(job) {
         '--max-records', limit.toString(), 
         '--user-id', job.userId,
         '--from-date', fromDateStr,
-        '--to-date', toDateStr
+        '--to-date', toDateStr,
+        '--ensure-fresh', '--target-count', '20'
       ];
       console.log(`[DEBUG] Brevard FL Arguments being passed:`, args);
       console.log(`[DEBUG] Date range: ${fromDateStr} to ${toDateStr} (${dateFilter} days back)`);
@@ -170,7 +155,9 @@ async function processJob(job) {
       const result = await runPython(scriptPath, args);
       if (result.success) {
         // Look for records processed in the output (adjust regex as needed based on actual output)
-        const recordsMatch = result.output.match(/(\d+)\s+new records/i) ||
+        const recordsMatch = result.output.match(/(\d+)\s+fresh records/i) ||
+                           result.output.match(/(\d+)\s+new unique records/i) ||
+                           result.output.match(/(\d+)\s+new records/i) ||
                            result.output.match(/(\d+)\s+records/i) ||
                            result.output.match(/Found\s+(\d+)\s+records/i) ||
                            result.output.match(/Successfully processed\s+(\d+)\s+new records/i);
@@ -190,7 +177,7 @@ async function processJob(job) {
       }
     } else if (job.job_type === 'FULTON_GA_PULL') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/FultonGA.py');
-      const limit = job.parameters?.limit || 10;
+      const limit = job.parameters?.limit || 20;
       const dateFilter = job.parameters?.dateFilter || 7;
       console.log(`[DEBUG] Fulton GA Job userId: ${job.userId}`);
       console.log(`[DEBUG] Fulton GA Job object:`, JSON.stringify(job, null, 2));
@@ -215,7 +202,8 @@ async function processJob(job) {
         '--max-records', limit.toString(), 
         '--user-id', job.userId,
         '--from-date', fromDateStr,
-        '--to-date', toDateStr
+        '--to-date', toDateStr,
+        '--ensure-fresh', '--target-count', '20'
       ];
       console.log(`[DEBUG] Fulton GA Arguments being passed:`, args);
       console.log(`[DEBUG] Date range: ${fromDateStr} to ${toDateStr} (${dateFilter} days back)`);
@@ -223,7 +211,9 @@ async function processJob(job) {
       const result = await runPython(scriptPath, args);
       if (result.success) {
         // Look for records processed in the output
-        const recordsMatch = result.output.match(/(\d+)\s+new records/i) ||
+        const recordsMatch = result.output.match(/(\d+)\s+fresh records/i) ||
+                           result.output.match(/(\d+)\s+new unique records/i) ||
+                           result.output.match(/(\d+)\s+new records/i) ||
                            result.output.match(/(\d+)\s+records/i) ||
                            result.output.match(/Found\s+(\d+)\s+records/i) ||
                            result.output.match(/Successfully processed\s+(\d+)\s+new records/i);
@@ -243,7 +233,7 @@ async function processJob(job) {
       }
     } else if (job.job_type === 'COBB_GA_PULL') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/PullingBots/CobbGA.py');
-      const limit = job.parameters?.limit || 10;
+      const limit = job.parameters?.limit || 20;
       const dateFilter = job.parameters?.dateFilter || 7;
       console.log(`[DEBUG] Cobb GA Job userId: ${job.userId}`);
       console.log(`[DEBUG] Cobb GA Job object:`, JSON.stringify(job, null, 2));
@@ -268,7 +258,8 @@ async function processJob(job) {
         '--max-records', limit.toString(), 
         '--user-id', job.userId,
         '--from-date', fromDateStr,
-        '--to-date', toDateStr
+        '--to-date', toDateStr,
+        '--ensure-fresh', '--target-count', '20'
       ];
       console.log(`[DEBUG] Cobb GA Arguments being passed:`, args);
       console.log(`[DEBUG] Date range: ${fromDateStr} to ${toDateStr} (${dateFilter} days back)`);
@@ -276,7 +267,9 @@ async function processJob(job) {
       const result = await runPython(scriptPath, args);
       if (result.success) {
         // Look for records processed in the output
-        const recordsMatch = result.output.match(/(\d+)\s+new records/i) ||
+        const recordsMatch = result.output.match(/(\d+)\s+fresh records/i) ||
+                           result.output.match(/(\d+)\s+new unique records/i) ||
+                           result.output.match(/(\d+)\s+new records/i) ||
                            result.output.match(/(\d+)\s+records/i) ||
                            result.output.match(/Found\s+(\d+)\s+records/i) ||
                            result.output.match(/Successfully processed\s+(\d+)\s+new records/i);
@@ -295,7 +288,7 @@ async function processJob(job) {
         throw new Error(result.error);
       }
     } else if (job.job_type === 'AGENT_SCRAPE') {
-      const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/agent_cli.py');
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/Chatbot/re-agent/agent_cli.py');
       const county = job.parameters?.county || 'harris';
       const filters = job.parameters?.filters || {};
       console.log(`[DEBUG] Agent Scrape Job userId: ${job.userId}`);
