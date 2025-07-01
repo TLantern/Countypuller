@@ -32,6 +32,7 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [showResult, setShowResult] = useState(false);
+  const [savedToast, setSavedToast] = useState(false);
 
   const handleSkipTrace = async () => {
     if (!address || !address.trim()) {
@@ -67,6 +68,27 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
     }
   };
 
+  const handleSaveReport = () => {
+    if (!result) return;
+    try {
+      const storageKey = 'savedSkipTraces';
+      const existing: any[] = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      // Avoid duplicates by attomid+address
+      const dup = existing.find(r => r.attomid === result.attomid && r.canonical_address === result.canonical_address);
+      if (!dup) {
+        existing.push(result);
+        localStorage.setItem(storageKey, JSON.stringify(existing));
+        setSavedToast(true);
+        setTimeout(() => setSavedToast(false), 3000);
+      } else {
+        alert('Report already saved');
+      }
+    } catch (e) {
+      console.error('Save report error', e);
+      alert('Could not save report');
+    }
+  };
+
   return (
     <>
       <button
@@ -85,7 +107,7 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
       {/* Results Modal */}
       {showResult && result && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+          <div className="bg-white rounded-lg p-10 w-[90vw] max-w-9xl max-h-[90vh] overflow-y-auto relative">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-900">Skip Trace Results</h3>
               <button
@@ -96,27 +118,27 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
               </button>
             </div>
             
-            <div className="space-y-4 text-gray-800">
-              <div>
-                <label className="font-semibold">Original Address:</label>
-                <p className="bg-gray-50 p-2 rounded">{result.raw_address}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800">
+              <div className="bg-gray-50 p-4 rounded shadow">
+                <div className="text-gray-600 mb-2">Original Address:</div>
+                <div>{result.raw_address}</div>
               </div>
               
-              <div>
-                <label className="font-semibold">Canonical Address:</label>
+              <div className="bg-gray-50 p-4 rounded shadow">
+                <div className="text-gray-600">Canonical Address:</div>
                 <p className="bg-gray-50 p-2 rounded">{result.canonical_address}</p>
               </div>
               
               {result.attomid && (
-                <div>
-                  <label className="font-semibold">ATTOM Property ID:</label>
+                <div className="bg-gray-50 p-4 rounded shadow">
+                  <div className="text-gray-600">ATTOM Property ID:</div>
                   <p className="bg-gray-50 p-2 rounded">{result.attomid}</p>
                 </div>
               )}
               
               {result.est_balance && (
-                <div>
-                  <label className="font-semibold">Estimated Loan Balance:</label>
+                <div className="bg-green-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Estimated Loan Balance:</div>
                   <p className="bg-green-50 p-2 rounded text-green-800 font-semibold">
                     ${result.est_balance.toLocaleString()}
                   </p>
@@ -124,8 +146,8 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
               )}
               
               {result.available_equity && (
-                <div>
-                  <label className="font-semibold">Available Equity:</label>
+                <div className="bg-blue-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Available Equity:</div>
                   <p className="bg-blue-50 p-2 rounded text-blue-800 font-semibold">
                     ${result.available_equity.toLocaleString()}
                   </p>
@@ -133,8 +155,8 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
               )}
               
               {result.ltv && (
-                <div>
-                  <label className="font-semibold">Loan-to-Value (LTV):</label>
+                <div className="bg-yellow-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Loan-to-Value (LTV):</div>
                   <p className="bg-yellow-50 p-2 rounded text-yellow-800 font-semibold">
                     {(result.ltv * 100).toFixed(1)}%
                   </p>
@@ -142,19 +164,46 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
               )}
               
               {result.loans_count > 0 && (
-                <div>
-                  <label className="font-semibold">Number of Loans:</label>
+                <div className="bg-gray-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Number of Loans:</div>
                   <p className="bg-gray-50 p-2 rounded">{result.loans_count}</p>
                 </div>
               )}
               
-              <div className="text-sm text-gray-500">
-                <label className="font-semibold">Processed at:</label>
+              {result.owner_name && (
+                <div className="bg-gray-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Owner Name:</div>
+                  <p className="bg-gray-50 p-2 rounded">{result.owner_name}</p>
+                </div>
+              )}
+              
+              {result.primary_phone && (
+                <div className="bg-gray-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Phone:</div>
+                  <p className="bg-gray-50 p-2 rounded">{result.primary_phone}</p>
+                </div>
+              )}
+              
+              {result.primary_email && (
+                <div className="bg-gray-50 p-4 rounded shadow">
+                  <div className="text-gray-600">Email:</div>
+                  <p className="bg-gray-50 p-2 rounded">{result.primary_email}</p>
+                </div>
+              )}
+              
+              <div className="bg-gray-50 p-4 rounded shadow">
+                <div className="text-gray-600">Processed at:</div>
                 <p>{new Date(result.processed_at).toLocaleString()}</p>
               </div>
             </div>
             
-            <div className="mt-6 flex justify-end">
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                onClick={handleSaveReport}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+              >
+                Save Report
+              </button>
               <button
                 onClick={() => setShowResult(false)}
                 className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
@@ -162,6 +211,12 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
                 Close
               </button>
             </div>
+            {/* Saved toast at end of modal */}
+            {savedToast && (
+              <div className="fixed bottom-6 right-6 bg-yellow-500 text-white px-4 py-2 rounded shadow-lg z-50">
+                Report saved
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -312,14 +367,14 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-100">
-                      <th className="text-left p-3 font-semibold">#</th>
-                      <th className="text-left p-3 font-semibold">Property Address</th>
-                      <th className="text-left p-3 font-semibold">Available Equity</th>
-                      <th className="text-left p-3 font-semibold">LTV Ratio</th>
-                      <th className="text-left p-3 font-semibold">Loan Balance</th>
-                      <th className="text-left p-3 font-semibold">Market Value</th>
-                      <th className="text-left p-3 font-semibold">ATTOM ID</th>
+                    <tr className="bg-gray-100"> 
+                      <th className="text-left p-3 font-semibold text-black">#</th>
+                      <th className="text-left p-3 font-semibold text-black">Property Address</th>
+                      <th className="text-left p-3 font-semibold text-black">Available Equity</th>
+                      <th className="text-left p-3 font-semibold text-black">LTV Ratio</th>
+                      <th className="text-left p-3 font-semibold text-black">Loan Balance</th>
+                      <th className="text-left p-3 font-semibold text-black">Market Value</th>
+                      <th className="text-left p-3 font-semibold text-black">ATTOM ID</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1045,6 +1100,14 @@ export default function Dashboard() {
       sessionStorage.setItem('selectedDocTypes', JSON.stringify(selectedDocTypes));
     }
   };
+
+  // Automatically clear success/error toast after 5 seconds
+  useEffect(() => {
+    if (pullResult) {
+      const timer = setTimeout(() => setPullResult(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [pullResult]);
 
   // NOW we can do conditional rendering AFTER all hooks are called
   if (status === "loading") {

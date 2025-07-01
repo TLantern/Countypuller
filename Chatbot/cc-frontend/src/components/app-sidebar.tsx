@@ -45,8 +45,8 @@ const data = {
           url: "/analytics-insights",
         },
         {
-          title: "Saved Queries/Reports",
-          url: "/saved-queries-reports",
+          title: "Saved Reports",
+          url: "/saved-reports",
         },
       ],
     },

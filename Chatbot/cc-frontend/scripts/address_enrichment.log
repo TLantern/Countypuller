@@ -477,3 +477,565 @@
 2025-06-30 16:43:20,492 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
 2025-06-30 16:43:20,492 - INFO - Completed batch enrichment. 22 results generated.
 2025-06-30 16:43:20,504 - INFO - Saved 22 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751323393451.csv
+2025-07-01 10:11:12,501 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386270101.csv
+2025-07-01 10:11:12,502 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:11:12,711 - INFO - Google Maps validated: '917 FRANKLIN, HOUSTON, 77002' -> '917 Franklin Street, Houston, TX 77002'
+2025-07-01 10:11:12,711 - INFO - ATTOM API attempt 1 for '917 Franklin Street, Houston, TX 77002': {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:11:13,253 - INFO - Found property data for ATTOM ID 167351362 for '917 Franklin Street, Houston, TX 77002' using params: {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:11:13,253 - INFO - Calculated equity: Market Value $3,325,478, Total Loans $3,650,000, Equity $-324,522, LTV 109.8%
+2025-07-01 10:11:13,253 - INFO - Successfully enriched '917 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:11:13,253 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:11:13,261 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386270101.csv
+2025-07-01 10:12:28,157 - INFO - Loaded 18 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_LPH_1751386346785.csv
+2025-07-01 10:12:28,158 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-01 10:12:28,316 - INFO - Google Maps validated: '917 FRANKLIN, HOUSTON, 77002' -> '917 Franklin Street, Houston, TX 77002'
+2025-07-01 10:12:28,316 - INFO - ATTOM API attempt 1 for '917 Franklin Street, Houston, TX 77002': {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,351 - INFO - Google Maps validated: '8114 WAHI, KATY, 77433' -> '8114 Wahi Ln, Cypress, TX 77433'
+2025-07-01 10:12:28,367 - INFO - Google Maps validated: '16013 DRIFTING ROSE, CYPRESS, 77429' -> '16013 Drifting Rose Cir, Cypress, TX 77429'
+2025-07-01 10:12:28,373 - INFO - Google Maps validated: '12611 PIERSON HOLLOW, HUMBLE, 77346' -> '12611 Pierson Hollow Drive, Atascocita, TX 77346'
+2025-07-01 10:12:28,375 - INFO - Google Maps validated: '6009 MAIN, HOUSTON, 77009' -> '6009 Main Street, Houston, TX 77002'
+2025-07-01 10:12:28,375 - INFO - Google Maps validated: '1510 CONGRESS, HOUSTON, 77002' -> '1510 Congress Street, Houston, TX 77002'
+2025-07-01 10:12:28,376 - INFO - Google Maps validated: '17023 MORNING STAR, CROSBY, 77532' -> '17023 Morning Star Avenue, Crosby, TX 77532'
+2025-07-01 10:12:28,376 - INFO - Google Maps validated: '907 COMMERCE, HOUSTON, 77002' -> '907 Commerce Street, Houston, TX 77002'
+2025-07-01 10:12:28,378 - INFO - Google Maps validated: '1111 HERMANN, HOUSTON, 77004' -> '1111 Hermann Drive, Houston, TX 77004'
+2025-07-01 10:12:28,382 - INFO - Google Maps validated: '31607 DUNHAM LAKE, HOCKLEY, 77447' -> '31607 Dunham Lake Dr, Hockley, TX 77447'
+2025-07-01 10:12:28,410 - INFO - ATTOM API attempt 1 for '16013 Drifting Rose Cir, Cypress, TX 77429': {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:12:28,410 - INFO - ATTOM API attempt 1 for '8114 Wahi Ln, Cypress, TX 77433': {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-07-01 10:12:28,410 - INFO - ATTOM API attempt 1 for '31607 Dunham Lake Dr, Hockley, TX 77447': {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:12:28,410 - INFO - ATTOM API attempt 1 for '1111 Hermann Drive, Houston, TX 77004': {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:12:28,411 - INFO - ATTOM API attempt 1 for '17023 Morning Star Avenue, Crosby, TX 77532': {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-07-01 10:12:28,411 - INFO - ATTOM API attempt 1 for '907 Commerce Street, Houston, TX 77002': {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,411 - INFO - ATTOM API attempt 1 for '6009 Main Street, Houston, TX 77002': {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,411 - INFO - ATTOM API attempt 1 for '1510 Congress Street, Houston, TX 77002': {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,411 - INFO - ATTOM API attempt 1 for '12611 Pierson Hollow Drive, Atascocita, TX 77346': {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:12:28,825 - INFO - Found property data for ATTOM ID 165784845 for '1510 Congress Street, Houston, TX 77002' using params: {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,825 - INFO - Successfully enriched '1510 CONGRESS, HOUSTON, 77002'
+2025-07-01 10:12:28,828 - INFO - Found property data for ATTOM ID 47370044 for '907 Commerce Street, Houston, TX 77002' using params: {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,828 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-07-01 10:12:28,843 - INFO - Found property data for ATTOM ID 326538200 for '12611 Pierson Hollow Drive, Atascocita, TX 77346' using params: {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:12:28,844 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-07-01 10:12:28,844 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-07-01 10:12:28,853 - INFO - Found property data for ATTOM ID 167351362 for '917 Franklin Street, Houston, TX 77002' using params: {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:28,853 - INFO - Calculated equity: Market Value $3,325,478, Total Loans $3,650,000, Equity $-324,522, LTV 109.8%
+2025-07-01 10:12:28,853 - INFO - Successfully enriched '917 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:12:28,872 - INFO - Found property data for ATTOM ID 9559378 for '17023 Morning Star Avenue, Crosby, TX 77532' using params: {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-07-01 10:12:28,872 - INFO - Calculated equity: Market Value $196,200, Total Loans $312,667,000, Equity $-312,470,800, LTV 159361.4%
+2025-07-01 10:12:28,872 - INFO - Successfully enriched '17023 MORNING STAR, CROSBY, 77532'
+2025-07-01 10:12:28,878 - INFO - Found property data for ATTOM ID 252603192 for '1111 Hermann Drive, Houston, TX 77004' using params: {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:12:28,878 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-07-01 10:12:28,916 - INFO - Found property data for ATTOM ID 246393235 for '31607 Dunham Lake Dr, Hockley, TX 77447' using params: {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:12:28,916 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-07-01 10:12:28,916 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-07-01 10:12:28,917 - INFO - Found property data for ATTOM ID 334718590 for '8114 Wahi Ln, Cypress, TX 77433' using params: {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-07-01 10:12:28,917 - INFO - Calculated equity: Market Value $433,284, Total Loans $423,679, Equity $9,605, LTV 97.8%
+2025-07-01 10:12:28,917 - INFO - Successfully enriched '8114 WAHI, KATY, 77433'
+2025-07-01 10:12:28,934 - INFO - Google Maps validated: '4239 BEARBERRY, BAYTOWN, 77521' -> '4239 Bearberry Avenue, Baytown, TX 77521'
+2025-07-01 10:12:28,935 - INFO - ATTOM API attempt 1 for '4239 Bearberry Avenue, Baytown, TX 77521': {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-07-01 10:12:28,936 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-01 10:12:28,947 - INFO - Google Maps validated: '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336' -> '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:12:28,962 - INFO - Google Maps validated: '717 TEXAS, HOUSTON, 77002' -> '717 Texas Street, Houston, TX 77002'
+2025-07-01 10:12:28,976 - INFO - Google Maps validated: '18414 WATER SCENE, CYPRESS, 77429' -> '18414 Water Scene Trail, Cypress, TX 77429'
+2025-07-01 10:12:28,982 - INFO - Found property data for ATTOM ID 4100982 for '16013 Drifting Rose Cir, Cypress, TX 77429' using params: {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:12:28,982 - INFO - Successfully enriched '16013 DRIFTING ROSE, CYPRESS, 77429'
+2025-07-01 10:12:28,993 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-01 10:12:29,042 - INFO - ATTOM API attempt 1 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address1': '28487 Huffman-New Caney Road', 'address2': 'New Caney, TX 77357'}
+2025-07-01 10:12:29,042 - INFO - ATTOM API attempt 1 for '717 Texas Street, Houston, TX 77002': {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,043 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,043 - INFO - ATTOM API attempt 1 for '18414 Water Scene Trail, Cypress, TX 77429': {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:12:29,043 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,119 - INFO - Google Maps validated: '11746 KATHY, HOUSTON, 77071' -> 'Houston, TX'
+2025-07-01 10:12:29,121 - INFO - ATTOM API attempt 1 for 'Houston, TX': {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:12:29,135 - INFO - Google Maps validated: '101 AUSTIN, HOUSTON, 77002' -> '101 Austin Street, Houston, TX 77002'
+2025-07-01 10:12:29,212 - INFO - Found property data for ATTOM ID 317192773 for '4239 Bearberry Avenue, Baytown, TX 77521' using params: {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-07-01 10:12:29,212 - INFO - Calculated equity: Market Value $271,124, Total Loans $175,000, Equity $96,124, LTV 64.5%
+2025-07-01 10:12:29,212 - INFO - Successfully enriched '4239 BEARBERRY, BAYTOWN, 77521'
+2025-07-01 10:12:29,213 - INFO - ATTOM API attempt 1 for '101 Austin Street, Houston, TX 77002': {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,226 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,227 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:12:29,243 - INFO - Found property data for ATTOM ID 34624518 for '717 Texas Street, Houston, TX 77002' using params: {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,244 - INFO - Successfully enriched '717 TEXAS, HOUSTON, 77002'
+2025-07-01 10:12:29,332 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,333 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:12:29,351 - INFO - Found property data for ATTOM ID 24997982 for '18414 Water Scene Trail, Cypress, TX 77429' using params: {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:12:29,352 - INFO - Calculated equity: Market Value $317,745, Total Loans $257,200, Equity $60,545, LTV 80.9%
+2025-07-01 10:12:29,352 - INFO - Successfully enriched '18414 WATER SCENE, CYPRESS, 77429'
+2025-07-01 10:12:29,431 - INFO - Found property data for ATTOM ID 165784821 for '101 Austin Street, Houston, TX 77002' using params: {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,431 - INFO - Successfully enriched '101 AUSTIN, HOUSTON, 77002'
+2025-07-01 10:12:29,651 - INFO - Found property data for ATTOM ID 244218207 for 'Houston, TX' using params: {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:12:29,651 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-07-01 10:12:29,984 - INFO - Found property data for ATTOM ID 167358397 for '6009 Main Street, Houston, TX 77002' using params: {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:12:29,984 - INFO - Successfully enriched '6009 MAIN, HOUSTON, 77009'
+2025-07-01 10:12:30,012 - INFO - ATTOM API attempt 2 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road', 'locality': 'New Caney', 'postalcode': '77357'}
+2025-07-01 10:12:30,243 - INFO - ATTOM API attempt 3 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road, New Caney, TX 77357'}
+2025-07-01 10:12:31,198 - WARNING - All ATTOM API attempts failed for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:12:31,198 - WARNING - No ATTOM property data found for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:12:31,198 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-07-01 10:12:31,198 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-01 10:12:31,207 - INFO - Saved 18 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751386346786.csv
+2025-07-01 10:14:17,877 - INFO - Loaded 18 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_LPH_1751386456518.csv
+2025-07-01 10:14:17,877 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-01 10:14:18,148 - INFO - Google Maps validated: '917 FRANKLIN, HOUSTON, 77002' -> '917 Franklin Street, Houston, TX 77002'
+2025-07-01 10:14:18,148 - INFO - ATTOM API attempt 1 for '917 Franklin Street, Houston, TX 77002': {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,148 - INFO - Google Maps validated: '17023 MORNING STAR, CROSBY, 77532' -> '17023 Morning Star Avenue, Crosby, TX 77532'
+2025-07-01 10:14:18,155 - INFO - Google Maps validated: '6009 MAIN, HOUSTON, 77009' -> '6009 Main Street, Houston, TX 77002'
+2025-07-01 10:14:18,156 - INFO - Google Maps validated: '1510 CONGRESS, HOUSTON, 77002' -> '1510 Congress Street, Houston, TX 77002'
+2025-07-01 10:14:18,159 - INFO - Google Maps validated: '16013 DRIFTING ROSE, CYPRESS, 77429' -> '16013 Drifting Rose Cir, Cypress, TX 77429'
+2025-07-01 10:14:18,167 - INFO - Google Maps validated: '1111 HERMANN, HOUSTON, 77004' -> '1111 Hermann Drive, Houston, TX 77004'
+2025-07-01 10:14:18,172 - INFO - Google Maps validated: '31607 DUNHAM LAKE, HOCKLEY, 77447' -> '31607 Dunham Lake Dr, Hockley, TX 77447'
+2025-07-01 10:14:18,188 - INFO - Google Maps validated: '8114 WAHI, KATY, 77433' -> '8114 Wahi Ln, Cypress, TX 77433'
+2025-07-01 10:14:18,197 - INFO - Google Maps validated: '12611 PIERSON HOLLOW, HUMBLE, 77346' -> '12611 Pierson Hollow Drive, Atascocita, TX 77346'
+2025-07-01 10:14:18,201 - INFO - Google Maps validated: '907 COMMERCE, HOUSTON, 77002' -> '907 Commerce Street, Houston, TX 77002'
+2025-07-01 10:14:18,238 - INFO - ATTOM API attempt 1 for '17023 Morning Star Avenue, Crosby, TX 77532': {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-07-01 10:14:18,239 - INFO - ATTOM API attempt 1 for '16013 Drifting Rose Cir, Cypress, TX 77429': {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:14:18,239 - INFO - ATTOM API attempt 1 for '31607 Dunham Lake Dr, Hockley, TX 77447': {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:14:18,239 - INFO - ATTOM API attempt 1 for '8114 Wahi Ln, Cypress, TX 77433': {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-07-01 10:14:18,239 - INFO - ATTOM API attempt 1 for '1510 Congress Street, Houston, TX 77002': {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,239 - INFO - ATTOM API attempt 1 for '907 Commerce Street, Houston, TX 77002': {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,239 - INFO - ATTOM API attempt 1 for '6009 Main Street, Houston, TX 77002': {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,257 - INFO - ATTOM API attempt 1 for '1111 Hermann Drive, Houston, TX 77004': {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:14:18,257 - INFO - ATTOM API attempt 1 for '12611 Pierson Hollow Drive, Atascocita, TX 77346': {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:14:18,591 - INFO - Found property data for ATTOM ID 47370044 for '907 Commerce Street, Houston, TX 77002' using params: {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,591 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-07-01 10:14:18,615 - INFO - Found property data for ATTOM ID 165784845 for '1510 Congress Street, Houston, TX 77002' using params: {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,615 - INFO - Successfully enriched '1510 CONGRESS, HOUSTON, 77002'
+2025-07-01 10:14:18,635 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-01 10:14:18,635 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,639 - INFO - Found property data for ATTOM ID 167351362 for '917 Franklin Street, Houston, TX 77002' using params: {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,640 - INFO - Calculated equity: Market Value $3,325,478, Total Loans $3,650,000, Equity $-324,522, LTV 109.8%
+2025-07-01 10:14:18,640 - INFO - Successfully enriched '917 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:14:18,640 - INFO - Found property data for ATTOM ID 246393235 for '31607 Dunham Lake Dr, Hockley, TX 77447' using params: {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:14:18,640 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-07-01 10:14:18,640 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-07-01 10:14:18,640 - INFO - Found property data for ATTOM ID 334718590 for '8114 Wahi Ln, Cypress, TX 77433' using params: {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-07-01 10:14:18,640 - INFO - Calculated equity: Market Value $433,284, Total Loans $423,679, Equity $9,605, LTV 97.8%
+2025-07-01 10:14:18,640 - INFO - Successfully enriched '8114 WAHI, KATY, 77433'
+2025-07-01 10:14:18,651 - INFO - Google Maps validated: '4239 BEARBERRY, BAYTOWN, 77521' -> '4239 Bearberry Avenue, Baytown, TX 77521'
+2025-07-01 10:14:18,670 - INFO - Found property data for ATTOM ID 4100982 for '16013 Drifting Rose Cir, Cypress, TX 77429' using params: {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:14:18,671 - INFO - Successfully enriched '16013 DRIFTING ROSE, CYPRESS, 77429'
+2025-07-01 10:14:18,680 - INFO - Google Maps validated: '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336' -> '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:14:18,694 - INFO - Google Maps validated: '18414 WATER SCENE, CYPRESS, 77429' -> '18414 Water Scene Trail, Cypress, TX 77429'
+2025-07-01 10:14:18,695 - INFO - Google Maps validated: '717 TEXAS, HOUSTON, 77002' -> '717 Texas Street, Houston, TX 77002'
+2025-07-01 10:14:18,721 - INFO - Found property data for ATTOM ID 326538200 for '12611 Pierson Hollow Drive, Atascocita, TX 77346' using params: {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:14:18,721 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-07-01 10:14:18,721 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-07-01 10:14:18,721 - INFO - ATTOM API attempt 1 for '717 Texas Street, Houston, TX 77002': {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,722 - INFO - ATTOM API attempt 1 for '18414 Water Scene Trail, Cypress, TX 77429': {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:14:18,722 - INFO - Found property data for ATTOM ID 252603192 for '1111 Hermann Drive, Houston, TX 77004' using params: {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:14:18,722 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-07-01 10:14:18,726 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-01 10:14:18,752 - INFO - Found property data for ATTOM ID 9559378 for '17023 Morning Star Avenue, Crosby, TX 77532' using params: {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-07-01 10:14:18,753 - INFO - Calculated equity: Market Value $196,200, Total Loans $312,667,000, Equity $-312,470,800, LTV 159361.4%
+2025-07-01 10:14:18,753 - INFO - Successfully enriched '17023 MORNING STAR, CROSBY, 77532'
+2025-07-01 10:14:18,753 - INFO - ATTOM API attempt 1 for '4239 Bearberry Avenue, Baytown, TX 77521': {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-07-01 10:14:18,753 - INFO - ATTOM API attempt 1 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address1': '28487 Huffman-New Caney Road', 'address2': 'New Caney, TX 77357'}
+2025-07-01 10:14:18,767 - INFO - Google Maps validated: '101 AUSTIN, HOUSTON, 77002' -> '101 Austin Street, Houston, TX 77002'
+2025-07-01 10:14:18,788 - INFO - Google Maps validated: '11746 KATHY, HOUSTON, 77071' -> 'Houston, TX'
+2025-07-01 10:14:18,816 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,816 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:14:18,816 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:18,864 - INFO - ATTOM API attempt 1 for 'Houston, TX': {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:14:18,864 - INFO - ATTOM API attempt 1 for '101 Austin Street, Houston, TX 77002': {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:19,083 - INFO - Found property data for ATTOM ID 24997982 for '18414 Water Scene Trail, Cypress, TX 77429' using params: {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:14:19,083 - INFO - Calculated equity: Market Value $317,745, Total Loans $257,200, Equity $60,545, LTV 80.9%
+2025-07-01 10:14:19,083 - INFO - Successfully enriched '18414 WATER SCENE, CYPRESS, 77429'
+2025-07-01 10:14:19,084 - INFO - Found property data for ATTOM ID 317192773 for '4239 Bearberry Avenue, Baytown, TX 77521' using params: {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-07-01 10:14:19,084 - INFO - Calculated equity: Market Value $271,124, Total Loans $175,000, Equity $96,124, LTV 64.5%
+2025-07-01 10:14:19,084 - INFO - Successfully enriched '4239 BEARBERRY, BAYTOWN, 77521'
+2025-07-01 10:14:19,084 - INFO - Found property data for ATTOM ID 34624518 for '717 Texas Street, Houston, TX 77002' using params: {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:19,084 - INFO - Successfully enriched '717 TEXAS, HOUSTON, 77002'
+2025-07-01 10:14:19,084 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:19,084 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:14:19,085 - INFO - Found property data for ATTOM ID 165784821 for '101 Austin Street, Houston, TX 77002' using params: {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:19,085 - INFO - Successfully enriched '101 AUSTIN, HOUSTON, 77002'
+2025-07-01 10:14:19,086 - INFO - Found property data for ATTOM ID 244218207 for 'Houston, TX' using params: {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:14:19,086 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-07-01 10:14:19,200 - INFO - ATTOM API attempt 2 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road', 'locality': 'New Caney', 'postalcode': '77357'}
+2025-07-01 10:14:19,311 - INFO - Found property data for ATTOM ID 167358397 for '6009 Main Street, Houston, TX 77002' using params: {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:14:19,312 - INFO - Successfully enriched '6009 MAIN, HOUSTON, 77009'
+2025-07-01 10:14:19,675 - INFO - ATTOM API attempt 3 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road, New Caney, TX 77357'}
+2025-07-01 10:14:20,166 - WARNING - All ATTOM API attempts failed for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:14:20,166 - WARNING - No ATTOM property data found for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:14:20,166 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-07-01 10:14:20,166 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-01 10:14:20,176 - INFO - Saved 18 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751386456519.csv
+2025-07-01 10:16:22,312 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386580863.csv
+2025-07-01 10:16:22,313 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:16:22,425 - INFO - Google Maps validated: '16013 DRIFTING ROSE, CYPRESS, 77429' -> '16013 Drifting Rose Cir, Cypress, TX 77429'
+2025-07-01 10:16:22,425 - INFO - ATTOM API attempt 1 for '16013 Drifting Rose Cir, Cypress, TX 77429': {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:16:23,255 - INFO - Found property data for ATTOM ID 4100982 for '16013 Drifting Rose Cir, Cypress, TX 77429' using params: {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:16:23,255 - INFO - Successfully enriched '16013 DRIFTING ROSE, CYPRESS, 77429'
+2025-07-01 10:16:23,255 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:16:23,263 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386580863.csv
+2025-07-01 10:16:58,722 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386617663.csv
+2025-07-01 10:16:58,723 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:16:59,840 - INFO - Google Maps validated: '917 FRANKLIN, HOUSTON, 77002' -> '917 Franklin Street, Houston, TX 77002'
+2025-07-01 10:16:59,840 - INFO - ATTOM API attempt 1 for '917 Franklin Street, Houston, TX 77002': {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:17:00,299 - INFO - Found property data for ATTOM ID 167351362 for '917 Franklin Street, Houston, TX 77002' using params: {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:17:00,299 - INFO - Calculated equity: Market Value $3,325,478, Total Loans $3,650,000, Equity $-324,522, LTV 109.8%
+2025-07-01 10:17:00,299 - INFO - Successfully enriched '917 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:17:00,299 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:17:00,306 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386617663.csv
+2025-07-01 10:17:47,901 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386666596.csv
+2025-07-01 10:17:47,902 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:17:48,047 - INFO - Google Maps validated: '1111 HERMANN, HOUSTON, 77004' -> '1111 Hermann Drive, Houston, TX 77004'
+2025-07-01 10:17:48,047 - INFO - ATTOM API attempt 1 for '1111 Hermann Drive, Houston, TX 77004': {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:17:49,013 - INFO - Found property data for ATTOM ID 252603192 for '1111 Hermann Drive, Houston, TX 77004' using params: {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:17:49,013 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-07-01 10:17:49,013 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:17:49,020 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386666596.csv
+2025-07-01 10:18:28,572 - INFO - Loaded 18 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_LPH_1751386707186.csv
+2025-07-01 10:18:28,572 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-01 10:18:28,737 - INFO - Google Maps validated: '6009 MAIN, HOUSTON, 77009' -> '6009 Main Street, Houston, TX 77002'
+2025-07-01 10:18:28,737 - INFO - ATTOM API attempt 1 for '6009 Main Street, Houston, TX 77002': {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:28,741 - INFO - Google Maps validated: '8114 WAHI, KATY, 77433' -> '8114 Wahi Ln, Cypress, TX 77433'
+2025-07-01 10:18:28,768 - INFO - Google Maps validated: '31607 DUNHAM LAKE, HOCKLEY, 77447' -> '31607 Dunham Lake Dr, Hockley, TX 77447'
+2025-07-01 10:18:28,773 - INFO - Google Maps validated: '907 COMMERCE, HOUSTON, 77002' -> '907 Commerce Street, Houston, TX 77002'
+2025-07-01 10:18:28,777 - INFO - Google Maps validated: '1111 HERMANN, HOUSTON, 77004' -> '1111 Hermann Drive, Houston, TX 77004'
+2025-07-01 10:18:28,778 - INFO - Google Maps validated: '17023 MORNING STAR, CROSBY, 77532' -> '17023 Morning Star Avenue, Crosby, TX 77532'
+2025-07-01 10:18:28,790 - INFO - Google Maps validated: '16013 DRIFTING ROSE, CYPRESS, 77429' -> '16013 Drifting Rose Cir, Cypress, TX 77429'
+2025-07-01 10:18:28,790 - INFO - Google Maps validated: '917 FRANKLIN, HOUSTON, 77002' -> '917 Franklin Street, Houston, TX 77002'
+2025-07-01 10:18:28,794 - INFO - Google Maps validated: '12611 PIERSON HOLLOW, HUMBLE, 77346' -> '12611 Pierson Hollow Drive, Atascocita, TX 77346'
+2025-07-01 10:18:28,795 - INFO - Google Maps validated: '1510 CONGRESS, HOUSTON, 77002' -> '1510 Congress Street, Houston, TX 77002'
+2025-07-01 10:18:28,824 - INFO - ATTOM API attempt 1 for '1510 Congress Street, Houston, TX 77002': {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:28,824 - INFO - ATTOM API attempt 1 for '17023 Morning Star Avenue, Crosby, TX 77532': {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-07-01 10:18:28,824 - INFO - ATTOM API attempt 1 for '12611 Pierson Hollow Drive, Atascocita, TX 77346': {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:18:28,825 - INFO - ATTOM API attempt 1 for '1111 Hermann Drive, Houston, TX 77004': {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:18:28,837 - INFO - ATTOM API attempt 1 for '16013 Drifting Rose Cir, Cypress, TX 77429': {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:18:28,837 - INFO - ATTOM API attempt 1 for '917 Franklin Street, Houston, TX 77002': {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:28,837 - INFO - ATTOM API attempt 1 for '907 Commerce Street, Houston, TX 77002': {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:28,837 - INFO - ATTOM API attempt 1 for '8114 Wahi Ln, Cypress, TX 77433': {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-07-01 10:18:28,838 - INFO - ATTOM API attempt 1 for '31607 Dunham Lake Dr, Hockley, TX 77447': {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:18:30,037 - INFO - Found property data for ATTOM ID 167351362 for '917 Franklin Street, Houston, TX 77002' using params: {'address1': '917 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,037 - INFO - Calculated equity: Market Value $3,325,478, Total Loans $3,650,000, Equity $-324,522, LTV 109.8%
+2025-07-01 10:18:30,037 - INFO - Successfully enriched '917 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:18:30,045 - INFO - Found property data for ATTOM ID 252603192 for '1111 Hermann Drive, Houston, TX 77004' using params: {'address1': '1111 Hermann Drive', 'address2': 'Houston, TX 77004'}
+2025-07-01 10:18:30,045 - INFO - Successfully enriched '1111 HERMANN, HOUSTON, 77004'
+2025-07-01 10:18:30,045 - INFO - Found property data for ATTOM ID 165784845 for '1510 Congress Street, Houston, TX 77002' using params: {'address1': '1510 Congress Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,045 - INFO - Successfully enriched '1510 CONGRESS, HOUSTON, 77002'
+2025-07-01 10:18:30,050 - INFO - Found property data for ATTOM ID 246393235 for '31607 Dunham Lake Dr, Hockley, TX 77447' using params: {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:18:30,050 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-07-01 10:18:30,050 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-07-01 10:18:30,050 - INFO - Found property data for ATTOM ID 9559378 for '17023 Morning Star Avenue, Crosby, TX 77532' using params: {'address1': '17023 Morning Star Avenue', 'address2': 'Crosby, TX 77532'}
+2025-07-01 10:18:30,050 - INFO - Calculated equity: Market Value $196,200, Total Loans $312,667,000, Equity $-312,470,800, LTV 159361.4%
+2025-07-01 10:18:30,050 - INFO - Successfully enriched '17023 MORNING STAR, CROSBY, 77532'
+2025-07-01 10:18:30,097 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-01 10:18:30,097 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,100 - INFO - Found property data for ATTOM ID 334718590 for '8114 Wahi Ln, Cypress, TX 77433' using params: {'address1': '8114 Wahi Ln', 'address2': 'Cypress, TX 77433'}
+2025-07-01 10:18:30,101 - INFO - Calculated equity: Market Value $433,284, Total Loans $423,679, Equity $9,605, LTV 97.8%
+2025-07-01 10:18:30,101 - INFO - Successfully enriched '8114 WAHI, KATY, 77433'
+2025-07-01 10:18:30,105 - INFO - Found property data for ATTOM ID 4100982 for '16013 Drifting Rose Cir, Cypress, TX 77429' using params: {'address1': '16013 Drifting Rose Cir', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:18:30,105 - INFO - Successfully enriched '16013 DRIFTING ROSE, CYPRESS, 77429'
+2025-07-01 10:18:30,114 - INFO - Google Maps validated: '717 TEXAS, HOUSTON, 77002' -> '717 Texas Street, Houston, TX 77002'
+2025-07-01 10:18:30,115 - INFO - Google Maps validated: '4239 BEARBERRY, BAYTOWN, 77521' -> '4239 Bearberry Avenue, Baytown, TX 77521'
+2025-07-01 10:18:30,118 - INFO - Google Maps validated: '18414 WATER SCENE, CYPRESS, 77429' -> '18414 Water Scene Trail, Cypress, TX 77429'
+2025-07-01 10:18:30,118 - INFO - Found property data for ATTOM ID 47370044 for '907 Commerce Street, Houston, TX 77002' using params: {'address1': '907 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,118 - INFO - Successfully enriched '907 COMMERCE, HOUSTON, 77002'
+2025-07-01 10:18:30,130 - INFO - Google Maps validated: '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336' -> '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:18:30,181 - INFO - Google Maps validated: '11746 KATHY, HOUSTON, 77071' -> 'Houston, TX'
+2025-07-01 10:18:30,184 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-01 10:18:30,187 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,187 - INFO - ATTOM API attempt 1 for 'Houston, TX': {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:18:30,188 - INFO - ATTOM API attempt 1 for '18414 Water Scene Trail, Cypress, TX 77429': {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:18:30,188 - INFO - ATTOM API attempt 1 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address1': '28487 Huffman-New Caney Road', 'address2': 'New Caney, TX 77357'}
+2025-07-01 10:18:30,188 - INFO - ATTOM API attempt 1 for '4239 Bearberry Avenue, Baytown, TX 77521': {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-07-01 10:18:30,189 - INFO - ATTOM API attempt 1 for '717 Texas Street, Houston, TX 77002': {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,189 - INFO - Google Maps validated: '101 AUSTIN, HOUSTON, 77002' -> '101 Austin Street, Houston, TX 77002'
+2025-07-01 10:18:30,250 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,250 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:18:30,303 - INFO - ATTOM API attempt 1 for '101 Austin Street, Houston, TX 77002': {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,335 - INFO - Found property data for ATTOM ID 326538200 for '12611 Pierson Hollow Drive, Atascocita, TX 77346' using params: {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:18:30,335 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-07-01 10:18:30,335 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-07-01 10:18:30,361 - INFO - Found property data for ATTOM ID 24997982 for '18414 Water Scene Trail, Cypress, TX 77429' using params: {'address1': '18414 Water Scene Trail', 'address2': 'Cypress, TX 77429'}
+2025-07-01 10:18:30,361 - INFO - Calculated equity: Market Value $317,745, Total Loans $257,200, Equity $60,545, LTV 80.9%
+2025-07-01 10:18:30,361 - INFO - Successfully enriched '18414 WATER SCENE, CYPRESS, 77429'
+2025-07-01 10:18:30,396 - INFO - Found property data for ATTOM ID 317192773 for '4239 Bearberry Avenue, Baytown, TX 77521' using params: {'address1': '4239 Bearberry Avenue', 'address2': 'Baytown, TX 77521'}
+2025-07-01 10:18:30,396 - INFO - Calculated equity: Market Value $271,124, Total Loans $175,000, Equity $96,124, LTV 64.5%
+2025-07-01 10:18:30,396 - INFO - Successfully enriched '4239 BEARBERRY, BAYTOWN, 77521'
+2025-07-01 10:18:30,403 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,403 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-01 10:18:30,424 - INFO - Found property data for ATTOM ID 34624518 for '717 Texas Street, Houston, TX 77002' using params: {'address1': '717 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,424 - INFO - Successfully enriched '717 TEXAS, HOUSTON, 77002'
+2025-07-01 10:18:30,452 - INFO - Found property data for ATTOM ID 244218207 for 'Houston, TX' using params: {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:18:30,452 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-07-01 10:18:30,525 - INFO - Found property data for ATTOM ID 165784821 for '101 Austin Street, Houston, TX 77002' using params: {'address1': '101 Austin Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:30,526 - INFO - Successfully enriched '101 AUSTIN, HOUSTON, 77002'
+2025-07-01 10:18:31,089 - INFO - ATTOM API attempt 2 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road', 'locality': 'New Caney', 'postalcode': '77357'}
+2025-07-01 10:18:31,144 - INFO - Found property data for ATTOM ID 167358397 for '6009 Main Street, Houston, TX 77002' using params: {'address1': '6009 Main Street', 'address2': 'Houston, TX 77002'}
+2025-07-01 10:18:31,144 - INFO - Successfully enriched '6009 MAIN, HOUSTON, 77009'
+2025-07-01 10:18:31,672 - INFO - ATTOM API attempt 3 for '28487 Huffman-New Caney Road, New Caney, TX 77357': {'address': '28487 Huffman-New Caney Road, New Caney, TX 77357'}
+2025-07-01 10:18:31,918 - WARNING - All ATTOM API attempts failed for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:18:31,918 - WARNING - No ATTOM property data found for '28487 Huffman-New Caney Road, New Caney, TX 77357'
+2025-07-01 10:18:31,918 - INFO - Successfully enriched '28487 HUFFMAN-NEW CANEY, HUFFMAN, 77336'
+2025-07-01 10:18:31,918 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-01 10:18:31,926 - INFO - Saved 18 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1751386707187.csv
+2025-07-01 10:18:50,625 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386729406.csv
+2025-07-01 10:18:50,625 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:18:50,752 - INFO - Google Maps validated: '31607 DUNHAM LAKE, HOCKLEY, 77447' -> '31607 Dunham Lake Dr, Hockley, TX 77447'
+2025-07-01 10:18:50,753 - INFO - ATTOM API attempt 1 for '31607 Dunham Lake Dr, Hockley, TX 77447': {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:18:51,180 - INFO - Found property data for ATTOM ID 246393235 for '31607 Dunham Lake Dr, Hockley, TX 77447' using params: {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:18:51,180 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-07-01 10:18:51,180 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-07-01 10:18:51,180 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:18:51,186 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751386729406.csv
+2025-07-01 10:27:07,722 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751387226238.csv
+2025-07-01 10:27:07,722 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:27:07,923 - INFO - Google Maps validated: '31607 DUNHAM LAKE, HOCKLEY, 77447' -> '31607 Dunham Lake Dr, Hockley, TX 77447'
+2025-07-01 10:27:07,923 - INFO - ATTOM API attempt 1 for '31607 Dunham Lake Dr, Hockley, TX 77447': {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:27:08,401 - INFO - Found property data for ATTOM ID 246393235 for '31607 Dunham Lake Dr, Hockley, TX 77447' using params: {'address1': '31607 Dunham Lake Dr', 'address2': 'Hockley, TX 77447'}
+2025-07-01 10:27:08,401 - INFO - Calculated equity: Market Value $546,544, Total Loans $322,271, Equity $224,273, LTV 59.0%
+2025-07-01 10:27:08,401 - INFO - Successfully enriched '31607 DUNHAM LAKE, HOCKLEY, 77447'
+2025-07-01 10:27:08,401 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:27:08,408 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751387226238.csv
+2025-07-01 10:34:30,375 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751387668792.csv
+2025-07-01 10:34:30,375 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:34:30,542 - INFO - Google Maps validated: '11746 KATHY, HOUSTON, 77071' -> 'Houston, TX'
+2025-07-01 10:34:30,543 - INFO - ATTOM API attempt 1 for 'Houston, TX': {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:34:31,282 - INFO - Found property data for ATTOM ID 244218207 for 'Houston, TX' using params: {'address1': 'Houston', 'address2': 'TX'}
+2025-07-01 10:34:31,283 - INFO - Successfully enriched '11746 KATHY, HOUSTON, 77071'
+2025-07-01 10:34:31,283 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:34:31,289 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751387668792.csv
+2025-07-01 10:34:46,125 - INFO - Loaded 1 addresses from C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_input_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751387684850.csv
+2025-07-01 10:34:46,125 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:34:46,429 - INFO - Google Maps validated: '12611 PIERSON HOLLOW, HUMBLE, 77346' -> '12611 Pierson Hollow Drive, Atascocita, TX 77346'
+2025-07-01 10:34:46,430 - INFO - ATTOM API attempt 1 for '12611 Pierson Hollow Drive, Atascocita, TX 77346': {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:34:46,905 - INFO - Found property data for ATTOM ID 326538200 for '12611 Pierson Hollow Drive, Atascocita, TX 77346' using params: {'address1': '12611 Pierson Hollow Drive', 'address2': 'Atascocita, TX 77346'}
+2025-07-01 10:34:46,906 - INFO - Calculated equity: Market Value $454,968, Total Loans $277,600, Equity $177,368, LTV 61.0%
+2025-07-01 10:34:46,906 - INFO - Successfully enriched '12611 PIERSON HOLLOW, HUMBLE, 77346'
+2025-07-01 10:34:46,906 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:34:46,912 - INFO - Saved 1 enriched records to C:\Users\tmbor\Countypuller\chatbot\cc-frontend\scripts\temp\skip_trace_output_2dab6cac-8bec-4712-adb0-6ce981c9a6ae_1751387684850.csv
+2025-07-01 10:40:59,811 - ERROR - Error loading addresses from test_address.csv: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+2025-07-01 10:40:59,811 - ERROR - Pipeline failed: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+2025-07-01 10:41:05,761 - ERROR - Error loading addresses from test_address.csv: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+2025-07-01 10:41:05,761 - ERROR - Pipeline failed: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+2025-07-01 10:41:23,696 - ERROR - Error loading addresses from test_address.csv: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+2025-07-01 10:41:23,696 - ERROR - Pipeline failed: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+2025-07-01 10:41:37,784 - INFO - Loaded 1 addresses from test_address.csv
+2025-07-01 10:41:37,785 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:41:38,007 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:41:38,007 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:41:38,728 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:41:38,728 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:41:38,728 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:41:38,733 - INFO - Saved 1 enriched records to test_output.csv
+2025-07-01 10:42:33,204 - INFO - Loaded 1 addresses from test_address.csv
+2025-07-01 10:42:33,204 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:42:33,349 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:42:33,350 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:42:33,841 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:42:33,841 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:42:33,841 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:42:33,847 - INFO - Saved 1 enriched records to test_output2.csv
+2025-07-01 10:42:59,578 - INFO - Loaded 1 addresses from test_address.csv
+2025-07-01 10:42:59,579 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:42:59,725 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:42:59,726 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:43:00,144 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:43:00,144 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-01 10:43:00,144 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:43:00,145 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:43:00,151 - INFO - Saved 1 enriched records to test_output3.csv
+2025-07-01 10:43:57,989 - INFO - Loaded 1 addresses from test_address.csv
+2025-07-01 10:43:57,989 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:43:58,558 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:43:58,558 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:43:59,440 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:43:59,441 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-01 10:43:59,441 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'STACIA EVANS', 'lastName': 'EVANS ', 'firstNameAndMi': 'STACIA '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '1208 LEMASA DR, CORDOVA, TN 38018-8859'}
+2025-07-01 10:43:59,441 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:43:59,441 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:43:59,447 - INFO - Saved 1 enriched records to test_output4.csv
+2025-07-01 10:44:29,021 - INFO - Loaded 1 addresses from test_address.csv
+2025-07-01 10:44:29,021 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:44:29,160 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:44:29,160 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:44:29,727 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:44:29,727 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:44:29,727 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:44:29,729 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:44:29,734 - INFO - Saved 1 enriched records to test_output5.csv
+2025-07-01 10:44:54,582 - INFO - Loaded 1 addresses from test_address.csv
+2025-07-01 10:44:54,582 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:44:54,722 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:44:54,723 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:44:55,098 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:44:55,098 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:44:55,099 - INFO - Added mock owner data for testing
+2025-07-01 10:44:55,099 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:44:55,099 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:44:55,104 - INFO - Saved 1 enriched records to test_output6.csv
+2025-07-01 10:49:09,760 - INFO - Loaded 1 addresses from test_attom.csv
+2025-07-01 10:49:09,761 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:49:09,891 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:49:09,891 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:49:10,316 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:49:10,316 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:49:10,316 - INFO - ATTOM Ownership API attempt 1 for 'Franklin, TN': {'attomid': 204790859}
+2025-07-01 10:49:10,671 - INFO - ATTOM Ownership API attempt 2 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:49:11,116 - INFO - ATTOM Ownership API attempt 3 for 'Franklin, TN': {'address': 'Franklin, TN'}
+2025-07-01 10:49:11,452 - WARNING - All ATTOM ownership API attempts failed for 'Franklin, TN'
+2025-07-01 10:49:11,452 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:49:11,452 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:49:11,458 - INFO - Saved 1 enriched records to test_attom_output.csv
+2025-07-01 10:49:50,633 - INFO - Loaded 1 addresses from test_attom.csv
+2025-07-01 10:49:50,633 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:49:50,776 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:49:50,776 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:49:51,210 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:49:51,210 - INFO - FULL ATTOM RESPONSE STRUCTURE: {
+  "identifier": {
+    "Id": 204790859,
+    "fips": "47157",
+    "apn": "052-072- - -00012",
+    "attomId": 204790859
+  },
+  "lot": {
+    "depth": 110,
+    "frontage": 25,
+    "lotnum": "193",
+    "lotsize1": 0.0629936,
+    "lotsize2": 2744,
+    "pooltype": "NO POOL"
+  },
+  "area": {
+    "loctype": "VIEW - NONE",
+    "countrysecsubd": "Shelby",
+    "countyuse1": "000  ",
+    "muncode": "SH",
+    "munname": "SHELBY",
+    "subdname": "SUMMERDALE PARK"
+  },
+  "address": {
+    "country": "US",
+    "countrySubd": "TN",
+    "line1": "FRANKLIN",
+    "line2": "MEMPHIS, TN 38112",
+    "locality": "MEMPHIS",
+    "matchCode": "ExaStr",
+    "oneLine": "FRANKLIN, MEMPHIS, TN 38112",
+    "postal1": "38112",
+    "postal2": "",
+    "postal3": "C076"
+  },
+  "location": {
+    "accuracy": "Rooftop",
+    "latitude": "35.150057",
+    "longitude": "-89.960826",
+    "distance": 0.0,
+    "geoid": "CO47157, CS4791298, DB4700148, ND0005023024, PL4748000, SB0000134193, SB0000134317, ZI38112",
+    "geoIdV4": {
+      "CO": "c6522ec836c441e8977a9412fc2c89f6",
+      "CS": "2cea4f9fcc9e263f61f9c225ffad303f",
+      "DB": "982116fdf34715ee0c75808170a1bf28, 5bb1254b6cbc09ddbc79a8802965ce60",
+      "N2": "0902ea14f749b4f4699ea0567a97070c",
+      "PL": "f92026b701b95d9af29aa1a4a1178676",
+      "SB": "64d5d36ae0e443635d191c0b65b8248d, 53ab132463815d483a30b2710acb393f, 34eb2603645a38b086cef1b25c89fe32",
+      "ZI": "de2c709808e27a83d4dd456a15d11bf9"
+    }
+  },
+  "summary": {
+    "absenteeInd": "ABSENTEE(MAIL AND SITUS NOT =)",
+    "propclass": "Vacant",
+    "propsubtype": "VACANT LAND",
+    "proptype": "VACANT LAND (NEC)",
+    "propertyType": "VACANT LAND",
+    "propLandUse": "VACANT LAND (NEC)",
+    "propIndicator": "80",
+    "legal1": "LOT:193 DIST:O CITY/MUNI/TWP:MEMPHIS SUBD:SUMMERDALE PARK"
+  },
+  "utilities": {
+    "energyType": "YES"
+  },
+  "building": {
+    "size": {
+      "sizeInd": "BUILDING SQFT"
+    },
+    "rooms": {},
+    "interior": {
+      "fplcind": "Y",
+      "fplctype": "YES"
+    },
+  ...
+2025-07-01 10:49:51,211 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:49:51,211 - INFO - ATTOM Ownership API attempt 1 for 'Franklin, TN': {'attomid': 204790859}
+2025-07-01 10:49:51,487 - INFO - ATTOM Ownership API attempt 2 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:49:51,749 - INFO - ATTOM Ownership API attempt 3 for 'Franklin, TN': {'address': 'Franklin, TN'}
+2025-07-01 10:49:52,014 - WARNING - All ATTOM ownership API attempts failed for 'Franklin, TN'
+2025-07-01 10:49:52,014 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:49:52,014 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:49:52,021 - INFO - Saved 1 enriched records to test_debug.csv
+2025-07-01 10:54:18,486 - INFO - Loaded 1 addresses from test_attom.csv
+2025-07-01 10:54:18,486 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:54:18,691 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:54:18,691 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:54:19,229 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:54:19,229 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:54:19,229 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Vacant', 'propsubtype': 'VACANT LAND', 'proptype': 'VACANT LAND (NEC)', 'propertyType': 'VACANT LAND', 'propLandUse': 'VACANT LAND (NEC)', 'propIndicator': '80', 'legal1': 'LOT:193 DIST:O CITY/MUNI/TWP:MEMPHIS SUBD:SUMMERDALE PARK'}
+2025-07-01 10:54:19,230 - INFO - ATTOM Ownership API attempt 1 (detailowner) for 'Franklin, TN': {'attomid': 204790859}
+2025-07-01 10:54:19,460 - INFO - ATTOM Ownership API attempt 2 (detailowner) for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:54:19,756 - INFO - ATTOM Ownership API attempt 3 (detailowner) for 'Franklin, TN': {'address': 'Franklin, TN'}
+2025-07-01 10:54:19,989 - INFO - ATTOM Ownership API attempt 4 (detailmortgageowner) for 'Franklin, TN': {'attomid': 204790859}
+2025-07-01 10:54:20,237 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:54:20,501 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for 'Franklin, TN': {'address': 'Franklin, TN'}
+2025-07-01 10:54:20,780 - WARNING - All ATTOM ownership API attempts failed for 'Franklin, TN'
+2025-07-01 10:54:20,780 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:54:20,781 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:54:20,787 - INFO - Saved 1 enriched records to test_owner.csv
+2025-07-01 10:54:45,387 - INFO - Loaded 1 addresses from test_residential.csv
+2025-07-01 10:54:45,387 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:54:45,670 - INFO - Google Maps validated: '1234 Main Street' -> '1234 Main Street, Mitchellville, MD 20721'
+2025-07-01 10:54:45,670 - INFO - ATTOM API attempt 1 for '1234 Main Street, Mitchellville, MD 20721': {'address1': '1234 Main Street', 'address2': 'Mitchellville, MD 20721'}
+2025-07-01 10:54:47,275 - INFO - ATTOM API attempt 2 for '1234 Main Street, Mitchellville, MD 20721': {'address': '1234 Main Street', 'locality': 'Mitchellville', 'postalcode': '20721'}
+2025-07-01 10:54:47,768 - INFO - ATTOM API attempt 3 for '1234 Main Street, Mitchellville, MD 20721': {'address': '1234 Main Street, Mitchellville, MD 20721'}
+2025-07-01 10:54:49,141 - WARNING - All ATTOM API attempts failed for '1234 Main Street, Mitchellville, MD 20721'
+2025-07-01 10:54:49,141 - WARNING - No ATTOM property data found for '1234 Main Street, Mitchellville, MD 20721'
+2025-07-01 10:54:49,141 - INFO - Successfully enriched '1234 Main Street'
+2025-07-01 10:54:49,141 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:54:49,147 - INFO - Saved 1 enriched records to test_residential_output.csv
+2025-07-01 10:56:02,335 - INFO - Loaded 1 addresses from test_attom.csv
+2025-07-01 10:56:02,335 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-01 10:56:02,928 - INFO - Google Maps validated: '917 FRANKLIN' -> 'Franklin, TN'
+2025-07-01 10:56:02,928 - INFO - ATTOM API attempt 1 for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:56:03,347 - INFO - Found property data for ATTOM ID 204790859 for 'Franklin, TN' using params: {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:56:03,348 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:56:03,348 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Vacant', 'propsubtype': 'VACANT LAND', 'proptype': 'VACANT LAND (NEC)', 'propertyType': 'VACANT LAND', 'propLandUse': 'VACANT LAND (NEC)', 'propIndicator': '80', 'legal1': 'LOT:193 DIST:O CITY/MUNI/TWP:MEMPHIS SUBD:SUMMERDALE PARK'}
+2025-07-01 10:56:03,348 - INFO - ATTOM Ownership API attempt 1 (detailowner) for 'Franklin, TN': {'attomid': 204790859}
+2025-07-01 10:56:03,627 - INFO - ATTOM Ownership API attempt 2 (detailowner) for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:56:03,911 - INFO - ATTOM Ownership API attempt 3 (detailowner) for 'Franklin, TN': {'address': 'Franklin, TN'}
+2025-07-01 10:56:04,151 - INFO - ATTOM Ownership API attempt 4 (detailmortgageowner) for 'Franklin, TN': {'attomid': 204790859}
+2025-07-01 10:56:04,384 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for 'Franklin, TN': {'address1': 'Franklin', 'address2': 'TN'}
+2025-07-01 10:56:04,611 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for 'Franklin, TN': {'address': 'Franklin, TN'}
+2025-07-01 10:56:04,807 - WARNING - All ATTOM ownership API attempts failed for 'Franklin, TN'
+2025-07-01 10:56:04,807 - INFO - Using mock skip trace data for 'Franklin, TN'
+2025-07-01 10:56:04,807 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-01 10:56:04,807 - INFO - Successfully enriched '917 FRANKLIN'
+2025-07-01 10:56:04,808 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-01 10:56:04,815 - INFO - Saved 1 enriched records to test_final.csv
+2025-07-01 10:56:23,417 - INFO - Loaded 2 addresses from test_job_input.csv
+2025-07-01 10:56:23,417 - INFO - Starting batch enrichment of 2 addresses with max concurrency 2
+2025-07-01 10:56:23,602 - INFO - Google Maps validated: '123 Oak Street' -> '123 West Oak Street, Chicago, IL 60610'
+2025-07-01 10:56:23,603 - INFO - ATTOM API attempt 1 for '123 West Oak Street, Chicago, IL 60610': {'address1': '123 West Oak Street', 'address2': 'Chicago, IL 60610'}
+2025-07-01 10:56:23,615 - INFO - Google Maps validated: '456 Pine Avenue' -> '456 Pine Avenue, Anna Maria, FL 34216'
+2025-07-01 10:56:23,695 - INFO - ATTOM API attempt 1 for '456 Pine Avenue, Anna Maria, FL 34216': {'address1': '456 Pine Avenue', 'address2': 'Anna Maria, FL 34216'}
+2025-07-01 10:56:24,012 - INFO - Found property data for ATTOM ID 175210291 for '123 West Oak Street, Chicago, IL 60610' using params: {'address1': '123 West Oak Street', 'address2': 'Chicago, IL 60610'}
+2025-07-01 10:56:24,012 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-01 10:56:24,012 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Condominium (residential)', 'propsubtype': 'Residential', 'proptype': 'CONDOMINIUM', 'propertyType': 'CONDOMINIUM', 'yearbuilt': 1992, 'propLandUse': 'CONDOMINIUM', 'propIndicator': '11', 'legal1': 'DIST:74 CITY/MUNI/TWP:NORTH CHICAGO SEC/TWN/RNG/MER:SEC 04 TWN 39N RNG 14E'}
+2025-07-01 10:56:24,013 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '123 West Oak Street, Chicago, IL 60610': {'attomid': 175210291}
+2025-07-01 10:56:24,238 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '123 West Oak Street, Chicago, IL 60610': {'address1': '123 West Oak Street', 'address2': 'Chicago, IL 60610'}
+2025-07-01 10:56:24,475 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '123 West Oak Street, Chicago, IL 60610': {'address': '123 West Oak Street', 'locality': 'Chicago', 'postalcode': '60610'}
+2025-07-01 10:56:24,638 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '123 West Oak Street, Chicago, IL 60610': {'address': '123 West Oak Street, Chicago, IL 60610'}
+2025-07-01 10:56:24,752 - INFO - ATTOM API attempt 2 for '456 Pine Avenue, Anna Maria, FL 34216': {'address': '456 Pine Avenue', 'locality': 'Anna Maria', 'postalcode': '34216'}
+2025-07-01 10:56:24,860 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '123 West Oak Street, Chicago, IL 60610': {'attomid': 175210291}
+2025-07-01 10:56:25,073 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '123 West Oak Street, Chicago, IL 60610': {'address1': '123 West Oak Street', 'address2': 'Chicago, IL 60610'}
+2025-07-01 10:56:25,117 - INFO - ATTOM API attempt 3 for '456 Pine Avenue, Anna Maria, FL 34216': {'address': '456 Pine Avenue, Anna Maria, FL 34216'}
+2025-07-01 10:56:25,289 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '123 West Oak Street, Chicago, IL 60610': {'address': '123 West Oak Street', 'locality': 'Chicago', 'postalcode': '60610'}
+2025-07-01 10:56:25,491 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '123 West Oak Street, Chicago, IL 60610': {'address': '123 West Oak Street, Chicago, IL 60610'}
+2025-07-01 10:56:25,686 - WARNING - All ATTOM ownership API attempts failed for '123 West Oak Street, Chicago, IL 60610'
+2025-07-01 10:56:25,687 - INFO - Using mock skip trace data for '123 West Oak Street, Chicago, IL 60610'
+2025-07-01 10:56:25,687 - INFO - Found skip trace data: {'owner_name': 'Lisa Davis', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-01 10:56:25,687 - INFO - Successfully enriched '123 Oak Street'
+2025-07-01 10:56:26,195 - WARNING - All ATTOM API attempts failed for '456 Pine Avenue, Anna Maria, FL 34216'
+2025-07-01 10:56:26,196 - WARNING - No ATTOM property data found for '456 Pine Avenue, Anna Maria, FL 34216'
+2025-07-01 10:56:26,196 - INFO - Successfully enriched '456 Pine Avenue'
+2025-07-01 10:56:26,196 - INFO - Completed batch enrichment. 2 results generated.
+2025-07-01 10:56:26,205 - INFO - Saved 2 enriched records to test_job_output.csv

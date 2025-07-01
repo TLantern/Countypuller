@@ -15,6 +15,9 @@ interface SkipTraceResult {
   available_equity: number | null;
   ltv: number | null;
   loans_count: number;
+  owner_name: string | null;
+  primary_email: string | null;
+  primary_phone: string | null;
   processed_at: string;
 }
 
@@ -232,6 +235,9 @@ async function readEnrichedData(outputFile: string): Promise<SkipTraceResult | n
           available_equity: row.available_equity ? parseFloat(row.available_equity) : null,
           ltv: row.ltv ? parseFloat(row.ltv) : null,
           loans_count: row.loans_count ? parseInt(row.loans_count) : 0,
+          owner_name: row.owner_name || null,
+          primary_email: row.primary_email || null,
+          primary_phone: row.primary_phone || null,
           processed_at: row.processed_at || new Date().toISOString()
         };
         

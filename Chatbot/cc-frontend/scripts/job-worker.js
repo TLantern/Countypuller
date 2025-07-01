@@ -1,8 +1,52 @@
 const { PrismaClient } = require('@prisma/client');
 const { spawn } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 const prisma = new PrismaClient();
+
+// Helper function to find Python executable
+function findPythonExecutable() {
+  // Check environment variables first
+  if (process.env.PYTHON_EXECUTABLE) {
+    console.log(`[DEBUG] Found PYTHON_EXECUTABLE: ${process.env.PYTHON_EXECUTABLE}`);
+    return process.env.PYTHON_EXECUTABLE;
+  }
+  
+  if (process.env.PYTHON_PATH) {
+    console.log(`[DEBUG] Found PYTHON_PATH: ${process.env.PYTHON_PATH}`);
+    return process.env.PYTHON_PATH;
+  }
+  
+  // Common Python paths on Windows (prioritize conda environment with dependencies)
+  const commonPaths = [
+    'C:\\Program Files\\Python311\\python.exe', // Your Python 3.11 installation
+    'c:\\Users\\tmbor\\Countypuller\\.conda\\python.exe', // Your conda environment (PRIORITY - has dependencies)
+    'C:\\Users\\tmbor\\python.exe', // Your original path
+    'C:\\Python39\\python.exe',
+    'C:\\Python310\\python.exe',
+    'C:\\Python311\\python.exe',
+    'C:\\Python312\\python.exe',
+    'C:\\Python313\\python.exe',
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python39\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python310\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python311\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python312\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python313\\python.exe`,
+    `${process.env.USERPROFILE}\\Countypuller\\.conda\\python.exe`, // Dynamic conda path
+  ];
+  
+  console.log(`[DEBUG] Searching for Python in common paths...`);
+  for (const pythonPath of commonPaths) {
+    if (fs.existsSync(pythonPath)) {
+      console.log(`[DEBUG] Found Python at: ${pythonPath}`);
+      return pythonPath;
+    }
+  }
+  
+  console.log(`[DEBUG] No Python found in common paths, falling back to 'python' in PATH`);
+  return 'python';
+}
 
 // Job status enum
 const JobStatus = {
@@ -15,9 +59,27 @@ const JobStatus = {
 function runPython(scriptPath, args) {
   return new Promise((resolve) => {
     const scriptDir = path.dirname(scriptPath);
-    const pythonExecutable = 'C:\\Users\\tmbor\\.conda\\envs\\lph_env\\python.exe';
+    
+    // Use environment variable with fallbacks and auto-detection
+    const pythonExecutable = findPythonExecutable();
+    
+    console.log(`[DEBUG] Using Python executable: ${pythonExecutable}`);
     console.log(`[DEBUG] Running: ${pythonExecutable} ${scriptPath} ${args.join(' ')} in ${scriptDir}`);
     console.log(`[DEBUG] DATABASE_URL available: ${process.env.DATABASE_URL ? 'YES' : 'NO'}`);
+    console.log(`[DEBUG] Environment variables:`);
+    console.log(`[DEBUG]   PYTHON_EXECUTABLE: ${process.env.PYTHON_EXECUTABLE || 'NOT SET'}`);
+    console.log(`[DEBUG]   PYTHON_PATH: ${process.env.PYTHON_PATH || 'NOT SET'}`);
+    console.log(`[DEBUG]   PATH: ${process.env.PATH ? 'SET (length: ' + process.env.PATH.length + ')' : 'NOT SET'}`);
+    console.log(`[DEBUG] Working directory: ${scriptDir}`);
+    console.log(`[DEBUG] Script exists: ${require('fs').existsSync(scriptPath)}`);
+    
+    // Check if python executable exists (if it's an absolute path)
+    if (require('path').isAbsolute(pythonExecutable)) {
+      console.log(`[DEBUG] Python executable exists: ${require('fs').existsSync(pythonExecutable)}`);
+    } else {
+      console.log(`[DEBUG] Python executable is relative/command: ${pythonExecutable}`);
+    }
+    
     const pythonProcess = spawn(pythonExecutable, [path.basename(scriptPath), ...args], {
       cwd: scriptDir,
       env: {
@@ -26,6 +88,8 @@ function runPython(scriptPath, args) {
         NODE_ENV: process.env.NODE_ENV,
         PATH: process.env.PATH
       },
+      windowsVerbatimArguments: false, // Handle spaces in paths correctly on Windows
+      stdio: ['ignore', 'pipe', 'pipe']
     });
     let output = '';
     let errorOutput = '';
@@ -288,7 +352,7 @@ async function processJob(job) {
         throw new Error(result.error);
       }
     } else if (job.job_type === 'AGENT_SCRAPE') {
-      const scriptPath = path.resolve(__dirname, '../../Chatbot/Chatbot/re-agent/agent_cli.py');
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/agent_cli.py');
       const county = job.parameters?.county || 'harris';
       const filters = job.parameters?.filters || {};
       console.log(`[DEBUG] Agent Scrape Job userId: ${job.userId}`);

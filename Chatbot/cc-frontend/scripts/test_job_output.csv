@@ -1,0 +1,3 @@
+raw_address,canonical_address,attomid,est_balance,available_equity,ltv,loans_count,owner_name,primary_email,primary_phone,processed_at
+123 Oak Street,"123 West Oak Street, Chicago, IL 60610",175210291.0,,,,0,Lisa Davis,property@outlook.com,(555) 456-7890,2025-07-01T10:56:23.417819
+456 Pine Avenue,"456 Pine Avenue, Anna Maria, FL 34216",,,,,0,,,,2025-07-01T10:56:23.420819
