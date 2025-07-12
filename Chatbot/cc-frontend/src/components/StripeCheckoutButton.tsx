@@ -4,20 +4,24 @@ import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Button } from '@/components/ui/button';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
+  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+  : null;
 
 interface StripeCheckoutButtonProps {
   priceId: string;
   quantity?: number;
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function StripeCheckoutButton({ 
   priceId, 
   quantity = 1, 
   children, 
-  className 
+  className,
+  style
 }: StripeCheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +31,12 @@ export default function StripeCheckoutButton({
     try {
       if (!priceId) {
         alert('No priceId provided!');
+        setLoading(false);
+        return;
+      }
+
+      if (!stripePromise) {
+        alert('Stripe is not configured. Please contact support.');
         setLoading(false);
         return;
       }
@@ -88,6 +98,7 @@ export default function StripeCheckoutButton({
       onClick={handleClick} 
       disabled={loading}
       className={className}
+      style={style}
     >
       {loading ? 'Loading...' : children}
     </Button>
