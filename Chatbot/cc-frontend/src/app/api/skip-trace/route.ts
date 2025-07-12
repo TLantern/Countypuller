@@ -6,6 +6,10 @@ import path from 'path';
 import fs from 'fs/promises';
 import csv from 'csv-parser';
 import { createReadStream } from 'fs';
+import { PrismaClient } from '@prisma/client';
+import crypto from 'crypto';
+
+const prisma = new PrismaClient();
 
 interface SkipTraceResult {
   raw_address: string;
@@ -14,6 +18,7 @@ interface SkipTraceResult {
   est_balance: number | null;
   available_equity: number | null;
   ltv: number | null;
+  market_value: number | null;
   loans_count: number;
   owner_name: string | null;
   primary_email: string | null;
@@ -26,6 +31,22 @@ interface SkipTraceResponse {
   data?: SkipTraceResult;
   error?: string;
   message?: string;
+  fromCache?: boolean;
+}
+
+// Helper function to normalize address for consistent hashing
+function normalizeAddress(address: string): string {
+  return address
+    .toLowerCase()
+    .replace(/[^\w\s]/g, ' ')  // Remove special characters
+    .replace(/\s+/g, ' ')      // Normalize whitespace
+    .trim();
+}
+
+// Generate hash for efficient address lookups
+function generateAddressHash(address: string): string {
+  const normalized = normalizeAddress(address);
+  return crypto.createHash('md5').update(normalized).digest('hex');
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResponse>> {
@@ -51,6 +72,49 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
     }
 
     console.log(`🔍 Skip trace requested by user ${userId} for address: ${address}`);
+
+    // Generate address hash for lookup
+    const addressHash = generateAddressHash(address);
+    
+    // Check if we already have results for this address
+    const existingResult = await prisma.skipTraceResult.findFirst({
+      where: {
+        OR: [
+          { address_hash: addressHash },
+          { raw_address: address },
+          { canonical_address: address }
+        ],
+        userId: userId
+      },
+      orderBy: { created_at: 'desc' }
+    });
+
+    if (existingResult) {
+      console.log(`✅ Found existing skip trace result for address: ${address}`);
+      
+      // Convert database result to expected format
+      const cachedResult: SkipTraceResult = {
+        raw_address: existingResult.raw_address,
+        canonical_address: existingResult.canonical_address,
+        attomid: existingResult.attomid,
+        est_balance: existingResult.est_balance ? Number(existingResult.est_balance) : null,
+        available_equity: existingResult.available_equity ? Number(existingResult.available_equity) : null,
+        ltv: existingResult.ltv ? Number(existingResult.ltv) : null,
+        market_value: existingResult.market_value ? Number(existingResult.market_value) : null,
+        loans_count: existingResult.loans_count || 0,
+        owner_name: existingResult.owner_name,
+        primary_email: existingResult.primary_email,
+        primary_phone: existingResult.primary_phone,
+        processed_at: existingResult.processed_at.toISOString()
+      };
+
+      return NextResponse.json({
+        success: true,
+        data: cachedResult,
+        message: 'Cached skip trace result retrieved successfully',
+        fromCache: true
+      });
+    }
 
     // Check if required environment variables are set
     const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
@@ -119,6 +183,31 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
         throw new Error('No data returned from address enrichment pipeline');
       }
 
+      // Save result to database for future lookups
+      try {
+        await prisma.skipTraceResult.create({
+          data: {
+            raw_address: enrichedData.raw_address,
+            canonical_address: enrichedData.canonical_address,
+            address_hash: addressHash,
+            attomid: enrichedData.attomid,
+            est_balance: enrichedData.est_balance,
+            available_equity: enrichedData.available_equity,
+            ltv: enrichedData.ltv,
+            market_value: enrichedData.market_value,
+            loans_count: enrichedData.loans_count,
+            owner_name: enrichedData.owner_name,
+            primary_email: enrichedData.primary_email,
+            primary_phone: enrichedData.primary_phone,
+            userId: userId
+          }
+        });
+        console.log(`💾 Saved skip trace result to database`);
+      } catch (dbError) {
+        console.warn('Failed to save skip trace result to database:', dbError);
+        // Continue anyway - we still have the result
+      }
+
       console.log(`✅ Skip trace completed for ${address}:`, {
         canonical_address: enrichedData.canonical_address,
         attomid: enrichedData.attomid,
@@ -130,7 +219,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
       return NextResponse.json({
         success: true,
         data: enrichedData,
-        message: 'Skip trace completed successfully'
+        message: 'Skip trace completed successfully',
+        fromCache: false
       });
 
     } finally {
@@ -154,7 +244,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
 
 async function runPipeline(scriptPath: string, inputFile: string, outputFile: string): Promise<{success: boolean, error?: string}> {
   return new Promise((resolve) => {
-    const pythonProcess = spawn('python', [
+    const pythonProcess = spawn('python3', [
       scriptPath,
       inputFile,
       '--output', outputFile,
@@ -234,6 +324,7 @@ async function readEnrichedData(outputFile: string): Promise<SkipTraceResult | n
           est_balance: row.est_balance ? parseFloat(row.est_balance) : null,
           available_equity: row.available_equity ? parseFloat(row.available_equity) : null,
           ltv: row.ltv ? parseFloat(row.ltv) : null,
+          market_value: row.market_value ? parseFloat(row.market_value) : null,
           loans_count: row.loans_count ? parseInt(row.loans_count) : 0,
           owner_name: row.owner_name || null,
           primary_email: row.primary_email || null,
@@ -249,14 +340,60 @@ async function readEnrichedData(outputFile: string): Promise<SkipTraceResult | n
   });
 }
 
-export async function GET(req: NextRequest) {
-  return NextResponse.json({
-    message: 'Skip trace API endpoint. Use POST with {"address": "your address"} to get property data.',
-    example: {
-      method: 'POST',
-      body: {
-        address: '123 Main Street, Houston, TX 77001'
-      }
+// Add a new GET endpoint to check if address has been skip traced
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  try {
+    const session = await getServerSession(authOptions);
+    const userId = (session?.user as any)?.id;
+    
+    if (!session || !userId) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Not authenticated' 
+      }, { status: 401 });
     }
-  });
+
+    const { searchParams } = new URL(req.url);
+    const address = searchParams.get('address');
+
+    if (!address) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Address parameter is required' 
+      }, { status: 400 });
+    }
+
+    const addressHash = generateAddressHash(address);
+    
+    const existingResult = await prisma.skipTraceResult.findFirst({
+      where: {
+        OR: [
+          { address_hash: addressHash },
+          { raw_address: address },
+          { canonical_address: address }
+        ],
+        userId: userId
+      },
+      select: {
+        id: true,
+        raw_address: true,
+        canonical_address: true,
+        processed_at: true
+      },
+      orderBy: { created_at: 'desc' }
+    });
+
+    return NextResponse.json({
+      success: true,
+      hasResult: !!existingResult,
+      result: existingResult || null
+    });
+
+  } catch (error) {
+    console.error('Skip trace check error:', error);
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : 'An unexpected error occurred'
+    }, { status: 500 });
+  }
 } 

@@ -1039,3 +1039,592 @@
 2025-07-01 10:56:26,196 - INFO - Successfully enriched '456 Pine Avenue'
 2025-07-01 10:56:26,196 - INFO - Completed batch enrichment. 2 results generated.
 2025-07-01 10:56:26,205 - INFO - Saved 2 enriched records to test_job_output.csv
+2025-07-11 10:40:47,090 - INFO - Loaded 18 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_LPH_1752255645221.csv
+2025-07-11 10:40:47,091 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-11 10:40:47,246 - INFO - Google Maps validated: '43 WINCREST FALLS, CYPRESS, 77429' -> '43 Wincrest Falls Dr, Cypress, TX 77429'
+2025-07-11 10:40:47,247 - INFO - ATTOM API attempt 1 for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:40:47,254 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:47,258 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:47,264 - INFO - Google Maps validated: '1501 SAINT EMANUEL, HOUSTON, 77003' -> '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-11 10:40:47,277 - INFO - Google Maps validated: '5510 COON TREE, HUMBLE, 77346' -> '5510 Coon Tree Court, Humble, TX 77346'
+2025-07-11 10:40:47,277 - INFO - Google Maps validated: '13011 PORTER MEADOW, HOUSTON, 77014' -> '13011 Porter Meadow Lane, Houston, TX 77014'
+2025-07-11 10:40:47,281 - INFO - Google Maps validated: '9300 GAMEBIRD, HOUSTON, 77034' -> '9300 Gamebird Lane, Houston, TX 77034'
+2025-07-11 10:40:47,283 - INFO - Google Maps validated: '7721 LEONORA, HOUSTON, 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:47,287 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:47,294 - INFO - Google Maps validated: '2102 DECATUR, HOUSTON, 77007' -> '2102 Decatur Street, Houston, TX 77007'
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '13011 Porter Meadow Lane, Houston, TX 77014': {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '9300 Gamebird Lane, Houston, TX 77034': {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '5510 Coon Tree Court, Humble, TX 77346': {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:40:47,347 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,697 - INFO - Found property data for ATTOM ID 36659927 for '9300 Gamebird Lane, Houston, TX 77034' using params: {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:40:47,697 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,697 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Industrial', 'propsubtype': 'INDUSTRIAL', 'proptype': 'MINI WAREHOUSE', 'propertyType': 'MINI-WAREHOUSE, STORAGE', 'yearbuilt': 1984, 'propLandUse': 'MINI WAREHOUSE', 'propIndicator': '50', 'legal1': 'LT 16 BLK 4 ACRE HOMES'}
+2025-07-11 10:40:47,697 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'attomid': 36659927}
+2025-07-11 10:40:47,710 - INFO - Found property data for ATTOM ID 155061702 for '1501 Saint Emanuel Street, Houston, TX 77003' using params: {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:40:47,710 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,710 - INFO - Found summary section: {'propclass': 'Commercial', 'propsubtype': 'Commercial', 'proptype': 'COMMERCIAL (NEC)', 'propertyType': 'COMMERCIAL (GENERAL)', 'yearbuilt': 1920, 'propLandUse': 'COMMERCIAL (NEC)', 'propIndicator': '20', 'legal1': 'LT 10 BLK 323 SSBB'}
+2025-07-11 10:40:47,720 - INFO - Found property data for ATTOM ID 165819372 for '5510 Coon Tree Court, Humble, TX 77346' using params: {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:40:47,720 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,720 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1979, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 42 BLK 1 OAKS OF ATASCOCITA SEC 1'}
+2025-07-11 10:40:47,731 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,731 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,731 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:40:47,760 - INFO - Found property data for ATTOM ID 167041461 for '43 Wincrest Falls Dr, Cypress, TX 77429' using params: {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:40:47,760 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,760 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1997, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 7 BLK 1 WINCREST FALLS'}
+2025-07-11 10:40:47,761 - INFO - Found property data for ATTOM ID 166917058 for '2102 Decatur Street, Houston, TX 77007' using params: {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:40:47,761 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,762 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'GROUP QUARTERS', 'propertyType': 'WELFARE, SOCIAL SERVICE, LOW INCOME HOUSING (EXEMPT)', 'yearbuilt': 1925, 'propLandUse': 'GROUP QUARTERS', 'propIndicator': '90', 'legal1': 'LT 6 & TR 5A BLK 405 BAKER W R NSBB'}
+2025-07-11 10:40:47,764 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,764 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,764 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:40:47,786 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:47,786 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,786 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-11 10:40:47,794 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,794 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,794 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:40:47,798 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'attomid': 165819372}
+2025-07-11 10:40:47,798 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:40:47,799 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'attomid': 155061702}
+2025-07-11 10:40:47,799 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'attomid': 166917058}
+2025-07-11 10:40:47,799 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:40:47,799 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:40:47,799 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:40:47,799 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'attomid': 167041461}
+2025-07-11 10:40:47,812 - INFO - Found property data for ATTOM ID 487292 for '13011 Porter Meadow Lane, Houston, TX 77014' using params: {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:40:47,812 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:47,812 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2003, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 3 BLK 1 SILVERGLEN NORTH SEC 1'}
+2025-07-11 10:40:47,880 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:40:47,904 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'attomid': 487292}
+2025-07-11 10:40:47,962 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:40:47,964 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:47,970 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:40:47,999 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:48,004 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:40:48,014 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:48,028 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:40:48,043 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:48,083 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:40:48,162 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street', 'locality': 'Houston', 'postalcode': '77003'}
+2025-07-11 10:40:48,163 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane', 'locality': 'Houston', 'postalcode': '77034'}
+2025-07-11 10:40:48,164 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:48,169 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:48,173 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:40:48,234 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court', 'locality': 'Humble', 'postalcode': '77346'}
+2025-07-11 10:40:48,243 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:48,244 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr', 'locality': 'Cypress', 'postalcode': '77429'}
+2025-07-11 10:40:48,271 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:40:48,273 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane, Houston, TX 77034'}
+2025-07-11 10:40:48,278 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:40:48,279 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane', 'locality': 'Houston', 'postalcode': '77014'}
+2025-07-11 10:40:48,280 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:40:48,324 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street, Houston, TX 77003'}
+2025-07-11 10:40:48,335 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street', 'locality': 'Houston', 'postalcode': '77007'}
+2025-07-11 10:40:48,340 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court, Humble, TX 77346'}
+2025-07-11 10:40:48,349 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:40:48,386 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane, Houston, TX 77014'}
+2025-07-11 10:40:48,407 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:40:48,412 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:40:48,424 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'attomid': 36659927}
+2025-07-11 10:40:48,424 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr, Cypress, TX 77429'}
+2025-07-11 10:40:48,455 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'attomid': 155061702}
+2025-07-11 10:40:48,486 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:40:48,512 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'attomid': 165819372}
+2025-07-11 10:40:48,514 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street, Houston, TX 77007'}
+2025-07-11 10:40:48,527 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:40:48,556 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:40:48,562 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'attomid': 487292}
+2025-07-11 10:40:48,578 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:48,612 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:48,662 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:48,667 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:48,668 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:40:48,672 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'attomid': 167041461}
+2025-07-11 10:40:48,674 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:40:48,721 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane', 'locality': 'Houston', 'postalcode': '77034'}
+2025-07-11 10:40:48,750 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:48,768 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'attomid': 166917058}
+2025-07-11 10:40:48,769 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:40:48,788 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:40:48,798 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:40:48,801 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street', 'locality': 'Houston', 'postalcode': '77003'}
+2025-07-11 10:40:48,803 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court', 'locality': 'Humble', 'postalcode': '77346'}
+2025-07-11 10:40:48,831 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:48,834 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane, Houston, TX 77034'}
+2025-07-11 10:40:48,851 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:48,858 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:40:48,918 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court, Humble, TX 77346'}
+2025-07-11 10:40:48,935 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:40:48,936 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:40:48,940 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane', 'locality': 'Houston', 'postalcode': '77014'}
+2025-07-11 10:40:48,945 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street, Houston, TX 77003'}
+2025-07-11 10:40:48,958 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:40:48,960 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr', 'locality': 'Cypress', 'postalcode': '77429'}
+2025-07-11 10:40:48,971 - WARNING - All ATTOM ownership API attempts failed for '9300 Gamebird Lane, Houston, TX 77034'
+2025-07-11 10:40:48,971 - INFO - Using mock skip trace data for '9300 Gamebird Lane, Houston, TX 77034'
+2025-07-11 10:40:48,971 - INFO - Found skip trace data: {'owner_name': 'Robert Martinez', 'primary_phone': '(555) 234-5678', 'primary_email': 'resident@gmail.com'}
+2025-07-11 10:40:48,971 - INFO - Successfully enriched '9300 GAMEBIRD, HOUSTON, 77034'
+2025-07-11 10:40:49,014 - WARNING - All ATTOM ownership API attempts failed for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:49,014 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:49,014 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:40:49,014 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:40:49,027 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:40:49,049 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane, Houston, TX 77014'}
+2025-07-11 10:40:49,052 - WARNING - All ATTOM ownership API attempts failed for '5510 Coon Tree Court, Humble, TX 77346'
+2025-07-11 10:40:49,052 - INFO - Using mock skip trace data for '5510 Coon Tree Court, Humble, TX 77346'
+2025-07-11 10:40:49,053 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:40:49,053 - INFO - Successfully enriched '5510 COON TREE, HUMBLE, 77346'
+2025-07-11 10:40:49,063 - INFO - Google Maps validated: '4802 TWISTING, HOUSTON, 77084' -> '4802 Twisting Road, Houston, TX 77084'
+2025-07-11 10:40:49,063 - INFO - ATTOM API attempt 1 for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,076 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street', 'locality': 'Houston', 'postalcode': '77007'}
+2025-07-11 10:40:49,076 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr, Cypress, TX 77429'}
+2025-07-11 10:40:49,085 - WARNING - All ATTOM ownership API attempts failed for '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-11 10:40:49,086 - INFO - Using mock skip trace data for '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-11 10:40:49,086 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:40:49,086 - INFO - Successfully enriched '1501 SAINT EMANUEL, HOUSTON, 77003'
+2025-07-11 10:40:49,109 - WARNING - All ATTOM ownership API attempts failed for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:49,109 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:49,109 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:49,109 - INFO - Successfully enriched '7721 LEONORA, HOUSTON, 77061'
+2025-07-11 10:40:49,129 - INFO - Google Maps validated: '1119 COMMERCE, HOUSTON, 77002' -> '1119 Commerce Street, Houston, TX 77002'
+2025-07-11 10:40:49,134 - WARNING - All ATTOM ownership API attempts failed for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:49,134 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:49,134 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:40:49,134 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:40:49,149 - INFO - Google Maps validated: '4803 MAGNOLIA CREEK, HOUSTON, 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-11 10:40:49,159 - INFO - Google Maps validated: '7721 LEONORA, HOUSTON, 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:49,164 - WARNING - All ATTOM ownership API attempts failed for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:49,164 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:40:49,164 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:40:49,164 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:40:49,164 - INFO - ATTOM API attempt 1 for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:49,165 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,165 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:49,187 - INFO - Google Maps validated: '18906 WHISTLING OAKS, KATY, 77084' -> '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-11 10:40:49,208 - WARNING - All ATTOM ownership API attempts failed for '43 Wincrest Falls Dr, Cypress, TX 77429'
+2025-07-11 10:40:49,208 - INFO - Using mock skip trace data for '43 Wincrest Falls Dr, Cypress, TX 77429'
+2025-07-11 10:40:49,208 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:40:49,208 - INFO - Successfully enriched '43 WINCREST FALLS, CYPRESS, 77429'
+2025-07-11 10:40:49,212 - INFO - Google Maps validated: '706 SKY, HOUSTON, 77073' -> '706 North Sky Drive, Houston, TX 77073'
+2025-07-11 10:40:49,220 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street, Houston, TX 77007'}
+2025-07-11 10:40:49,223 - WARNING - All ATTOM ownership API attempts failed for '13011 Porter Meadow Lane, Houston, TX 77014'
+2025-07-11 10:40:49,223 - INFO - Using mock skip trace data for '13011 Porter Meadow Lane, Houston, TX 77014'
+2025-07-11 10:40:49,223 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:49,223 - INFO - Successfully enriched '13011 PORTER MEADOW, HOUSTON, 77014'
+2025-07-11 10:40:49,237 - INFO - Google Maps validated: '7721 LEONORA, HOUSTON, 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:49,255 - INFO - Found property data for ATTOM ID 995087 for '4802 Twisting Road, Houston, TX 77084' using params: {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,255 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,255 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2001, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 107 BLK 3 ROLLING CREEK SEC 1'}
+2025-07-11 10:40:49,258 - INFO - Google Maps validated: '1301 TEXAS, HOUSTON, 77002' -> '1301 Texas Street, Houston, TX 77002'
+2025-07-11 10:40:49,267 - INFO - ATTOM API attempt 1 for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,267 - INFO - ATTOM API attempt 1 for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:40:49,267 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:49,267 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'attomid': 995087}
+2025-07-11 10:40:49,267 - INFO - ATTOM API attempt 1 for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:49,337 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:49,338 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,338 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-11 10:40:49,347 - WARNING - All ATTOM ownership API attempts failed for '2102 Decatur Street, Houston, TX 77007'
+2025-07-11 10:40:49,347 - INFO - Using mock skip trace data for '2102 Decatur Street, Houston, TX 77007'
+2025-07-11 10:40:49,347 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:49,347 - INFO - Successfully enriched '2102 DECATUR, HOUSTON, 77007'
+2025-07-11 10:40:49,372 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:40:49,379 - INFO - Found property data for ATTOM ID 165784812 for '1119 Commerce Street, Houston, TX 77002' using params: {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:49,379 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,379 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Industrial', 'propsubtype': 'INDUSTRIAL', 'proptype': 'WAREHOUSE', 'propertyType': 'WAREHOUSE, STORAGE', 'yearbuilt': 1923, 'propLandUse': 'WAREHOUSE', 'propIndicator': '50', 'legal1': 'LTS 1 2 & 3 & TR 20 BLK 4 SSBB'}
+2025-07-11 10:40:49,390 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,421 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,421 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,422 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-11 10:40:49,450 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:49,450 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,450 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-11 10:40:49,477 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'attomid': 165784812}
+2025-07-11 10:40:49,478 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:40:49,478 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-11 10:40:49,479 - INFO - Found property data for ATTOM ID 44640090 for '706 North Sky Drive, Houston, TX 77073' using params: {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:40:49,479 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,480 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 8 BLK 15 NORTH VIEW SEC 1'}
+2025-07-11 10:40:49,489 - INFO - Found property data for ATTOM ID 332943774 for '18906 Whistling Oaks Drive, Houston, TX 77084' using params: {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,489 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,489 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2022, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 5 BLK 2 GRAND OAKS SEC 9'}
+2025-07-11 10:40:49,510 - INFO - Found property data for ATTOM ID 165580755 for '1301 Texas Street, Houston, TX 77002' using params: {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:49,510 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:40:49,510 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1921, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 6 & TR 7 BLK 53 SSBB'}
+2025-07-11 10:40:49,511 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:49,558 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'address': '4802 Twisting Road', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:40:49,582 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'attomid': 44640090}
+2025-07-11 10:40:49,583 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'attomid': 332943774}
+2025-07-11 10:40:49,584 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'attomid': 165580755}
+2025-07-11 10:40:49,608 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:49,610 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:49,612 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,672 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'address': '4802 Twisting Road, Houston, TX 77084'}
+2025-07-11 10:40:49,681 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:40:49,711 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:49,727 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:40:49,728 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:49,737 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address': '4803 Magnolia Creek Road', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:40:49,785 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'address': '1119 Commerce Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:49,788 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:40:49,814 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:40:49,843 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '4802 Twisting Road, Houston, TX 77084': {'attomid': 995087}
+2025-07-11 10:40:49,851 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address': '18906 Whistling Oaks Drive', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:40:49,856 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address': '4803 Magnolia Creek Road, Houston, TX 77084'}
+2025-07-11 10:40:49,893 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'address': '1119 Commerce Street, Houston, TX 77002'}
+2025-07-11 10:40:49,902 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'address': '1301 Texas Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:49,902 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'address': '706 North Sky Drive', 'locality': 'Houston', 'postalcode': '77073'}
+2025-07-11 10:40:49,929 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:40:49,959 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address': '18906 Whistling Oaks Drive, Houston, TX 77084'}
+2025-07-11 10:40:49,961 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:40:50,017 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:50,018 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'address': '706 North Sky Drive, Houston, TX 77073'}
+2025-07-11 10:40:50,030 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-11 10:40:50,048 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'address': '1301 Texas Street, Houston, TX 77002'}
+2025-07-11 10:40:50,068 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1119 Commerce Street, Houston, TX 77002': {'attomid': 165784812}
+2025-07-11 10:40:50,087 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:50,092 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:40:50,125 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'attomid': 332943774}
+2025-07-11 10:40:50,146 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '4802 Twisting Road, Houston, TX 77084': {'address': '4802 Twisting Road', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:40:50,163 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:50,176 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '706 North Sky Drive, Houston, TX 77073': {'attomid': 44640090}
+2025-07-11 10:40:50,236 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1301 Texas Street, Houston, TX 77002': {'attomid': 165580755}
+2025-07-11 10:40:50,238 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:40:50,240 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:50,258 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:40:50,261 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:40:50,262 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '4802 Twisting Road, Houston, TX 77084': {'address': '4802 Twisting Road, Houston, TX 77084'}
+2025-07-11 10:40:50,354 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:40:50,355 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:40:50,366 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:40:50,390 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:40:50,399 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address': '4803 Magnolia Creek Road', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:40:50,444 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address': '18906 Whistling Oaks Drive', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:40:50,447 - WARNING - All ATTOM ownership API attempts failed for '4802 Twisting Road, Houston, TX 77084'
+2025-07-11 10:40:50,447 - INFO - Using mock skip trace data for '4802 Twisting Road, Houston, TX 77084'
+2025-07-11 10:40:50,447 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:50,447 - INFO - Successfully enriched '4802 TWISTING, HOUSTON, 77084'
+2025-07-11 10:40:50,456 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1119 Commerce Street, Houston, TX 77002': {'address': '1119 Commerce Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:50,502 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '706 North Sky Drive, Houston, TX 77073': {'address': '706 North Sky Drive', 'locality': 'Houston', 'postalcode': '77073'}
+2025-07-11 10:40:50,503 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address': '4803 Magnolia Creek Road, Houston, TX 77084'}
+2025-07-11 10:40:50,529 - WARNING - All ATTOM ownership API attempts failed for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:50,529 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:50,530 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:50,530 - INFO - Successfully enriched '7721 LEONORA, HOUSTON, 77061'
+2025-07-11 10:40:50,530 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1301 Texas Street, Houston, TX 77002': {'address': '1301 Texas Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:40:50,544 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:40:50,566 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1119 Commerce Street, Houston, TX 77002': {'address': '1119 Commerce Street, Houston, TX 77002'}
+2025-07-11 10:40:50,601 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address': '18906 Whistling Oaks Drive, Houston, TX 77084'}
+2025-07-11 10:40:50,643 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1301 Texas Street, Houston, TX 77002': {'address': '1301 Texas Street, Houston, TX 77002'}
+2025-07-11 10:40:50,658 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '706 North Sky Drive, Houston, TX 77073': {'address': '706 North Sky Drive, Houston, TX 77073'}
+2025-07-11 10:40:50,677 - WARNING - All ATTOM ownership API attempts failed for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-11 10:40:50,677 - INFO - Using mock skip trace data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-11 10:40:50,678 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:40:50,678 - INFO - Successfully enriched '4803 MAGNOLIA CREEK, HOUSTON, 77084'
+2025-07-11 10:40:50,681 - WARNING - All ATTOM ownership API attempts failed for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:50,681 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:40:50,681 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:50,681 - INFO - Successfully enriched '7721 LEONORA, HOUSTON, 77061'
+2025-07-11 10:40:50,693 - WARNING - All ATTOM ownership API attempts failed for '1119 Commerce Street, Houston, TX 77002'
+2025-07-11 10:40:50,693 - INFO - Using mock skip trace data for '1119 Commerce Street, Houston, TX 77002'
+2025-07-11 10:40:50,693 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:40:50,693 - INFO - Successfully enriched '1119 COMMERCE, HOUSTON, 77002'
+2025-07-11 10:40:50,776 - WARNING - All ATTOM ownership API attempts failed for '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-11 10:40:50,776 - INFO - Using mock skip trace data for '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-11 10:40:50,776 - INFO - Found skip trace data: {'owner_name': 'Mary Johnson', 'primary_phone': '(555) 234-5678', 'primary_email': 'resident@gmail.com'}
+2025-07-11 10:40:50,776 - INFO - Successfully enriched '18906 WHISTLING OAKS, KATY, 77084'
+2025-07-11 10:40:50,784 - WARNING - All ATTOM ownership API attempts failed for '1301 Texas Street, Houston, TX 77002'
+2025-07-11 10:40:50,784 - INFO - Using mock skip trace data for '1301 Texas Street, Houston, TX 77002'
+2025-07-11 10:40:50,784 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:40:50,784 - INFO - Successfully enriched '1301 TEXAS, HOUSTON, 77002'
+2025-07-11 10:40:50,862 - WARNING - All ATTOM ownership API attempts failed for '706 North Sky Drive, Houston, TX 77073'
+2025-07-11 10:40:50,863 - INFO - Using mock skip trace data for '706 North Sky Drive, Houston, TX 77073'
+2025-07-11 10:40:50,863 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-11 10:40:50,863 - INFO - Successfully enriched '706 SKY, HOUSTON, 77073'
+2025-07-11 10:40:50,863 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-11 10:40:50,876 - INFO - Saved 18 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_output_LPH_1752255645221.csv
+2025-07-11 10:52:01,445 - INFO - Loaded 18 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_LPH_1752256320906.csv
+2025-07-11 10:52:01,445 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-11 10:52:01,540 - INFO - Google Maps validated: '13011 PORTER MEADOW, HOUSTON, 77014' -> '13011 Porter Meadow Lane, Houston, TX 77014'
+2025-07-11 10:52:01,540 - INFO - ATTOM API attempt 1 for '13011 Porter Meadow Lane, Houston, TX 77014': {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:52:01,544 - INFO - Google Maps validated: '43 WINCREST FALLS, CYPRESS, 77429' -> '43 Wincrest Falls Dr, Cypress, TX 77429'
+2025-07-11 10:52:01,550 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:01,552 - INFO - Google Maps validated: '5510 COON TREE, HUMBLE, 77346' -> '5510 Coon Tree Court, Humble, TX 77346'
+2025-07-11 10:52:01,555 - INFO - Google Maps validated: '7721 LEONORA, HOUSTON, 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:01,560 - INFO - Google Maps validated: '1501 SAINT EMANUEL, HOUSTON, 77003' -> '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-11 10:52:01,565 - INFO - Google Maps validated: '2102 DECATUR, HOUSTON, 77007' -> '2102 Decatur Street, Houston, TX 77007'
+2025-07-11 10:52:01,568 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:01,569 - INFO - Google Maps validated: '9300 GAMEBIRD, HOUSTON, 77034' -> '9300 Gamebird Lane, Houston, TX 77034'
+2025-07-11 10:52:01,570 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:01,641 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:01,642 - INFO - ATTOM API attempt 1 for '5510 Coon Tree Court, Humble, TX 77346': {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:52:01,642 - INFO - ATTOM API attempt 1 for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:52:01,642 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:01,642 - INFO - ATTOM API attempt 1 for '9300 Gamebird Lane, Houston, TX 77034': {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:52:01,642 - INFO - ATTOM API attempt 1 for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:52:01,642 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:01,643 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:01,643 - INFO - ATTOM API attempt 1 for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:52:01,969 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:01,969 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:01,970 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:52:01,970 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:52:01,973 - INFO - Found property data for ATTOM ID 165819372 for '5510 Coon Tree Court, Humble, TX 77346' using params: {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:52:01,973 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:01,973 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1979, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 42 BLK 1 OAKS OF ATASCOCITA SEC 1'}
+2025-07-11 10:52:01,978 - INFO - Found property data for ATTOM ID 487292 for '13011 Porter Meadow Lane, Houston, TX 77014' using params: {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:52:01,978 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:01,978 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2003, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 3 BLK 1 SILVERGLEN NORTH SEC 1'}
+2025-07-11 10:52:01,993 - INFO - Found property data for ATTOM ID 36659927 for '9300 Gamebird Lane, Houston, TX 77034' using params: {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:52:01,993 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:01,993 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Industrial', 'propsubtype': 'INDUSTRIAL', 'proptype': 'MINI WAREHOUSE', 'propertyType': 'MINI-WAREHOUSE, STORAGE', 'yearbuilt': 1984, 'propLandUse': 'MINI WAREHOUSE', 'propIndicator': '50', 'legal1': 'LT 16 BLK 4 ACRE HOMES'}
+2025-07-11 10:52:02,055 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:02,055 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:02,055 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:52:02,068 - INFO - Found property data for ATTOM ID 166917058 for '2102 Decatur Street, Houston, TX 77007' using params: {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:52:02,068 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:02,068 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'GROUP QUARTERS', 'propertyType': 'WELFARE, SOCIAL SERVICE, LOW INCOME HOUSING (EXEMPT)', 'yearbuilt': 1925, 'propLandUse': 'GROUP QUARTERS', 'propIndicator': '90', 'legal1': 'LT 6 & TR 5A BLK 405 BAKER W R NSBB'}
+2025-07-11 10:52:02,070 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:02,070 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:02,070 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-11 10:52:02,070 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:52:02,070 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'attomid': 487292}
+2025-07-11 10:52:02,070 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'attomid': 165819372}
+2025-07-11 10:52:02,070 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'attomid': 36659927}
+2025-07-11 10:52:02,070 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'attomid': 166917058}
+2025-07-11 10:52:02,070 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:52:02,075 - INFO - Found property data for ATTOM ID 155061702 for '1501 Saint Emanuel Street, Houston, TX 77003' using params: {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:52:02,075 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:02,075 - INFO - Found summary section: {'propclass': 'Commercial', 'propsubtype': 'Commercial', 'proptype': 'COMMERCIAL (NEC)', 'propertyType': 'COMMERCIAL (GENERAL)', 'yearbuilt': 1920, 'propLandUse': 'COMMERCIAL (NEC)', 'propIndicator': '20', 'legal1': 'LT 10 BLK 323 SSBB'}
+2025-07-11 10:52:02,110 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:02,110 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:02,110 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:52:02,114 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:02,130 - INFO - Found property data for ATTOM ID 167041461 for '43 Wincrest Falls Dr, Cypress, TX 77429' using params: {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:52:02,130 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:02,130 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1997, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 7 BLK 1 WINCREST FALLS'}
+2025-07-11 10:52:02,175 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'attomid': 155061702}
+2025-07-11 10:52:02,176 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:52:02,176 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'attomid': 167041461}
+2025-07-11 10:52:02,197 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:52:02,202 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:52:02,244 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:52:02,261 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:52:02,286 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:02,302 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:02,319 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:02,325 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:52:02,337 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:52:02,345 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:02,410 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:52:02,465 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court', 'locality': 'Humble', 'postalcode': '77346'}
+2025-07-11 10:52:02,467 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane', 'locality': 'Houston', 'postalcode': '77034'}
+2025-07-11 10:52:02,475 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street', 'locality': 'Houston', 'postalcode': '77007'}
+2025-07-11 10:52:02,495 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:02,531 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:52:02,531 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street', 'locality': 'Houston', 'postalcode': '77003'}
+2025-07-11 10:52:02,536 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr', 'locality': 'Cypress', 'postalcode': '77429'}
+2025-07-11 10:52:02,570 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane', 'locality': 'Houston', 'postalcode': '77014'}
+2025-07-11 10:52:02,573 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court, Humble, TX 77346'}
+2025-07-11 10:52:02,613 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane, Houston, TX 77034'}
+2025-07-11 10:52:02,614 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:02,617 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:52:02,628 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street, Houston, TX 77007'}
+2025-07-11 10:52:02,643 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr, Cypress, TX 77429'}
+2025-07-11 10:52:02,646 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street, Houston, TX 77003'}
+2025-07-11 10:52:02,674 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:52:02,674 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:52:02,739 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'attomid': 165819372}
+2025-07-11 10:52:02,747 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'attomid': 36659927}
+2025-07-11 10:52:02,776 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane, Houston, TX 77014'}
+2025-07-11 10:52:02,783 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:02,815 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'attomid': 166917058}
+2025-07-11 10:52:02,843 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'attomid': 167041461}
+2025-07-11 10:52:02,848 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:52:02,866 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:52:02,870 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address1': '5510 Coon Tree Court', 'address2': 'Humble, TX 77346'}
+2025-07-11 10:52:02,878 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:52:02,924 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'attomid': 155061702}
+2025-07-11 10:52:02,947 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address1': '9300 Gamebird Lane', 'address2': 'Houston, TX 77034'}
+2025-07-11 10:52:02,965 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'attomid': 487292}
+2025-07-11 10:52:02,965 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-11 10:52:03,007 - INFO - ATTOM Ownership API attempt 5 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:52:03,030 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:03,046 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court', 'locality': 'Humble', 'postalcode': '77346'}
+2025-07-11 10:52:03,051 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address1': '43 Wincrest Falls Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-11 10:52:03,073 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:03,087 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,089 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-11 10:52:03,122 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane', 'locality': 'Houston', 'postalcode': '77034'}
+2025-07-11 10:52:03,133 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,170 - INFO - ATTOM Ownership API attempt 6 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address1': '13011 Porter Meadow Lane', 'address2': 'Houston, TX 77014'}
+2025-07-11 10:52:03,171 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:52:03,200 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street', 'locality': 'Houston', 'postalcode': '77007'}
+2025-07-11 10:52:03,202 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street', 'locality': 'Houston', 'postalcode': '77061'}
+2025-07-11 10:52:03,208 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '5510 Coon Tree Court, Humble, TX 77346': {'address': '5510 Coon Tree Court, Humble, TX 77346'}
+2025-07-11 10:52:03,221 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:03,232 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '9300 Gamebird Lane, Houston, TX 77034': {'address': '9300 Gamebird Lane, Houston, TX 77034'}
+2025-07-11 10:52:03,247 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr', 'locality': 'Cypress', 'postalcode': '77429'}
+2025-07-11 10:52:03,262 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street', 'locality': 'Houston', 'postalcode': '77003'}
+2025-07-11 10:52:03,306 - WARNING - All ATTOM ownership API attempts failed for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:03,307 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:03,307 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:03,307 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:52:03,308 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '2102 Decatur Street, Houston, TX 77007': {'address': '2102 Decatur Street, Houston, TX 77007'}
+2025-07-11 10:52:03,316 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:03,332 - INFO - ATTOM Ownership API attempt 7 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane', 'locality': 'Houston', 'postalcode': '77014'}
+2025-07-11 10:52:03,333 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:52:03,336 - INFO - Google Maps validated: '4802 TWISTING, HOUSTON, 77084' -> '4802 Twisting Road, Houston, TX 77084'
+2025-07-11 10:52:03,336 - INFO - ATTOM API attempt 1 for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,348 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '7721 Leonora Street, Houston, TX 77061': {'address': '7721 Leonora Street, Houston, TX 77061'}
+2025-07-11 10:52:03,356 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '43 Wincrest Falls Dr, Cypress, TX 77429': {'address': '43 Wincrest Falls Dr, Cypress, TX 77429'}
+2025-07-11 10:52:03,399 - WARNING - All ATTOM ownership API attempts failed for '5510 Coon Tree Court, Humble, TX 77346'
+2025-07-11 10:52:03,400 - INFO - Using mock skip trace data for '5510 Coon Tree Court, Humble, TX 77346'
+2025-07-11 10:52:03,400 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:52:03,400 - INFO - Successfully enriched '5510 COON TREE, HUMBLE, 77346'
+2025-07-11 10:52:03,404 - WARNING - All ATTOM ownership API attempts failed for '9300 Gamebird Lane, Houston, TX 77034'
+2025-07-11 10:52:03,404 - INFO - Using mock skip trace data for '9300 Gamebird Lane, Houston, TX 77034'
+2025-07-11 10:52:03,404 - INFO - Found skip trace data: {'owner_name': 'Linda Rodriguez', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:03,404 - INFO - Successfully enriched '9300 GAMEBIRD, HOUSTON, 77034'
+2025-07-11 10:52:03,411 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'address': '1501 Saint Emanuel Street, Houston, TX 77003'}
+2025-07-11 10:52:03,433 - INFO - Google Maps validated: '1119 COMMERCE, HOUSTON, 77002' -> '1119 Commerce Street, Houston, TX 77002'
+2025-07-11 10:52:03,435 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '13011 Porter Meadow Lane, Houston, TX 77014': {'address': '13011 Porter Meadow Lane, Houston, TX 77014'}
+2025-07-11 10:52:03,436 - INFO - ATTOM API attempt 1 for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,446 - INFO - Google Maps validated: '4803 MAGNOLIA CREEK, HOUSTON, 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-11 10:52:03,467 - WARNING - All ATTOM ownership API attempts failed for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:03,467 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:03,467 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:03,467 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:52:03,467 - INFO - ATTOM Ownership API attempt 8 (detailmortgageowner) for '1415 Franklin Street, Houston, TX 77002': {'address': '1415 Franklin Street, Houston, TX 77002'}
+2025-07-11 10:52:03,479 - WARNING - All ATTOM ownership API attempts failed for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:03,479 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:03,480 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-11 10:52:03,481 - INFO - Successfully enriched '7721 LEONORA, HOUSTON, 77061'
+2025-07-11 10:52:03,483 - WARNING - All ATTOM ownership API attempts failed for '2102 Decatur Street, Houston, TX 77007'
+2025-07-11 10:52:03,483 - INFO - Using mock skip trace data for '2102 Decatur Street, Houston, TX 77007'
+2025-07-11 10:52:03,483 - INFO - Found skip trace data: {'owner_name': 'Lisa Davis', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-11 10:52:03,483 - INFO - Successfully enriched '2102 DECATUR, HOUSTON, 77007'
+2025-07-11 10:52:03,509 - INFO - Google Maps validated: '18906 WHISTLING OAKS, KATY, 77084' -> '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-11 10:52:03,515 - INFO - Google Maps validated: '7721 LEONORA, HOUSTON, 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:03,516 - INFO - Google Maps validated: '706 SKY, HOUSTON, 77073' -> '706 North Sky Drive, Houston, TX 77073'
+2025-07-11 10:52:03,531 - WARNING - All ATTOM ownership API attempts failed for '43 Wincrest Falls Dr, Cypress, TX 77429'
+2025-07-11 10:52:03,532 - INFO - Using mock skip trace data for '43 Wincrest Falls Dr, Cypress, TX 77429'
+2025-07-11 10:52:03,532 - INFO - Found skip trace data: {'owner_name': 'Linda Rodriguez', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:03,532 - INFO - Successfully enriched '43 WINCREST FALLS, CYPRESS, 77429'
+2025-07-11 10:52:03,536 - INFO - Found property data for ATTOM ID 995087 for '4802 Twisting Road, Houston, TX 77084' using params: {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,536 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,536 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2001, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 107 BLK 3 ROLLING CREEK SEC 1'}
+2025-07-11 10:52:03,536 - INFO - ATTOM API attempt 1 for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:52:03,537 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'attomid': 995087}
+2025-07-11 10:52:03,537 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:03,538 - INFO - ATTOM API attempt 1 for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,539 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,564 - INFO - Google Maps validated: '1301 TEXAS, HOUSTON, 77002' -> '1301 Texas Street, Houston, TX 77002'
+2025-07-11 10:52:03,598 - WARNING - All ATTOM ownership API attempts failed for '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-11 10:52:03,598 - INFO - Using mock skip trace data for '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-11 10:52:03,598 - INFO - Found skip trace data: {'owner_name': 'Mary Johnson', 'primary_phone': '(555) 234-5678', 'primary_email': 'resident@gmail.com'}
+2025-07-11 10:52:03,598 - INFO - Successfully enriched '1501 SAINT EMANUEL, HOUSTON, 77003'
+2025-07-11 10:52:03,609 - INFO - Found property data for ATTOM ID 165784812 for '1119 Commerce Street, Houston, TX 77002' using params: {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,609 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,609 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Industrial', 'propsubtype': 'INDUSTRIAL', 'proptype': 'WAREHOUSE', 'propertyType': 'WAREHOUSE, STORAGE', 'yearbuilt': 1923, 'propLandUse': 'WAREHOUSE', 'propIndicator': '50', 'legal1': 'LTS 1 2 & 3 & TR 20 BLK 4 SSBB'}
+2025-07-11 10:52:03,624 - INFO - Google Maps validated: '7721 LEONORA, HOUSTON, 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:03,641 - WARNING - All ATTOM ownership API attempts failed for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:03,641 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:52:03,641 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:03,641 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:52:03,641 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:03,641 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'attomid': 165784812}
+2025-07-11 10:52:03,641 - INFO - ATTOM API attempt 1 for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,709 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:03,709 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,709 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-11 10:52:03,711 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,711 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,711 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-11 10:52:03,711 - INFO - Found property data for ATTOM ID 332943774 for '18906 Whistling Oaks Drive, Houston, TX 77084' using params: {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,712 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,712 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2022, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 5 BLK 2 GRAND OAKS SEC 9'}
+2025-07-11 10:52:03,722 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,726 - WARNING - All ATTOM ownership API attempts failed for '13011 Porter Meadow Lane, Houston, TX 77014'
+2025-07-11 10:52:03,726 - INFO - Using mock skip trace data for '13011 Porter Meadow Lane, Houston, TX 77014'
+2025-07-11 10:52:03,726 - INFO - Found skip trace data: {'owner_name': 'Mary Johnson', 'primary_phone': '(555) 234-5678', 'primary_email': 'resident@gmail.com'}
+2025-07-11 10:52:03,726 - INFO - Successfully enriched '13011 PORTER MEADOW, HOUSTON, 77014'
+2025-07-11 10:52:03,733 - INFO - Found property data for ATTOM ID 44640090 for '706 North Sky Drive, Houston, TX 77073' using params: {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:52:03,733 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,733 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 8 BLK 15 NORTH VIEW SEC 1'}
+2025-07-11 10:52:03,744 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-11 10:52:03,746 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'attomid': 332943774}
+2025-07-11 10:52:03,747 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:52:03,748 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'attomid': 44640090}
+2025-07-11 10:52:03,809 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:03,810 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,810 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-11 10:52:03,824 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,851 - INFO - Found property data for ATTOM ID 165580755 for '1301 Texas Street, Houston, TX 77002' using params: {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:03,851 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:52:03,851 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1921, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 6 & TR 7 BLK 53 SSBB'}
+2025-07-11 10:52:03,851 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'attomid': 165580755}
+2025-07-11 10:52:03,852 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-11 10:52:03,887 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'address': '4802 Twisting Road', 'locality': 'Houston', 'postalcode': '77084'}
+2025-07-11 10:52:03,900 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,912 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-11 10:52:03,917 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-11 10:52:03,917 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:04,016 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,017 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:04,017 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-11 10:52:04,017 - INFO - Successfully enriched '7721 LEONORA, HOUSTON, 77061'
+2025-07-11 10:52:04,031 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:52:04,033 - INFO - ATTOM Ownership API attempt 2 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-11 10:52:04,036 - INFO - ATTOM Ownership API attempt 3 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'address': '1119 Commerce Street', 'locality': 'Houston', 'postalcode': '77002'}
+2025-07-11 10:52:04,045 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,047 - INFO - Using mock skip trace data for '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-11 10:52:04,047 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:04,047 - INFO - Successfully enriched '18906 WHISTLING OAKS, KATY, 77084'
+2025-07-11 10:52:04,063 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,063 - INFO - Using mock skip trace data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-11 10:52:04,063 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:52:04,064 - INFO - Successfully enriched '4803 MAGNOLIA CREEK, HOUSTON, 77084'
+2025-07-11 10:52:04,071 - INFO - ATTOM Ownership API attempt 4 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'address': '4802 Twisting Road, Houston, TX 77084'}
+2025-07-11 10:52:04,137 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,138 - INFO - Using mock skip trace data for '1301 Texas Street, Houston, TX 77002'
+2025-07-11 10:52:04,138 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:52:04,138 - INFO - Successfully enriched '1301 TEXAS, HOUSTON, 77002'
+2025-07-11 10:52:04,173 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,174 - INFO - Using mock skip trace data for '4802 Twisting Road, Houston, TX 77084'
+2025-07-11 10:52:04,174 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:52:04,174 - INFO - Successfully enriched '4802 TWISTING, HOUSTON, 77084'
+2025-07-11 10:52:04,206 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,207 - INFO - Using mock skip trace data for '1119 Commerce Street, Houston, TX 77002'
+2025-07-11 10:52:04,207 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-11 10:52:04,207 - INFO - Successfully enriched '1119 COMMERCE, HOUSTON, 77002'
+2025-07-11 10:52:04,250 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,251 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-11 10:52:04,251 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-11 10:52:04,251 - INFO - Successfully enriched '7721 LEONORA, HOUSTON, 77061'
+2025-07-11 10:52:04,350 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:52:04,351 - INFO - Using mock skip trace data for '706 North Sky Drive, Houston, TX 77073'
+2025-07-11 10:52:04,351 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-11 10:52:04,351 - INFO - Successfully enriched '706 SKY, HOUSTON, 77073'
+2025-07-11 10:52:04,351 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-11 10:52:04,363 - INFO - Saved 18 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_output_LPH_1752256320906.csv
+2025-07-11 10:56:18,045 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_dbf8313d-6abc-44a0-9ee0-0b63ee5bff39_1752256577445.csv
+2025-07-11 10:56:18,046 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-11 10:56:18,156 - INFO - Google Maps validated: '1415 FRANKLIN, HOUSTON, 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:56:18,156 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:56:18,471 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-11 10:56:18,471 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-11 10:56:18,471 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-11 10:56:18,471 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-11 10:56:18,658 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-11 10:56:18,659 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-11 10:56:18,659 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-11 10:56:18,659 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
+2025-07-11 10:56:18,659 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-11 10:56:18,662 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_dbf8313d-6abc-44a0-9ee0-0b63ee5bff39_1752256577445.csv

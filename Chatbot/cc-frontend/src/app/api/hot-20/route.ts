@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     const outputFilePath = path.join(tempDir, outputFileName);
 
          await new Promise<void>((resolve, reject) => {
-       const pythonProcess = spawn('python', [
+       const pythonProcess = spawn('python3', [
          pythonScript,
          csvFilePath,
          '--output', outputFilePath

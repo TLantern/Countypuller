@@ -11,7 +11,7 @@ export default function ClientOnlyToggles() {
   if (!pathname.startsWith("/dashboard")) return null;
   return (
     <>
-      <ThemeToggle isHidden={isFeedbackPanelOpen} />
+      {/* ThemeToggle is now shown directly in dashboard header, so hide it here */}
       <ChatbotWidget isHidden={isFeedbackPanelOpen} />
     </>
   );

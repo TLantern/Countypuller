@@ -718,5 +718,355 @@
         "doc_type": "L/P"
       }
     }
+  },
+  "1045710000010": {
+    "parcel_id": "1045710000010",
+    "summary": "Price per square foot exceeds zip median, zero equity gap as market and appraised values are equal, potential rehab risk due to older build year, and no reported liens or delinquencies.",
+    "generated_at": "2025-07-10T22:58:43.247326",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "7721 LEONORA, HOUSTON, 77061",
+      "parcel_id": "1045710000010",
+      "owner_name": "HARRIS COUNTY FLOOD CONTROL DISTRICT",
+      "impr_sqft": null,
+      "market_value": "$6,600",
+      "appraised_value": "$6,600",
+      "legal_params": {
+        "subdivision": "GLENBROOK TOWNHOUSES UNIT: 7",
+        "section": "",
+        "block": "",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-266231",
+        "filing_date": "07/10/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010530000006": {
+    "parcel_id": "0010530000006",
+    "summary": "\"The property at 1301 Texas is priced above the zip median on a per-square-foot basis, holds no equity gap with market and appraised values at parity, flags potential rehab risks due to its build year, and there are no known liens or delinquencies on the parcel ID 0010530000006.\"",
+    "generated_at": "2025-07-10T22:58:55.105211",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1301 TEXAS, HOUSTON, 77002",
+      "parcel_id": "0010530000006",
+      "owner_name": "HOUSTON AREA URBAN LEAGUE",
+      "impr_sqft": "9967",
+      "market_value": "$4,655,044",
+      "appraised_value": "$4,655,044",
+      "legal_params": {
+        "subdivision": "CLAYTON NORTH",
+        "section": "",
+        "block": "5",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-266202",
+        "filing_date": "07/10/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1148360150008": {
+    "parcel_id": "1148360150008",
+    "summary": "\"The price per sqft is higher than the zip median, the market value exceeds the appraised value by $51,954 indicating a significant equity gap, the property's build year suggests potential rehab risks, and there are no reported liens or delinquencies.\"",
+    "generated_at": "2025-07-10T22:59:01.355918",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "706 SKY, HOUSTON, 77073",
+      "parcel_id": "1148360150008",
+      "owner_name": "VILLAREAL MIGUEL R & ROSE",
+      "impr_sqft": "7701",
+      "market_value": "$231,813",
+      "appraised_value": "$179,859",
+      "legal_params": {
+        "subdivision": "NORTH VIEW",
+        "section": "",
+        "block": "15",
+        "lot": "8"
+      },
+      "case_info": {
+        "case_number": "RP-2025-266072",
+        "filing_date": "07/10/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1412070020005": {
+    "parcel_id": "1412070020005",
+    "summary": "\"Price-per-sqft exceeds zip median, appraised and market values align indicating no equity gap, build year suggests potential rehab risk, and no liens or delinquencies found.\"",
+    "generated_at": "2025-07-10T22:59:18.704349",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "18906 WHISTLING OAKS, KATY, 77084",
+      "parcel_id": "1412070020005",
+      "owner_name": "LIU MIN",
+      "impr_sqft": null,
+      "market_value": "$460,927",
+      "appraised_value": "$460,927",
+      "legal_params": {
+        "subdivision": "GRAND OAKS",
+        "section": "",
+        "block": "2",
+        "lot": "5"
+      },
+      "case_info": {
+        "case_number": "RP-2025-265714",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1161400010001": {
+    "parcel_id": "1161400010001",
+    "summary": "Price-per-square-foot is below zip code median, market and appraised values align indicating no equity gap, build year suggests potential for rehab risks, and no known liens or delinquencies reported.",
+    "generated_at": "2025-07-10T22:59:23.498304",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "4803 MAGNOLIA CREEK, HOUSTON, 77084",
+      "parcel_id": "1161400010001",
+      "owner_name": "MOLINA ABEL C & CYNTHIA",
+      "impr_sqft": "7453",
+      "market_value": "$310,000",
+      "appraised_value": "$310,000",
+      "legal_params": {
+        "subdivision": "ROLLING CREEK",
+        "section": "",
+        "block": "1",
+        "lot": "1"
+      },
+      "case_info": {
+        "case_number": "RP-2025-265707",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010040000001": {
+    "parcel_id": "0010040000001",
+    "summary": "The price-per-sqft exceeds the zip median, market value matches the appraised with no equity gap, potential rehab risk due to build year, and no reported liens or delinquencies.",
+    "generated_at": "2025-07-10T22:59:35.450846",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1119 COMMERCE, HOUSTON, 77002",
+      "parcel_id": "0010040000001",
+      "owner_name": "HARRIS COUNTY FLOOD CONTROL DISTRICT",
+      "impr_sqft": "18805",
+      "market_value": "$2,734,469",
+      "appraised_value": "$2,734,469",
+      "legal_params": {
+        "subdivision": "GRAND OAKS",
+        "section": "",
+        "block": "4",
+        "lot": "21"
+      },
+      "case_info": {
+        "case_number": "RP-2025-265692",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1161400030107": {
+    "parcel_id": "1161400030107",
+    "summary": "\"Property's price-per-sqft is above/below zip median, substantial equity gap between appraised and market value, potential rehab risk given the property's build year, and there are no recorded liens or delinquencies.\"",
+    "generated_at": "2025-07-10T22:59:40.265029",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "4802 TWISTING, HOUSTON, 77084",
+      "parcel_id": "1161400030107",
+      "owner_name": "BORGES YUNIOR MANUEL",
+      "impr_sqft": "6194",
+      "market_value": "$264,723",
+      "appraised_value": "$264,723",
+      "legal_params": {
+        "subdivision": "ROLLING CREEK",
+        "section": "",
+        "block": "3",
+        "lot": "1"
+      },
+      "case_info": {
+        "case_number": "RP-2025-265691",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0051900000025": {
+    "parcel_id": "0051900000025",
+    "summary": "\"The price-per-sqft at 2102 Decatur is above the zip code median, there's no equity gap as market and appraised values align at $610,465, potential rehab risks are flagged due to the property's build year, and no liens or delinquencies are currently on record.\"",
+    "generated_at": "2025-07-10T23:00:16.301589",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "2102 DECATUR, HOUSTON, 77007",
+      "parcel_id": "0051900000025",
+      "owner_name": "AVENUE COMMUNITY DEVELOPMENT CORPORATION",
+      "impr_sqft": "7122",
+      "market_value": "$610,465",
+      "appraised_value": "$610,465",
+      "legal_params": {
+        "subdivision": "RUHL E P ABSTRACT: 657 COMMENT: 29.44 RELATED DOCS",
+        "section": "",
+        "block": "",
+        "lot": ""
+      },
+      "case_info": {
+        "case_number": "RP-2025-265042",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0020410000010": {
+    "parcel_id": "0020410000010",
+    "summary": "Price-per-sqft is above/below zip median, there's no equity gap with market and appraised values matching, build year indicates potential rehab risk, and there are no recorded liens or delinquencies.",
+    "generated_at": "2025-07-10T23:00:40.580574",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1501 SAINT EMANUEL, HOUSTON, 77003",
+      "parcel_id": "0020410000010",
+      "owner_name": "AK CAPITAL 5 LLC",
+      "impr_sqft": "5001",
+      "market_value": "$412,006",
+      "appraised_value": "$412,006",
+      "legal_params": {
+        "subdivision": "OAK MEADOWS",
+        "section": "",
+        "block": "32",
+        "lot": "10"
+      },
+      "case_info": {
+        "case_number": "RP-2025-264683",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1236220010003": {
+    "parcel_id": "1236220010003",
+    "summary": "The property at 13011 Porter Meadow is priced above the zip median in terms of price-per-sqft, presents an equity gap with a market value ($288,030) higher than the appraised value ($261,517), exhibits higher rehab risk due to its build year, and currently holds no recorded liens or delinquencies.",
+    "generated_at": "2025-07-10T23:00:55.875241",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "13011 PORTER MEADOW, HOUSTON, 77014",
+      "parcel_id": "1236220010003",
+      "owner_name": "KHAN SHAZIA",
+      "impr_sqft": "6599",
+      "market_value": "$288,030",
+      "appraised_value": "$261,517",
+      "legal_params": {
+        "subdivision": "SILVERGLEN NORTH",
+        "section": "",
+        "block": "1",
+        "lot": "3"
+      },
+      "case_info": {
+        "case_number": "RP-2025-264549",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1186270010007": {
+    "parcel_id": "1186270010007",
+    "summary": "\"The price-per-square-foot is above the zip code median, there's no equity gap as market and appraised values are equivalent, build year suggests potential rehab risks, and there are no recorded liens or delinquencies.\"",
+    "generated_at": "2025-07-10T23:01:01.981106",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "43 WINCREST FALLS, CYPRESS, 77429",
+      "parcel_id": "1186270010007",
+      "owner_name": "XIAN YANG",
+      "impr_sqft": "43299",
+      "market_value": "$965,794",
+      "appraised_value": "$965,794",
+      "legal_params": {
+        "subdivision": "WINCREST FALLS",
+        "section": "",
+        "block": "",
+        "lot": "7"
+      },
+      "case_info": {
+        "case_number": "RP-2025-264503",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0031400040016": {
+    "parcel_id": "0031400040016",
+    "summary": "Price per square foot is above/below the zip median, there is no equity gap as the market value and appraised value are identical at $363,566, potential rehab risk present due to the property's build year, and there are no recorded liens or delinquencies.",
+    "generated_at": "2025-07-10T23:01:13.356890",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "9300 GAMEBIRD, HOUSTON, 77034",
+      "parcel_id": "0031400040016",
+      "owner_name": "A AMERICAN SELF STORAGE ALMEDA",
+      "impr_sqft": "39640",
+      "market_value": "$363,566",
+      "appraised_value": "$363,566",
+      "legal_params": {
+        "subdivision": "WINCREST FALLS",
+        "section": "",
+        "block": "",
+        "lot": "16"
+      },
+      "case_info": {
+        "case_number": "RP-2025-264490",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1084880000042": {
+    "parcel_id": "1084880000042",
+    "summary": "The price-per-sqft is above/below the zip code median, there's a $0 equity gap as market and appraised values align, potential rehab risk due to the property's build year, and no known liens or delinquencies reported.",
+    "generated_at": "2025-07-10T23:01:27.307601",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "5510 COON TREE, HUMBLE, 77346",
+      "parcel_id": "1084880000042",
+      "owner_name": "HUMMINGBIRD PROPERTIES PRO LLC",
+      "impr_sqft": "9657",
+      "market_value": "$256,372",
+      "appraised_value": "$256,372",
+      "legal_params": {
+        "subdivision": "OAKS OF ATASCOCITA",
+        "section": "",
+        "block": "1",
+        "lot": "42"
+      },
+      "case_info": {
+        "case_number": "RP-2025-264423",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1458680030029": {
+    "parcel_id": "1458680030029",
+    "summary": "\"Price-per-sqft stands above the zip area median, the equity gap is zero as market value aligns with appraised, potential rehab risks due to older build year, and there are no recorded liens or delinquencies.\"",
+    "generated_at": "2025-07-10T23:01:34.633059",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "9810 WEMBLEY VISTA, BAYTOWN, 77521",
+      "parcel_id": "1458680030029",
+      "owner_name": "LAWS ZACKERY D II",
+      "impr_sqft": null,
+      "market_value": "$201,821",
+      "appraised_value": "$201,821",
+      "legal_params": {
+        "subdivision": "STERLING POINT",
+        "section": "",
+        "block": "3",
+        "lot": "29"
+      },
+      "case_info": {
+        "case_number": "RP-2025-264346",
+        "filing_date": "07/09/2025",
+        "doc_type": "L/P"
+      }
+    }
   }
 }

@@ -151,6 +151,7 @@ model User {
   mdCaseSearchFilings   md_case_search_filing[]
   scrapingJobs          scraping_job[]
   sessions              Session[]
+  skipTraceResults      SkipTraceResult[]
 }
 
 model scraping_job {
@@ -243,4 +244,30 @@ model harris_county_filing {
   @@index([userId])
 
   @@map("harris_county_filing")
+}
+
+model SkipTraceResult {
+  id                String    @id @default(uuid())
+  raw_address       String    
+  canonical_address String    
+  address_hash      String    @unique    // MD5 hash of normalized address for efficient lookups
+  attomid           String?   
+  est_balance       Decimal?  @db.Decimal(12,2)
+  available_equity  Decimal?  @db.Decimal(12,2)
+  ltv               Decimal?  @db.Decimal(5,4)
+  market_value      Decimal?  @db.Decimal(12,2)
+  loans_count       Int?      @default(0)
+  owner_name        String?   
+  primary_email     String?   
+  primary_phone     String?   
+  processed_at      DateTime  @default(now())
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([address_hash])
+  @@index([canonical_address])
+  @@map("skip_trace_result")
 }

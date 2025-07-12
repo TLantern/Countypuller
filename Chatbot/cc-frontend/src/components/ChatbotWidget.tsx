@@ -42,15 +42,15 @@ const ChatbotWidget = ({ isHidden = false }: ChatbotWidgetProps) => {
     <div
       style={{
         position: 'fixed',
-        bottom: 24,
-        right: 24,
+        bottom: 35,
+        left: 70,
         zIndex: 1000,
         transition: 'width 0.3s, height 0.3s',
         width: expanded ? 400 : 88,
         height: expanded ? 600 : 40,
         borderRadius: expanded ? 16 : 20,
         background: '#111',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.15)',
+        boxShadow: '0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 255, 255, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3)',
         overflow: 'hidden',
         cursor: expanded ? 'default' : 'pointer',
         display: 'flex',

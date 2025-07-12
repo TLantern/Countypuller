@@ -26,6 +26,7 @@ import { Box, Typography } from '@mui/material';
 import FeedbackPanel from '@/components/FeedbackPanel';
 import { useFeedback } from '@/context/FeedbackContext';
 import { MessageSquare } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 // Dynamic imports used in export functions to avoid SSR issues
 
 const SkipTraceButton = ({ address }: { address?: string }) => {
@@ -33,6 +34,71 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
   const [result, setResult] = useState<any>(null);
   const [showResult, setShowResult] = useState(false);
   const [savedToast, setSavedToast] = useState(false);
+  const [hasExistingResult, setHasExistingResult] = useState(false);
+  const [checkingExisting, setCheckingExisting] = useState(true);
+
+  // Check if address already has skip trace results
+  useEffect(() => {
+    const checkExistingResult = async () => {
+      if (!address || !address.trim()) {
+        setCheckingExisting(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/skip-trace?address=${encodeURIComponent(address)}`);
+        const data = await response.json();
+        
+        if (data.success && data.hasResult) {
+          setHasExistingResult(true);
+          // Pre-load the result for quick display
+          if (data.result) {
+            setResult(data.result);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking existing skip trace:', error);
+      } finally {
+        setCheckingExisting(false);
+      }
+    };
+
+    checkExistingResult();
+  }, [address]);
+
+  const handleShowReport = async () => {
+    if (hasExistingResult && result) {
+      // Show cached result immediately
+      setShowResult(true);
+    } else {
+      // Fetch the full result
+      setLoading(true);
+      try {
+        const response = await fetch('/api/skip-trace', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ address }),
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          setResult(data.data);
+          setShowResult(true);
+          setHasExistingResult(true);
+        } else {
+          alert(`Failed to load report: ${data.error || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Error loading report:', error);
+        alert('Failed to load report: Network error');
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   const handleSkipTrace = async () => {
     if (!address || !address.trim()) {
@@ -57,6 +123,7 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
       if (data.success && data.data) {
         setResult(data.data);
         setShowResult(true);
+        setHasExistingResult(true);
       } else {
         alert(`Skip trace failed: ${data.error || 'Unknown error'}`);
       }
@@ -89,19 +156,42 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
     }
   };
 
+  // Show loading state while checking for existing results
+  if (checkingExisting) {
+    return (
+      <button
+        disabled
+        className="text-sm px-2 py-1 rounded bg-gray-300 text-gray-500 cursor-not-allowed"
+      >
+        ...
+      </button>
+    );
+  }
+
   return (
     <>
       <button
-        onClick={handleSkipTrace}
+        onClick={hasExistingResult ? handleShowReport : handleSkipTrace}
         disabled={loading || !address}
         className={`text-sm px-2 py-1 rounded ${
           loading 
             ? 'bg-gray-400 text-white cursor-not-allowed' 
-            : 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
+            : hasExistingResult
+              ? 'bg-green-600 hover:bg-green-700 text-white cursor-pointer'
+              : 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
         }`}
-        title={address ? `Skip trace for ${address}` : 'No address available'}
+        title={
+          !address 
+            ? 'No address available' 
+            : hasExistingResult 
+              ? `Show existing report for ${address}` 
+              : `Skip trace for ${address}`
+        }
       >
-        {loading ? 'Tracing...' : 'Trace'}
+        {loading 
+          ? (hasExistingResult ? 'Loading...' : 'Tracing...') 
+          : (hasExistingResult ? 'Show Report' : 'Trace')
+        }
       </button>
 
       {/* Results Modal */}
@@ -109,7 +199,12 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-10 w-[90vw] max-w-9xl max-h-[90vh] overflow-y-auto relative">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Skip Trace Results</h3>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Skip Trace Results</h3>
+                {hasExistingResult && (
+                  <p className="text-sm text-green-600 mt-1">✓ Saved report from database</p>
+                )}
+              </div>
               <button
                 onClick={() => setShowResult(false)}
                 className="text-gray-400 hover:text-gray-600 text-xl"
@@ -241,21 +336,13 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
       // Extract addresses from current dashboard data
       const currentProperties = data
         .filter(record => {
-          // Get property address based on user type
-          const address = userType === 'HILLSBOROUGH_NH' ? record.property_address :
-                         userType === 'BREVARD_FL' ? record.property_address :
-                         userType === 'MD_CASE_SEARCH' ? record.property_address :
-                         userType === 'LPH' ? record.property_address :
-                         null;
+          // Only Harris County records now
+          const address = record.property_address;
           return address && address.trim() !== '';
         })
         .map(record => ({
-          id: record.case_number || record.document_number || record.id,
-          address: userType === 'HILLSBOROUGH_NH' ? record.property_address :
-                  userType === 'BREVARD_FL' ? record.property_address :
-                  userType === 'MD_CASE_SEARCH' ? record.property_address :
-                  userType === 'LPH' ? record.property_address :
-                  '',
+          id: record.case_number || record.id,
+          address: record.property_address || '',
           original_record: record
         }));
 
@@ -379,7 +466,7 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
                   </thead>
                   <tbody>
                     {results.map((property, index) => (
-                      <tr key={property.id} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                      <tr key={`${property.id}-${index}`} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                         <td className="p-3 font-bold text-gray-600">#{index + 1}</td>
                         <td className="p-3">
                           <div className="font-medium text-gray-900">{property.property_address}</div>
@@ -762,10 +849,10 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
         alert('No data to export');
         return;
       }
-      const XLSX = await import('xlsx');
-      const worksheet = XLSX.utils.json_to_sheet(data);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, displayTitle);
+      const XLSX = (await import('xlsx')).default;
+      const worksheet = (XLSX.utils as any).json_to_sheet(data);
+      const workbook = (XLSX.utils as any).book_new();
+      (XLSX.utils as any).book_append_sheet(workbook, worksheet, displayTitle);
       XLSX.writeFile(workbook, `${displayTitle.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`);
       setIsOpen(false);
     } catch (error) {
@@ -781,8 +868,8 @@ const ExportButton: React.FC<ExportButtonProps> = ({ data, userType, displayTitl
         alert('No data to export');
         return;
       }
-      const { jsPDF } = await import('jspdf');
-      await import('jspdf-autotable');
+      const jsPDF = (await import('jspdf')).default;
+      await import('jspdf-autotable' as any);
       const doc = new jsPDF();
       
       // PDF Header
@@ -960,7 +1047,7 @@ export default function Dashboard() {
   const router = useRouter();
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<string | null>(null);
-  const onboardingCounties = ["Harris", "Dallas", "Tarrant", "Bexar", "Travis"];
+  const onboardingCounties = ["Harris (Recommended)", "Dallas", "Tarrant", "Bexar", "Travis"];
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
   const [rows, setRows] = useState<(LisPendensRecord | MdCaseSearchRecord | HillsboroughNhRecord | BrevardFlRecord | FultonGaRecord | CobbGaRecord)[]>([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
@@ -980,23 +1067,15 @@ export default function Dashboard() {
   const [onboardingStep, setOnboardingStep] = useState(1);
   const [selectedDocTypes, setSelectedDocTypes] = useState<string[]>([]);
   const docTypes = [
-    "Lis Pendens",
-    "Notice of Default (NOD)",
-    "Auction",
-    "Bankruptcy"
+    "Tax Delinquency"
   ];
 
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
     try {
-      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/md-case-search' : 
-                      userType === 'LPH' ? '/api/harris-county' : 
-                      userType === 'HILLSBOROUGH_NH' ? '/api/hillsborough-nh' : 
-                      userType === 'BREVARD_FL' ? '/api/brevard-fl' :
-                      userType === 'FULTON_GA' ? '/api/fulton-ga' :
-                      userType === 'COBB_GA' ? '/api/cobb-ga' :
-                      '/api/lis-pendens';
+      // Only Harris County is supported now
+      const endpoint = '/api/harris-county';
       
       console.log('🔍 Fetching data from endpoint:', endpoint);
       console.log('👤 Current user ID:', (session?.user as any)?.id);
@@ -1028,7 +1107,7 @@ export default function Dashboard() {
   const fetchUserType = async () => {
     if (session?.user) {
       try {
-        // The user type should be available in the session, but if not, we'll fetch it
+        // Default to LPH (Harris County) as it's the only supported type now
         const res = await fetch('/api/auth/user-type');
         if (res.ok) {
           const data = await res.json();
@@ -1036,7 +1115,7 @@ export default function Dashboard() {
         }
       } catch (error) {
         console.error('Error fetching user type:', error);
-        setUserType('LPH'); // Default to LPH
+        setUserType('LPH'); // Default to LPH (Harris County only)
       }
     }
   };
@@ -1122,17 +1201,8 @@ export default function Dashboard() {
 
   const pollJobStatus = async (jobId: string) => {
     try {
-      const endpoint = userType === 'MD_CASE_SEARCH' 
-        ? `/api/pull-md-case-search?job_id=${jobId}`
-        : userType === 'HILLSBOROUGH_NH'
-        ? `/api/pull-hillsborough-nh?job_id=${jobId}`
-        : userType === 'BREVARD_FL'
-        ? `/api/pull-brevard-fl?job_id=${jobId}`
-        : userType === 'FULTON_GA'
-        ? `/api/pull-fulton-ga?job_id=${jobId}`
-        : userType === 'COBB_GA'
-        ? `/api/pull-cobb-ga?job_id=${jobId}`
-        : `/api/scrape?job_id=${jobId}`;
+      // Only Harris County agent scraper is supported now
+      const endpoint = `/api/scrape?job_id=${jobId}`;
       
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -1191,36 +1261,24 @@ export default function Dashboard() {
     setPullResult(null);
     setJobStatus('');
     try {
-      const endpoint = userType === 'MD_CASE_SEARCH' ? '/api/pull-md-case-search' : 
-                      userType === 'HILLSBOROUGH_NH' ? '/api/pull-hillsborough-nh' : 
-                      userType === 'BREVARD_FL' ? '/api/pull-brevard-fl' :
-                      userType === 'FULTON_GA' ? '/api/pull-fulton-ga' :
-                      userType === 'COBB_GA' ? '/api/pull-cobb-ga' :
-                      '/api/scrape';
+      // Only Harris County agent scraper is supported now
+      const endpoint = '/api/scrape';
       
-      // Prepare request body based on endpoint
-      let requestBody;
-      if (endpoint === '/api/scrape') {
-        // Agent scraper expects county and filters
-        const fromDate = new Date();
-        fromDate.setDate(fromDate.getDate() - dateFilter);
-        const toDate = new Date();
-        
-        requestBody = {
-          county: county.toLowerCase(), // 'harris', 'dallas', etc.
-          filters: {
-            documentType: 'LisPendens',
-            dateFrom: fromDate.toISOString().split('T')[0], // YYYY-MM-DD format
-            dateTo: toDate.toISOString().split('T')[0], // YYYY-MM-DD format
-            pageSize: 50
-          }
-        };
-      } else {
-        // Other scrapers expect dateFilter
-        requestBody = {
-          dateFilter: dateFilter // Number of days back to pull records from
-        };
-      }
+      // Agent scraper expects county and filters
+      const fromDate = new Date();
+      fromDate.setDate(fromDate.getDate() - dateFilter);
+      const toDate = new Date();
+      
+      const requestBody = {
+        county: county.toLowerCase(), // 'harris', 'dallas', etc.
+        filters: {
+          documentType: 'LisPendens',
+          dateFrom: fromDate.toISOString().split('T')[0], // YYYY-MM-DD format
+          dateTo: toDate.toISOString().split('T')[0], // YYYY-MM-DD format
+          pageSize: 50
+        }
+      };
+      
       const res = await fetch(endpoint, { 
         method: 'POST',
         headers: {
@@ -1229,20 +1287,9 @@ export default function Dashboard() {
         body: JSON.stringify(requestBody)
       });
       const data = await res.json();
-      // Handle Cobb GA immediate response (no job polling)
-      if (userType === 'COBB_GA') {
-        if (data.success && data.records_created !== undefined) {
-          setPullResult('success');
-          setPulling(false);
-          // Refresh data immediately
-          await fetchData();
-        } else {
-          setPullResult('error');
-          setPulling(false);
-        }
-      } 
-      // Handle other endpoints with job polling
-      else if (data.success && data.job_id) {
+      
+      // Handle agent scraper job polling
+      if (data.success && data.job_id) {
         setPulling(true);
         setCurrentJobId(data.job_id);
         setJobStatus(data.status);
@@ -1260,14 +1307,8 @@ export default function Dashboard() {
 
   // Add this handler to mark is_new as false and persist
   const handleRowClick = async (params: any) => {
-    let recordId;
-    if (userType === 'HILLSBOROUGH_NH') {
-      recordId = params.row.document_number;
-    } else if (userType === 'BREVARD_FL' || userType === 'FULTON_GA' || userType === 'COBB_GA') {
-      recordId = params.row.case_number;
-    } else {
-      recordId = params.row.case_number;
-    }
+    // Only Harris County records now
+    const recordId = params.row.case_number;
     
     // Only update if is_new is true and we have a valid recordId
     if (!params.row.is_new || !recordId) return;
@@ -1275,42 +1316,15 @@ export default function Dashboard() {
     // Optimistically update UI
     setRows(prev =>
       prev.map(r => {
-        const currentId = userType === 'HILLSBOROUGH_NH' ? 
-          (r as HillsboroughNhRecord).document_number :
-          userType === 'BREVARD_FL' ?
-          (r as BrevardFlRecord).case_number :
-          userType === 'FULTON_GA' ?
-          (r as FultonGaRecord).case_number :
-          userType === 'COBB_GA' ?
-          (r as CobbGaRecord).case_number :
-          (r as LisPendensRecord | MdCaseSearchRecord).case_number;
+        const currentId = (r as LisPendensRecord).case_number;
         return currentId === recordId ? { ...r, is_new: false } : r;
       })
     );
     
-    // Persist to backend
+    // Persist to backend - Harris County uses the /api/harris-county endpoint
     try {
-      let endpoint, body;
-      
-      if (userType === 'MD_CASE_SEARCH') {
-        endpoint = `/api/md-case-search`;
-        body = JSON.stringify({ case_number: recordId, is_new: false });
-      } else if (userType === 'HILLSBOROUGH_NH') {
-        endpoint = `/api/hillsborough-nh`;
-        body = JSON.stringify({ document_number: recordId, is_new: false });
-      } else if (userType === 'BREVARD_FL') {
-        endpoint = `/api/brevard-fl`;
-        body = JSON.stringify({ case_number: recordId, is_new: false });
-      } else if (userType === 'FULTON_GA') {
-        endpoint = `/api/fulton-ga`;
-        body = JSON.stringify({ case_number: recordId, is_new: false });
-      } else if (userType === 'COBB_GA') {
-        endpoint = `/api/cobb-ga`;
-        body = JSON.stringify({ case_number: recordId, is_new: false });
-      } else {
-        endpoint = `/api/lis-pendens/${recordId}`;
-        body = JSON.stringify({ is_new: false });
-      }
+      const endpoint = `/api/harris-county`;
+      const body = JSON.stringify({ case_number: recordId, is_new: false });
       
       await fetch(endpoint, {
         method: 'PATCH',
@@ -1323,30 +1337,10 @@ export default function Dashboard() {
     }
   };
 
-  // Get the appropriate columns and display info based on user type
-  const columns = (userType === 'MD_CASE_SEARCH' ? mdCaseSearchColumns : 
-                  userType === 'HILLSBOROUGH_NH' ? hillsboroughNhColumns : 
-                  userType === 'BREVARD_FL' ? brevardFlColumns :
-                  userType === 'FULTON_GA' ? fultonGaColumns :
-                  userType === 'COBB_GA' ? cobbGaColumns :
-                  lphColumns) as GridColDef[];
-  const displayTitle = userType === 'MD_CASE_SEARCH' ? 'Maryland Case Search' : 
-                       userType === 'HILLSBOROUGH_NH' ? 'Hillsborough NH Records' : 
-                       userType === 'BREVARD_FL' ? 'Brevard FL Records' :
-                       userType === 'FULTON_GA' ? 'Fulton GA Records' :
-                       userType === 'COBB_GA' ? 'Cobb GA Records' :
-                       `${county} County Records`;
-  const loadingMessage = userType === 'MD_CASE_SEARCH' 
-    ? 'Scraping records from Maryland Case Search...'
-    : userType === 'HILLSBOROUGH_NH'
-    ? 'Scraping records from Hillsborough NH Registry...'
-    : userType === 'BREVARD_FL'
-    ? 'Scraping records from Brevard FL Official Records...'
-    : userType === 'FULTON_GA'
-    ? 'Scraping records from Fulton GA GSCCCA...'
-    : userType === 'COBB_GA'
-    ? 'Scraping records from Cobb GA GSCCCA...'
-    : `Scraping Records from ${county} County Est. wait time 2-3 mins`;
+  // Get the appropriate columns and display info - only Harris County supported now
+  const columns = lphColumns as GridColDef[];
+  const displayTitle = `${county} County Records`;
+  const loadingMessage = `Scraping Records from ${county} County Est. wait time 2-3 mins`;
 
   // Handle cell focus to show content in the wide box
   const handleCellFocus = (params: any) => {
@@ -1424,7 +1418,7 @@ export default function Dashboard() {
                         e.currentTarget.style.color = '#1e2a78';
                       }}
                     >
-                      {county} County
+                      {county}
                     </button>
                   ))}
                 </div>
@@ -1489,10 +1483,11 @@ export default function Dashboard() {
           <style dangerouslySetInnerHTML={{ __html: sliderStyles }} />
           <AppSidebar />
           <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center gap-2 border-b justify-between pr-6">
-              <div className="flex items-center gap-2 px-3">
+            <header className="flex h-16 shrink-0 items-center border-b px-6">
+              {/* Left section with navigation */}
+              <div className="flex items-center gap-3 flex-shrink-0">
                 <SidebarTrigger />
-                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Separator orientation="vertical" className="h-4" />
                 <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className="hidden md:block">
@@ -1507,7 +1502,12 @@ export default function Dashboard() {
                   </BreadcrumbList>
                 </Breadcrumb>
               </div>
-              <div className="flex items-center gap-4">
+
+              {/* Center spacer */}
+              <div className="flex-1"></div>
+
+              {/* Right section with controls - evenly spaced */}
+              <div className="flex items-center gap-6 flex-shrink-0">
                 <button
                   className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-200 cursor-pointer"
                   onClick={() => setIsFeedbackPanelOpen(true)}
@@ -1555,13 +1555,15 @@ export default function Dashboard() {
                 </div>
                 
                 <button
-                  className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 mr-50 cursor-pointer"
+                  className="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg animate-pulse-grow hover:bg-blue-700 transition-all duration-200 cursor-pointer"
                   style={{ fontSize: '1.1rem' }}
                   onClick={handlePullRecord}
                   disabled={pulling}
                 >
                   Pull Records
                 </button>
+                
+                <ThemeToggle inHeader={true} />
               </div>
             </header>
             <div className="flex flex-1 flex-col gap-4 p-4">
@@ -1570,14 +1572,9 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-4">
                       {/* Remove the dropdown, only show the county name */}
-                      <span style={{ color: 'black', fontWeight: 600, fontSize: 24 }}>
+                      <span style={{ color: 'black', fontWeight: 600, fontSize: 24, padding: 10, marginLeft: 30 }}>
                         {displayTitle}
                       </span>
-                      {selectedDocTypes.length > 0 && (
-                        <span style={{ color: '#1e40af', fontWeight: 600, fontSize: 24, marginLeft: 12 }}>
-                          {selectedDocTypes.join(', ')}
-                        </span>
-                      )}
                       {/* Record count display */}
                       <span style={{ 
                         color: '#059669', 

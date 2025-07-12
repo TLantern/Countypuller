@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MessageList } from 'react-chat-elements';
 import 'react-chat-elements/dist/main.css';
 
@@ -53,10 +53,24 @@ function useIsMobile() {
 const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternalMessageHandled }: ChatBoxProps) => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messageListRef = useRef(null);
   const messageListEndRef = useRef<HTMLDivElement | null>(null);
   const [showStartNotice, setShowStartNotice] = useState(true);
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches;
+
+  // Auto-resize textarea
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const textarea = e.target;
+    setInput(textarea.value);
+    
+    // Reset height to auto to get the correct scrollHeight
+    textarea.style.height = 'auto';
+    
+    // Set height based on scrollHeight but with limits
+    const newHeight = Math.min(Math.max(textarea.scrollHeight, 44), 120);
+    textarea.style.height = `${newHeight}px`;
+  };
 
   // Property-related queries that users can click
   const suggestedQueries = [
@@ -294,12 +308,17 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
         flexWrap: 'wrap',
         gap: isMobile ? 8 : 0,
       }} className="responsive-padding responsive-flex-col">
-        <input
-          type="text"
+        <textarea
+          ref={textareaRef}
           placeholder="Ask about a property..."
           value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => { if (e.key === 'Enter') sendMessage(); }}
+          onChange={handleInputChange}
+          onKeyPress={(e) => { 
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
           style={{
             flex: 1,
             width: '100%',
@@ -310,7 +329,14 @@ const ChatBox = ({ messages, setMessages, onNewChat, externalMessage, onExternal
             padding: isMobile ? '8px 10px' : '12px 16px',
             outline: 'none',
             marginBottom: isMobile ? 8 : 0,
+            resize: 'none',
+            minHeight: '44px',
+            maxHeight: '120px',
+            overflow: 'auto',
+            fontFamily: 'inherit',
+            lineHeight: '1.4',
           }}
+          rows={1}
           disabled={loading}
         />
         <button
