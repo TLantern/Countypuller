@@ -6,11 +6,20 @@ from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 
 # Add the scripts directory to Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../../../scripts'))
+scripts_path = os.path.join(os.path.dirname(__file__), '../../../../Chatbot/cc-frontend/scripts')
+sys.path.insert(0, scripts_path)
 
 try:
-    from address_enrichment_pipeline import enrich_address
-except ImportError:
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("address_enrichment_pipeline", 
+                                                  os.path.join(scripts_path, "address_enrichment_pipeline.py"))
+    if spec and spec.loader:
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        enrich_address = module.enrich_address
+    else:
+        raise ImportError("Could not load module")
+except (ImportError, AttributeError, FileNotFoundError):
     def enrich_address(address):
         return {
             'canonical_address': address,

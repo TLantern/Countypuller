@@ -1,12 +1,8 @@
 {
   "functions": {
     "src/app/api/python-enrichment/route.py": {
-      "runtime": "python3.9"
-    }
-  },
-  "build": {
-    "env": {
-      "PYTHON_VERSION": "3.9"
+      "runtime": "@vercel/python@4.0.0",
+      "maxDuration": 10
     }
   }
 } 
