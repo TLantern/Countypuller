@@ -8,6 +8,7 @@ import csv from 'csv-parser';
 import { createReadStream } from 'fs';
 import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
+import { enrichAddressFallback } from '../../../lib/address-enrichment';
 
 const prisma = new PrismaClient();
 
@@ -163,27 +164,51 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
 
       console.log(`📝 Created input file: ${inputFile}`);
 
-      // Run the address enrichment pipeline
-      const pipelineScript = path.join(scriptsDir, 'address_enrichment_pipeline.py');
+      // Try to run the Python pipeline first, fallback to Node.js if it fails
+      let enrichedData: SkipTraceResult | null = null;
       
-      const result = await runPipeline(pipelineScript, inputFile, outputFile);
-
-      if (!result.success) {
-        throw new Error(result.error || 'Pipeline execution failed');
-      }
-
-      // Check if output file exists before trying to read it
       try {
-        await fs.access(outputFile);
-      } catch (error) {
-        throw new Error('Pipeline completed but no output file was created. Check API keys and pipeline logs.');
+        // Run the address enrichment pipeline
+        const pipelineScript = path.join(scriptsDir, 'address_enrichment_pipeline.py');
+        
+        const result = await runPipeline(pipelineScript, inputFile, outputFile);
+
+        if (result.success) {
+          // Check if output file exists before trying to read it
+          try {
+            await fs.access(outputFile);
+            enrichedData = await readEnrichedData(outputFile);
+          } catch (error) {
+            console.warn('Pipeline completed but output file could not be read:', error);
+          }
+        }
+      } catch (pipelineError) {
+        console.warn('Python pipeline failed, using Node.js fallback:', pipelineError);
       }
 
-      // Read the output CSV file
-      const enrichedData = await readEnrichedData(outputFile);
+      // If Python pipeline failed or returned no data, use Node.js fallback
+      if (!enrichedData) {
+        console.log('🔄 Using Node.js fallback for address enrichment');
+        const fallbackResult = await enrichAddressFallback(address);
+        
+        enrichedData = {
+          raw_address: fallbackResult.raw_address,
+          canonical_address: fallbackResult.canonical_address,
+          attomid: fallbackResult.attomid || null,
+          est_balance: fallbackResult.est_balance || null,
+          available_equity: fallbackResult.available_equity || null,
+          ltv: fallbackResult.ltv || null,
+          market_value: fallbackResult.market_value || null,
+          loans_count: fallbackResult.loans_count || 0,
+          owner_name: fallbackResult.owner_name || null,
+          primary_email: null, // Not available in fallback
+          primary_phone: null, // Not available in fallback
+          processed_at: fallbackResult.processed_at
+        };
+      }
 
       if (!enrichedData) {
-        throw new Error('No data returned from address enrichment pipeline');
+        throw new Error('Both Python pipeline and Node.js fallback failed');
       }
 
       // Save result to database for future lookups
@@ -288,9 +313,16 @@ async function runPipeline(scriptPath: string, inputFile: string, outputFile: st
 
     pythonProcess.on('error', (error) => {
       console.error('❌ Pipeline process error:', error);
+      
+      // Handle specific error cases
+      let errorMessage = error.message;
+      if (error.message.includes('ENOENT') || error.message.includes('spawn python3')) {
+        errorMessage = 'Python 3 not available in this environment. Using Node.js fallback.';
+      }
+      
       resolve({ 
         success: false, 
-        error: `Failed to start pipeline: ${error.message}` 
+        error: errorMessage
       });
     });
 
