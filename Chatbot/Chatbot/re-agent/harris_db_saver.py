@@ -99,7 +99,8 @@ async def save_harris_records(records: List[Dict[str, Any]], user_id: str) -> bo
             property_address = EXCLUDED.property_address,
             parcel_id = EXCLUDED.parcel_id,
             ai_summary = EXCLUDED.ai_summary,
-            updated_at = EXCLUDED.updated_at
+            updated_at = EXCLUDED.updated_at,
+            "userId" = EXCLUDED."userId"
         """
         
         # Insert records
