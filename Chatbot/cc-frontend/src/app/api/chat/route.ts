@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
       city ? `city=${encodeURIComponent(city)}` : '',
       state ? `state=${encodeURIComponent(state)}` : '',
       zip ? `zip=${encodeURIComponent(zip)}` : '',
-      county ? `county=${encodeURIComponent(county)}` : 'county=US'
+      county ? `county=${encodeURIComponent(county)}` : ''
     ].filter(Boolean).join('&');
   }
 

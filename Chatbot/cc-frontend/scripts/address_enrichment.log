@@ -1628,3 +1628,888 @@
 2025-07-11 10:56:18,659 - INFO - Successfully enriched '1415 FRANKLIN, HOUSTON, 77002'
 2025-07-11 10:56:18,659 - INFO - Completed batch enrichment. 1 results generated.
 2025-07-11 10:56:18,662 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_dbf8313d-6abc-44a0-9ee0-0b63ee5bff39_1752256577445.csv
+2025-07-12 17:23:44,560 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752366222475.csv
+2025-07-12 17:23:44,560 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 17:23:44,767 - INFO - Google Maps validated: '24811 BUTTERWICK, SPRING, 77389' -> '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 17:23:44,767 - INFO - ATTOM API attempt 1 for '24811 Butterwick Drive, Spring, TX 77389': {'address1': '24811 Butterwick Drive', 'address2': 'Spring, TX 77389'}
+2025-07-12 17:23:45,383 - INFO - Found property data for ATTOM ID 36652763 for '24811 Butterwick Drive, Spring, TX 77389' using params: {'address1': '24811 Butterwick Drive', 'address2': 'Spring, TX 77389'}
+2025-07-12 17:23:45,383 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 17:23:45,383 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2000, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 8 BLK 3 017*L5911553-001-003-008 LONDONDERRY R/P'}
+2025-07-12 17:23:45,383 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '24811 Butterwick Drive, Spring, TX 77389': {'attomid': 36652763}
+2025-07-12 17:23:45,561 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 17:23:45,561 - INFO - Using mock skip trace data for '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 17:23:45,562 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-12 17:23:45,562 - INFO - Successfully enriched '24811 BUTTERWICK, SPRING, 77389'
+2025-07-12 17:23:45,562 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 17:23:45,570 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752366222475.csv
+2025-07-12 17:24:46,854 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752366286133.csv
+2025-07-12 17:24:46,854 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 17:24:46,987 - INFO - Google Maps validated: '10848 MULBERRY, LA PORTE, 77571' -> '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 17:24:46,987 - INFO - ATTOM API attempt 1 for '10848 West Mulberry Drive, La Porte, TX 77571': {'address1': '10848 West Mulberry Drive', 'address2': 'La Porte, TX 77571'}
+2025-07-12 17:24:47,437 - INFO - Found property data for ATTOM ID 166846426 for '10848 West Mulberry Drive, La Porte, TX 77571' using params: {'address1': '10848 West Mulberry Drive', 'address2': 'La Porte, TX 77571'}
+2025-07-12 17:24:47,438 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 17:24:47,438 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 17 BLK 17 FAIRMONT PARK EAST SEC 3 R/P'}
+2025-07-12 17:24:47,438 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '10848 West Mulberry Drive, La Porte, TX 77571': {'attomid': 166846426}
+2025-07-12 17:24:47,619 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 17:24:47,620 - INFO - Using mock skip trace data for '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 17:24:47,620 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-12 17:24:47,620 - INFO - Successfully enriched '10848 MULBERRY, LA PORTE, 77571'
+2025-07-12 17:24:47,621 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 17:24:47,629 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752366286133.csv
+2025-07-12 18:25:41,770 - INFO - Using Google Maps for address validation
+2025-07-12 18:25:41,771 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752369941038.csv
+2025-07-12 18:25:41,771 - INFO - Address validation methods available: Google Maps
+2025-07-12 18:25:41,771 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 18:25:41,909 - INFO - Google Maps validated: '10932 Rosewood Court, La Porte, TX 77571' -> '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 18:25:41,910 - INFO - ATTOM API attempt 1 for '10932 Rosewood Court, La Porte, TX 77571': {'address1': '10932 Rosewood Court', 'address2': 'La Porte, TX 77571'}
+2025-07-12 18:25:42,366 - INFO - Found property data for ATTOM ID 47512541 for '10932 Rosewood Court, La Porte, TX 77571' using params: {'address1': '10932 Rosewood Court', 'address2': 'La Porte, TX 77571'}
+2025-07-12 18:25:42,366 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 18:25:42,366 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 4 BLK 19 FAIRMONT PARK EAST SEC 3 R/P'}
+2025-07-12 18:25:42,366 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '10932 Rosewood Court, La Porte, TX 77571': {'attomid': 47512541}
+2025-07-12 18:25:42,589 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 18:25:42,589 - INFO - Using mock skip trace data for '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 18:25:42,590 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 18:25:42,590 - INFO - Successfully enriched '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 18:25:42,590 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 18:25:42,600 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752369941038.csv
+2025-07-12 18:26:11,811 - INFO - Using Google Maps for address validation
+2025-07-12 18:26:11,812 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752369971113.csv
+2025-07-12 18:26:11,812 - INFO - Address validation methods available: Google Maps
+2025-07-12 18:26:11,812 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 18:26:11,950 - INFO - Google Maps validated: '1019 Commerce Street, Houston, TX 77002' -> '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 18:26:11,950 - INFO - ATTOM API attempt 1 for '1019 Commerce Street, Houston, TX 77002': {'address1': '1019 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 18:26:12,279 - INFO - Found property data for ATTOM ID 165784809 for '1019 Commerce Street, Houston, TX 77002' using params: {'address1': '1019 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 18:26:12,280 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 18:26:12,280 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'yearbuilt': 1930, 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': '.50 U/D INT IN TR 13 BLK 3 SSBB'}
+2025-07-12 18:26:12,280 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1019 Commerce Street, Houston, TX 77002': {'attomid': 165784809}
+2025-07-12 18:26:12,455 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 18:26:12,455 - INFO - Using mock skip trace data for '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 18:26:12,455 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-12 18:26:12,456 - INFO - Successfully enriched '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 18:26:12,456 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 18:26:12,463 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752369971113.csv
+2025-07-12 21:39:56,239 - INFO - Using Google Maps for address validation
+2025-07-12 21:39:56,240 - INFO - Loaded 18 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_LPH_1752381595527.csv
+2025-07-12 21:39:56,240 - INFO - Address validation methods available: Google Maps
+2025-07-12 21:39:56,240 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-12 21:39:56,395 - INFO - Google Maps validated: '18906 Whistling Oaks Drive, Houston, TX 77084' -> '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 21:39:56,395 - INFO - ATTOM API attempt 1 for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-12 21:39:56,404 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:56,415 - INFO - Google Maps validated: '1019 Commerce Street, Houston, TX 77002' -> '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:56,420 - INFO - Google Maps validated: '1301 Texas Street, Houston, TX 77002' -> '1301 Texas Street, Houston, TX 77002'
+2025-07-12 21:39:56,425 - INFO - Google Maps validated: '1301 Commerce Street, Houston, TX 77002' -> '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:56,436 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 21:39:56,440 - INFO - Google Maps validated: '4802 Twisting Road, Houston, TX 77084' -> '4802 Twisting Road, Houston, TX 77084'
+2025-07-12 21:39:56,444 - INFO - Google Maps validated: '706 North Sky Drive, Houston, TX 77073' -> '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 21:39:56,444 - INFO - Google Maps validated: '1119 Commerce Street, Houston, TX 77002' -> '1119 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:56,446 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:56,500 - INFO - ATTOM API attempt 1 for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 21:39:56,500 - INFO - ATTOM API attempt 1 for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:56,500 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 21:39:56,501 - INFO - ATTOM API attempt 1 for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:56,501 - INFO - ATTOM API attempt 1 for '1301 Commerce Street, Houston, TX 77002': {'address1': '1301 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:56,501 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 21:39:56,501 - INFO - ATTOM API attempt 1 for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-12 21:39:56,501 - INFO - ATTOM API attempt 1 for '1019 Commerce Street, Houston, TX 77002': {'address1': '1019 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:56,501 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 21:39:56,994 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 21:39:56,995 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:56,995 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 21:39:56,995 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 21:39:56,997 - INFO - Found property data for ATTOM ID 165580755 for '1301 Texas Street, Houston, TX 77002' using params: {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:56,998 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:56,998 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1921, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 6 & TR 7 BLK 53 SSBB'}
+2025-07-12 21:39:56,999 - INFO - Found property data for ATTOM ID 165784812 for '1119 Commerce Street, Houston, TX 77002' using params: {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:56,999 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:56,999 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Industrial', 'propsubtype': 'INDUSTRIAL', 'proptype': 'WAREHOUSE', 'propertyType': 'WAREHOUSE, STORAGE', 'yearbuilt': 1923, 'propLandUse': 'WAREHOUSE', 'propIndicator': '50', 'legal1': 'LTS 1 2 & 3 & TR 20 BLK 4 SSBB'}
+2025-07-12 21:39:57,001 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 21:39:57,001 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,002 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 21:39:57,007 - INFO - Found property data for ATTOM ID 44640090 for '706 North Sky Drive, Houston, TX 77073' using params: {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-12 21:39:57,008 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,008 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 8 BLK 15 NORTH VIEW SEC 1'}
+2025-07-12 21:39:57,071 - INFO - Found property data for ATTOM ID 165784809 for '1019 Commerce Street, Houston, TX 77002' using params: {'address1': '1019 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:57,072 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,072 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'yearbuilt': 1930, 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': '.50 U/D INT IN TR 13 BLK 3 SSBB'}
+2025-07-12 21:39:57,073 - INFO - Found property data for ATTOM ID 332943774 for '18906 Whistling Oaks Drive, Houston, TX 77084' using params: {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-12 21:39:57,073 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,073 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2022, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 5 BLK 2 GRAND OAKS SEC 9'}
+2025-07-12 21:39:57,098 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1119 Commerce Street, Houston, TX 77002': {'attomid': 165784812}
+2025-07-12 21:39:57,099 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'attomid': 44640090}
+2025-07-12 21:39:57,100 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'attomid': 332943774}
+2025-07-12 21:39:57,100 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 21:39:57,101 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'attomid': 165580755}
+2025-07-12 21:39:57,101 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1019 Commerce Street, Houston, TX 77002': {'attomid': 165784809}
+2025-07-12 21:39:57,107 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,107 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:57,107 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,107 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:57,151 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:57,200 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,200 - INFO - Using mock skip trace data for '1301 Texas Street, Houston, TX 77002'
+2025-07-12 21:39:57,200 - INFO - Found skip trace data: {'owner_name': 'Linda Rodriguez', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-12 21:39:57,201 - INFO - Successfully enriched '1301 Texas Street, Houston, TX 77002'
+2025-07-12 21:39:57,202 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 21:39:57,235 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,236 - INFO - Using mock skip trace data for '1119 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:57,236 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,236 - INFO - Successfully enriched '1119 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:57,388 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,388 - INFO - Using mock skip trace data for '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 21:39:57,388 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,388 - INFO - Successfully enriched '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 21:39:57,389 - INFO - Google Maps validated: '2102 Decatur Street, Houston, TX 77007' -> '2102 Decatur Street, Houston, TX 77007'
+2025-07-12 21:39:57,389 - INFO - ATTOM API attempt 1 for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-12 21:39:57,390 - INFO - Google Maps validated: '1415 Franklin Street, Houston, TX 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 21:39:57,390 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,391 - INFO - Using mock skip trace data for '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 21:39:57,391 - INFO - Found skip trace data: {'owner_name': 'Mary Johnson', 'primary_phone': '(555) 234-5678', 'primary_email': 'resident@gmail.com'}
+2025-07-12 21:39:57,391 - INFO - Successfully enriched '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 21:39:57,494 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:57,506 - INFO - Found property data for ATTOM ID 995087 for '4802 Twisting Road, Houston, TX 77084' using params: {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 21:39:57,506 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,506 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2001, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 107 BLK 3 ROLLING CREEK SEC 1'}
+2025-07-12 21:39:57,507 - INFO - Google Maps validated: '1415 Franklin Street, Houston, TX 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 21:39:57,507 - INFO - Google Maps validated: '1501 Saint Emanuel Street, Houston, TX 77003' -> '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-12 21:39:57,511 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 21:39:57,511 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,511 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 21:39:57,588 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,589 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:57,589 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,589 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:57,590 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,590 - INFO - Using mock skip trace data for '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:57,590 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-12 21:39:57,591 - INFO - Successfully enriched '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:57,593 - INFO - Found property data for ATTOM ID 204671934 for '1301 Commerce Street, Houston, TX 77002' using params: {'address1': '1301 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:57,594 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,594 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'TR R20 BLK 6 & E1/2 CAROLINE ST CLOSED ADJ MAGNOLIA PK BRANCH (IGN) SSBB; PARCEL QY9-007'}
+2025-07-12 21:39:57,594 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1301 Commerce Street, Houston, TX 77002': {'attomid': 204671934}
+2025-07-12 21:39:57,595 - INFO - ATTOM API attempt 1 for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-12 21:39:57,596 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:57,597 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 21:39:57,597 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '4802 Twisting Road, Houston, TX 77084': {'attomid': 995087}
+2025-07-12 21:39:57,661 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:57,661 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,661 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-12 21:39:57,700 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-12 21:39:57,740 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 21:39:57,740 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,740 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 21:39:57,741 - INFO - Found property data for ATTOM ID 166917058 for '2102 Decatur Street, Houston, TX 77007' using params: {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-12 21:39:57,741 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,741 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'GROUP QUARTERS', 'propertyType': 'WELFARE, SOCIAL SERVICE, LOW INCOME HOUSING (EXEMPT)', 'yearbuilt': 1925, 'propLandUse': 'GROUP QUARTERS', 'propIndicator': '90', 'legal1': 'LT 6 & TR 5A BLK 405 BAKER W R NSBB'}
+2025-07-12 21:39:57,741 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,742 - INFO - Using mock skip trace data for '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:57,742 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,742 - INFO - Successfully enriched '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 21:39:57,744 - INFO - Google Maps validated: '10848 West Mulberry Drive, La Porte, TX 77571' -> '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 21:39:57,744 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,744 - INFO - Using mock skip trace data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 21:39:57,744 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,744 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 21:39:57,745 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 21:39:57,745 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,745 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-12 21:39:57,745 - INFO - Google Maps validated: '10932 Rosewood Court, La Porte, TX 77571' -> '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 21:39:57,804 - INFO - ATTOM API attempt 1 for '10848 West Mulberry Drive, La Porte, TX 77571': {'address1': '10848 West Mulberry Drive', 'address2': 'La Porte, TX 77571'}
+2025-07-12 21:39:57,806 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-12 21:39:57,807 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '2102 Decatur Street, Houston, TX 77007': {'attomid': 166917058}
+2025-07-12 21:39:57,807 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 21:39:57,808 - INFO - ATTOM API attempt 1 for '10932 Rosewood Court, La Porte, TX 77571': {'address1': '10932 Rosewood Court', 'address2': 'La Porte, TX 77571'}
+2025-07-12 21:39:57,884 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,884 - INFO - Using mock skip trace data for '4802 Twisting Road, Houston, TX 77084'
+2025-07-12 21:39:57,884 - INFO - Found skip trace data: {'owner_name': 'David Brown', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-12 21:39:57,885 - INFO - Successfully enriched '4802 Twisting Road, Houston, TX 77084'
+2025-07-12 21:39:57,885 - INFO - Found property data for ATTOM ID 155061702 for '1501 Saint Emanuel Street, Houston, TX 77003' using params: {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-12 21:39:57,885 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:57,886 - INFO - Found summary section: {'propclass': 'Commercial', 'propsubtype': 'Commercial', 'proptype': 'COMMERCIAL (NEC)', 'propertyType': 'COMMERCIAL (GENERAL)', 'yearbuilt': 1920, 'propLandUse': 'COMMERCIAL (NEC)', 'propIndicator': '20', 'legal1': 'LT 10 BLK 323 SSBB'}
+2025-07-12 21:39:57,908 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:57,908 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 21:39:57,908 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:57,908 - INFO - Successfully enriched '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 21:39:57,908 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1501 Saint Emanuel Street, Houston, TX 77003': {'attomid': 155061702}
+2025-07-12 21:39:58,058 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,058 - INFO - Using mock skip trace data for '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-12 21:39:58,058 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:58,058 - INFO - Successfully enriched '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-12 21:39:58,058 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,058 - INFO - Using mock skip trace data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 21:39:58,058 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:58,059 - INFO - Successfully enriched '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 21:39:58,059 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,059 - INFO - Using mock skip trace data for '2102 Decatur Street, Houston, TX 77007'
+2025-07-12 21:39:58,059 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-12 21:39:58,059 - INFO - Successfully enriched '2102 Decatur Street, Houston, TX 77007'
+2025-07-12 21:39:58,059 - INFO - Google Maps validated: '24811 Butterwick Drive, Spring, TX 77389' -> '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 21:39:58,059 - INFO - ATTOM API attempt 1 for '24811 Butterwick Drive, Spring, TX 77389': {'address1': '24811 Butterwick Drive', 'address2': 'Spring, TX 77389'}
+2025-07-12 21:39:58,060 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,060 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:58,061 - INFO - Found skip trace data: {'owner_name': 'Michael Wilson', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:58,061 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 21:39:58,083 - INFO - Found property data for ATTOM ID 166846426 for '10848 West Mulberry Drive, La Porte, TX 77571' using params: {'address1': '10848 West Mulberry Drive', 'address2': 'La Porte, TX 77571'}
+2025-07-12 21:39:58,083 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:58,083 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 17 BLK 17 FAIRMONT PARK EAST SEC 3 R/P'}
+2025-07-12 21:39:58,086 - INFO - Found property data for ATTOM ID 47512541 for '10932 Rosewood Court, La Porte, TX 77571' using params: {'address1': '10932 Rosewood Court', 'address2': 'La Porte, TX 77571'}
+2025-07-12 21:39:58,086 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:58,086 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 4 BLK 19 FAIRMONT PARK EAST SEC 3 R/P'}
+2025-07-12 21:39:58,162 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '10932 Rosewood Court, La Porte, TX 77571': {'attomid': 47512541}
+2025-07-12 21:39:58,162 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '10848 West Mulberry Drive, La Porte, TX 77571': {'attomid': 166846426}
+2025-07-12 21:39:58,403 - INFO - Found property data for ATTOM ID 36652763 for '24811 Butterwick Drive, Spring, TX 77389' using params: {'address1': '24811 Butterwick Drive', 'address2': 'Spring, TX 77389'}
+2025-07-12 21:39:58,404 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 21:39:58,404 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 2000, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 8 BLK 3 017*L5911553-001-003-008 LONDONDERRY R/P'}
+2025-07-12 21:39:58,404 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '24811 Butterwick Drive, Spring, TX 77389': {'attomid': 36652763}
+2025-07-12 21:39:58,405 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,405 - INFO - Using mock skip trace data for '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 21:39:58,405 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-12 21:39:58,405 - INFO - Successfully enriched '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 21:39:58,405 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,405 - INFO - Using mock skip trace data for '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 21:39:58,405 - INFO - Found skip trace data: {'owner_name': 'Elizabeth Taylor', 'primary_phone': '(555) 567-8901', 'primary_email': 'contact@hotmail.com'}
+2025-07-12 21:39:58,405 - INFO - Successfully enriched '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 21:39:58,578 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 21:39:58,578 - INFO - Using mock skip trace data for '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 21:39:58,578 - INFO - Found skip trace data: {'owner_name': 'Robert Martinez', 'primary_phone': '(555) 234-5678', 'primary_email': 'resident@gmail.com'}
+2025-07-12 21:39:58,579 - INFO - Successfully enriched '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 21:39:58,579 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-12 21:39:58,592 - INFO - Saved 18 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_output_LPH_1752381595530.csv
+2025-07-12 22:05:23,419 - INFO - Using Google Maps for address validation
+2025-07-12 22:05:23,420 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752383122696.csv
+2025-07-12 22:05:23,420 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:05:23,420 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 22:05:23,580 - INFO - Google Maps validated: '1301 Commerce Street, Houston, TX 77002' -> '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 22:05:23,581 - INFO - ATTOM API attempt 1 for '1301 Commerce Street, Houston, TX 77002': {'address1': '1301 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 22:05:24,388 - INFO - Found property data for ATTOM ID 204671934 for '1301 Commerce Street, Houston, TX 77002' using params: {'address1': '1301 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 22:05:24,389 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 22:05:24,389 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'TR R20 BLK 6 & E1/2 CAROLINE ST CLOSED ADJ MAGNOLIA PK BRANCH (IGN) SSBB; PARCEL QY9-007'}
+2025-07-12 22:05:24,389 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1301 Commerce Street, Houston, TX 77002': {'attomid': 204671934}
+2025-07-12 22:05:24,611 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 22:05:24,613 - INFO - Using mock skip trace data for '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 22:05:24,613 - INFO - Found skip trace data: {'owner_name': 'Jennifer Garcia', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-12 22:05:24,613 - INFO - Successfully enriched '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 22:05:24,617 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:05:24,625 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752383122696.csv
+2025-07-12 22:06:23,231 - INFO - Using Google Maps for address validation
+2025-07-12 22:06:23,231 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752383182684.csv
+2025-07-12 22:06:23,231 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:06:23,231 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 22:06:23,377 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 22:06:23,377 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 22:06:23,735 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 22:06:23,735 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 22:06:23,735 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Exempt', 'propsubtype': 'PUBLIC WORKS', 'proptype': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': '90', 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 22:06:23,736 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 22:06:23,905 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 22:06:23,906 - INFO - Using mock skip trace data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 22:06:23,906 - INFO - Found skip trace data: {'owner_name': 'Linda Rodriguez', 'primary_phone': '(555) 345-6789', 'primary_email': 'homeowner@yahoo.com'}
+2025-07-12 22:06:23,906 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 22:06:23,906 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:06:23,911 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752383182684.csv
+2025-07-12 22:07:14,434 - INFO - Using Google Maps for address validation
+2025-07-12 22:07:14,435 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752383233775.csv
+2025-07-12 22:07:14,435 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:07:14,435 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 22:07:14,588 - INFO - Google Maps validated: '1301 Texas Street, Houston, TX 77002' -> '1301 Texas Street, Houston, TX 77002'
+2025-07-12 22:07:14,588 - INFO - ATTOM API attempt 1 for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 22:07:14,980 - INFO - Found property data for ATTOM ID 165580755 for '1301 Texas Street, Houston, TX 77002' using params: {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 22:07:14,980 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 22:07:14,980 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Office Building', 'propsubtype': 'Commercial', 'proptype': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearbuilt': 1921, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': '27', 'legal1': 'LT 6 & TR 7 BLK 53 SSBB'}
+2025-07-12 22:07:14,980 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '1301 Texas Street, Houston, TX 77002': {'attomid': 165580755}
+2025-07-12 22:07:15,212 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 22:07:15,212 - INFO - Using mock skip trace data for '1301 Texas Street, Houston, TX 77002'
+2025-07-12 22:07:15,212 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-12 22:07:15,212 - INFO - Successfully enriched '1301 Texas Street, Houston, TX 77002'
+2025-07-12 22:07:15,213 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:07:15,221 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752383233775.csv
+2025-07-12 22:08:24,899 - INFO - Using Google Maps for address validation
+2025-07-12 22:08:24,900 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752383304224.csv
+2025-07-12 22:08:24,900 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:08:24,900 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 22:08:25,026 - INFO - Google Maps validated: '706 North Sky Drive, Houston, TX 77073' -> '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 22:08:25,026 - INFO - ATTOM API attempt 1 for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-12 22:08:25,683 - INFO - Found property data for ATTOM ID 44640090 for '706 North Sky Drive, Houston, TX 77073' using params: {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-12 22:08:25,683 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 22:08:25,684 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propclass': 'Single Family Residence / Townhouse', 'propsubtype': 'Residential', 'proptype': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearbuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': '10', 'legal1': 'LT 8 BLK 15 NORTH VIEW SEC 1'}
+2025-07-12 22:08:25,684 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '706 North Sky Drive, Houston, TX 77073': {'attomid': 44640090}
+2025-07-12 22:08:25,874 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 22:08:25,874 - INFO - Using mock skip trace data for '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 22:08:25,874 - INFO - Found skip trace data: {'owner_name': 'John Smith', 'primary_phone': '(555) 123-4567', 'primary_email': 'owner@email.com'}
+2025-07-12 22:08:25,874 - INFO - Successfully enriched '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 22:08:25,874 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:08:25,879 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752383304224.csv
+2025-07-12 22:13:42,029 - INFO - 🚀 Starting ATTOM Skip Trace Test Suite
+2025-07-12 22:13:42,029 - INFO - Timestamp: 2025-07-12T22:13:42.029861
+2025-07-12 22:13:42,029 - INFO - === Testing Environment Setup ===
+2025-07-12 22:13:42,029 - INFO - ✅ Found required environment variable: ATTOM_API_KEY
+2025-07-12 22:13:42,029 - INFO - ✅ Found optional environment variable: GOOGLE_MAPS_API_KEY
+2025-07-12 22:13:42,029 - WARNING - ⚠️  Missing optional environment variable: SMARTYSTREETS_AUTH_ID
+2025-07-12 22:13:42,029 - WARNING - ⚠️  Missing optional environment variable: SMARTYSTREETS_AUTH_TOKEN
+2025-07-12 22:13:42,030 - WARNING - ⚠️  Missing optional environment variable: USPS_USER_ID
+2025-07-12 22:13:42,030 - INFO - Environment check passed. Available validation methods: ['GOOGLE_MAPS_API_KEY']
+2025-07-12 22:13:42,030 - INFO - 
+=== Testing Address Validation ===
+2025-07-12 22:13:42,030 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:13:42,030 - INFO - Testing Google Maps validation...
+2025-07-12 22:13:42,030 - ERROR - ❌ Google Maps validation failed: Session not initialized. Use 'async with' context manager.
+2025-07-12 22:13:42,030 - INFO - 
+=== Testing ATTOM API Directly ===
+2025-07-12 22:13:42,030 - INFO - Testing endpoint: https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detail
+2025-07-12 22:13:42,030 - INFO -   Attempt 1: {'address': '1600 Pennsylvania Avenue NW, Washington, DC 20500'}
+2025-07-12 22:13:42,720 - INFO -   Status: 400
+2025-07-12 22:13:42,721 - WARNING -   ❌ HTTP 400: {"status":{"version":"1.0.0","code":400,"msg":"SuccessWithoutResult","total":0,"responseDateTime":"2025-07-13T05:13:42.408Z","transactionID":"65f8100bdea679288f6715fce232e497"}}
+2025-07-12 22:13:42,721 - INFO -   Attempt 2: {'address1': '1600 Pennsylvania Avenue NW', 'address2': 'Washington, DC 20500'}
+2025-07-12 22:13:43,116 - INFO -   Status: 400
+2025-07-12 22:13:43,116 - WARNING -   ❌ HTTP 400: {"status":{"version":"1.0.0","code":400,"msg":"SuccessWithoutResult","total":0,"responseDateTime":"2025-07-13T05:13:42.790Z","transactionID":"64dd6feeadf42b605f0b123025f6ec52"}}
+2025-07-12 22:13:43,116 - INFO -   Attempt 3: {'address': '1600 Pennsylvania Avenue NW', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-12 22:13:43,299 - INFO -   Status: 400
+2025-07-12 22:13:43,299 - WARNING -   ❌ HTTP 400: {"status":{"version":"","code":0,"msg":"Invalid Parameter(s) in Request - LOCALITY","total":0,"responseDateTime":"2025-07-13T05:13:43.167Z"}}
+2025-07-12 22:13:43,299 - INFO - Testing endpoint: https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detailowner
+2025-07-12 22:13:43,299 - INFO -   Attempt 1: {'address': '1600 Pennsylvania Avenue NW, Washington, DC 20500'}
+2025-07-12 22:13:43,509 - INFO -   Status: 401
+2025-07-12 22:13:43,509 - ERROR -   ❌ Authentication failed - check API key
+2025-07-12 22:13:43,509 - INFO - Testing endpoint: https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detailmortgageowner
+2025-07-12 22:13:43,509 - INFO -   Attempt 1: {'address': '1600 Pennsylvania Avenue NW, Washington, DC 20500'}
+2025-07-12 22:13:43,921 - INFO -   Status: 400
+2025-07-12 22:13:43,921 - WARNING -   ❌ HTTP 400: {"status":{"version":"1.0.0","code":400,"msg":"SuccessWithoutResult","total":0,"responseDateTime":"2025-07-13T05:13:43.553Z","transactionID":"12c20a2217da26bb7a916e01be5e249a"}}
+2025-07-12 22:13:43,921 - INFO -   Attempt 2: {'address1': '1600 Pennsylvania Avenue NW', 'address2': 'Washington, DC 20500'}
+2025-07-12 22:13:44,144 - INFO -   Status: 400
+2025-07-12 22:13:44,144 - WARNING -   ❌ HTTP 400: {"status":{"version":"1.0.0","code":400,"msg":"SuccessWithoutResult","total":0,"responseDateTime":"2025-07-13T05:13:44.006Z","transactionID":"cc3a8847f07f8e07abc9d5ad1a630393"}}
+2025-07-12 22:13:44,144 - INFO -   Attempt 3: {'address': '1600 Pennsylvania Avenue NW', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-12 22:13:44,354 - INFO -   Status: 400
+2025-07-12 22:13:44,355 - WARNING -   ❌ HTTP 400: {"status":{"version":"","code":0,"msg":"Invalid Parameter(s) in Request - LOCALITY","total":0,"responseDateTime":"2025-07-13T05:13:44.223Z"}}
+2025-07-12 22:13:44,357 - INFO - 
+=== Testing Full Enrichment Pipeline ===
+2025-07-12 22:13:44,357 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:13:44,357 - INFO - 
+=== Testing Address: 1600 Pennsylvania Avenue NW, Washington, DC 20500 ===
+2025-07-12 22:13:44,506 - INFO - Google Maps validated: '1600 Pennsylvania Avenue NW, Washington, DC 20500' -> '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'
+2025-07-12 22:13:44,507 - INFO - ATTOM API attempt 1 for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500': {'address1': '1600 Pennsylvania Avenue Northwest', 'address2': 'Washington, DC 20500'}
+2025-07-12 22:13:44,787 - INFO - ATTOM API attempt 2 for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500': {'address': '1600 Pennsylvania Avenue Northwest', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-12 22:13:45,015 - INFO - ATTOM API attempt 3 for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500': {'address': '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'}
+2025-07-12 22:13:45,310 - WARNING - All ATTOM API attempts failed for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'
+2025-07-12 22:13:45,311 - WARNING - No ATTOM property data found for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'
+2025-07-12 22:13:45,311 - INFO - Successfully enriched '1600 Pennsylvania Avenue NW, Washington, DC 20500'
+2025-07-12 22:13:45,311 - INFO - ✅ Enrichment completed for: 1600 Pennsylvania Avenue NW, Washington, DC 20500
+2025-07-12 22:13:45,311 - INFO - Raw result: {
+  "raw_address": "1600 Pennsylvania Avenue NW, Washington, DC 20500",
+  "canonical_address": "1600 Pennsylvania Avenue Northwest, Washington, DC 20500",
+  "attomid": null,
+  "est_balance": null,
+  "available_equity": null,
+  "ltv": null,
+  "loans_count": 0,
+  "owner_name": null,
+  "primary_email": null,
+  "primary_phone": null,
+  "processed_at": "2025-07-12T22:13:44.357666"
+}
+2025-07-12 22:13:45,312 - INFO - Analysis: {
+  "address_validation": "\u2705 Success",
+  "attom_property_data": "\u274c Not found",
+  "owner_information": {
+    "owner_name": "\u274c Missing",
+    "primary_phone": "\u274c Missing",
+    "primary_email": "\u274c Missing"
+  },
+  "equity_data": {
+    "est_balance": "\u274c Missing",
+    "available_equity": "\u274c Missing",
+    "ltv": "\u274c Missing",
+    "market_value": "\u274c Missing",
+    "loans_count": "\u2705 0"
+  },
+  "skip_trace_data": {},
+  "completion_score": "2/10 (20.0%)"
+}
+2025-07-12 22:13:46,316 - INFO - 
+=== Testing Address: 350 Fifth Avenue, New York, NY 10118 ===
+2025-07-12 22:13:46,445 - INFO - Google Maps validated: '350 Fifth Avenue, New York, NY 10118' -> '350 5th Avenue, New York, NY 10118'
+2025-07-12 22:13:46,445 - INFO - ATTOM API attempt 1 for '350 5th Avenue, New York, NY 10118': {'address1': '350 5th Avenue', 'address2': 'New York, NY 10118'}
+2025-07-12 22:13:46,727 - INFO - Found property data for ATTOM ID 170777929 for '350 5th Avenue, New York, NY 10118' using params: {'address1': '350 5th Avenue', 'address2': 'New York, NY 10118'}
+2025-07-12 22:13:46,727 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'building', 'vintage']
+2025-07-12 22:13:46,727 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propsubtype': 'Residential', 'proptype': 'Cooperative Building', 'propertyType': 'Cooperative Building (Residential)', 'yearbuilt': 1927, 'propLandUse': 'Cooperative Building', 'legal1': 'LOT:22 BLK:550 SEC:207 DIST:02'}
+2025-07-12 22:13:46,728 - INFO - ATTOM Ownership API attempt 1 (detailowner) for '350 5th Avenue, New York, NY 10118': {'attomid': 170777929}
+2025-07-12 22:13:46,902 - ERROR - ATTOM API authentication failed - check your API key
+2025-07-12 22:13:46,903 - INFO - Using mock skip trace data for '350 5th Avenue, New York, NY 10118'
+2025-07-12 22:13:46,903 - INFO - Found skip trace data: {'owner_name': 'William Anderson', 'primary_phone': '(555) 456-7890', 'primary_email': 'property@outlook.com'}
+2025-07-12 22:13:46,903 - INFO - Successfully enriched '350 Fifth Avenue, New York, NY 10118'
+2025-07-12 22:13:46,903 - INFO - ✅ Enrichment completed for: 350 Fifth Avenue, New York, NY 10118
+2025-07-12 22:13:46,904 - INFO - Raw result: {
+  "raw_address": "350 Fifth Avenue, New York, NY 10118",
+  "canonical_address": "350 5th Avenue, New York, NY 10118",
+  "attomid": 170777929,
+  "est_balance": null,
+  "available_equity": null,
+  "ltv": null,
+  "loans_count": 0,
+  "owner_name": "William Anderson",
+  "primary_email": "property@outlook.com",
+  "primary_phone": "(555) 456-7890",
+  "processed_at": "2025-07-12T22:13:46.317191"
+}
+2025-07-12 22:13:46,904 - INFO - Analysis: {
+  "address_validation": "\u2705 Success",
+  "attom_property_data": "\u2705 Found",
+  "owner_information": {
+    "owner_name": "\u2705 Found",
+    "primary_phone": "\u2705 Found",
+    "primary_email": "\u2705 Found"
+  },
+  "equity_data": {
+    "est_balance": "\u274c Missing",
+    "available_equity": "\u274c Missing",
+    "ltv": "\u274c Missing",
+    "market_value": "\u274c Missing",
+    "loans_count": "\u2705 0"
+  },
+  "skip_trace_data": {},
+  "completion_score": "6/10 (60.0%)"
+}
+2025-07-12 22:13:47,909 - INFO - 
+=== Testing Address: 1 Apple Park Way, Cupertino, CA 95014 ===
+2025-07-12 22:13:48,020 - INFO - Google Maps validated: '1 Apple Park Way, Cupertino, CA 95014' -> '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-12 22:13:48,021 - INFO - ATTOM API attempt 1 for '1 Apple Park Way, Cupertino, CA 95014': {'address1': '1 Apple Park Way', 'address2': 'Cupertino, CA 95014'}
+2025-07-12 22:13:48,743 - INFO - ATTOM API attempt 2 for '1 Apple Park Way, Cupertino, CA 95014': {'address': '1 Apple Park Way', 'locality': 'Cupertino', 'postalcode': '95014'}
+2025-07-12 22:13:49,027 - INFO - ATTOM API attempt 3 for '1 Apple Park Way, Cupertino, CA 95014': {'address': '1 Apple Park Way, Cupertino, CA 95014'}
+2025-07-12 22:13:49,563 - WARNING - All ATTOM API attempts failed for '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-12 22:13:49,564 - WARNING - No ATTOM property data found for '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-12 22:13:49,564 - INFO - Successfully enriched '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-12 22:13:49,564 - INFO - ✅ Enrichment completed for: 1 Apple Park Way, Cupertino, CA 95014
+2025-07-12 22:13:49,565 - INFO - Raw result: {
+  "raw_address": "1 Apple Park Way, Cupertino, CA 95014",
+  "canonical_address": "1 Apple Park Way, Cupertino, CA 95014",
+  "attomid": null,
+  "est_balance": null,
+  "available_equity": null,
+  "ltv": null,
+  "loans_count": 0,
+  "owner_name": null,
+  "primary_email": null,
+  "primary_phone": null,
+  "processed_at": "2025-07-12T22:13:47.910241"
+}
+2025-07-12 22:13:49,565 - INFO - Analysis: {
+  "address_validation": "\u2705 Success",
+  "attom_property_data": "\u274c Not found",
+  "owner_information": {
+    "owner_name": "\u274c Missing",
+    "primary_phone": "\u274c Missing",
+    "primary_email": "\u274c Missing"
+  },
+  "equity_data": {
+    "est_balance": "\u274c Missing",
+    "available_equity": "\u274c Missing",
+    "ltv": "\u274c Missing",
+    "market_value": "\u274c Missing",
+    "loans_count": "\u2705 0"
+  },
+  "skip_trace_data": {},
+  "completion_score": "2/10 (20.0%)"
+}
+2025-07-12 22:13:50,570 - INFO - 
+=== SUMMARY REPORT ===
+2025-07-12 22:13:50,571 - INFO - Successful enrichments: 3/3
+2025-07-12 22:13:50,571 - INFO - ✅ 1600 Pennsylvania Avenue NW, Washington, DC 20500: 2/10 (20.0%)
+2025-07-12 22:13:50,571 - INFO - ✅ 350 Fifth Avenue, New York, NY 10118: 6/10 (60.0%)
+2025-07-12 22:13:50,571 - INFO - ✅ 1 Apple Park Way, Cupertino, CA 95014: 2/10 (20.0%)
+2025-07-12 22:13:50,572 - INFO - 📊 Detailed results saved to test_results.json
+2025-07-12 22:13:50,572 - INFO - 📊 Logs saved to test_attom_skip_trace.log
+2025-07-12 22:16:18,685 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:16:18,839 - INFO - Google Maps validated: '7914 Woodsman Trail, Houston, TX 77040' -> '7914 Woodsman Trail, Houston, TX 77040'
+2025-07-12 22:16:18,839 - INFO - ATTOM API attempt 1 for '7914 Woodsman Trail, Houston, TX 77040': {'address1': '7914 Woodsman Trail', 'address2': 'Houston, TX 77040'}
+2025-07-12 22:16:19,279 - INFO - Found property data for ATTOM ID 2724459 for '7914 Woodsman Trail, Houston, TX 77040' using params: {'address1': '7914 Woodsman Trail', 'address2': 'Houston, TX 77040'}
+2025-07-12 22:16:19,279 - INFO - Calculated equity: Market Value $186,671, Total Loans $63,352, Equity $123,319, LTV 33.9%
+2025-07-12 22:16:19,279 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 22:16:19,279 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'KENDALL BURGESS', 'lastName': 'BURGESS ', 'firstNameAndMi': 'KENDALL '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '7914 WOODSMAN TRL, HOUSTON, TX 77040-2729'}
+2025-07-12 22:16:19,279 - INFO - Found assessment.tax section: {'taxAmt': 1254.45, 'taxPerSizeUnit': 1.07, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 22:16:19,280 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1983, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 747 BLK 19 WOODLAND OAKS SEC 3'}
+2025-07-12 22:16:19,280 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '7914 Woodsman Trail, Houston, TX 77040': {'attomid': 2724459}
+2025-07-12 22:16:19,491 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 22:16:19,491 - INFO - Found ATTOM ownership data for '7914 Woodsman Trail, Houston, TX 77040'
+2025-07-12 22:16:19,491 - INFO - Found ATTOM ownership data: {'owner_name': 'KENDALL BURGESS'}
+2025-07-12 22:16:19,491 - INFO - Successfully enriched '7914 Woodsman Trail, Houston, TX 77040'
+2025-07-12 22:17:02,232 - ERROR - At least one address validation method is required:
+2025-07-12 22:17:02,232 - ERROR -   - SMARTYSTREETS_AUTH_ID and SMARTYSTREETS_AUTH_TOKEN (recommended)
+2025-07-12 22:17:02,232 - ERROR -   - GOOGLE_MAPS_API_KEY (alternative)
+2025-07-12 22:17:02,232 - ERROR -   - USPS_USER_ID (fallback)
+2025-07-12 22:17:15,161 - INFO - Using Google Maps for address validation
+2025-07-12 22:17:15,164 - INFO - Loaded 1 addresses from test_input.csv
+2025-07-12 22:17:15,164 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:17:15,164 - INFO - Starting batch enrichment of 1 addresses with max concurrency 10
+2025-07-12 22:17:15,262 - INFO - Google Maps validated: '7914 Woodsman Trail, Houston, TX 77040' -> '7914 Woodsman Trail, Houston, TX 77040'
+2025-07-12 22:17:15,263 - INFO - ATTOM API attempt 1 for '7914 Woodsman Trail, Houston, TX 77040': {'address1': '7914 Woodsman Trail', 'address2': 'Houston, TX 77040'}
+2025-07-12 22:17:15,606 - INFO - Found property data for ATTOM ID 2724459 for '7914 Woodsman Trail, Houston, TX 77040' using params: {'address1': '7914 Woodsman Trail', 'address2': 'Houston, TX 77040'}
+2025-07-12 22:17:15,606 - INFO - Calculated equity: Market Value $186,671, Total Loans $63,352, Equity $123,319, LTV 33.9%
+2025-07-12 22:17:15,606 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 22:17:15,606 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'KENDALL BURGESS', 'lastName': 'BURGESS ', 'firstNameAndMi': 'KENDALL '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '7914 WOODSMAN TRL, HOUSTON, TX 77040-2729'}
+2025-07-12 22:17:15,607 - INFO - Found assessment.tax section: {'taxAmt': 1254.45, 'taxPerSizeUnit': 1.07, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 22:17:15,607 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1983, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 747 BLK 19 WOODLAND OAKS SEC 3'}
+2025-07-12 22:17:15,607 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '7914 Woodsman Trail, Houston, TX 77040': {'attomid': 2724459}
+2025-07-12 22:17:15,913 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 22:17:15,913 - INFO - Found ATTOM ownership data for '7914 Woodsman Trail, Houston, TX 77040'
+2025-07-12 22:17:15,913 - INFO - Found ATTOM ownership data: {'owner_name': 'KENDALL BURGESS'}
+2025-07-12 22:17:15,914 - INFO - Successfully enriched '7914 Woodsman Trail, Houston, TX 77040'
+2025-07-12 22:17:15,914 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:17:15,923 - INFO - Saved 1 enriched records to test_output.csv
+2025-07-12 22:50:25,596 - INFO - Using Google Maps for address validation
+2025-07-12 22:50:25,597 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752385824872.csv
+2025-07-12 22:50:25,597 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:50:25,597 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 22:50:25,784 - INFO - Google Maps validated: '18906 Whistling Oaks Drive, Houston, TX 77084' -> '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 22:50:25,784 - INFO - ATTOM API attempt 1 for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-12 22:50:26,577 - INFO - Found property data for ATTOM ID 332943774 for '18906 Whistling Oaks Drive, Houston, TX 77084' using params: {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-12 22:50:26,580 - INFO - Calculated equity: Market Value $460,927, Total Loans $160,000, Equity $300,927, LTV 34.7%
+2025-07-12 22:50:26,580 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 22:50:26,580 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'MIN LIU', 'lastName': 'LIU ', 'firstNameAndMi': 'MIN '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '11343 SW 232ND TER, HOMESTEAD, FL 33032-6001'}
+2025-07-12 22:50:26,580 - INFO - Found assessment.tax section: {'taxAmt': 3367.71, 'taxPerSizeUnit': 1.01, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 22:50:26,580 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2022, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 5 BLK 2 GRAND OAKS SEC 9'}
+2025-07-12 22:50:26,580 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'attomid': 332943774}
+2025-07-12 22:50:26,790 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 22:50:26,790 - INFO - Found ATTOM ownership data for '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 22:50:26,790 - INFO - Found ATTOM ownership data: {'owner_name': 'MIN LIU'}
+2025-07-12 22:50:26,790 - INFO - Successfully enriched '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 22:50:26,790 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:50:26,802 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752385824872.csv
+2025-07-12 22:50:37,886 - INFO - Using Google Maps for address validation
+2025-07-12 22:50:37,886 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752385837192.csv
+2025-07-12 22:50:37,886 - INFO - Address validation methods available: Google Maps
+2025-07-12 22:50:37,887 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 22:50:38,096 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 22:50:38,096 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 22:50:38,493 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 22:50:38,494 - INFO - Calculated equity: Market Value $310,000, Total Loans $127,645, Equity $182,355, LTV 41.2%
+2025-07-12 22:50:38,494 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 22:50:38,494 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ABEL C MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'ABEL C'}, 'owner2': {'fullName': 'CYNTHIA MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'CYNTHIA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4803 MAGNOLIA CREEK RD, HOUSTON, TX 77084-3777'}
+2025-07-12 22:50:38,494 - INFO - Found assessment.tax section: {'taxAmt': 1763.52, 'taxPerSizeUnit': 0.56, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 22:50:38,494 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 22:50:38,494 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 22:50:38,706 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 22:50:38,707 - INFO - Found ATTOM ownership data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 22:50:38,707 - INFO - Found ATTOM ownership data: {'owner_name': 'ABEL C MOLINA'}
+2025-07-12 22:50:38,707 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 22:50:38,707 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 22:50:38,717 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752385837192.csv
+2025-07-12 23:23:04,661 - INFO - Using Google Maps for address validation
+2025-07-12 23:23:04,662 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752387783764.csv
+2025-07-12 23:23:04,662 - INFO - Address validation methods available: Google Maps
+2025-07-12 23:23:04,662 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 23:23:04,814 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:23:04,815 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:23:05,396 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:23:05,396 - INFO - Calculated equity: Market Value $310,000, Total Loans $127,645, Equity $182,355, LTV 41.2%
+2025-07-12 23:23:05,396 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:23:05,397 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ABEL C MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'ABEL C'}, 'owner2': {'fullName': 'CYNTHIA MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'CYNTHIA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4803 MAGNOLIA CREEK RD, HOUSTON, TX 77084-3777'}
+2025-07-12 23:23:05,397 - INFO - Found assessment.tax section: {'taxAmt': 1763.52, 'taxPerSizeUnit': 0.56, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:23:05,397 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 23:23:05,397 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 23:23:05,589 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:23:05,589 - INFO - Found ATTOM ownership data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:23:05,589 - INFO - Found ATTOM ownership data: {'owner_name': 'ABEL C MOLINA'}
+2025-07-12 23:23:05,589 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:23:05,590 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 23:23:05,599 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752387783764.csv
+2025-07-12 23:25:50,046 - INFO - Using Google Maps for address validation
+2025-07-12 23:25:50,047 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752387949319.csv
+2025-07-12 23:25:50,047 - INFO - Address validation methods available: Google Maps
+2025-07-12 23:25:50,047 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 23:25:50,138 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:25:50,138 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:25:50,565 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:25:50,565 - INFO - Calculated equity: Market Value $310,000, Total Loans $127,645, Equity $182,355, LTV 41.2%
+2025-07-12 23:25:50,566 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:25:50,566 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ABEL C MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'ABEL C'}, 'owner2': {'fullName': 'CYNTHIA MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'CYNTHIA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4803 MAGNOLIA CREEK RD, HOUSTON, TX 77084-3777'}
+2025-07-12 23:25:50,566 - INFO - Found assessment.tax section: {'taxAmt': 1763.52, 'taxPerSizeUnit': 0.56, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:25:50,566 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 23:25:50,566 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 23:25:50,790 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:25:50,790 - INFO - Found ATTOM ownership data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:25:50,790 - INFO - Found ATTOM ownership data: {'owner_name': 'ABEL C MOLINA'}
+2025-07-12 23:25:50,790 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:25:50,790 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 23:25:50,798 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752387949319.csv
+2025-07-12 23:26:09,276 - INFO - Using Google Maps for address validation
+2025-07-12 23:26:09,276 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752387968552.csv
+2025-07-12 23:26:09,276 - INFO - Address validation methods available: Google Maps
+2025-07-12 23:26:09,276 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 23:26:09,362 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:09,362 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:09,861 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:09,861 - INFO - Calculated equity: Market Value $310,000, Total Loans $127,645, Equity $182,355, LTV 41.2%
+2025-07-12 23:26:09,862 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:09,862 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ABEL C MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'ABEL C'}, 'owner2': {'fullName': 'CYNTHIA MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'CYNTHIA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4803 MAGNOLIA CREEK RD, HOUSTON, TX 77084-3777'}
+2025-07-12 23:26:09,862 - INFO - Found assessment.tax section: {'taxAmt': 1763.52, 'taxPerSizeUnit': 0.56, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:26:09,862 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 23:26:09,862 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 23:26:10,079 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:10,079 - INFO - Found ATTOM ownership data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:10,079 - INFO - Found ATTOM ownership data: {'owner_name': 'ABEL C MOLINA'}
+2025-07-12 23:26:10,079 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:10,079 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 23:26:10,085 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752387968552.csv
+2025-07-12 23:26:38,881 - INFO - Using Google Maps for address validation
+2025-07-12 23:26:38,882 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752387998105.csv
+2025-07-12 23:26:38,882 - INFO - Address validation methods available: Google Maps
+2025-07-12 23:26:38,882 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-12 23:26:38,971 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:38,971 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:39,347 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:39,348 - INFO - Calculated equity: Market Value $310,000, Total Loans $127,645, Equity $182,355, LTV 41.2%
+2025-07-12 23:26:39,348 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:39,348 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ABEL C MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'ABEL C'}, 'owner2': {'fullName': 'CYNTHIA MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'CYNTHIA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4803 MAGNOLIA CREEK RD, HOUSTON, TX 77084-3777'}
+2025-07-12 23:26:39,348 - INFO - Found assessment.tax section: {'taxAmt': 1763.52, 'taxPerSizeUnit': 0.56, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:26:39,349 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 23:26:39,349 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 23:26:39,557 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:39,557 - INFO - Found ATTOM ownership data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:39,557 - INFO - Found ATTOM ownership data: {'owner_name': 'ABEL C MOLINA'}
+2025-07-12 23:26:39,557 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:39,557 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-12 23:26:39,564 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752387998105.csv
+2025-07-12 23:26:53,147 - INFO - Using Google Maps for address validation
+2025-07-12 23:26:53,148 - INFO - Loaded 18 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_LPH_1752388012597.csv
+2025-07-12 23:26:53,148 - INFO - Address validation methods available: Google Maps
+2025-07-12 23:26:53,148 - INFO - Starting batch enrichment of 18 addresses with max concurrency 10
+2025-07-12 23:26:53,255 - INFO - Google Maps validated: '4803 Magnolia Creek Road, Houston, TX 77084' -> '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:53,255 - INFO - ATTOM API attempt 1 for '4803 Magnolia Creek Road, Houston, TX 77084': {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:53,315 - INFO - Google Maps validated: '4802 Twisting Road, Houston, TX 77084' -> '4802 Twisting Road, Houston, TX 77084'
+2025-07-12 23:26:53,318 - INFO - Google Maps validated: '1119 Commerce Street, Houston, TX 77002' -> '1119 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:53,319 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:53,325 - INFO - Google Maps validated: '1415 Franklin Street, Houston, TX 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 23:26:53,327 - INFO - Google Maps validated: '1415 Franklin Street, Houston, TX 77002' -> '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 23:26:53,331 - INFO - Google Maps validated: '1501 Saint Emanuel Street, Houston, TX 77003' -> '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-12 23:26:53,346 - INFO - Google Maps validated: '2102 Decatur Street, Houston, TX 77007' -> '2102 Decatur Street, Houston, TX 77007'
+2025-07-12 23:26:53,352 - INFO - Google Maps validated: '10848 West Mulberry Drive, La Porte, TX 77571' -> '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 23:26:53,352 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:53,356 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '1415 Franklin Street, Houston, TX 77002': {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '1501 Saint Emanuel Street, Houston, TX 77003': {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '10848 West Mulberry Drive, La Porte, TX 77571': {'address1': '10848 West Mulberry Drive', 'address2': 'La Porte, TX 77571'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '1119 Commerce Street, Houston, TX 77002': {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '2102 Decatur Street, Houston, TX 77007': {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-12 23:26:53,357 - INFO - ATTOM API attempt 1 for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:53,563 - INFO - Found property data for ATTOM ID 26567944 for '4803 Magnolia Creek Road, Houston, TX 77084' using params: {'address1': '4803 Magnolia Creek Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:53,563 - INFO - Calculated equity: Market Value $310,000, Total Loans $127,645, Equity $182,355, LTV 41.2%
+2025-07-12 23:26:53,565 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,565 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ABEL C MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'ABEL C'}, 'owner2': {'fullName': 'CYNTHIA MOLINA', 'lastName': 'MOLINA ', 'firstNameAndMi': 'CYNTHIA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4803 MAGNOLIA CREEK RD, HOUSTON, TX 77084-3777'}
+2025-07-12 23:26:53,565 - INFO - Found assessment.tax section: {'taxAmt': 1763.52, 'taxPerSizeUnit': 0.56, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:26:53,565 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 1 BLK 1 ROLLING CREEK SEC 1'}
+2025-07-12 23:26:53,565 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4803 Magnolia Creek Road, Houston, TX 77084': {'attomid': 26567944}
+2025-07-12 23:26:53,697 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:53,697 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,697 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'TROY D MCLEHANY', 'lastName': 'MCLEHANY ', 'firstNameAndMi': 'TROY D'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '15702 SEASIDE LN, HOUSTON, TX 77062-4231'}
+2025-07-12 23:26:53,697 - INFO - Found assessment.tax section: {'taxAmt': 16868.08, 'taxPerSizeUnit': 3.44, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:53,697 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Office Building', 'propSubType': 'Commercial', 'propType': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearBuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': 27, 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-12 23:26:53,697 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-12 23:26:53,719 - INFO - Found property data for ATTOM ID 165784812 for '1119 Commerce Street, Houston, TX 77002' using params: {'address1': '1119 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:53,719 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,719 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARRIS COUNTY FLOOD CONTROL DISTRIC', 'lastName': 'HARRIS COUNTY FLOOD CONTROL DISTRIC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '9900 NORTHWEST FWY, HOUSTON, TX 77092-8601'}
+2025-07-12 23:26:53,719 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:53,719 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Industrial', 'propSubType': 'INDUSTRIAL', 'propType': 'WAREHOUSE', 'propertyType': 'WAREHOUSE, STORAGE', 'yearBuilt': 1923, 'propLandUse': 'WAREHOUSE', 'propIndicator': 50, 'legal1': 'LTS 1 2 & 3 & TR 20 BLK 4 SSBB'}
+2025-07-12 23:26:53,728 - INFO - Found property data for ATTOM ID 166917058 for '2102 Decatur Street, Houston, TX 77007' using params: {'address1': '2102 Decatur Street', 'address2': 'Houston, TX 77007'}
+2025-07-12 23:26:53,728 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,728 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'AVENUE COMMUNITY DEVELOPMENT CORPOR', 'lastName': 'AVENUE COMMUNITY DEVELOPMENT CORPOR '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '3517 IRVINGTON BLVD, HOUSTON, TX 77009-5700'}
+2025-07-12 23:26:53,728 - INFO - Found assessment.tax section: {'taxAmt': 12224.19, 'taxPerSizeUnit': 3.97, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:53,728 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'GROUP QUARTERS', 'propertyType': 'WELFARE, SOCIAL SERVICE, LOW INCOME HOUSING (EXEMPT)', 'yearBuilt': 1925, 'propLandUse': 'GROUP QUARTERS', 'propIndicator': 90, 'legal1': 'LT 6 & TR 5A BLK 405 BAKER W R NSBB'}
+2025-07-12 23:26:53,748 - INFO - Found property data for ATTOM ID 155061702 for '1501 Saint Emanuel Street, Houston, TX 77003' using params: {'address1': '1501 Saint Emanuel Street', 'address2': 'Houston, TX 77003'}
+2025-07-12 23:26:53,748 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,748 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'AK CAPITAL 5 LLC', 'lastName': 'AK CAPITAL 5 LLC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'mailingAddressOneLine': 'PO BOX 20214, HOUSTON, TX 77225-0214'}
+2025-07-12 23:26:53,748 - INFO - Found assessment.tax section: {'taxAmt': 6406.43, 'taxPerSizeUnit': 3.96, 'taxYear': 2020.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:53,748 - INFO - Found summary section: {'propClass': 'Commercial', 'propSubType': 'Commercial', 'propType': 'COMMERCIAL (NEC)', 'propertyType': 'COMMERCIAL (GENERAL)', 'yearBuilt': 1920, 'propLandUse': 'COMMERCIAL (NEC)', 'propIndicator': 20, 'legal1': 'LT 10 BLK 323 SSBB'}
+2025-07-12 23:26:53,750 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:53,751 - INFO - Found ATTOM ownership data for '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:53,751 - INFO - Found ATTOM ownership data: {'owner_name': 'ABEL C MOLINA'}
+2025-07-12 23:26:53,751 - INFO - Successfully enriched '4803 Magnolia Creek Road, Houston, TX 77084'
+2025-07-12 23:26:53,786 - INFO - Found property data for ATTOM ID 995087 for '4802 Twisting Road, Houston, TX 77084' using params: {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:53,787 - INFO - Calculated equity: Market Value $264,723, Total Loans $185,250, Equity $79,473, LTV 70.0%
+2025-07-12 23:26:53,787 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,787 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'YUNIOR M BORGES', 'lastName': 'BORGES ', 'firstNameAndMi': 'YUNIOR M'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4802 TWISTING RD, HOUSTON, TX 77084-4666'}
+2025-07-12 23:26:53,787 - INFO - Found assessment.tax section: {'taxAmt': 1927.51, 'taxPerSizeUnit': 0.98, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:53,787 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2001, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 107 BLK 3 ROLLING CREEK SEC 1'}
+2025-07-12 23:26:53,800 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '2102 Decatur Street, Houston, TX 77007': {'attomid': 166917058}
+2025-07-12 23:26:53,801 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1119 Commerce Street, Houston, TX 77002': {'attomid': 165784812}
+2025-07-12 23:26:53,802 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1501 Saint Emanuel Street, Houston, TX 77003': {'attomid': 155061702}
+2025-07-12 23:26:53,802 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4802 Twisting Road, Houston, TX 77084': {'attomid': 995087}
+2025-07-12 23:26:53,813 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 23:26:53,814 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,814 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARRIS COUNTY FLOOD CONTROL DISTRICT', 'lastName': 'HARRIS COUNTY FLOOD CONTROL DISTRICT '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '9900 NORTHWEST FWY, HOUSTON, TX 77092-8601'}
+2025-07-12 23:26:53,814 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:53,814 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 23:26:53,824 - INFO - Found property data for ATTOM ID 166846426 for '10848 West Mulberry Drive, La Porte, TX 77571' using params: {'address1': '10848 West Mulberry Drive', 'address2': 'La Porte, TX 77571'}
+2025-07-12 23:26:53,824 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,824 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'JOSE L ALVAREZ', 'lastName': 'ALVAREZ ', 'firstNameAndMi': 'JOSE L'}, 'owner2': {'fullName': 'LINDA ALVAREZ', 'lastName': 'ALVAREZ ', 'firstNameAndMi': 'LINDA '}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10848 W MULBERRY DR, LA PORTE, TX 77571-4366'}
+2025-07-12 23:26:53,824 - INFO - Found assessment.tax section: {'taxAmt': 140.63, 'taxPerSizeUnit': 0.09, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:26:53,824 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 17 BLK 17 FAIRMONT PARK EAST SEC 3 R/P'}
+2025-07-12 23:26:53,843 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 23:26:53,843 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,844 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARRIS COUNTY FLOOD CONTROL DISTRICT', 'lastName': 'HARRIS COUNTY FLOOD CONTROL DISTRICT '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '9900 NORTHWEST FWY, HOUSTON, TX 77092-8601'}
+2025-07-12 23:26:53,844 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:53,844 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 23:26:53,864 - INFO - Google Maps validated: '10932 Rosewood Court, La Porte, TX 77571' -> '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 23:26:53,887 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:53,887 - INFO - Found ATTOM ownership data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 23:26:53,887 - INFO - Found ATTOM ownership data: {'owner_name': 'TROY D MCLEHANY'}
+2025-07-12 23:26:53,887 - INFO - Successfully enriched '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 23:26:53,903 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 23:26:53,904 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10848 West Mulberry Drive, La Porte, TX 77571': {'attomid': 166846426}
+2025-07-12 23:26:53,905 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 23:26:53,905 - INFO - ATTOM API attempt 1 for '10932 Rosewood Court, La Porte, TX 77571': {'address1': '10932 Rosewood Court', 'address2': 'La Porte, TX 77571'}
+2025-07-12 23:26:53,929 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:53,929 - INFO - Found ATTOM ownership data for '4802 Twisting Road, Houston, TX 77084'
+2025-07-12 23:26:53,930 - INFO - Found ATTOM ownership data: {'owner_name': 'YUNIOR M BORGES'}
+2025-07-12 23:26:53,930 - INFO - Successfully enriched '4802 Twisting Road, Houston, TX 77084'
+2025-07-12 23:26:53,939 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:53,939 - INFO - Found ATTOM ownership data for '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-12 23:26:53,939 - INFO - Found ATTOM ownership data: {'owner_name': 'AK CAPITAL 5 LLC'}
+2025-07-12 23:26:53,939 - INFO - Successfully enriched '1501 Saint Emanuel Street, Houston, TX 77003'
+2025-07-12 23:26:53,942 - INFO - Found property data for ATTOM ID 165784818 for '1415 Franklin Street, Houston, TX 77002' using params: {'address1': '1415 Franklin Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:53,943 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:53,943 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'TROY D MCLEHANY', 'lastName': 'MCLEHANY ', 'firstNameAndMi': 'TROY D'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '15702 SEASIDE LN, HOUSTON, TX 77062-4231'}
+2025-07-12 23:26:53,943 - INFO - Found assessment.tax section: {'taxAmt': 16868.08, 'taxPerSizeUnit': 3.44, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:53,943 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Office Building', 'propSubType': 'Commercial', 'propType': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearBuilt': 1985, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': 27, 'legal1': 'LT 1 BLK 10 SSBB'}
+2025-07-12 23:26:53,974 - INFO - Google Maps validated: '1019 Commerce Street, Houston, TX 77002' -> '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:53,985 - INFO - Google Maps validated: '7721 Leonora Street, Houston, TX 77061' -> '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,010 - INFO - ATTOM API attempt 1 for '7721 Leonora Street, Houston, TX 77061': {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 23:26:54,010 - INFO - ATTOM API attempt 1 for '1019 Commerce Street, Houston, TX 77002': {'address1': '1019 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:54,010 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1415 Franklin Street, Houston, TX 77002': {'attomid': 165784818}
+2025-07-12 23:26:54,028 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,028 - INFO - Found ATTOM ownership data for '1119 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,028 - INFO - Found ATTOM ownership data: {'owner_name': 'HARRIS COUNTY FLOOD CONTROL DISTRIC'}
+2025-07-12 23:26:54,028 - INFO - Successfully enriched '1119 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,034 - INFO - Google Maps validated: '1301 Commerce Street, Houston, TX 77002' -> '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,036 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,036 - INFO - Found ATTOM ownership data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,036 - INFO - Found ATTOM ownership data: {'owner_name': 'HARRIS COUNTY FLOOD CONTROL DISTRICT'}
+2025-07-12 23:26:54,036 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,058 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,059 - INFO - Found ATTOM ownership data for '2102 Decatur Street, Houston, TX 77007'
+2025-07-12 23:26:54,059 - INFO - Found ATTOM ownership data: {'owner_name': 'AVENUE COMMUNITY DEVELOPMENT CORPOR'}
+2025-07-12 23:26:54,059 - INFO - Successfully enriched '2102 Decatur Street, Houston, TX 77007'
+2025-07-12 23:26:54,066 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,066 - INFO - Found ATTOM ownership data for '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 23:26:54,067 - INFO - Found ATTOM ownership data: {'owner_name': 'JOSE L ALVAREZ'}
+2025-07-12 23:26:54,067 - INFO - Successfully enriched '10848 West Mulberry Drive, La Porte, TX 77571'
+2025-07-12 23:26:54,074 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,074 - INFO - Found ATTOM ownership data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,074 - INFO - Found ATTOM ownership data: {'owner_name': 'HARRIS COUNTY FLOOD CONTROL DISTRICT'}
+2025-07-12 23:26:54,074 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,116 - INFO - ATTOM API attempt 1 for '1301 Commerce Street, Houston, TX 77002': {'address1': '1301 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:54,136 - INFO - Google Maps validated: '706 North Sky Drive, Houston, TX 77073' -> '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 23:26:54,136 - INFO - Google Maps validated: '18906 Whistling Oaks Drive, Houston, TX 77084' -> '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 23:26:54,140 - INFO - Google Maps validated: '1301 Texas Street, Houston, TX 77002' -> '1301 Texas Street, Houston, TX 77002'
+2025-07-12 23:26:54,147 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,147 - INFO - Found ATTOM ownership data for '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 23:26:54,147 - INFO - Found ATTOM ownership data: {'owner_name': 'TROY D MCLEHANY'}
+2025-07-12 23:26:54,147 - INFO - Successfully enriched '1415 Franklin Street, Houston, TX 77002'
+2025-07-12 23:26:54,182 - INFO - Found property data for ATTOM ID 166935476 for '7721 Leonora Street, Houston, TX 77061' using params: {'address1': '7721 Leonora Street', 'address2': 'Houston, TX 77061'}
+2025-07-12 23:26:54,183 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,183 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARRIS COUNTY FLOOD CONTROL DISTRICT', 'lastName': 'HARRIS COUNTY FLOOD CONTROL DISTRICT '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '9900 NORTHWEST FWY, HOUSTON, TX 77092-8601'}
+2025-07-12 23:26:54,183 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:54,183 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'UNIT 10 BLDG 21 GLENBROOK TOWNHOUSES'}
+2025-07-12 23:26:54,184 - INFO - Google Maps validated: '24811 Butterwick Drive, Spring, TX 77389' -> '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 23:26:54,218 - INFO - ATTOM API attempt 1 for '18906 Whistling Oaks Drive, Houston, TX 77084': {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:54,219 - INFO - ATTOM API attempt 1 for '1301 Texas Street, Houston, TX 77002': {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:54,220 - INFO - ATTOM API attempt 1 for '706 North Sky Drive, Houston, TX 77073': {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-12 23:26:54,220 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '7721 Leonora Street, Houston, TX 77061': {'attomid': 166935476}
+2025-07-12 23:26:54,221 - INFO - ATTOM API attempt 1 for '24811 Butterwick Drive, Spring, TX 77389': {'address1': '24811 Butterwick Drive', 'address2': 'Spring, TX 77389'}
+2025-07-12 23:26:54,322 - INFO - Found property data for ATTOM ID 47512541 for '10932 Rosewood Court, La Porte, TX 77571' using params: {'address1': '10932 Rosewood Court', 'address2': 'La Porte, TX 77571'}
+2025-07-12 23:26:54,323 - INFO - Calculated equity: Market Value $264,426, Total Loans $255,290, Equity $9,136, LTV 96.5%
+2025-07-12 23:26:54,323 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,323 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'ERYN MCBRIDE', 'lastName': 'MCBRIDE ', 'firstNameAndMi': 'ERYN '}, 'owner2': {}, 'owner3': {'fullName': 'MICHAEL GARCIA', 'lastName': 'GARCIA ', 'firstNameAndMi': 'MICHAEL '}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10932 ROSEWOOD CT, LA PORTE, TX 77571-4360'}
+2025-07-12 23:26:54,323 - INFO - Found assessment.tax section: {'taxAmt': 1936.8, 'taxPerSizeUnit': 0.99, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:54,323 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 4 BLK 19 FAIRMONT PARK EAST SEC 3 R/P'}
+2025-07-12 23:26:54,323 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10932 Rosewood Court, La Porte, TX 77571': {'attomid': 47512541}
+2025-07-12 23:26:54,326 - INFO - Found property data for ATTOM ID 165784809 for '1019 Commerce Street, Houston, TX 77002' using params: {'address1': '1019 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:54,326 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,326 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'BUFFALO BAYOU PARTNERSHIP', 'lastName': 'BUFFALO BAYOU PARTNERSHIP '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '1113 VINE ST STE 200, HOUSTON, TX 77002-1045'}
+2025-07-12 23:26:54,326 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:54,326 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'yearBuilt': 1930, 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': '.50 U/D INT IN TR 13 BLK 3 SSBB'}
+2025-07-12 23:26:54,365 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,365 - INFO - Found ATTOM ownership data for '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,365 - INFO - Found ATTOM ownership data: {'owner_name': 'HARRIS COUNTY FLOOD CONTROL DISTRICT'}
+2025-07-12 23:26:54,366 - INFO - Successfully enriched '7721 Leonora Street, Houston, TX 77061'
+2025-07-12 23:26:54,390 - INFO - Found property data for ATTOM ID 44640090 for '706 North Sky Drive, Houston, TX 77073' using params: {'address1': '706 North Sky Drive', 'address2': 'Houston, TX 77073'}
+2025-07-12 23:26:54,390 - INFO - Calculated equity: Market Value $231,813, Total Loans $93,024, Equity $138,789, LTV 40.1%
+2025-07-12 23:26:54,390 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,391 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'MIGUEL R VILLAREAL', 'lastName': 'VILLAREAL ', 'firstNameAndMi': 'MIGUEL R'}, 'owner2': {'fullName': 'ROSE L VILLAREAL', 'lastName': 'VILLAREAL ', 'firstNameAndMi': 'ROSE L'}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '706 N SKY DR, HOUSTON, TX 77073-5430'}
+2025-07-12 23:26:54,391 - INFO - Found assessment.tax section: {'taxAmt': 163.44, 'taxPerSizeUnit': 0.09, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:26:54,391 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1984, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 8 BLK 15 NORTH VIEW SEC 1'}
+2025-07-12 23:26:54,429 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1019 Commerce Street, Houston, TX 77002': {'attomid': 165784809}
+2025-07-12 23:26:54,430 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '706 North Sky Drive, Houston, TX 77073': {'attomid': 44640090}
+2025-07-12 23:26:54,433 - INFO - Found property data for ATTOM ID 36652763 for '24811 Butterwick Drive, Spring, TX 77389' using params: {'address1': '24811 Butterwick Drive', 'address2': 'Spring, TX 77389'}
+2025-07-12 23:26:54,433 - INFO - Calculated equity: Market Value $325,629, Total Loans $166,920, Equity $158,709, LTV 51.3%
+2025-07-12 23:26:54,433 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,434 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'JULIO SALINAS JR.', 'lastName': 'SALINAS JR.', 'firstNameAndMi': 'JULIO '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '24811 BUTTERWICK DR, SPRING, TX 77389-3336'}
+2025-07-12 23:26:54,434 - INFO - Found assessment.tax section: {'taxAmt': 272.5, 'taxPerSizeUnit': 0.11, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-12 23:26:54,434 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2000, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 8 BLK 3 017*L5911553-001-003-008 LONDONDERRY R/P'}
+2025-07-12 23:26:54,438 - INFO - Found property data for ATTOM ID 332943774 for '18906 Whistling Oaks Drive, Houston, TX 77084' using params: {'address1': '18906 Whistling Oaks Drive', 'address2': 'Houston, TX 77084'}
+2025-07-12 23:26:54,438 - INFO - Calculated equity: Market Value $460,927, Total Loans $160,000, Equity $300,927, LTV 34.7%
+2025-07-12 23:26:54,439 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,439 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'MIN LIU', 'lastName': 'LIU ', 'firstNameAndMi': 'MIN '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '11343 SW 232ND TER, HOMESTEAD, FL 33032-6001'}
+2025-07-12 23:26:54,439 - INFO - Found assessment.tax section: {'taxAmt': 3367.71, 'taxPerSizeUnit': 1.01, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-12 23:26:54,439 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2022, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 5 BLK 2 GRAND OAKS SEC 9'}
+2025-07-12 23:26:54,455 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,455 - INFO - Found ATTOM ownership data for '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 23:26:54,455 - INFO - Found ATTOM ownership data: {'owner_name': 'ERYN MCBRIDE'}
+2025-07-12 23:26:54,455 - INFO - Successfully enriched '10932 Rosewood Court, La Porte, TX 77571'
+2025-07-12 23:26:54,480 - INFO - Found property data for ATTOM ID 204671934 for '1301 Commerce Street, Houston, TX 77002' using params: {'address1': '1301 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:54,480 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,480 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'CITY HOUSTON', 'lastName': 'CITY HOUSTON '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': 'PO BOX 1562, HOUSTON, TX 77251-1562'}
+2025-07-12 23:26:54,481 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:54,481 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'TR R20 BLK 6 & E1/2 CAROLINE ST CLOSED ADJ MAGNOLIA PK BRANCH (IGN) SSBB; PARCEL QY9-007'}
+2025-07-12 23:26:54,518 - INFO - Found property data for ATTOM ID 165580755 for '1301 Texas Street, Houston, TX 77002' using params: {'address1': '1301 Texas Street', 'address2': 'Houston, TX 77002'}
+2025-07-12 23:26:54,519 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-12 23:26:54,519 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'AREA URBAN LEAGUE HOUSTON', 'lastName': 'HOUSTON ', 'firstNameAndMi': 'AREA URBAN LEAGUE'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '1300 MAIN ST # 1600, HOUSTON, TX 77002-6803'}
+2025-07-12 23:26:54,519 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-12 23:26:54,520 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Office Building', 'propSubType': 'Commercial', 'propType': 'OFFICE BUILDING', 'propertyType': 'OFFICE BUILDING', 'yearBuilt': 1921, 'propLandUse': 'OFFICE BUILDING', 'propIndicator': 27, 'legal1': 'LT 6 & TR 7 BLK 53 SSBB'}
+2025-07-12 23:26:54,532 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '18906 Whistling Oaks Drive, Houston, TX 77084': {'attomid': 332943774}
+2025-07-12 23:26:54,533 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1301 Commerce Street, Houston, TX 77002': {'attomid': 204671934}
+2025-07-12 23:26:54,534 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1301 Texas Street, Houston, TX 77002': {'attomid': 165580755}
+2025-07-12 23:26:54,535 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '24811 Butterwick Drive, Spring, TX 77389': {'attomid': 36652763}
+2025-07-12 23:26:54,564 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,565 - INFO - Found ATTOM ownership data for '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,565 - INFO - Found ATTOM ownership data: {'owner_name': 'BUFFALO BAYOU PARTNERSHIP'}
+2025-07-12 23:26:54,565 - INFO - Successfully enriched '1019 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,566 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,566 - INFO - Found ATTOM ownership data for '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 23:26:54,566 - INFO - Found ATTOM ownership data: {'owner_name': 'MIGUEL R VILLAREAL'}
+2025-07-12 23:26:54,566 - INFO - Successfully enriched '706 North Sky Drive, Houston, TX 77073'
+2025-07-12 23:26:54,701 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,702 - INFO - Found ATTOM ownership data for '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 23:26:54,702 - INFO - Found ATTOM ownership data: {'owner_name': 'JULIO SALINAS JR.'}
+2025-07-12 23:26:54,702 - INFO - Successfully enriched '24811 Butterwick Drive, Spring, TX 77389'
+2025-07-12 23:26:54,703 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,704 - INFO - Found ATTOM ownership data for '1301 Texas Street, Houston, TX 77002'
+2025-07-12 23:26:54,704 - INFO - Found ATTOM ownership data: {'owner_name': 'AREA URBAN LEAGUE HOUSTON'}
+2025-07-12 23:26:54,704 - INFO - Successfully enriched '1301 Texas Street, Houston, TX 77002'
+2025-07-12 23:26:54,705 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,705 - INFO - Found ATTOM ownership data for '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,705 - INFO - Found ATTOM ownership data: {'owner_name': 'CITY HOUSTON'}
+2025-07-12 23:26:54,705 - INFO - Successfully enriched '1301 Commerce Street, Houston, TX 77002'
+2025-07-12 23:26:54,773 - INFO - Extracted ownership details: ['owner_name']
+2025-07-12 23:26:54,773 - INFO - Found ATTOM ownership data for '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 23:26:54,773 - INFO - Found ATTOM ownership data: {'owner_name': 'MIN LIU'}
+2025-07-12 23:26:54,773 - INFO - Successfully enriched '18906 Whistling Oaks Drive, Houston, TX 77084'
+2025-07-12 23:26:54,774 - INFO - Completed batch enrichment. 18 results generated.
+2025-07-12 23:26:54,794 - INFO - Saved 18 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/hot20_output_LPH_1752388012597.csv
+2025-07-13 00:02:13,857 - INFO - Using Google Maps for address validation
+2025-07-13 00:02:13,857 - INFO - Loaded 1 addresses from /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_input_867ebb10-afd9-4892-b781-208ba8098306_1752390133280.csv
+2025-07-13 00:02:13,857 - INFO - Address validation methods available: Google Maps
+2025-07-13 00:02:13,857 - INFO - Starting batch enrichment of 1 addresses with max concurrency 1
+2025-07-13 00:02:14,337 - INFO - Google Maps validated: '4802 Twisting Road, Houston, TX 77084' -> '4802 Twisting Road, Houston, TX 77084'
+2025-07-13 00:02:14,337 - INFO - ATTOM API attempt 1 for '4802 Twisting Road, Houston, TX 77084': {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-13 00:02:18,318 - INFO - Found property data for ATTOM ID 995087 for '4802 Twisting Road, Houston, TX 77084' using params: {'address1': '4802 Twisting Road', 'address2': 'Houston, TX 77084'}
+2025-07-13 00:02:18,319 - INFO - Calculated equity: Market Value $264,723, Total Loans $185,250, Equity $79,473, LTV 70.0%
+2025-07-13 00:02:18,319 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-13 00:02:18,319 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'YUNIOR M BORGES', 'lastName': 'BORGES ', 'firstNameAndMi': 'YUNIOR M'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '4802 TWISTING RD, HOUSTON, TX 77084-4666'}
+2025-07-13 00:02:18,319 - INFO - Found assessment.tax section: {'taxAmt': 1927.51, 'taxPerSizeUnit': 0.98, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-13 00:02:18,319 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2001, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 107 BLK 3 ROLLING CREEK SEC 1'}
+2025-07-13 00:02:18,320 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '4802 Twisting Road, Houston, TX 77084': {'attomid': 995087}
+2025-07-13 00:02:18,574 - INFO - Extracted ownership details: ['owner_name']
+2025-07-13 00:02:18,574 - INFO - Found ATTOM ownership data for '4802 Twisting Road, Houston, TX 77084'
+2025-07-13 00:02:18,575 - INFO - Found ATTOM ownership data: {'owner_name': 'YUNIOR M BORGES'}
+2025-07-13 00:02:18,575 - INFO - Successfully enriched '4802 Twisting Road, Houston, TX 77084'
+2025-07-13 00:02:18,575 - INFO - Completed batch enrichment. 1 results generated.
+2025-07-13 00:02:18,589 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752390133280.csv

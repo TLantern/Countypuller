@@ -8,20 +8,19 @@ and enriching them with HCAD address lookups using a caching layer.
 import asyncio
 import json
 import logging
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
-from dataclasses import dataclass, asdict
 import sys
-import os
-
-# Add the PullingBots directory to the path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'PullingBots'))
+from dataclasses import dataclass, asdict
+from datetime import datetime, timedelta
+from typing import Dict, Any, List, Optional
 
 from cache import CacheManager
 from tools_1.scrape_harris_records import scrape_harris_records
 from tools_2.hcad_lookup import hcad_lookup
-from tools_2.property_summary import generate_property_summary
 from harris_db_saver import save_harris_records
+
+# Add import for address enrichment
+import os
+import aiohttp
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -73,7 +72,7 @@ class LisPendensAgent:
             # Step 1: Get or scrape raw records with caching
             raw_records = await self._get_raw_records(params)
             
-            # Step 2: Enrich records with address lookups
+            # Step 2: Enrich records with full address enrichment
             enriched_records = await self._enrich_records(raw_records)
             
             # Step 3: Save to database (Harris County specific table)
@@ -98,7 +97,7 @@ class LisPendensAgent:
                 }
             }
             
-            logger.info(f"✅ Completed processing {len(enriched_records)} records")
+            logger.info(f"✅ Agent scrape completed: {len(enriched_records)} enriched records")
             return result
             
         except Exception as e:
@@ -106,48 +105,29 @@ class LisPendensAgent:
             raise
 
     async def _get_raw_records(self, params: AgentScrapeParams) -> List[Dict[str, Any]]:
-        """Get raw records from cache or by scraping"""
+        """Get raw records from scraper with caching"""
         
         # Create cache key based on parameters
-        cache_key = f"scrape_{params.county}_{params.filters.get('date_from', '')}_{params.filters.get('date_to', '')}_{params.filters.get('document_type', '')}_{params.filters.get('page_size', 50)}"
+        cache_key = f"raw_records_{params.county}_{hash(str(params.filters))}"
         
-        # Try to get from cache first
+        # Check cache first
         cached_records = await self.cache.get(cache_key)
         if cached_records:
-            logger.info("⚡ Cache hit - using cached scrape results")
+            logger.info(f"⚡ Cache hit! Using {len(cached_records)} cached records")
             return cached_records
         
-        logger.info("📡 Cache miss - calling scraper")
+        logger.info(f"🔍 Cache miss - fetching fresh records from {params.county}")
         
-        # Prepare scraper filters with format conversion - no mock fallback
-        scraper_filters = params.filters.copy()
-        # Remove any mock flags - we only use real data
-        scraper_filters.pop('_mock', None)
-        scraper_filters.pop('use_mock', None)
+        # Build scraper filters
+        scraper_filters = {
+            'document_type': params.filters.get('documentType', 'LisPendens'),
+            'date_from': params.filters.get('dateFrom'),
+            'date_to': params.filters.get('dateTo'),
+            'page_size': params.filters.get('pageSize', 50),
+            '_mock': params.filters.get('_mock', False)
+        }
         
-        # Convert date format from YYYY-MM-DD (agent) to MM/DD/YYYY (Harris scraper)
-        if 'date_from' in scraper_filters:
-            try:
-                date_obj = datetime.strptime(scraper_filters['date_from'], '%Y-%m-%d')
-                scraper_filters['from_date'] = date_obj.strftime('%m/%d/%Y')
-                del scraper_filters['date_from']
-            except ValueError:
-                logger.warning(f"Invalid date_from format: {scraper_filters['date_from']}")
-        
-        if 'date_to' in scraper_filters:
-            try:
-                date_obj = datetime.strptime(scraper_filters['date_to'], '%Y-%m-%d')
-                scraper_filters['to_date'] = date_obj.strftime('%m/%d/%Y')
-                del scraper_filters['date_to']
-            except ValueError:
-                logger.warning(f"Invalid date_to format: {scraper_filters['date_to']}")
-        
-        # Set doc_type for Harris scraper
-        if 'document_type' in scraper_filters and scraper_filters['document_type'] == 'LisPendens':
-            scraper_filters['doc_type'] = 'L/P'
-            del scraper_filters['document_type']
-        
-        # Call appropriate scraper based on county
+        # Get raw records from appropriate scraper
         if params.county.lower() == 'harris':
             raw_records = await scrape_harris_records(scraper_filters)
         else:
@@ -160,12 +140,12 @@ class LisPendensAgent:
         return raw_records
 
     async def _enrich_records(self, raw_records: List[Dict[str, Any]]) -> List[EnrichedRecord]:
-        """Enrich raw records with HCAD address lookups"""
+        """Enrich raw records with full address enrichment pipeline"""
         
         enriched_records: List[EnrichedRecord] = []
         max_records = min(len(raw_records), 20)  # Limit to prevent rate limiting
         
-        logger.info(f"🔄 Processing {max_records} records for address enrichment")
+        logger.info(f"🔄 Processing {max_records} records for full address enrichment")
         
         for i, record in enumerate(raw_records[:max_records]):
             try:
@@ -182,77 +162,61 @@ class LisPendensAgent:
                 
                 enriched_record = EnrichedRecord(legal=legal_desc)
                 
-                # Try HCAD lookup if we have legal description components
-                if any([legal_desc.subdivision, legal_desc.lot, legal_desc.block]):
-                    try:
-                        hcad_result = await hcad_lookup({
-                            'subdivision': legal_desc.subdivision,
-                            'section': legal_desc.section,
-                            'block': legal_desc.block,
-                            'lot': legal_desc.lot,
-                            'owner_name': self._extract_field(record, ['grantee', 'granteeName', 'owner_name'])
-                        })
-                        
-                        if hcad_result.get('address'):
-                            enriched_record.address = hcad_result['address']
-                            enriched_record.parcel_id = hcad_result.get('parcel_id')
-                            
-                            # Generate AI-powered property summary for new parcels
-                            if enriched_record.parcel_id:
-                                try:
-                                    property_data = {
-                                        'address': enriched_record.address,
-                                        'parcel_id': enriched_record.parcel_id,
-                                        'owner_name': hcad_result.get('owner_name'),
-                                        'impr_sqft': hcad_result.get('impr_sqft'),
-                                        'market_value': hcad_result.get('market_value'),
-                                        'appraised_value': hcad_result.get('appraised_value'),
-                                        'legal_params': {
-                                            'subdivision': legal_desc.subdivision,
-                                            'section': legal_desc.section,
-                                            'block': legal_desc.block,
-                                            'lot': legal_desc.lot
-                                        },
-                                        'case_info': {
-                                            'case_number': legal_desc.case_number,
-                                            'filing_date': legal_desc.filing_date,
-                                            'doc_type': legal_desc.doc_type
-                                        }
-                                    }
-                                    
-                                    # Use custom underwriter prompt
-                                    custom_prompt = """Write ≤1 sentence covering:
-– compares price-per-sqft to the zip median
-– states the equity gap (market vs appraised)
-– flags rehab risk from build year
-– notes any liens or delinquencies
-No line breaks."""
-                                    
-                                    summary_result = await generate_property_summary(property_data, custom_prompt)
-                                    if summary_result.get('summary'):
-                                        enriched_record.summary = summary_result['summary']
-                                    else:
-                                        # Fallback to simple summary
-                                        enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address} (Parcel: {enriched_record.parcel_id})"
-                                        
-                                except Exception as summary_error:
-                                    logger.warning(f"Property summary generation failed for parcel {enriched_record.parcel_id}: {summary_error}")
-                                    # Fallback to simple summary
-                                    enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address} (Parcel: {enriched_record.parcel_id})"
-                            else:
-                                # Simple summary without parcel ID
-                                enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} against {enriched_record.address}"
-                            
-                    except Exception as hcad_error:
-                        logger.warning(f"HCAD lookup failed for case {legal_desc.case_number}: {hcad_error}")
-                        enriched_record.error = "Address lookup failed"
+                # Extract raw address from record
+                raw_address = self._extract_field(record, ['property_address', 'address', 'scraped_address'])
                 
-                # Fallback to existing property_address if available
-                if not enriched_record.address:
-                    property_address = self._extract_field(record, ['property_address', 'address'])
-                    if property_address:
-                        enriched_record.address = property_address
+                if raw_address and raw_address.strip():
+                    logger.info(f"🏠 Enriching address for case {legal_desc.case_number}: {raw_address}")
+                    
+                    # Use full address enrichment pipeline
+                    enriched_address_data = await self._enrich_single_address(raw_address)
+                    
+                    if enriched_address_data:
+                        # Use the canonical (enriched) address
+                        enriched_record.address = enriched_address_data.get('canonical_address', raw_address)
+                        
+                        # Extract additional data if available
+                        if enriched_address_data.get('attomid'):
+                            enriched_record.parcel_id = enriched_address_data.get('attomid')
+                        
+                        # Generate summary with enriched data
+                        enriched_record.summary = self._generate_summary(legal_desc, enriched_record.address or raw_address, enriched_address_data)
+                        
+                        logger.info(f"✅ Address enriched: {raw_address} → {enriched_record.address}")
+                    else:
+                        # Fallback to raw address if enrichment fails
+                        enriched_record.address = raw_address
                         enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} for case {legal_desc.case_number}."
+                        logger.warning(f"⚠️ Address enrichment failed for {raw_address}, using raw address")
+                else:
+                    # Try HCAD lookup as fallback if no direct address but have legal description
+                    if any([legal_desc.subdivision, legal_desc.lot, legal_desc.block]):
+                        try:
+                            hcad_result = await hcad_lookup({
+                                'subdivision': legal_desc.subdivision,
+                                'section': legal_desc.section,
+                                'block': legal_desc.block,
+                                'lot': legal_desc.lot,
+                                'owner_name': self._extract_field(record, ['grantee', 'granteeName', 'owner_name'])
+                            })
+                            
+                            if hcad_result.get('address'):
+                                # Enrich the HCAD address
+                                enriched_address_data = await self._enrich_single_address(hcad_result['address'])
+                                enriched_record.address = enriched_address_data.get('canonical_address', hcad_result['address']) if enriched_address_data else hcad_result['address']
+                                enriched_record.parcel_id = hcad_result.get('parcel_id')
+                                enriched_record.summary = self._generate_summary(legal_desc, enriched_record.address or hcad_result['address'], enriched_address_data)
+                                logger.info(f"✅ HCAD address found and enriched: {enriched_record.address}")
+                            else:
+                                enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} for case {legal_desc.case_number}."
+                                logger.warning(f"⚠️ No address found via HCAD lookup for case {legal_desc.case_number}")
+                        except Exception as hcad_error:
+                            logger.warning(f"HCAD lookup failed for case {legal_desc.case_number}: {hcad_error}")
+                            enriched_record.error = "Address lookup failed"
+                            enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} for case {legal_desc.case_number}."
+                    else:
+                        enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} for case {legal_desc.case_number}."
+                        logger.warning(f"⚠️ No address or legal description available for case {legal_desc.case_number}")
                 
                 enriched_records.append(enriched_record)
                 
@@ -271,6 +235,76 @@ No line breaks."""
                 ))
         
         return enriched_records
+
+    async def _enrich_single_address(self, raw_address: str) -> Optional[Dict[str, Any]]:
+        """Enrich a single address using the address enrichment pipeline"""
+        try:
+            # Import the address enrichment pipeline
+            pipeline_path = os.path.join(os.path.dirname(__file__), '..', '..', 'cc-frontend', 'scripts')
+            if pipeline_path not in sys.path:
+                sys.path.append(pipeline_path)
+            
+            try:
+                import importlib.util
+                spec = importlib.util.spec_from_file_location(
+                    "address_enrichment_pipeline", 
+                    os.path.join(pipeline_path, "address_enrichment_pipeline.py")
+                )
+                if spec is None or spec.loader is None:
+                    logger.error("Address enrichment pipeline not found. Make sure address_enrichment_pipeline.py exists in cc-frontend/scripts/")
+                    return None
+                
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                AddressEnrichmentPipeline = module.AddressEnrichmentPipeline
+            except Exception as import_error:
+                logger.error(f"Failed to import address enrichment pipeline: {import_error}")
+                return None
+            
+            # Get API keys from environment
+            google_api_key = os.getenv('GOOGLE_MAPS_API_KEY')
+            smartystreets_auth_id = os.getenv('SMARTYSTREETS_AUTH_ID')
+            smartystreets_auth_token = os.getenv('SMARTYSTREETS_AUTH_TOKEN')
+            usps_user_id = os.getenv('USPS_USER_ID')
+            attom_api_key = os.getenv('ATTOM_API_KEY')
+            
+            # Check if we have at least one address validation method
+            if not google_api_key and not (smartystreets_auth_id and smartystreets_auth_token) and not usps_user_id:
+                logger.warning("No address validation API keys found (GOOGLE_MAPS_API_KEY, SMARTYSTREETS_AUTH_ID/TOKEN, or USPS_USER_ID)")
+                return None
+            
+            # Initialize the enrichment pipeline with SmartyStreets support
+            async with AddressEnrichmentPipeline(
+                usps_user_id=usps_user_id,
+                attom_api_key=attom_api_key,
+                smartystreets_auth_id=smartystreets_auth_id,
+                smartystreets_auth_token=smartystreets_auth_token
+            ) as pipeline:
+                # Enrich the address
+                result = await pipeline.enrich_address(raw_address)
+                return result
+                
+        except Exception as e:
+            logger.error(f"Address enrichment failed for '{raw_address}': {e}")
+            return None
+
+    def _generate_summary(self, legal_desc: LegalDescription, address: str, enriched_data: Optional[Dict[str, Any]] = None) -> str:
+        """Generate a summary for the enriched record"""
+        base_summary = f"Lis Pendens filed on {legal_desc.filing_date} against {address}"
+        
+        if enriched_data:
+            equity_info = []
+            if enriched_data.get('available_equity'):
+                equity_info.append(f"${enriched_data['available_equity']:,.0f} equity")
+            if enriched_data.get('ltv'):
+                equity_info.append(f"{enriched_data['ltv']*100:.1f}% LTV")
+            if enriched_data.get('owner_name'):
+                equity_info.append(f"Owner: {enriched_data['owner_name']}")
+            
+            if equity_info:
+                base_summary += f" ({', '.join(equity_info)})"
+        
+        return base_summary
 
     def _extract_field(self, record: Dict[str, Any], field_names: List[str], default: str = "") -> str:
         """Extract field value from record using multiple possible field names"""

@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       line_items: [{ price: priceId, quantity: 1 }],
       customer: customerId,
       subscription_data: {
-        trial_period_days: 3,
+        trial_period_days: 5,
       },
       success_url: `${req.headers.get('origin')}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.get('origin')}/payment/cancel`,

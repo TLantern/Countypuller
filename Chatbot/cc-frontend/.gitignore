@@ -46,3 +46,7 @@ next-env.d.ts
 .venv/
 *.pyc
 __pycache__/
+
+
+SMARTYSTREETS_AUTH_ID=db46f908-dc0b-3de8-9fca-8cfc034f2046
+SMARTYSTREETS_AUTH_TOKEN=n2cHPGHotSMfJdOEj5DO

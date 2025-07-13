@@ -69,7 +69,7 @@ async def save_harris_records(records: List[Dict[str, Any]], user_id: str) -> bo
                 'section': legal.get('section', ''),
                 'block': legal.get('block', ''),
                 'lot': legal.get('lot', ''),
-                'property_address': record.get('address'),
+                'property_address': record.get('address'),  # This is the enriched/canonical address
                 'parcel_id': record.get('parcel_id'),
                 'ai_summary': record.get('summary'),
                 'county': 'Harris',

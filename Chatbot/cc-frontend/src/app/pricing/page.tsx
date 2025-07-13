@@ -19,7 +19,6 @@ export default function PricingPage() {
         background: "linear-gradient(135deg, #1e2a78 0%, #3a3d9f 100%)",
         color: "#fff",
         padding: "0",
-        fontFamily: "Inter, sans-serif",
       }}
     >
       {/* Header */}
@@ -153,7 +152,7 @@ export default function PricingPage() {
                   / year
                 </span>
               </div>
-              <StripeCheckoutButton priceId="price_1RUql52KmmBYwJTHegFyjNV4" className="glow-on-hover" style={{ width: "100%" }}>
+              <StripeCheckoutButton priceId="price_1RUql52KmmBYwJTHegFyjNV4" className="glow-on-hover">
                 Get started
               </StripeCheckoutButton>
             </div>
@@ -303,7 +302,7 @@ export default function PricingPage() {
                   / year
                 </span>
               </div>
-              <StripeCheckoutButton priceId="price_1RUqn72KmmBYwJTHrVxBWEZT" className="glow-on-hover" style={{ width: "100%" }}>
+              <StripeCheckoutButton priceId="price_1RUqn72KmmBYwJTHrVxBWEZT" className="glow-on-hover">
                 Get started
               </StripeCheckoutButton>
             </div>

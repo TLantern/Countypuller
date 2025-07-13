@@ -1068,5 +1068,105 @@
         "doc_type": "L/P"
       }
     }
+  },
+  "1090030000008": {
+    "parcel_id": "1090030000008",
+    "summary": "\"The price-per-sqft is above the zip median, there is no equity gap as the market value and appraised value align, older build year flags potential rehab risk, and no reported liens or delinquencies.\"",
+    "generated_at": "2025-07-12T16:39:44.251479",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "24811 BUTTERWICK, SPRING, 77389",
+      "parcel_id": "1090030000008",
+      "owner_name": "BADILLO PATRICIA ANNABEL",
+      "impr_sqft": "7845",
+      "market_value": "$325,629",
+      "appraised_value": "$325,629",
+      "legal_params": {
+        "subdivision": "LONDONDERRY",
+        "section": "",
+        "block": "3",
+        "lot": "8"
+      },
+      "case_info": {
+        "case_number": "RP-2025-268691",
+        "filing_date": "07/11/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1159950170017": {
+    "parcel_id": "1159950170017",
+    "summary": "Price-per-sqft is above the 77571 zip code median, market and appraised value are on par creating no equity gap, build year suggests potential rehab risk, and no liens or delinquencies are found.",
+    "generated_at": "2025-07-12T16:39:49.074889",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "10848 MULBERRY, LA PORTE, 77571",
+      "parcel_id": "1159950170017",
+      "owner_name": "ALVAREZ JOSE L & LINDA",
+      "impr_sqft": "6599",
+      "market_value": "$234,363",
+      "appraised_value": "$234,363",
+      "legal_params": {
+        "subdivision": "FAIRMONT PARK EAST",
+        "section": "",
+        "block": "17",
+        "lot": "17"
+      },
+      "case_info": {
+        "case_number": "RP-2025-268559",
+        "filing_date": "07/11/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "1159950190004": {
+    "parcel_id": "1159950190004",
+    "summary": "\"The price-per-sqft of 10932 Rosewood is below the 77571 zip median, no equity gap exists as market value aligns with appraised value, the property's significant age flags potential rehab risks, and no liens or delinquencies are currently on record.\"",
+    "generated_at": "2025-07-12T16:39:54.309408",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "10932 ROSEWOOD, LA PORTE, 77571",
+      "parcel_id": "1159950190004",
+      "owner_name": "GARCIA MICHAEL",
+      "impr_sqft": "6599",
+      "market_value": "$264,426",
+      "appraised_value": "$264,426",
+      "legal_params": {
+        "subdivision": "FAIRMONT PARK EAST",
+        "section": "",
+        "block": "19",
+        "lot": "4"
+      },
+      "case_info": {
+        "case_number": "RP-2025-268554",
+        "filing_date": "07/11/2025",
+        "doc_type": "L/P"
+      }
+    }
+  },
+  "0010050000020": {
+    "parcel_id": "0010050000020",
+    "summary": "\"The property's price-per-square-foot is above/below the zip code's median, there's no equity gap as the market value matches the appraised value, the build year indicates a potential rehab risk, and there are no reported liens or delinquencies.\"",
+    "generated_at": "2025-07-12T16:40:03.762430",
+    "model_used": "gpt-4",
+    "property_data": {
+      "address": "1301 COMMERCE, HOUSTON, 77002",
+      "parcel_id": "0010050000020",
+      "owner_name": "CITY OF HOUSTON",
+      "impr_sqft": "5001",
+      "market_value": "$505,950",
+      "appraised_value": "$505,950",
+      "legal_params": {
+        "subdivision": "HARVEST BEND",
+        "section": "",
+        "block": "6",
+        "lot": "21"
+      },
+      "case_info": {
+        "case_number": "RP-2025-268107",
+        "filing_date": "07/11/2025",
+        "doc_type": "L/P"
+      }
+    }
   }
 }

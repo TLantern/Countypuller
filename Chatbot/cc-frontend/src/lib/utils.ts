@@ -38,9 +38,10 @@ export async function normalizeAttomParams(input: string, fetchPropertyData?: (p
     }
   }
 
-  if (!county) {
-    county = 'US';
-  }
+  // Don't set a default county - let ATTOM API handle it without county parameter
+  // if (!county) {
+  //   county = 'US';
+  // }
 
   // Ensure all fields are uppercase
   street = street.toUpperCase();

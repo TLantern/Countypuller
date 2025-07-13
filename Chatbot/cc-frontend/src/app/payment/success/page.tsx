@@ -15,7 +15,7 @@ function SuccessContent() {
           Thank you for your payment. Your transaction has been completed successfully.
         </p>
         <p>
-          <strong>Good news!</strong> Your subscription includes a <span className="text-green-600">3-day free trial</span>.
+          <strong>Good news!</strong> Your subscription includes a <span className="text-green-600">5-day free trial</span>.
           You won't be charged until the trial ends. Cancel anytime before then.
         </p>
         <Link href="/dashboard">

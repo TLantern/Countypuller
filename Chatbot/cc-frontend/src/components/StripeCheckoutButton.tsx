@@ -13,15 +13,13 @@ interface StripeCheckoutButtonProps {
   quantity?: number;
   children: React.ReactNode;
   className?: string;
-  style?: React.CSSProperties;
 }
 
 export default function StripeCheckoutButton({ 
   priceId, 
   quantity = 1, 
   children, 
-  className,
-  style
+  className 
 }: StripeCheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
 
@@ -98,7 +96,7 @@ export default function StripeCheckoutButton({
       onClick={handleClick} 
       disabled={loading}
       className={className}
-      style={style}
+      style={{ width: "100%" }}
     >
       {loading ? 'Loading...' : children}
     </Button>

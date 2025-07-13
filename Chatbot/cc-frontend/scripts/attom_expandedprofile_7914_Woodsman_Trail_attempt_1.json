@@ -1,0 +1,216 @@
+{
+  "status": {
+    "version": "1.0.0",
+    "code": 0,
+    "msg": "SuccessWithResult",
+    "total": 1,
+    "page": 1,
+    "pagesize": 10,
+    "responseDateTime": "2025-07-13T05:14:45.319Z",
+    "transactionID": "72c9ecbb0f5baa7de2f8f3dd8488c52e",
+    "attomId": 2724459
+  },
+  "echoed_fields": {
+    "jobID": "",
+    "loanNumber": "",
+    "preparedBy": "",
+    "resellerID": "",
+    "preparedFor": ""
+  },
+  "property": [
+    {
+      "identifier": {
+        "Id": 2724459,
+        "fips": "48201",
+        "apn": "1144740190747",
+        "attomId": 2724459
+      },
+      "lot": {
+        "lotNum": "747",
+        "lotSize1": 0.1423095,
+        "lotSize2": 6199.0,
+        "zoningType": "Residential"
+      },
+      "area": {
+        "blockNum": "19",
+        "locType": "VIEW - NONE",
+        "countrySecSubd": "Harris",
+        "countyUse1": "1001 ",
+        "munCode": "HA",
+        "munName": "HARRIS",
+        "subdName": "WOODLAND OAKS",
+        "taxCodeArea": "004 041 042 043",
+        "censusTractIdent": "532503",
+        "censusBlockGroup": "1"
+      },
+      "address": {
+        "country": "US",
+        "countrySubd": "TX",
+        "line1": "7914 WOODSMAN TRL",
+        "line2": "HOUSTON, TX 77040",
+        "locality": "HOUSTON",
+        "matchCode": "ExaStr",
+        "oneLine": "7914 WOODSMAN TRL, HOUSTON, TX 77040",
+        "postal1": "77040",
+        "postal2": "2729",
+        "postal3": "C019",
+        "stateFips": "48",
+        "situsHouseNumber": "7914",
+        "situsStreetName": "WOODSMAN",
+        "situsAddressSuffix": "TRL"
+      },
+      "location": {
+        "accuracy": "Rooftop",
+        "latitude": "29.885227",
+        "longitude": "-95.511618",
+        "distance": 0.0,
+        "geoid": "CO48201, CS4891835, DB4816110, RS0000363928, ZI77040",
+        "geoIdV4": {
+          "CO": "3617cb778a484a6657b1114bc86f1b10",
+          "CS": "157486df4fc388d75da3e3b42edbe45e",
+          "DB": "332d6fe13d41de6efc694402d6d32099",
+          "N4": "0f027707a7107f0ed396bc33c9ae5866",
+          "SB": "042116b47af13cd18ffdf8b66d458dd7, 2b1905adb726574ee001b1a65d664363, b0fdb7c141bb6e1f6c8801007e3d2e30",
+          "ZI": "0af79d9544e32726a9b511c04fe565dc"
+        }
+      },
+      "summary": {
+        "archStyle": "TRADITIONAL/OLD",
+        "absenteeInd": "OWNER OCCUPIED",
+        "propClass": "Single Family Residence / Townhouse",
+        "propSubType": "Residential",
+        "propType": "SFR",
+        "propertyType": "SINGLE FAMILY RESIDENCE",
+        "yearBuilt": 1983,
+        "propLandUse": "SFR",
+        "propIndicator": 10,
+        "legal1": "LT 747 BLK 19 WOODLAND OAKS SEC 3",
+        "quitClaimFlag": "False",
+        "REOflag": "False"
+      },
+      "utilities": {
+        "coolingType": "CENTRAL",
+        "energyType": "AVAILABLE",
+        "heatingType": "CENTRAL"
+      },
+      "sale": {
+        "sequenceSaleHistory": 1,
+        "sellerName": "FANNIE MAE",
+        "saleSearchDate": "2012-02-27",
+        "saleTransDate": "2012-02-21",
+        "transactionIdent": "325337356",
+        "amount": {
+          "saleAmt": 65650.0,
+          "saleRecDate": "2012-02-27",
+          "saleDisclosureType": 1,
+          "saleDocNum": "0000083198",
+          "saleTransType": "Resale"
+        },
+        "calculation": {
+          "pricePerBed": 21883.33,
+          "pricePerSizeUnit": 55.82
+        }
+      },
+      "building": {
+        "size": {
+          "bldgSize": 1176.0,
+          "grossSize": 1646.0,
+          "grossSizeAdjusted": 1176.0,
+          "groundFloorSize": 1176.0,
+          "livingSize": 1176.0,
+          "sizeInd": "LIVING SQFT",
+          "universalSize": 1176.0
+        },
+        "rooms": {
+          "bathFixtures": 8,
+          "bathsFull": 2,
+          "bathsTotal": 2.0,
+          "beds": 3,
+          "roomsTotal": 6
+        },
+        "interior": {
+          "fplcCount": 1,
+          "fplcInd": "Y",
+          "fplcType": "YES"
+        },
+        "construction": {
+          "condition": "AVERAGE",
+          "constructionType": "BRICK",
+          "foundationType": "SLAB",
+          "wallType": "BRICK VENEER"
+        },
+        "parking": {
+          "prkgSize": 442.0,
+          "prkgSpaces": "2"
+        },
+        "summary": {
+          "levels": 1,
+          "storyDesc": "CONVENTIONAL HOUSE",
+          "view": "VIEW - NONE",
+          "viewCode": "000"
+        }
+      },
+      "assessment": {
+        "appraised": {},
+        "assessed": {
+          "assdImprValue": 132709.0,
+          "assdLandValue": 53962.0,
+          "assdTtlValue": 186671.0
+        },
+        "market": {
+          "mktImprValue": 132709.0,
+          "mktLandValue": 53962.0,
+          "mktTtlValue": 186671.0
+        },
+        "tax": {
+          "taxAmt": 1254.45,
+          "taxPerSizeUnit": 1.07,
+          "taxYear": 2023.0,
+          "exemption": {},
+          "exemptiontype": {}
+        },
+        "improvementPercent": 71,
+        "owner": {
+          "corporateIndicator": "N",
+          "type": "INDIVIDUAL",
+          "description": "INDIVIDUAL",
+          "owner1": {
+            "fullName": "KENDALL BURGESS",
+            "lastName": "BURGESS ",
+            "firstNameAndMi": "KENDALL "
+          },
+          "owner2": {},
+          "owner3": {},
+          "owner4": {},
+          "absenteeOwnerStatus": "O",
+          "mailingAddressOneLine": "7914 WOODSMAN TRL, HOUSTON, TX 77040-2729"
+        },
+        "mortgage": {
+          "FirstConcurrent": {
+            "trustDeedDocumentNumber": "0000083199",
+            "ident": "20120083199",
+            "amount": 63352.0,
+            "lenderLastName": "CHERRY CREEK MORTGAGE CO INC",
+            "companyCode": "4744",
+            "date": "2012-02-27",
+            "loanTypeCode": "FHA",
+            "deedType": "VL",
+            "term": "361",
+            "dueDate": "2042-03-01"
+          },
+          "SecondConcurrent": {
+            "amount": 0.0,
+            "companyCode": "-1"
+          },
+          "title": {
+            "companyName": "ETC"
+          }
+        }
+      },
+      "vintage": {
+        "lastModified": "2025-02-12",
+        "pubDate": "2025-02-12"
+      }
+    }
+  ]
+}

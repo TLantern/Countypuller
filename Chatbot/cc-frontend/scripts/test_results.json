@@ -1,0 +1,104 @@
+[
+  {
+    "address": "1600 Pennsylvania Avenue NW, Washington, DC 20500",
+    "result": {
+      "raw_address": "1600 Pennsylvania Avenue NW, Washington, DC 20500",
+      "canonical_address": "1600 Pennsylvania Avenue Northwest, Washington, DC 20500",
+      "attomid": null,
+      "est_balance": null,
+      "available_equity": null,
+      "ltv": null,
+      "loans_count": 0,
+      "owner_name": null,
+      "primary_email": null,
+      "primary_phone": null,
+      "processed_at": "2025-07-12T22:13:44.357666"
+    },
+    "analysis": {
+      "address_validation": "\u2705 Success",
+      "attom_property_data": "\u274c Not found",
+      "owner_information": {
+        "owner_name": "\u274c Missing",
+        "primary_phone": "\u274c Missing",
+        "primary_email": "\u274c Missing"
+      },
+      "equity_data": {
+        "est_balance": "\u274c Missing",
+        "available_equity": "\u274c Missing",
+        "ltv": "\u274c Missing",
+        "market_value": "\u274c Missing",
+        "loans_count": "\u2705 0"
+      },
+      "skip_trace_data": {},
+      "completion_score": "2/10 (20.0%)"
+    }
+  },
+  {
+    "address": "350 Fifth Avenue, New York, NY 10118",
+    "result": {
+      "raw_address": "350 Fifth Avenue, New York, NY 10118",
+      "canonical_address": "350 5th Avenue, New York, NY 10118",
+      "attomid": 170777929,
+      "est_balance": null,
+      "available_equity": null,
+      "ltv": null,
+      "loans_count": 0,
+      "owner_name": "William Anderson",
+      "primary_email": "property@outlook.com",
+      "primary_phone": "(555) 456-7890",
+      "processed_at": "2025-07-12T22:13:46.317191"
+    },
+    "analysis": {
+      "address_validation": "\u2705 Success",
+      "attom_property_data": "\u2705 Found",
+      "owner_information": {
+        "owner_name": "\u2705 Found",
+        "primary_phone": "\u2705 Found",
+        "primary_email": "\u2705 Found"
+      },
+      "equity_data": {
+        "est_balance": "\u274c Missing",
+        "available_equity": "\u274c Missing",
+        "ltv": "\u274c Missing",
+        "market_value": "\u274c Missing",
+        "loans_count": "\u2705 0"
+      },
+      "skip_trace_data": {},
+      "completion_score": "6/10 (60.0%)"
+    }
+  },
+  {
+    "address": "1 Apple Park Way, Cupertino, CA 95014",
+    "result": {
+      "raw_address": "1 Apple Park Way, Cupertino, CA 95014",
+      "canonical_address": "1 Apple Park Way, Cupertino, CA 95014",
+      "attomid": null,
+      "est_balance": null,
+      "available_equity": null,
+      "ltv": null,
+      "loans_count": 0,
+      "owner_name": null,
+      "primary_email": null,
+      "primary_phone": null,
+      "processed_at": "2025-07-12T22:13:47.910241"
+    },
+    "analysis": {
+      "address_validation": "\u2705 Success",
+      "attom_property_data": "\u274c Not found",
+      "owner_information": {
+        "owner_name": "\u274c Missing",
+        "primary_phone": "\u274c Missing",
+        "primary_email": "\u274c Missing"
+      },
+      "equity_data": {
+        "est_balance": "\u274c Missing",
+        "available_equity": "\u274c Missing",
+        "ltv": "\u274c Missing",
+        "market_value": "\u274c Missing",
+        "loans_count": "\u2705 0"
+      },
+      "skip_trace_data": {},
+      "completion_score": "2/10 (20.0%)"
+    }
+  }
+]

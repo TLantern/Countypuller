@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-source-sans)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        sans: ['var(--font-faustina)', 'Georgia', 'Times New Roman', 'serif'],
+        faustina: ['var(--font-faustina)', 'Georgia', 'Times New Roman', 'serif'],
       },
       width: {
         "sidebar": "var(--sidebar-width)",

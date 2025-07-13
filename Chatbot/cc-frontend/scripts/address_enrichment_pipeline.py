@@ -27,13 +27,22 @@ import time
 import xml.etree.ElementTree as ET
 from datetime import datetime, date
 from decimal import Decimal
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any, Union
 import logging
 import backoff
-import pandas as pd
-import asyncpg
+try:
+    import pandas as pd
+except ImportError:
+    pd = None
+try:
+    import asyncpg
+except ImportError:
+    asyncpg = None
 from urllib.parse import quote_plus
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
 
 # Configure logging
 logging.basicConfig(
@@ -62,28 +71,43 @@ class RateLimiter:
         self.last_called = time.time()
 
 class AddressEnrichmentPipeline:
-    def __init__(self, usps_user_id: Optional[str] = None, attom_api_key: Optional[str] = None):
+    def __init__(self, usps_user_id: Optional[str] = None, attom_api_key: Optional[str] = None, smartystreets_auth_id: Optional[str] = None, smartystreets_auth_token: Optional[str] = None):
         # Get from environment if not provided
         self.usps_user_id = usps_user_id or os.getenv('USPS_USER_ID')
         self.attom_api_key = attom_api_key or os.getenv('ATTOM_API_KEY')
-        # Skip trace API keys
-        self.searchbug_api_key = os.getenv('SEARCHBUG_API_KEY')
-        self.whitepages_api_key = os.getenv('WHITEPAGES_API_KEY')
-        self.beenverified_api_key = os.getenv('BEENVERIFIED_API_KEY')
-        self.session = None
-        self.rate_limiter = RateLimiter(max_rate=10.0)  # 10 requests per second max
-    
+        self.smartystreets_auth_id = smartystreets_auth_id or os.getenv('SMARTYSTREETS_AUTH_ID')
+        self.smartystreets_auth_token = smartystreets_auth_token or os.getenv('SMARTYSTREETS_AUTH_TOKEN')
+        
+        self.rate_limiter = RateLimiter()
+        self.session: Optional[aiohttp.ClientSession] = None
+        
+        # Log available validation methods
+        validation_methods = []
+        if os.getenv('GOOGLE_MAPS_API_KEY'):
+            validation_methods.append('Google Maps')
+        if self.smartystreets_auth_id and self.smartystreets_auth_token:
+            validation_methods.append('SmartyStreets')
+        if self.usps_user_id:
+            validation_methods.append('USPS')
+        
+        logger.info(f"Address validation methods available: {', '.join(validation_methods) if validation_methods else 'None'}")
+
     async def __aenter__(self):
         self.session = aiohttp.ClientSession(
             timeout=aiohttp.ClientTimeout(total=30),
             connector=aiohttp.TCPConnector(limit=50)
         )
         return self
-    
+
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         if self.session:
             await self.session.close()
-    
+
+    def _ensure_session(self):
+        """Ensure session is available"""
+        if self.session is None:
+            raise RuntimeError("Session not initialized. Use 'async with' context manager.")
+
     def normalize_address_for_usps(self, address: str) -> Dict[str, str]:
         """Parse raw address into components for USPS validation"""
         # Basic address parsing - you might want to use a more sophisticated parser
@@ -109,7 +133,7 @@ class AddressEnrichmentPipeline:
         parts = remaining.split(',')
         if len(parts) >= 2:
             street_address = parts[0].strip()
-            city = parts[1].strip() if len(parts) > 1 else ""
+            city = parts[-1].strip()
         else:
             # No comma, assume entire remaining is street address
             street_address = remaining.strip()
@@ -121,7 +145,82 @@ class AddressEnrichmentPipeline:
             'state': state,
             'zip': zip_code
         }
-    
+
+    @backoff.on_exception(
+        backoff.expo,
+        (aiohttp.ClientError, asyncio.TimeoutError),
+        max_tries=3,
+        max_time=60
+    )
+    async def validate_address_smartystreets(self, raw_address: str) -> Tuple[str, str]:
+        """
+        Validate address using SmartyStreets US Autocomplete & ZIP+4 API
+        Returns tuple of (raw_address, canonical_address)
+        """
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
+        try:
+            if not self.smartystreets_auth_id or not self.smartystreets_auth_token:
+                logger.warning("SmartyStreets credentials not found, falling back to other methods")
+                return await self.validate_address_google(raw_address)
+            
+            # Use SmartyStreets US Street API for validation
+            url = "https://us-street.api.smartystreets.com/street-address"
+            
+            params = {
+                'auth-id': self.smartystreets_auth_id,
+                'auth-token': self.smartystreets_auth_token,
+                'street': raw_address,
+                'match': 'strict'  # Use strict matching for best results
+            }
+            
+            async with self.session.get(url, params=params) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    
+                    if data and len(data) > 0:
+                        result = data[0]  # Take the first (best) match
+                        
+                        # Extract components from SmartyStreets response
+                        delivery_line_1 = result.get('delivery_line_1', '')
+                        last_line = result.get('last_line', '')
+                        city_name = result.get('components', {}).get('city_name', '')
+                        state_abbreviation = result.get('components', {}).get('state_abbreviation', '')
+                        zipcode = result.get('components', {}).get('zipcode', '')
+                        plus4_code = result.get('components', {}).get('plus4_code', '')
+                        
+                        # Build canonical address
+                        canonical_parts = []
+                        if delivery_line_1:
+                            canonical_parts.append(delivery_line_1)
+                        if city_name:
+                            canonical_parts.append(city_name)
+                        if state_abbreviation:
+                            state_zip = state_abbreviation
+                            if zipcode:
+                                state_zip += f" {zipcode}"
+                                if plus4_code:
+                                    state_zip += f"-{plus4_code}"
+                            canonical_parts.append(state_zip)
+                        
+                        canonical_address = ', '.join(canonical_parts)
+                        
+                        logger.info(f"SmartyStreets validated: '{raw_address}' -> '{canonical_address}'")
+                        return raw_address, canonical_address
+                    else:
+                        logger.warning(f"SmartyStreets found no matches for '{raw_address}'")
+                        return raw_address, raw_address
+                elif response.status == 401:
+                    logger.error("SmartyStreets authentication failed - check your AUTH_ID and AUTH_TOKEN")
+                    return raw_address, raw_address
+                else:
+                    logger.warning(f"SmartyStreets API error for '{raw_address}': HTTP {response.status}")
+                    return raw_address, raw_address
+                    
+        except Exception as e:
+            logger.error(f"SmartyStreets validation error for '{raw_address}': {str(e)}")
+            return raw_address, raw_address
+
     @backoff.on_exception(
         backoff.expo,
         (aiohttp.ClientError, asyncio.TimeoutError),
@@ -133,15 +232,19 @@ class AddressEnrichmentPipeline:
         Validate address using Google Maps Geocoding API
         Returns tuple of (raw_address, canonical_address)
         """
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
         try:
             # Use Google Maps API key instead of USPS
             google_api_key = os.getenv('GOOGLE_MAPS_API_KEY')
             if not google_api_key:
-                # Fallback to USPS if Google key not available
-                if self.usps_user_id:
+                # Fallback to SmartyStreets if available, then USPS
+                if self.smartystreets_auth_id and self.smartystreets_auth_token:
+                    return await self.validate_address_smartystreets(raw_address)
+                elif self.usps_user_id:
                     return await self.validate_address_usps_fallback(raw_address)
                 else:
-                    logger.warning(f"No Google Maps API key found, using raw address: '{raw_address}'")
+                    logger.warning(f"No address validation API keys found, using raw address: '{raw_address}'")
                     return raw_address, raw_address
             
             url = "https://maps.googleapis.com/maps/api/geocode/json"
@@ -221,6 +324,8 @@ class AddressEnrichmentPipeline:
         """
         Fallback USPS validation method (original implementation)
         """
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
         try:
             parsed = self.normalize_address_for_usps(raw_address)
             
@@ -355,6 +460,8 @@ class AddressEnrichmentPipeline:
         2. Single 'address' parameter
         3. Individual components (address, locality, postalcode)
         """
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
         await self.rate_limiter.acquire()
         
         try:
@@ -402,7 +509,7 @@ class AddressEnrichmentPipeline:
                 'accept': 'application/json'
             }
             
-            url = 'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detail'
+            url = 'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile'
             
             # Try each parameter set until we get results
             for i, params in enumerate(param_sets):
@@ -463,6 +570,7 @@ class AddressEnrichmentPipeline:
             'est_balance': None,
             'available_equity': None,
             'ltv': None,
+            'market_value': None,
             'loans_count': 0
         }
         
@@ -496,6 +604,10 @@ class AddressEnrichmentPipeline:
             
             result['loans_count'] = loans_count
             
+            # Set market value if available
+            if market_value:
+                result['market_value'] = market_value
+            
             # Calculate equity and LTV if we have both values
             if market_value and total_loan_balance:
                 available_equity = market_value - total_loan_balance
@@ -515,7 +627,7 @@ class AddressEnrichmentPipeline:
             logger.error(f"Error extracting equity data from property: {str(e)}")
             return result
     
-    async def enrich_address(self, raw_address: str, calc_date: str = None) -> Dict[str, Any]:
+    async def enrich_address(self, raw_address: str, calc_date: Optional[str] = None) -> Dict[str, Any]:
         """Complete enrichment pipeline for a single address"""
         result = {
             'raw_address': raw_address,
@@ -524,6 +636,7 @@ class AddressEnrichmentPipeline:
             'est_balance': None,
             'available_equity': None,
             'ltv': None,
+            'market_value': None,
             'loans_count': 0,
             # New owner/contact fields
             'owner_name': None,
@@ -533,8 +646,12 @@ class AddressEnrichmentPipeline:
         }
         
         try:
-            # Step 1: USPS validation
-            raw_address, canonical_address = await self.validate_address_google(raw_address)
+            # Step 1: Address validation - prioritize SmartyStreets, then Google, then USPS
+            if self.smartystreets_auth_id and self.smartystreets_auth_token:
+                raw_address, canonical_address = await self.validate_address_smartystreets(raw_address)
+            else:
+                raw_address, canonical_address = await self.validate_address_google(raw_address)
+            
             result['canonical_address'] = canonical_address
             
             # Step 2: Get ATTOM property data (includes ID and equity info)
@@ -607,7 +724,7 @@ class AddressEnrichmentPipeline:
                                 break  # Found owner name, stop searching
 
                     # Extract phone / email if present from the last valid owner_section
-                    if owner_section:
+                    if owner_section and isinstance(owner_section, dict):
                         # ATTOM sometimes provides phone list under 'phones'
                         phones = owner_section.get('phones') or owner_section.get('phone')
                         if isinstance(phones, list) and phones:
@@ -653,7 +770,7 @@ class AddressEnrichmentPipeline:
             logger.error(f"Enrichment failed for '{raw_address}': {str(e)}")
             return result
     
-    async def enrich_addresses_batch(self, addresses: List[str], calc_date: str = None, max_concurrent: int = 10) -> List[Dict[str, Any]]:
+    async def enrich_addresses_batch(self, addresses: List[str], calc_date: Optional[str] = None, max_concurrent: int = 10) -> List[Dict[str, Any]]:
         """Enrich multiple addresses with concurrency control"""
         semaphore = asyncio.Semaphore(max_concurrent)
         
@@ -688,7 +805,7 @@ class AddressEnrichmentPipeline:
         logger.info(f"Completed batch enrichment. {len(enriched_results)} results generated.")
         return enriched_results
 
-    async def process_addresses_from_csv(self, input_file: str, calc_date: str = None) -> List[Dict[str, Any]]:
+    async def process_addresses_from_csv(self, input_file: str, calc_date: Optional[str] = None) -> List[Dict[str, Any]]:
         """Load addresses from CSV and process them through the enrichment pipeline"""
         addresses = load_addresses_from_csv(input_file)
         if not addresses:
@@ -697,12 +814,13 @@ class AddressEnrichmentPipeline:
         
         return await self.enrich_addresses_batch(addresses, calc_date=calc_date)
 
-    async def get_attom_ownership_data(self, canonical_address: str, attom_id: str = None) -> Optional[Dict[str, Any]]:
+    async def get_attom_ownership_data(self, canonical_address: str, attom_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Get detailed owner information from ATTOM ownership endpoint"""
         if not self.attom_api_key:
             logger.warning("No ATTOM API key provided for ownership lookup")
             return None
         
+        self._ensure_session()
         try:
             await self.rate_limiter.acquire()
             
@@ -716,8 +834,8 @@ class AddressEnrichmentPipeline:
             
             # Try ATTOM endpoints that actually include ownership data
             ownership_endpoints = [
-                'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detailowner',
-                'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detailmortgageowner'
+                'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile',
+                'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/expandedprofile'
             ]
             
             # Build parameter sets for different query formats
@@ -761,6 +879,8 @@ class AddressEnrichmentPipeline:
                 for param_idx, params in enumerate(param_sets):
                     attempt_num = endpoint_idx * len(param_sets) + param_idx + 1
                     logger.info(f"ATTOM Ownership API attempt {attempt_num} ({endpoint_url.split('/')[-1]}) for '{canonical_address}': {params}")
+                    
+                    assert self.session is not None  # Type hint for linter
                     async with self.session.get(endpoint_url, params=params, headers=headers) as response:
                         response_text = await response.text()
                         if response.status == 200:
@@ -819,6 +939,9 @@ class AddressEnrichmentPipeline:
                 if isinstance(owner_data, list) and owner_data:
                     owner_data = owner_data[0]
                 
+                if not isinstance(owner_data, dict):
+                    continue
+                
                 # Extract owner name
                 owner_name = None
                 name_fields = [
@@ -843,7 +966,7 @@ class AddressEnrichmentPipeline:
                 
                 # Extract mailing address (often contains phone/contact info)
                 mailing_address = owner_data.get('mailingAddress') or owner_data.get('taxMailingAddress')
-                if mailing_address:
+                if mailing_address and isinstance(mailing_address, dict):
                     # Sometimes phone is in mailing address
                     if 'phone' in mailing_address:
                         result['primary_phone'] = mailing_address['phone']
@@ -877,7 +1000,7 @@ class AddressEnrichmentPipeline:
             logger.error(f"Error extracting ownership details: {str(e)}")
             return {}
 
-    async def perform_skip_trace(self, canonical_address: str, attom_id: str = None) -> Optional[Dict[str, Any]]:
+    async def perform_skip_trace(self, canonical_address: str, attom_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Perform skip trace lookup using third-party services"""
         try:
             # Parse address components
@@ -928,6 +1051,8 @@ class AddressEnrichmentPipeline:
 
     async def searchbug_lookup(self, parsed_address: Dict[str, Any], api_key: str) -> Optional[Dict[str, Any]]:
         """SearchBug API skip trace lookup"""
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
         try:
             await self.rate_limiter.acquire()
             
@@ -960,6 +1085,8 @@ class AddressEnrichmentPipeline:
 
     async def whitepages_lookup(self, parsed_address: Dict[str, Any], api_key: str) -> Optional[Dict[str, Any]]:
         """WhitePages Pro API skip trace lookup"""
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
         try:
             await self.rate_limiter.acquire()
             
@@ -987,6 +1114,8 @@ class AddressEnrichmentPipeline:
 
     async def beenverified_lookup(self, parsed_address: Dict[str, Any], api_key: str) -> Optional[Dict[str, Any]]:
         """BeenVerified API skip trace lookup"""
+        self._ensure_session()
+        assert self.session is not None  # Type hint for linter
         try:
             await self.rate_limiter.acquire()
             
@@ -1121,12 +1250,27 @@ def save_to_csv(results: List[Dict[str, Any]], output_file: str = 'output.csv'):
         logger.warning("No results to save to CSV")
         return
     
-    df = pd.DataFrame(results)
-    df.to_csv(output_file, index=False)
-    logger.info(f"Saved {len(results)} enriched records to {output_file}")
+    if pd is None:
+        # Fallback to manual CSV writing if pandas not available
+        import csv
+        with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+            if results:
+                fieldnames = results[0].keys()
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(results)
+        logger.info(f"Saved {len(results)} enriched records to {output_file}")
+    else:
+        df = pd.DataFrame(results)
+        df.to_csv(output_file, index=False)
+        logger.info(f"Saved {len(results)} enriched records to {output_file}")
 
 async def save_to_postgres(results: List[Dict[str, Any]], pg_dsn: str):
     """Save enriched results to Postgres with upsert"""
+    if asyncpg is None:
+        logger.error("asyncpg not available. Install with: pip install asyncpg")
+        return
+        
     if not results:
         logger.warning("No results to save to Postgres")
         return
@@ -1190,7 +1334,8 @@ def load_addresses_from_csv(input_file: str) -> List[str]:
             
             # Look for address column (case insensitive)
             address_column = None
-            for col in reader.fieldnames:
+            fieldnames = reader.fieldnames or []
+            for col in fieldnames:
                 if col.lower() in ['address', 'street_address', 'property_address', 'full_address']:
                     address_column = col
                     break
@@ -1223,16 +1368,30 @@ async def main():
     
     # Check required environment variables
     google_api_key = os.getenv('GOOGLE_MAPS_API_KEY')
+    smartystreets_auth_id = os.getenv('SMARTYSTREETS_AUTH_ID')
+    smartystreets_auth_token = os.getenv('SMARTYSTREETS_AUTH_TOKEN')
     usps_user_id = os.getenv('USPS_USER_ID')  # Optional fallback
     attom_api_key = os.getenv('ATTOM_API_KEY')
     
-    if not google_api_key and not usps_user_id:
-        logger.error("Either GOOGLE_MAPS_API_KEY or USPS_USER_ID environment variable is required")
+    # Check if we have at least one address validation method
+    if not google_api_key and not (smartystreets_auth_id and smartystreets_auth_token) and not usps_user_id:
+        logger.error("At least one address validation method is required:")
+        logger.error("  - SMARTYSTREETS_AUTH_ID and SMARTYSTREETS_AUTH_TOKEN (recommended)")
+        logger.error("  - GOOGLE_MAPS_API_KEY (alternative)")
+        logger.error("  - USPS_USER_ID (fallback)")
         sys.exit(1)
     
     if not attom_api_key:
         logger.error("ATTOM_API_KEY environment variable is required")
         sys.exit(1)
+    
+    # Log which validation method will be used
+    if smartystreets_auth_id and smartystreets_auth_token:
+        logger.info("Using SmartyStreets for address validation (recommended)")
+    elif google_api_key:
+        logger.info("Using Google Maps for address validation")
+    elif usps_user_id:
+        logger.info("Using USPS for address validation (fallback)")
     
     # Validate calc_date if provided
     calc_date = args.calc_date
@@ -1251,8 +1410,13 @@ async def main():
             logger.error("No addresses found in input file")
             sys.exit(1)
         
-        # Run enrichment pipeline
-        async with AddressEnrichmentPipeline(usps_user_id, attom_api_key) as pipeline:
+        # Run enrichment pipeline with SmartyStreets support
+        async with AddressEnrichmentPipeline(
+            usps_user_id=usps_user_id,
+            attom_api_key=attom_api_key,
+            smartystreets_auth_id=smartystreets_auth_id,
+            smartystreets_auth_token=smartystreets_auth_token
+        ) as pipeline:
             results = await pipeline.enrich_addresses_batch(
                 addresses, 
                 calc_date=calc_date,

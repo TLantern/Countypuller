@@ -190,7 +190,7 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
       >
         {loading 
           ? (hasExistingResult ? 'Loading...' : 'Tracing...') 
-          : (hasExistingResult ? 'Show Report' : 'Trace')
+          : (hasExistingResult ? 'View' : 'Trace')
         }
       </button>
 
@@ -215,80 +215,74 @@ const SkipTraceButton = ({ address }: { address?: string }) => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800">
               <div className="bg-gray-50 p-4 rounded shadow">
-                <div className="text-gray-600 mb-2">Original Address:</div>
-                <div>{result.raw_address}</div>
+                <div className="text-gray-600 mb-2">Address:</div>
+                <div className="font-medium text-xl">{result.raw_address}</div>
               </div>
               
-              <div className="bg-gray-50 p-4 rounded shadow">
-                <div className="text-gray-600">Canonical Address:</div>
-                <p className="bg-gray-50 p-2 rounded">{result.canonical_address}</p>
-              </div>
+              {result.owner_name && (
+                <div className="bg-purple-50 p-4 rounded shadow">
+                  <div className="text-gray-600 mb-2">Owner Name:</div>
+                  <div className="text-purple-800 font-semibold text-2xl">{result.owner_name}</div>
+                </div>
+              )}
               
-              {result.attomid && (
-                <div className="bg-gray-50 p-4 rounded shadow">
-                  <div className="text-gray-600">ATTOM Property ID:</div>
-                  <p className="bg-gray-50 p-2 rounded">{result.attomid}</p>
+              {result.market_value && (
+                <div className="bg-indigo-50 p-4 rounded shadow">
+                  <div className="text-gray-600 mb-2">Market Value:</div>
+                  <div className="text-indigo-800 font-semibold text-xl">
+                    ${result.market_value.toLocaleString()}
+                  </div>
                 </div>
               )}
               
               {result.est_balance && (
                 <div className="bg-green-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Estimated Loan Balance:</div>
-                  <p className="bg-green-50 p-2 rounded text-green-800 font-semibold">
+                  <div className="text-gray-600 mb-2">Estimated Loan Balance:</div>
+                  <div className="text-green-800 font-semibold text-xl">
                     ${result.est_balance.toLocaleString()}
-                  </p>
+                  </div>
                 </div>
               )}
               
               {result.available_equity && (
                 <div className="bg-blue-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Available Equity:</div>
-                  <p className="bg-blue-50 p-2 rounded text-blue-800 font-semibold">
+                  <div className="text-gray-600 mb-2">Available Equity:</div>
+                  <div className="text-blue-800 font-semibold text-xl">
                     ${result.available_equity.toLocaleString()}
-                  </p>
+                  </div>
                 </div>
               )}
               
               {result.ltv && (
                 <div className="bg-yellow-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Loan-to-Value (LTV):</div>
-                  <p className="bg-yellow-50 p-2 rounded text-yellow-800 font-semibold">
-                    {(result.ltv * 100).toFixed(1)}%
-                  </p>
+                  <div className="text-gray-600 mb-2">Loan-to-Value (LTV):</div>
+                  <div className="text-yellow-800 font-semibold text-xl">
+                    {result.ltv.toFixed(1)}%
+                  </div>
                 </div>
               )}
               
               {result.loans_count > 0 && (
                 <div className="bg-gray-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Number of Loans:</div>
-                  <p className="bg-gray-50 p-2 rounded">{result.loans_count}</p>
-                </div>
-              )}
-              
-              {result.owner_name && (
-                <div className="bg-gray-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Owner Name:</div>
-                  <p className="bg-gray-50 p-2 rounded">{result.owner_name}</p>
-                </div>
-              )}
-              
-              {result.primary_phone && (
-                <div className="bg-gray-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Phone:</div>
-                  <p className="bg-gray-50 p-2 rounded">{result.primary_phone}</p>
-                </div>
-              )}
-              
-              {result.primary_email && (
-                <div className="bg-gray-50 p-4 rounded shadow">
-                  <div className="text-gray-600">Email:</div>
-                  <p className="bg-gray-50 p-2 rounded">{result.primary_email}</p>
+                  <div className="text-gray-600 mb-2">Number of Loans:</div>
+                  <div className="font-medium text-xl">{result.loans_count}</div>
                 </div>
               )}
               
               <div className="bg-gray-50 p-4 rounded shadow">
-                <div className="text-gray-600">Processed at:</div>
-                <p>{new Date(result.processed_at).toLocaleString()}</p>
+                <div className="text-gray-600 mb-2">Processed at:</div>
+                <div className="text-base">{new Date(result.processed_at).toLocaleString()}</div>
+              </div>
+              
+              {/* Coming Soon Cards */}
+              <div className="bg-orange-50 p-4 rounded shadow border-2 border-orange-200">
+                <div className="text-gray-600 mb-2">Email Address:</div>
+                <div className="text-orange-600 font-medium italic text-xl">Coming Soon</div>
+              </div>
+              
+              <div className="bg-orange-50 p-4 rounded shadow border-2 border-orange-200">
+                <div className="text-gray-600 mb-2">Phone Number:</div>
+                <div className="text-orange-600 font-medium italic text-xl">Coming Soon</div>
               </div>
             </div>
             
@@ -461,7 +455,6 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
                       <th className="text-left p-3 font-semibold text-black">LTV Ratio</th>
                       <th className="text-left p-3 font-semibold text-black">Loan Balance</th>
                       <th className="text-left p-3 font-semibold text-black">Market Value</th>
-                      <th className="text-left p-3 font-semibold text-black">ATTOM ID</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -493,9 +486,6 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
                         <td className="p-3 text-gray-700">
                           ${property.market_value?.toLocaleString() || 'N/A'}
                         </td>
-                        <td className="p-3 text-xs text-gray-500 font-mono">
-                          {property.attomid || 'N/A'}
-                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -515,15 +505,14 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
                   onClick={() => {
                     // Export functionality could be added here
                     const csvContent = [
-                      ['Rank', 'Property Address', 'Available Equity', 'LTV Ratio', 'Loan Balance', 'Market Value', 'ATTOM ID'],
+                      ['Rank', 'Property Address', 'Available Equity', 'LTV Ratio', 'Loan Balance', 'Market Value'],
                       ...results.map((p, i) => [
                         i + 1,
                         p.property_address,
                         p.available_equity || '',
                         p.ltv ? (p.ltv * 100).toFixed(2) + '%' : '',
                         p.est_balance || '',
-                        p.market_value || '',
-                        p.attomid || ''
+                        p.market_value || ''
                       ])
                     ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
                     

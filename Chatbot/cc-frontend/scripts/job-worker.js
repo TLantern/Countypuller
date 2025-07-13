@@ -353,7 +353,9 @@ async function processJob(job) {
       }
     } else if (job.job_type === 'AGENT_SCRAPE') {
       const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/agent_cli.py');
-      const county = job.parameters?.county || 'harris';
+      const rawCounty = job.parameters?.county || 'harris';
+      // Clean county name by removing parenthetical text like "(recommended)"
+      const county = rawCounty.replace(/\s*\([^)]*\)\s*/g, '').trim();
       const filters = job.parameters?.filters || {};
       console.log(`[DEBUG] Agent Scrape Job userId: ${job.userId}`);
       console.log(`[DEBUG] Agent Scrape Job object:`, JSON.stringify(job, null, 2));

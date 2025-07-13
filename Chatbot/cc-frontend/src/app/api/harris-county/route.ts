@@ -26,11 +26,15 @@ export async function GET(req: NextRequest) {
       }, { status: 403 });
     }
     
-    // Fetch Harris County records directly via raw SQL to avoid Prisma model mismatch
-    const records: any[] = await prisma.$queryRaw`SELECT * FROM harris_county_filing WHERE "userId" = ${userId} ORDER BY created_at DESC LIMIT 1000`;
+    // Fetch Harris County records using Prisma
+    const records = await prisma.harris_county_filing.findMany({
+      where: { userId: userId },
+      orderBy: { created_at: 'desc' },
+      take: 1000
+    });
     
     // Format the data for the frontend
-    const formattedRecords = records.map((record: any) => ({
+    const formattedRecords = records.map((record) => ({
       case_number: record.case_number,
       filing_date: record.filing_date ? record.filing_date.toISOString().split('T')[0] : '',
       doc_type: record.doc_type || 'L/P',

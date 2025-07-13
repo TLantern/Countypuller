@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "job-worker": "run-job-worker.bat"
+    "job-worker": "node start-job-worker.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

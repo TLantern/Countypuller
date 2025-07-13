@@ -25,7 +25,6 @@ export default function Home() {
         background: "linear-gradient(135deg, #1e2a78 0%, #3a3d9f 100%)",
         color: "#fff",
         padding: "0",
-        fontFamily: "Inter, sans-serif",
       }}
     >
       {/* Header */}
@@ -125,7 +124,7 @@ export default function Home() {
           <h3 style={{
             color: '#fff',
             fontWeight: 800,
-            fontFamily: 'Inter, sans-serif',
+
             fontSize: isMobile ? '1.7rem' : '2.8rem',
             marginBottom: 18,
             textAlign: 'center',
@@ -146,7 +145,7 @@ export default function Home() {
         <h3 style={{
           color: '#fff',
           fontWeight: 800,
-          fontFamily: 'Inter, sans-serif',
+
           fontSize: isMobile ? '1.7rem' : '2.8rem',
           marginBottom: 18,
           textAlign: 'center',
