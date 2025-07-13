@@ -186,7 +186,42 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
         console.warn('Python pipeline failed, using Node.js fallback:', pipelineError);
       }
 
-      // If Python pipeline failed or returned no data, use Node.js fallback
+      // If Python pipeline failed or returned no data, try Python serverless function
+      if (!enrichedData) {
+        try {
+          console.log('🔄 Trying Python serverless function...');
+          const pythonResponse = await fetch(`${process.env.NEXTAUTH_URL}/api/python-enrichment`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ address }),
+          });
+
+          if (pythonResponse.ok) {
+            const pythonResult = await pythonResponse.json();
+            enrichedData = {
+              raw_address: address,
+              canonical_address: pythonResult.canonical_address || address,
+              attomid: pythonResult.attomid || null,
+              est_balance: pythonResult.est_balance || null,
+              available_equity: pythonResult.available_equity || null,
+              ltv: pythonResult.ltv || null,
+              market_value: pythonResult.market_value || null,
+              loans_count: pythonResult.loans_count || 0,
+              owner_name: pythonResult.owner_name || null,
+              primary_email: pythonResult.primary_email || null,
+              primary_phone: pythonResult.primary_phone || null,
+              processed_at: new Date().toISOString()
+            };
+            console.log('✅ Python serverless function succeeded');
+          }
+        } catch (pythonError) {
+          console.warn('❌ Python serverless function failed:', pythonError);
+        }
+      }
+
+      // If both Python options failed, use Node.js fallback
       if (!enrichedData) {
         console.log('🔄 Using Node.js fallback for address enrichment');
         const fallbackResult = await enrichAddressFallback(address);
@@ -272,7 +307,14 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
 
 async function runPipeline(scriptPath: string, inputFile: string, outputFile: string): Promise<{success: boolean, error?: string}> {
   return new Promise((resolve) => {
-    const pythonProcess = spawn('python3', [
+    // Try different Python executables based on environment
+    const pythonExecutable = process.env.PYTHON_EXECUTABLE || 
+                             process.env.VERCEL_PYTHON_PATH || 
+                             'python3';
+    
+    console.log(`🐍 Using Python executable: ${pythonExecutable}`);
+    
+    const pythonProcess = spawn(pythonExecutable, [
       scriptPath,
       inputFile,
       '--output', outputFile,
