@@ -59,7 +59,10 @@ export async function POST(request: NextRequest) {
     console.log(`Found ${properties.length} properties with addresses to analyze`);
 
     // Step 2: Create CSV file with all addresses
-    const tempDir = path.join(process.cwd(), 'scripts', 'temp');
+    // Use /tmp for serverless environments (Vercel, etc.) or fallback to local temp
+    const tempDir = process.env.VERCEL || process.env.NODE_ENV === 'production' 
+      ? '/tmp' 
+      : path.join(process.cwd(), 'scripts', 'temp');
     if (!fs.existsSync(tempDir)) {
       fs.mkdirSync(tempDir, { recursive: true });
     }

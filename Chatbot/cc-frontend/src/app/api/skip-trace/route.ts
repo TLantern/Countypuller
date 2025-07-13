@@ -145,7 +145,10 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
 
     // Create temporary files for the pipeline
     const scriptsDir = path.join(process.cwd(), 'scripts');
-    const tempDir = path.join(scriptsDir, 'temp');
+    // Use /tmp for serverless environments (Vercel, etc.) or fallback to local temp
+    const tempDir = process.env.VERCEL || process.env.NODE_ENV === 'production' 
+      ? '/tmp' 
+      : path.join(scriptsDir, 'temp');
     const timestamp = Date.now();
     const inputFile = path.join(tempDir, `skip_trace_input_${userId}_${timestamp}.csv`);
     const outputFile = path.join(tempDir, `skip_trace_output_${userId}_${timestamp}.csv`);
