@@ -76,9 +76,11 @@ function CredentialSignup() {
             sessionStorage.removeItem('onboarded');
             sessionStorage.removeItem('selectedCounty');
             sessionStorage.removeItem('selectedDocTypes');
+            // Set trial start date
+            sessionStorage.setItem('trialStartDate', new Date().toISOString());
           }
-          // Successful signin, redirect to dashboard
-          router.push("/dashboard");
+          // Redirect to Stripe checkout instead of dashboard
+          router.push("/payment/trial-checkout");
         }
       } else {
         setError(data.error || "Registration failed");
@@ -159,6 +161,18 @@ export default function SignupPage() {
       }}
     >
       <div className="flex w-full max-w-sm flex-col gap-6">
+        {/* Promotional Banner */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 rounded-lg shadow-lg text-center border-2 border-blue-400">
+          <div className="flex items-center justify-center gap-2 text-lg font-bold mb-2">
+            🚨 Get Access Now
+          </div>
+          <div className="text-sm leading-relaxed">
+            <div className="mb-1">Start pulling Houston foreclosure leads today.</div>
+            <div className="mb-1">🔓 5-day free trial → then just $49/mo</div>
+            <div>💸 Cancel anytime — no questions asked.</div>
+          </div>
+        </div>
+        
         <div className="flex items-center gap-2 self-center font-medium" style={{ color: '#FFFFFF' }}>
           <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             {/* You can use the same icon as login */}
@@ -178,7 +192,7 @@ export default function SignupPage() {
               <Button
                 variant="outline"
                 className="w-full flex items-center justify-center"
-                onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+                onClick={() => signIn("github", { callbackUrl: "/payment/trial-checkout" })}
               >
                 <ProviderIcon provider="github" />
                 Sign up with GitHub
@@ -186,7 +200,7 @@ export default function SignupPage() {
               <Button
                 variant="outline"
                 className="w-full flex items-center justify-center"
-                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                onClick={() => signIn("google", { callbackUrl: "/payment/trial-checkout" })}
               >
                 <ProviderIcon provider="google" />
                 Sign up with Google
@@ -194,7 +208,7 @@ export default function SignupPage() {
               <Button
                 variant="outline"
                 className="w-full flex items-center justify-center"
-                onClick={() => signIn("azure-ad", { callbackUrl: "/dashboard" })}
+                onClick={() => signIn("azure-ad", { callbackUrl: "/payment/trial-checkout" })}
               >
                 <ProviderIcon provider="azure-ad" />
                 Sign up with Microsoft

@@ -26,6 +26,7 @@ import { Box, Typography } from '@mui/material';
 
 import { MessageSquare } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
+import TrialBanner from '@/components/TrialBanner';
 // Dynamic imports used in export functions to avoid SSR issues
 
 const SkipTraceButton = ({ address }: { address?: string }) => {
@@ -1552,6 +1553,12 @@ export default function Dashboard() {
                 <ThemeToggle inHeader={true} />
               </div>
             </header>
+            
+            {/* Trial Banner */}
+            <div className="px-6 pt-4">
+              <TrialBanner />
+            </div>
+            
             <div className="flex flex-1 flex-col gap-4 p-4">
               <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min flex justify-center items-start">
                 <div style={{ width: '100%', maxWidth: 1200, margin: '40px auto 0 auto', background: 'white', borderRadius: 8, padding: 16, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', position: 'relative' }}>

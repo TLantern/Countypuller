@@ -11,6 +11,18 @@ export default function LoginPage() {
       }}
     >
       <div className="flex w-full max-w-sm flex-col gap-6">
+        {/* Promotional Banner */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 rounded-lg shadow-lg text-center border-2 border-blue-400">
+          <div className="flex items-center justify-center gap-2 text-lg font-bold mb-2">
+            🚨 Get Access Now
+          </div>
+          <div className="text-sm leading-relaxed">
+            <div className="mb-1">Start pulling Houston foreclosure leads today.</div>
+            <div className="mb-1">🔓 5-day free trial → then just $49/mo</div>
+            <div>💸 Cancel anytime — no questions asked.</div>
+          </div>
+        </div>
+        
         <div className="flex items-center gap-2 self-center font-medium" style={{ color: '#FFFFFF' }}>
           <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <GalleryVerticalEnd className="size-4" />
