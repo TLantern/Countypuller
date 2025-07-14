@@ -79,7 +79,8 @@ export default function Home() {
           <div style={{ display: "flex", gap: isMobile ? "0.75rem" : "1.5rem", flexWrap: "wrap", flexDirection: isMobile ? "column" : "row", width: isMobile ? "100%" : undefined }}>
             <Link href="/pricing">
               <Button asChild size="lg" className="glow-pulse-btn" style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined, marginBottom: isMobile ? 8 : 0, position: 'relative', zIndex: 1 }}>
-                <span style={{ color: "#000", position: 'relative', zIndex: 2 }}>Get Started</span>
+                <span style={{ color: "#000", position: 'relative', zIndex: 2 }}>Start Pulling Your Foreclosure Leads now
+</span>
               </Button>
             </Link>
             <Link href="/login">
@@ -87,7 +88,7 @@ export default function Home() {
                 size="lg"
                 style={{ background: "#fff", color: "#000", width: isMobile ? "100%" : undefined }}
               >
-                <span style={{ color: "#000" }}>Log In</span>
+                <span style={{ color: "#000" }}>Log In or Start 5 Day Free Trial</span>
               </Button>
             </Link>
             <div style={{

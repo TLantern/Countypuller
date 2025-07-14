@@ -106,14 +106,14 @@ export default function PricingPage() {
                 marginBottom: "0.5rem",
                 color: "#1f2937"
               }}>
-                Beta
+                Early Access
               </h2>
               <p style={{ 
                 color: "#6b7280", 
                 marginBottom: "0.5rem",
                 fontSize: "1rem"
               }}>
-                Early access flexibility
+                Get 1,000+ foreclosure leads pulled for you.
               </p>
               <p style={{ 
                 color: "#059669", 
@@ -121,7 +121,7 @@ export default function PricingPage() {
                 fontSize: "0.875rem",
                 marginBottom: "1rem"
               }}>
-                For the first 10 beta users
+                Start your 5 day free trial, no scraping, simply effortless.
               </p>
               <div style={{ marginBottom: "1.5rem" }}>
                 <span style={{ 
