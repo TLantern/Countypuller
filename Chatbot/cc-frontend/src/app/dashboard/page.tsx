@@ -23,8 +23,7 @@ import ChatBox from '../../components/ChatBox';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Typography } from '@mui/material';
-import FeedbackPanel from '@/components/FeedbackPanel';
-import { useFeedback } from '@/context/FeedbackContext';
+
 import { MessageSquare } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 // Dynamic imports used in export functions to avoid SSR issues
@@ -1051,8 +1050,6 @@ export default function Dashboard() {
   // State for focused cell display
   const [focusedCellContent, setFocusedCellContent] = useState<string>('');
   const [focusedCellField, setFocusedCellField] = useState<string>('');
-  // Get feedback panel state from context
-  const { isFeedbackPanelOpen, setIsFeedbackPanelOpen } = useFeedback();
   const [onboardingStep, setOnboardingStep] = useState(1);
   const [selectedDocTypes, setSelectedDocTypes] = useState<string[]>([]);
   const docTypes = [
@@ -1499,8 +1496,8 @@ export default function Dashboard() {
               <div className="flex items-center gap-6 flex-shrink-0">
                 <button
                   className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-200 cursor-pointer"
-                  onClick={() => setIsFeedbackPanelOpen(true)}
-                  title="Provide Feedback"
+                  onClick={() => router.push('/live-support')}
+                  title="Get Live Support"
                 >
                   <MessageSquare className="w-5 h-5" />
                 </button>
@@ -1740,11 +1737,7 @@ export default function Dashboard() {
             )}
           </SidebarInset>
           
-          {/* Feedback Panel */}
-          <FeedbackPanel 
-            isOpen={isFeedbackPanelOpen}
-            onClose={() => setIsFeedbackPanelOpen(false)}
-          />
+
         </SidebarProvider>
       </div>
     </>
