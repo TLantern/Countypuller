@@ -593,9 +593,10 @@ const lphColumns: GridColDef[] = [
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
   { field: 'doc_type', headerName: 'Doc Type', minWidth: 60, maxWidth: 80, flex: 0.5 },
-  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-    <SkipTraceButton address={params.row.property_address} />
-  ) },
+  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
+  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+  //   <SkipTraceButton address={params.row.property_address} />
+  // ) },
 ];
 
 // Columns for Maryland Case Search users
@@ -610,9 +611,10 @@ const mdCaseSearchColumns: GridColDef[] = [
   { field: 'defendant_info', headerName: 'Parties', minWidth: 150, maxWidth: 200, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-    <SkipTraceButton address={params.row.property_address} />
-  ) },
+  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
+  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+  //   <SkipTraceButton address={params.row.property_address} />
+  // ) },
 ];
 
 // Columns for Hillsborough NH users
@@ -628,9 +630,10 @@ const hillsboroughNhColumns: GridColDef[] = [
   { field: 'county', headerName: 'County', minWidth: 100, maxWidth: 120, flex: 0.7 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-    <SkipTraceButton address={params.row.property_address} />
-  ) },
+  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
+  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+  //   <SkipTraceButton address={params.row.property_address} />
+  // ) },
 ];
 
 // Columns for Brevard FL users
@@ -644,9 +647,10 @@ const brevardFlColumns: GridColDef[] = [
   { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-    <SkipTraceButton address={params.row.property_address} />
-  ) },
+  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
+  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+  //   <SkipTraceButton address={params.row.property_address} />
+  // ) },
 ];
 
 // Columns for Fulton GA users
@@ -661,9 +665,10 @@ const fultonGaColumns: GridColDef[] = [
   { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-    <SkipTraceButton address={params.row.property_address} />
-  ) },
+  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
+  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+  //   <SkipTraceButton address={params.row.property_address} />
+  // ) },
 ];
 
 // Columns for Cobb GA users
@@ -678,9 +683,10 @@ const cobbGaColumns: GridColDef[] = [
   { field: 'county', headerName: 'County', minWidth: 80, maxWidth: 100, flex: 0.6 },
   { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
   { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-    <SkipTraceButton address={params.row.property_address} />
-  ) },
+  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
+  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
+  //   <SkipTraceButton address={params.row.property_address} />
+  // ) },
 ];
 
 // Types for different record types

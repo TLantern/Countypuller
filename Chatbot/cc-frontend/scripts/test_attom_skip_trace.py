@@ -155,8 +155,8 @@ async def test_attom_api_directly():
     # Test different ATTOM endpoints
     endpoints = [
         'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detail',
-        'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detailowner',
-        'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detailmortgageowner'
+        'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile',
+        'https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/expandedprofile'
     ]
     
     test_address = "1600 Pennsylvania Avenue NW, Washington, DC 20500"

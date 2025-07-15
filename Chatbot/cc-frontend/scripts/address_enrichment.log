@@ -2513,3 +2513,168 @@
 2025-07-13 00:02:18,575 - INFO - Successfully enriched '4802 Twisting Road, Houston, TX 77084'
 2025-07-13 00:02:18,575 - INFO - Completed batch enrichment. 1 results generated.
 2025-07-13 00:02:18,589 - INFO - Saved 1 enriched records to /Users/godislove/code/Countypuller/Chatbot/cc-frontend/scripts/temp/skip_trace_output_867ebb10-afd9-4892-b781-208ba8098306_1752390133280.csv
+2025-07-14 20:29:09,534 - INFO - Timestamp: 2025-07-14T20:29:09.534039
+2025-07-14 20:29:09,534 - INFO - === Testing Environment Setup ===
+2025-07-14 20:29:09,540 - INFO - Environment check passed. Available validation methods: ['GOOGLE_MAPS_API_KEY', 'USPS_USER_ID']
+2025-07-14 20:29:09,540 - INFO - 
+=== Testing Address Validation ===
+2025-07-14 20:29:09,540 - INFO - Address validation methods available: Google Maps, USPS
+2025-07-14 20:29:09,540 - INFO - Testing Google Maps validation...
+2025-07-14 20:29:09,553 - INFO - Testing USPS validation...
+2025-07-14 20:29:09,554 - INFO - 
+=== Testing ATTOM API Directly ===
+2025-07-14 20:29:09,554 - INFO - Testing endpoint: https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/detail
+2025-07-14 20:29:09,554 - INFO -   Attempt 1: {'address': '1600 Pennsylvania Avenue NW, Washington, DC 20500'}
+2025-07-14 20:29:10,251 - INFO -   Status: 400
+2025-07-14 20:29:10,252 - INFO -   Attempt 2: {'address1': '1600 Pennsylvania Avenue NW', 'address2': 'Washington, DC 20500'}
+2025-07-14 20:29:10,460 - INFO -   Status: 400
+2025-07-14 20:29:10,462 - INFO -   Attempt 3: {'address': '1600 Pennsylvania Avenue NW', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-14 20:29:10,743 - INFO -   Status: 400
+2025-07-14 20:29:10,745 - INFO - Testing endpoint: https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile
+2025-07-14 20:29:10,745 - INFO -   Attempt 1: {'address': '1600 Pennsylvania Avenue NW, Washington, DC 20500'}
+2025-07-14 20:29:11,090 - INFO -   Status: 400
+2025-07-14 20:29:11,091 - INFO -   Attempt 2: {'address1': '1600 Pennsylvania Avenue NW', 'address2': 'Washington, DC 20500'}
+2025-07-14 20:29:11,287 - INFO -   Status: 400
+2025-07-14 20:29:11,289 - INFO -   Attempt 3: {'address': '1600 Pennsylvania Avenue NW', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-14 20:29:11,499 - INFO -   Status: 400
+2025-07-14 20:29:11,501 - INFO - Testing endpoint: https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/expandedprofile
+2025-07-14 20:29:11,501 - INFO -   Attempt 1: {'address': '1600 Pennsylvania Avenue NW, Washington, DC 20500'}
+2025-07-14 20:29:11,673 - INFO -   Status: 400
+2025-07-14 20:29:11,675 - INFO -   Attempt 2: {'address1': '1600 Pennsylvania Avenue NW', 'address2': 'Washington, DC 20500'}
+2025-07-14 20:29:12,025 - INFO -   Status: 400
+2025-07-14 20:29:12,027 - INFO -   Attempt 3: {'address': '1600 Pennsylvania Avenue NW', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-14 20:29:12,234 - INFO -   Status: 400
+2025-07-14 20:29:12,236 - INFO - 
+=== Testing Full Enrichment Pipeline ===
+2025-07-14 20:29:12,236 - INFO - Address validation methods available: Google Maps, USPS
+2025-07-14 20:29:12,236 - INFO - 
+=== Testing Address: 1600 Pennsylvania Avenue NW, Washington, DC 20500 ===
+2025-07-14 20:29:12,451 - INFO - Google Maps validated: '1600 Pennsylvania Avenue NW, Washington, DC 20500' -> '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'
+2025-07-14 20:29:12,451 - INFO - ATTOM API attempt 1 for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500': {'address1': '1600 Pennsylvania Avenue Northwest', 'address2': 'Washington, DC 20500'}
+2025-07-14 20:29:12,916 - INFO - ATTOM API attempt 2 for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500': {'address': '1600 Pennsylvania Avenue Northwest', 'locality': 'Washington', 'postalcode': '20500'}
+2025-07-14 20:29:13,256 - INFO - ATTOM API attempt 3 for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500': {'address': '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'}
+2025-07-14 20:29:13,581 - WARNING - All ATTOM API attempts failed for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'
+2025-07-14 20:29:13,581 - WARNING - No ATTOM property data found for '1600 Pennsylvania Avenue Northwest, Washington, DC 20500'
+2025-07-14 20:29:13,581 - INFO - Successfully enriched '1600 Pennsylvania Avenue NW, Washington, DC 20500'
+2025-07-14 20:29:13,583 - INFO - Raw result: {
+  "raw_address": "1600 Pennsylvania Avenue NW, Washington, DC 20500",
+  "canonical_address": "1600 Pennsylvania Avenue Northwest, Washington, DC 20500",
+  "attomid": null,
+  "est_balance": null,
+  "available_equity": null,
+  "ltv": null,
+  "market_value": null,
+  "loans_count": 0,
+  "owner_name": null,
+  "primary_email": null,
+  "primary_phone": null,
+  "processed_at": "2025-07-14T20:29:12.236355"
+}
+2025-07-14 20:29:13,583 - INFO - Analysis: {
+  "address_validation": "\u2705 Success",
+  "attom_property_data": "\u274c Not found",
+  "owner_information": {
+    "owner_name": "\u274c Missing",
+    "primary_phone": "\u274c Missing",
+    "primary_email": "\u274c Missing"
+  },
+  "equity_data": {
+    "est_balance": "\u274c Missing",
+    "available_equity": "\u274c Missing",
+    "ltv": "\u274c Missing",
+    "market_value": "\u274c Missing",
+    "loans_count": "\u2705 0"
+  },
+  "skip_trace_data": {},
+  "completion_score": "2/10 (20.0%)"
+}
+2025-07-14 20:29:14,598 - INFO - 
+=== Testing Address: 350 Fifth Avenue, New York, NY 10118 ===
+2025-07-14 20:29:14,737 - INFO - Google Maps validated: '350 Fifth Avenue, New York, NY 10118' -> '350 5th Avenue, New York, NY 10118'
+2025-07-14 20:29:14,737 - INFO - ATTOM API attempt 1 for '350 5th Avenue, New York, NY 10118': {'address1': '350 5th Avenue', 'address2': 'New York, NY 10118'}
+2025-07-14 20:29:15,090 - INFO - Found property data for ATTOM ID 170777929 for '350 5th Avenue, New York, NY 10118' using params: {'address1': '350 5th Avenue', 'address2': 'New York, NY 10118'}
+2025-07-14 20:29:15,091 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-14 20:29:15,091 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'ONE FIFTH HISTORIC HOSPITALITY, LLC', 'lastName': 'ONE FIFTH HISTORIC HOSPITALITY, LLC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '134 W 26TH ST RM 404, NEW YORK, NY 10001-7103'}
+2025-07-14 20:29:15,091 - INFO - Found assessment.tax section: {'taxAmt': 4080840.88, 'taxPerSizeUnit': 17.08, 'taxYear': 2025.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y', 'Senior': 'Y', 'Veteran': 'Y'}}
+2025-07-14 20:29:15,091 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propSubType': 'Residential', 'propType': 'Cooperative Building', 'propertyType': 'Cooperative Building (Residential)', 'yearBuilt': 1927, 'propLandUse': 'Cooperative Building', 'legal1': 'LOT:22 BLK:550 SEC:207 DIST:02'}
+2025-07-14 20:29:15,091 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '350 5th Avenue, New York, NY 10118': {'attomid': 170777929}
+2025-07-14 20:29:15,330 - INFO - Extracted ownership details: ['owner_name']
+2025-07-14 20:29:15,330 - INFO - Found ATTOM ownership data for '350 5th Avenue, New York, NY 10118'
+2025-07-14 20:29:15,330 - INFO - Found ATTOM ownership data: {'owner_name': 'ONE FIFTH HISTORIC HOSPITALITY, LLC'}
+2025-07-14 20:29:15,330 - INFO - Successfully enriched '350 Fifth Avenue, New York, NY 10118'
+2025-07-14 20:29:15,332 - INFO - Raw result: {
+  "raw_address": "350 Fifth Avenue, New York, NY 10118",
+  "canonical_address": "350 5th Avenue, New York, NY 10118",
+  "attomid": 170777929,
+  "est_balance": null,
+  "available_equity": null,
+  "ltv": null,
+  "market_value": 81326000.0,
+  "loans_count": 0,
+  "owner_name": "ONE FIFTH HISTORIC HOSPITALITY, LLC",
+  "primary_email": null,
+  "primary_phone": null,
+  "processed_at": "2025-07-14T20:29:14.598129"
+}
+2025-07-14 20:29:15,332 - INFO - Analysis: {
+  "address_validation": "\u2705 Success",
+  "attom_property_data": "\u2705 Found",
+  "owner_information": {
+    "owner_name": "\u2705 Found",
+    "primary_phone": "\u274c Missing",
+    "primary_email": "\u274c Missing"
+  },
+  "equity_data": {
+    "est_balance": "\u274c Missing",
+    "available_equity": "\u274c Missing",
+    "ltv": "\u274c Missing",
+    "market_value": "\u2705 81326000.0",
+    "loans_count": "\u2705 0"
+  },
+  "skip_trace_data": {},
+  "completion_score": "5/10 (50.0%)"
+}
+2025-07-14 20:29:16,341 - INFO - 
+=== Testing Address: 1 Apple Park Way, Cupertino, CA 95014 ===
+2025-07-14 20:29:16,483 - INFO - Google Maps validated: '1 Apple Park Way, Cupertino, CA 95014' -> '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-14 20:29:16,484 - INFO - ATTOM API attempt 1 for '1 Apple Park Way, Cupertino, CA 95014': {'address1': '1 Apple Park Way', 'address2': 'Cupertino, CA 95014'}
+2025-07-14 20:29:16,945 - INFO - ATTOM API attempt 2 for '1 Apple Park Way, Cupertino, CA 95014': {'address': '1 Apple Park Way', 'locality': 'Cupertino', 'postalcode': '95014'}
+2025-07-14 20:29:17,256 - INFO - ATTOM API attempt 3 for '1 Apple Park Way, Cupertino, CA 95014': {'address': '1 Apple Park Way, Cupertino, CA 95014'}
+2025-07-14 20:29:17,764 - WARNING - All ATTOM API attempts failed for '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-14 20:29:17,764 - WARNING - No ATTOM property data found for '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-14 20:29:17,764 - INFO - Successfully enriched '1 Apple Park Way, Cupertino, CA 95014'
+2025-07-14 20:29:17,766 - INFO - Raw result: {
+  "raw_address": "1 Apple Park Way, Cupertino, CA 95014",
+  "canonical_address": "1 Apple Park Way, Cupertino, CA 95014",
+  "attomid": null,
+  "est_balance": null,
+  "available_equity": null,
+  "ltv": null,
+  "market_value": null,
+  "loans_count": 0,
+  "owner_name": null,
+  "primary_email": null,
+  "primary_phone": null,
+  "processed_at": "2025-07-14T20:29:16.341708"
+}
+2025-07-14 20:29:17,766 - INFO - Analysis: {
+  "address_validation": "\u2705 Success",
+  "attom_property_data": "\u274c Not found",
+  "owner_information": {
+    "owner_name": "\u274c Missing",
+    "primary_phone": "\u274c Missing",
+    "primary_email": "\u274c Missing"
+  },
+  "equity_data": {
+    "est_balance": "\u274c Missing",
+    "available_equity": "\u274c Missing",
+    "ltv": "\u274c Missing",
+    "market_value": "\u274c Missing",
+    "loans_count": "\u2705 0"
+  },
+  "skip_trace_data": {},
+  "completion_score": "2/10 (20.0%)"
+}
+2025-07-14 20:29:18,776 - INFO - 
+=== SUMMARY REPORT ===
+2025-07-14 20:29:18,776 - INFO - Successful enrichments: 3/3

@@ -8,11 +8,12 @@
       "est_balance": null,
       "available_equity": null,
       "ltv": null,
+      "market_value": null,
       "loans_count": 0,
       "owner_name": null,
       "primary_email": null,
       "primary_phone": null,
-      "processed_at": "2025-07-12T22:13:44.357666"
+      "processed_at": "2025-07-14T20:29:12.236355"
     },
     "analysis": {
       "address_validation": "\u2705 Success",
@@ -42,29 +43,30 @@
       "est_balance": null,
       "available_equity": null,
       "ltv": null,
+      "market_value": 81326000.0,
       "loans_count": 0,
-      "owner_name": "William Anderson",
-      "primary_email": "property@outlook.com",
-      "primary_phone": "(555) 456-7890",
-      "processed_at": "2025-07-12T22:13:46.317191"
+      "owner_name": "ONE FIFTH HISTORIC HOSPITALITY, LLC",
+      "primary_email": null,
+      "primary_phone": null,
+      "processed_at": "2025-07-14T20:29:14.598129"
     },
     "analysis": {
       "address_validation": "\u2705 Success",
       "attom_property_data": "\u2705 Found",
       "owner_information": {
         "owner_name": "\u2705 Found",
-        "primary_phone": "\u2705 Found",
-        "primary_email": "\u2705 Found"
+        "primary_phone": "\u274c Missing",
+        "primary_email": "\u274c Missing"
       },
       "equity_data": {
         "est_balance": "\u274c Missing",
         "available_equity": "\u274c Missing",
         "ltv": "\u274c Missing",
-        "market_value": "\u274c Missing",
+        "market_value": "\u2705 81326000.0",
         "loans_count": "\u2705 0"
       },
       "skip_trace_data": {},
-      "completion_score": "6/10 (60.0%)"
+      "completion_score": "5/10 (50.0%)"
     }
   },
   {
@@ -76,11 +78,12 @@
       "est_balance": null,
       "available_equity": null,
       "ltv": null,
+      "market_value": null,
       "loans_count": 0,
       "owner_name": null,
       "primary_email": null,
       "primary_phone": null,
-      "processed_at": "2025-07-12T22:13:47.910241"
+      "processed_at": "2025-07-14T20:29:16.341708"
     },
     "analysis": {
       "address_validation": "\u2705 Success",

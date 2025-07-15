@@ -190,7 +190,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<SkipTraceResp
       if (!enrichedData) {
         try {
           console.log('🔄 Trying Python serverless function...');
-          const pythonResponse = await fetch(`${process.env.NEXTAUTH_URL}/api/python-enrichment`, {
+          const baseUrl = process.env.NEXTAUTH_URL || 'https://clerkcrawler.com';
+          const pythonResponse = await fetch(`${baseUrl}/api/python-enrichment`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
