@@ -10,12 +10,16 @@ function findPythonExecutable() {
   // Check environment variables first
   if (process.env.PYTHON_EXECUTABLE) {
     console.log(`[DEBUG] Found PYTHON_EXECUTABLE: ${process.env.PYTHON_EXECUTABLE}`);
-    return process.env.PYTHON_EXECUTABLE;
+    // Remove any existing quotes and add them back properly
+    let pythonPath = process.env.PYTHON_EXECUTABLE.replace(/^["']|["']$/g, '');
+    return pythonPath;
   }
   
   if (process.env.PYTHON_PATH) {
     console.log(`[DEBUG] Found PYTHON_PATH: ${process.env.PYTHON_PATH}`);
-    return process.env.PYTHON_PATH;
+    // Remove any existing quotes and add them back properly
+    let pythonPath = process.env.PYTHON_PATH.replace(/^["']|["']$/g, '');
+    return pythonPath;
   }
   
   // Common Python paths on Windows (prioritize conda environment with dependencies)
