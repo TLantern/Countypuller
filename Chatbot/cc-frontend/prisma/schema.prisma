@@ -93,8 +93,6 @@ model brevard_fl_filing {
   @@index([case_number])
 }
 
-
-
 model User {
   id                    String                   @id @default(uuid())
   email                 String                   @unique
@@ -104,8 +102,8 @@ model User {
   createdAt             DateTime                 @default(now())
   accounts              Account[]
   brevardFlFilings      brevard_fl_filing[]
-  hillsboroughNhFilings hillsborough_nh_filing[]
   harrisCountyFilings   harris_county_filing[]
+  hillsboroughNhFilings hillsborough_nh_filing[]
   lisPendensFilings     lis_pendens_filing[]
   mdCaseSearchFilings   md_case_search_filing[]
   scrapingJobs          scraping_job[]
@@ -167,27 +165,25 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
-
-
 model SkipTraceResult {
-  id                String    @id @default(uuid())
-  raw_address       String    
-  canonical_address String    
-  address_hash      String    @unique    // MD5 hash of normalized address for efficient lookups
-  attomid           String?   
-  est_balance       Decimal?  @db.Decimal(12,2)
-  available_equity  Decimal?  @db.Decimal(12,2)
-  ltv               Decimal?  @db.Decimal(5,4)
-  market_value      Decimal?  @db.Decimal(12,2)
-  loans_count       Int?      @default(0)
-  owner_name        String?   
-  primary_email     String?   
-  primary_phone     String?   
-  processed_at      DateTime  @default(now())
-  created_at        DateTime  @default(now())
-  updated_at        DateTime  @updatedAt
+  id                String   @id @default(uuid())
+  raw_address       String
+  canonical_address String
+  address_hash      String   @unique
+  attomid           String?
+  est_balance       Decimal? @db.Decimal(12, 2)
+  available_equity  Decimal? @db.Decimal(12, 2)
+  ltv               Decimal? @db.Decimal(5, 4)
+  market_value      Decimal? @db.Decimal(12, 2)
+  loans_count       Int?     @default(0)
+  owner_name        String?
+  primary_email     String?
+  primary_phone     String?
+  processed_at      DateTime @default(now())
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
   userId            String
-  user              User      @relation(fields: [userId], references: [id])
+  user              User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([address_hash])
@@ -196,7 +192,7 @@ model SkipTraceResult {
 }
 
 model harris_county_filing {
-  case_number      String   @id                     // Primary key (case #)
+  case_number      String    @id
   filing_date      DateTime?
   doc_type         String?
   subdivision      String?
@@ -206,13 +202,13 @@ model harris_county_filing {
   property_address String?
   parcel_id        String?
   ai_summary       String?
-  county           String?  @default("Harris")
-  state            String?  @default("TX")
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
-  is_new           Boolean  @default(true)
+  county           String?   @default("Harris")
+  state            String?   @default("TX")
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  is_new           Boolean   @default(true)
   userId           String
-  user             User     @relation(fields: [userId], references: [id])
+  user             User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@map("harris_county_filing")

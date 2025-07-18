@@ -1,3 +1,6 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 const { PrismaClient } = require('@prisma/client');
 const { spawn } = require('child_process');
 const path = require('path');
@@ -22,11 +25,13 @@ function findPythonExecutable() {
     return pythonPath;
   }
   
-  // Common Python paths on Windows (prioritize conda environment with dependencies)
+  // Common Python paths on Windows (prioritize working conda environment)
   const commonPaths = [
-    'C:\\Program Files\\Python311\\python.exe', // Your Python 3.11 installation
-    'c:\\Users\\tmbor\\Countypuller\\.conda\\python.exe', // Your conda environment (PRIORITY - has dependencies)
+    'C:\\ProgramData\\miniconda3\\python.exe', // Your working conda base environment (PRIORITY)
+    'c:\\Users\\tmbor\\Countypuller\\.conda\\python.exe', // Your project conda environment
+    `${process.env.USERPROFILE}\\Countypuller\\.conda\\python.exe`, // Dynamic conda path
     'C:\\Users\\tmbor\\python.exe', // Your original path
+    'C:\\Program Files\\Python311\\python.exe', // Your Python 3.11 installation (moved down due to permission issues)
     'C:\\Python39\\python.exe',
     'C:\\Python310\\python.exe',
     'C:\\Python311\\python.exe',
@@ -37,7 +42,6 @@ function findPythonExecutable() {
     `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python311\\python.exe`,
     `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python312\\python.exe`,
     `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python313\\python.exe`,
-    `${process.env.USERPROFILE}\\Countypuller\\.conda\\python.exe`, // Dynamic conda path
   ];
   
   console.log(`[DEBUG] Searching for Python in common paths...`);
@@ -106,6 +110,18 @@ function runPython(scriptPath, args) {
       const chunk = data.toString();
       console.log(`[STDERR] ${chunk}`);
       errorOutput += chunk;
+      
+      // Parse real-time progress updates for Agent Scrape jobs
+      if (scriptPath.includes('agent_cli.py')) {
+        const progressMatch = chunk.match(/PROGRESS:\s+(\d+)\/(\d+)\s+valid records/i);
+        if (progressMatch) {
+          const current = parseInt(progressMatch[1]);
+          const target = parseInt(progressMatch[2]);
+          const progressPercent = Math.min(100, (current / target) * 100);
+          
+          console.log(`[PROGRESS UPDATE] ${current}/${target} valid records (${progressPercent.toFixed(1)}%)`);
+        }
+      }
     });
     pythonProcess.on('close', (code) => {
       console.log(`[DEBUG] Python process closed with code: ${code}`);
@@ -384,6 +400,12 @@ async function processJob(job) {
         args.push('--page-size', filters.pageSize.toString());
       }
       
+      // Add target count for fast debugging
+      args.push('--target-count', '10');
+      
+      // Set smaller page size for faster debugging
+      args.push('--page-size', '10');
+      
       console.log(`[DEBUG] Agent Scrape Arguments being passed:`, args);
       
       const result = await runPython(scriptPath, args);
@@ -405,11 +427,17 @@ async function processJob(job) {
         if (parsedResult && parsedResult.metadata) {
           recordsProcessed = parsedResult.metadata.processed || parsedResult.metadata.total_found;
         } else {
-          // Fallback to regex matching
-          const recordsMatch = result.output.match(/(\d+)\s+records/i) ||
-                             result.output.match(/processed\s+(\d+)\s+records/i) ||
-                             result.output.match(/found\s+(\d+)\s+records/i);
-          recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
+          // Look for progress updates in logs - prioritize valid records found
+          const progressMatch = result.output.match(/PROGRESS:\s+(\d+)\/(\d+)\s+valid records/i);
+          if (progressMatch) {
+            recordsProcessed = parseInt(progressMatch[1]); // Use valid records count
+          } else {
+            // Fallback to regex matching
+            const recordsMatch = result.output.match(/(\d+)\s+records/i) ||
+                               result.output.match(/processed\s+(\d+)\s+records/i) ||
+                               result.output.match(/found\s+(\d+)\s+records/i);
+            recordsProcessed = recordsMatch ? parseInt(recordsMatch[1]) : null;
+          }
         }
         
         await prisma.scraping_job.update({

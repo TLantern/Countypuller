@@ -1,0 +1,23 @@
+﻿{
+    "apps":  [
+                 {
+                     "env":  {
+                                 "NODE_ENV":  "production"
+                             },
+                     "error_file":  "job-worker-error.log",
+                     "time":  true,
+                     "autorestart":  true,
+                     "max_memory_restart":  "1G",
+                     "instances":  1,
+                     "name":  "countypuller-job-worker",
+                     "cwd":  "C:\\Users\\tmbor\\Countypuller\\chatbot\\cc-frontend",
+                     "min_uptime":  "10s",
+                     "max_restarts":  10,
+                     "script":  "start-job-worker.js",
+                     "log_file":  "job-worker-pm2.log",
+                     "restart_delay":  5000,
+                     "out_file":  "job-worker-out.log",
+                     "watch":  false
+                 }
+             ]
+}

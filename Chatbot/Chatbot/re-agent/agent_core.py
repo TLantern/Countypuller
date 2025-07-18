@@ -53,6 +53,7 @@ class AgentScrapeParams:
 class LisPendensAgent:
     def __init__(self):
         self.cache = CacheManager()
+        self.current_user_id = None  # Store user ID for filtering
         logger.info("🤖 LisPendens Agent initialized")
 
     async def scrape(self, params: AgentScrapeParams) -> Dict[str, Any]:
@@ -68,53 +69,136 @@ class LisPendensAgent:
         logger.info(f"🚀 Starting agent scrape for {params.county} county")
         logger.info(f"📋 Filters: {params.filters}")
 
+        # Store user ID for location filtering
+        self.current_user_id = params.user_id
+
+        target_count = params.filters.get('target_count', 10)
+        logger.info(f"🎯 Target: {target_count} valid records")
+
         try:
-            # Step 1: Get or scrape raw records with caching
-            raw_records = await self._get_raw_records(params)
+            # Initialize collections for progressive pulling
+            all_raw_records = []
+            all_enriched_records = []
+            total_attempts = 0
+            max_attempts = 3
             
-            # Step 2: Enrich records with full address enrichment
-            enriched_records = await self._enrich_records(raw_records)
+            # Step 1: Progressive pulling until we have enough new records
+            all_enriched_records = []
+            attempts = 0
+            max_attempts = 3
+            current_page_size = 50  # Start with reasonable size
             
-            # Step 3: Save to database (Harris County specific table)
-            if params.county.lower() == 'harris' and params.user_id:
-                records_data = [asdict(record) for record in enriched_records]
+            while len(all_enriched_records) < target_count and attempts < max_attempts:
+                attempts += 1
+                logger.info(f"🔄 Pull attempt {attempts}: Need {target_count - len(all_enriched_records)} more valid records")
+                
+                # Increase page size on subsequent attempts
+                if attempts > 1:
+                    current_page_size = min(current_page_size * 2, 200)  # Cap at 200
+                
+                iteration_params = AgentScrapeParams(
+                    county=params.county,
+                    filters={**params.filters, 'page_size': current_page_size},
+                    user_id=params.user_id
+                )
+                
+                # Get raw records for this attempt
+                batch_raw_records = await self._get_raw_records(iteration_params, skip_cache=(attempts > 1))
+                logger.info(f"📥 Attempt {attempts}: Got {len(batch_raw_records)} raw records")
+                
+                if not batch_raw_records:
+                    logger.warning(f"⚠️ No raw records found in attempt {attempts}")
+                    break
+                
+                # Deduplicate within this batch
+                unique_batch_records = self._deduplicate_raw_records(batch_raw_records)
+                logger.info(f"🧹 Batch deduplication: {len(unique_batch_records)} unique records")
+                
+                # Remove records that already exist in database
+                new_batch_records = await self._filter_existing_records(unique_batch_records, params.user_id)
+                logger.info(f"🗄️ Database check: {len(new_batch_records)} new records")
+                
+                if not new_batch_records:
+                    logger.warning(f"⚠️ Attempt {attempts}: All records already exist in database")
+                    continue
+                
+                # Enrich the new records
+                batch_enriched = await self._enrich_records(new_batch_records, target_count - len(all_enriched_records))
+                
+                # Add to final collection
+                all_enriched_records.extend(batch_enriched)
+                logger.info(f"📊 Attempt {attempts} complete: {len(batch_enriched)} enriched, total: {len(all_enriched_records)}/{target_count}")
+                
+                # Break if we have enough
+                if len(all_enriched_records) >= target_count:
+                    break
+            
+            if not all_enriched_records:
+                logger.warning("⚠️ No new records found after all attempts!")
+                return {
+                    "records": [],
+                    "metadata": {
+                        "county": params.county,
+                        "filters": params.filters,
+                        "total_found": 0,
+                        "processed": 0,
+                        "target_count": target_count,
+                        "target_reached": False,
+                        "attempts": attempts,
+                        "timestamp": datetime.now().isoformat(),
+                        "user_id": params.user_id,
+                        "message": "All available records already exist in database"
+                    }
+                }
+            
+            # Step 2: Save to database (Harris County specific table)
+            if params.county.lower() == 'harris' and params.user_id and all_enriched_records:
+                records_data = [asdict(record) for record in all_enriched_records]
                 save_success = await save_harris_records(records_data, params.user_id)
                 if save_success:
-                    logger.info(f"💾 Saved {len(enriched_records)} records to harris_county_filing table")
+                    logger.info(f"💾 Saved {len(all_enriched_records)} records to harris_county_filing table")
                 else:
                     logger.warning("⚠️ Database save failed - records still returned in response")
             
-            # Step 4: Generate summary
+            # Step 3: Generate summary
             result = {
-                "records": [asdict(record) for record in enriched_records],
+                "records": [asdict(record) for record in all_enriched_records],
                 "metadata": {
                     "county": params.county,
                     "filters": params.filters,
-                    "total_found": len(raw_records),
-                    "processed": len(enriched_records),
+                    "total_found": len(all_enriched_records),  # Only count processed records
+                    "processed": len(all_enriched_records),
+                    "target_count": target_count,
+                    "target_reached": len(all_enriched_records) >= target_count,
+                    "attempts": attempts,
                     "timestamp": datetime.now().isoformat(),
                     "user_id": params.user_id
                 }
             }
             
-            logger.info(f"✅ Agent scrape completed: {len(enriched_records)} enriched records")
+            if len(all_enriched_records) >= target_count:
+                logger.info(f"🎉 Target reached! {len(all_enriched_records)} enriched records")
+            else:
+                logger.warning(f"⚠️ Target not fully reached: {len(all_enriched_records)}/{target_count} records")
+            
             return result
             
         except Exception as e:
             logger.error(f"❌ Agent scrape failed: {e}")
             raise
 
-    async def _get_raw_records(self, params: AgentScrapeParams) -> List[Dict[str, Any]]:
+    async def _get_raw_records(self, params: AgentScrapeParams, skip_cache: bool = False) -> List[Dict[str, Any]]:
         """Get raw records from scraper with caching"""
         
         # Create cache key based on parameters
         cache_key = f"raw_records_{params.county}_{hash(str(params.filters))}"
         
-        # Check cache first
-        cached_records = await self.cache.get(cache_key)
-        if cached_records:
-            logger.info(f"⚡ Cache hit! Using {len(cached_records)} cached records")
-            return cached_records
+        # Check cache first (skip cache for subsequent attempts)
+        if not skip_cache:
+            cached_records = await self.cache.get(cache_key)
+            if cached_records:
+                logger.info(f"⚡ Cache hit! Using {len(cached_records)} cached records")
+                return cached_records
         
         logger.info(f"🔍 Cache miss - fetching fresh records from {params.county}")
         
@@ -139,15 +223,154 @@ class LisPendensAgent:
         
         return raw_records
 
-    async def _enrich_records(self, raw_records: List[Dict[str, Any]]) -> List[EnrichedRecord]:
-        """Enrich raw records with full address enrichment pipeline"""
+    def _deduplicate_raw_records(self, raw_records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Remove duplicate records based on case number"""
+        seen_case_numbers = set()
+        unique_records = []
+        
+        for record in raw_records:
+            # Extract case number using multiple possible field names
+            case_number = (record.get('case_number') or 
+                          record.get('caseNumber') or 
+                          record.get('file_no') or 
+                          '')
+            
+            if case_number and case_number not in seen_case_numbers:
+                seen_case_numbers.add(case_number)
+                unique_records.append(record)
+            elif case_number:
+                logger.debug(f"🔄 Skipping duplicate case number: {case_number}")
+            else:
+                # Keep records without case numbers (with warning)
+                logger.warning(f"⚠️ Record without case number found: {record}")
+                unique_records.append(record)
+        
+        return unique_records
+
+    async def _filter_existing_records(self, raw_records: List[Dict[str, Any]], user_id: str) -> List[Dict[str, Any]]:
+        """Remove records that already exist in the database for this user"""
+        if not user_id or not raw_records:
+            return raw_records
+        
+        try:
+            import asyncpg
+            import os
+            
+            # Get database URL
+            DATABASE_URL = os.getenv("DATABASE_URL")
+            if not DATABASE_URL:
+                logger.warning("⚠️ No DATABASE_URL found - cannot check for existing records")
+                return raw_records
+            
+            # Parse the database URL for asyncpg
+            if DATABASE_URL.startswith("postgresql://"):
+                DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgres://")
+            
+            # Extract case numbers from raw records
+            case_numbers = []
+            for record in raw_records:
+                case_number = (record.get('case_number') or 
+                              record.get('caseNumber') or 
+                              record.get('file_no') or '')
+                if case_number:
+                    case_numbers.append(case_number)
+            
+            if not case_numbers:
+                logger.warning("⚠️ No case numbers found in raw records")
+                return raw_records
+            
+            # Connect to database and check for existing records
+            conn = await asyncpg.connect(DATABASE_URL)
+            
+            # Query for existing case numbers for this user
+            existing_query = """
+                SELECT case_number 
+                FROM harris_county_filing 
+                WHERE "userId" = $1 AND case_number = ANY($2)
+            """
+            
+            existing_records = await conn.fetch(existing_query, user_id, case_numbers)
+            existing_case_numbers = {record['case_number'] for record in existing_records}
+            
+            await conn.close()
+            
+            # Filter out existing records
+            new_records = []
+            for record in raw_records:
+                case_number = (record.get('case_number') or 
+                              record.get('caseNumber') or 
+                              record.get('file_no') or '')
+                
+                if case_number and case_number not in existing_case_numbers:
+                    new_records.append(record)
+                elif case_number:
+                    logger.debug(f"🗄️ Skipping existing record: {case_number}")
+                else:
+                    # Keep records without case numbers
+                    new_records.append(record)
+            
+            logger.info(f"📊 Database check: {len(existing_case_numbers)} existing, {len(new_records)} new records")
+            return new_records
+            
+        except ImportError:
+            logger.warning("⚠️ asyncpg not available - cannot check for existing records")
+            return raw_records
+        except Exception as e:
+            logger.error(f"❌ Error checking existing records: {e}")
+            return raw_records  # Return all records if check fails
+
+    async def _enrich_records(self, raw_records: List[Dict[str, Any]], target_count: int) -> List[EnrichedRecord]:
+        """Enrich raw records with full address enrichment pipeline and filtering"""
         
         enriched_records: List[EnrichedRecord] = []
-        max_records = min(len(raw_records), 20)  # Limit to prevent rate limiting
         
-        logger.info(f"🔄 Processing {max_records} records for full address enrichment")
+        logger.info(f"🔄 Processing records in batches until we get {target_count} valid records")
         
-        for i, record in enumerate(raw_records[:max_records]):
+        # Process records in batches until we have enough valid ones
+        batch_size = 10
+        start_idx = 0
+        
+        while len(enriched_records) < target_count and start_idx < len(raw_records):
+            # Process current batch
+            end_idx = min(start_idx + batch_size, len(raw_records))
+            current_batch = raw_records[start_idx:end_idx]
+            
+            logger.info(f"📦 Processing batch {start_idx//batch_size + 1}: records {start_idx+1}-{end_idx} ({len(current_batch)} records)")
+            
+            batch_enriched = await self._process_record_batch(current_batch, target_count - len(enriched_records))
+            
+            # Filter batch results by city/zip before adding to final list
+            valid_batch_records = []
+            for record in batch_enriched:
+                if self._should_include_record_by_location(record, self.current_user_id):
+                    valid_batch_records.append(record)
+                    logger.info(f"✅ Valid record {len(enriched_records) + len(valid_batch_records)}/{target_count}: {record.legal.case_number}")
+                else:
+                    logger.info(f"🚫 Filtered out {record.legal.case_number} (location not in allowed area)")
+            
+            enriched_records.extend(valid_batch_records)
+            
+            # Calculate progress percentage for frontend
+            progress_percent = min(100, (len(enriched_records) / target_count) * 100)
+            logger.info(f"📊 PROGRESS: {len(enriched_records)}/{target_count} valid records found ({progress_percent:.1f}%)")
+            logger.info(f"📦 Batch complete: {len(valid_batch_records)} valid records from {len(current_batch)} processed. Total: {len(enriched_records)}/{target_count}")
+            
+            # Move to next batch
+            start_idx = end_idx
+            
+            # Break if we have enough records
+            if len(enriched_records) >= target_count:
+                logger.info(f"🎉 TARGET REACHED: {len(enriched_records)}/{target_count} valid records found!")
+                break
+                
+        logger.info(f"🎯 Enrichment complete: {len(enriched_records)} valid records found")
+        return enriched_records[:target_count]  # Return exactly the target count
+
+    async def _process_record_batch(self, batch_records: List[Dict[str, Any]], remaining_needed: int) -> List[EnrichedRecord]:
+        """Process a batch of records with full enrichment"""
+        batch_enriched: List[EnrichedRecord] = []
+        
+        for i, record in enumerate(batch_records):
             try:
                 # Create legal description from raw record
                 legal_desc = LegalDescription(
@@ -218,15 +441,15 @@ class LisPendensAgent:
                         enriched_record.summary = f"Lis Pendens filed on {legal_desc.filing_date} for case {legal_desc.case_number}."
                         logger.warning(f"⚠️ No address or legal description available for case {legal_desc.case_number}")
                 
-                enriched_records.append(enriched_record)
+                batch_enriched.append(enriched_record)
                 
                 # Rate limiting between requests
-                if i < max_records - 1:
+                if i < len(batch_records) - 1:
                     await asyncio.sleep(0.1)
                     
             except Exception as record_error:
                 logger.error(f"Error processing record {i}: {record_error}")
-                enriched_records.append(EnrichedRecord(
+                batch_enriched.append(EnrichedRecord(
                     legal=LegalDescription(
                         case_number=self._extract_field(record, ['case_number', 'caseNumber'], f"record_{i}"),
                         filing_date=self._extract_field(record, ['file_date', 'filing_date'])
@@ -234,7 +457,7 @@ class LisPendensAgent:
                     error="Processing failed"
                 ))
         
-        return enriched_records
+        return batch_enriched
 
     async def _enrich_single_address(self, raw_address: str) -> Optional[Dict[str, Any]]:
         """Enrich a single address using the address enrichment pipeline"""
@@ -318,6 +541,29 @@ class LisPendensAgent:
                 else:
                     return str(value).strip()
         return default
+
+    def _should_include_record_by_location(self, record: EnrichedRecord, user_id: Optional[str]) -> bool:
+        """
+        Determines if a record should be included based on location restrictions (city/zip)
+        """
+        if not user_id:
+            return True
+        
+        # Import the filtering function from harris_db_saver
+        from harris_db_saver import should_filter_record_by_zip
+        
+        # Use the enriched address for filtering
+        property_address = record.address
+        
+        # Return opposite of should_filter (filter=True means exclude, we want include)
+        should_filter = should_filter_record_by_zip(user_id, property_address)
+        return not should_filter
+    
+    def _should_include_record(self, record: EnrichedRecord, user_id: Optional[str]) -> bool:
+        """
+        Legacy method - kept for compatibility
+        """
+        return self._should_include_record_by_location(record, user_id)
 
 # Main async function for standalone usage
 async def agent_scrape(county: str, filters: Dict[str, Any], user_id: Optional[str] = None) -> Dict[str, Any]:

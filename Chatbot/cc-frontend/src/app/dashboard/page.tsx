@@ -584,38 +584,9 @@ const PropertyAddressCell = ({ value, row }: { value?: string; row: any }) => {
   );
 };
 
-// Columns for Lis Pendens (LPH) users
-const lphColumns: GridColDef[] = [
-  { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
-  { field: 'case_url', headerName: 'Case URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 250, flex: 2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
-  { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
-  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
-  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  { field: 'doc_type', headerName: 'Doc Type', minWidth: 60, maxWidth: 80, flex: 0.5 },
-  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
-  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-  //   <SkipTraceButton address={params.row.property_address} />
-  // ) },
-];
 
-// Columns for Maryland Case Search users
-const mdCaseSearchColumns: GridColDef[] = [
-  { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
-  { field: 'case_url', headerName: 'Case URL', minWidth: 70, maxWidth: 90, flex: 0.5, renderCell: (params) => <a href={params.value} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>Link</a> },
-  { field: 'file_date', headerName: 'File Date', minWidth: 90, maxWidth: 110, flex: 0.7 },
-  { field: 'party_name', headerName: 'Party Name', minWidth: 150, maxWidth: 200, flex: 1 },
-  { field: 'case_type', headerName: 'Case Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
-  { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
-  { field: 'property_address', headerName: 'Property Address', minWidth: 150, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
-  { field: 'defendant_info', headerName: 'Parties', minWidth: 150, maxWidth: 200, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
-  { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
-  { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
-  // TEMPORARILY HIDDEN - Skip trace button commented out for user onboarding
-  // { field: 'skip_trace', headerName: 'Skip Trace', minWidth: 80, maxWidth: 100, flex: 0.6, renderCell: (params) => (
-  //   <SkipTraceButton address={params.row.property_address} />
-  // ) },
-];
+
+
 
 // Columns for Hillsborough NH users
 const hillsboroughNhColumns: GridColDef[] = [
@@ -692,7 +663,6 @@ const cobbGaColumns: GridColDef[] = [
 // Types for different record types
 interface LisPendensRecord {
   case_number: string;
-  case_url: string;
   file_date: string;
   property_address: string;
   filing_no: string;
@@ -702,11 +672,11 @@ interface LisPendensRecord {
   created_at: string;
   is_new: boolean;
   doc_type: string;
+  ai_summary?: string;
 }
 
 interface MdCaseSearchRecord {
   case_number: string;
-  case_url: string;
   file_date: string;
   party_name: string;
   case_type: string;
@@ -1062,7 +1032,76 @@ export default function Dashboard() {
   const docTypes = [
     "Tax Delinquency"
   ];
+  
+  // Summary modal state
+  const [summaryModalOpen, setSummaryModalOpen] = useState(false);
+  const [selectedSummary, setSelectedSummary] = useState<{
+    caseNumber: string;
+    summary: string;
+  } | null>(null);
 
+
+
+  // Handle summary modal
+  const handleSummaryClick = (data: { caseNumber: string; summary: string }) => {
+    setSelectedSummary(data);
+    setSummaryModalOpen(true);
+  };
+
+  const handleCloseSummaryModal = () => {
+    setSummaryModalOpen(false);
+    setSelectedSummary(null);
+  };
+
+  // Summary Button Component
+  const SummaryButton = ({ row }: { row: any }) => {
+    const summary = row.ai_summary || row.summary || '';
+    const caseNumber = row.case_number || '';
+    
+    if (!summary || !summary.trim()) {
+      return (
+        <span className="text-gray-400 text-sm">No summary</span>
+      );
+    }
+    
+    return (
+      <button
+        onClick={() => handleSummaryClick({ caseNumber, summary })}
+        className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded font-medium transition-colors"
+        title="View AI Summary"
+      >
+        Summary
+      </button>
+    );
+  };
+
+
+
+
+
+  // Column definitions (moved inside component to access SummaryButton)
+  const lphColumns: GridColDef[] = [
+    { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
+    { field: 'property_address', headerName: 'Property Address', minWidth: 250, flex: 2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
+    { field: 'ai_summary', headerName: 'Summary', minWidth: 90, maxWidth: 110, flex: 0.6, renderCell: (params) => <SummaryButton row={params.row} /> },
+    { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
+    { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+    { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+    { field: 'doc_type', headerName: 'Doc Type', minWidth: 60, maxWidth: 80, flex: 0.5 },
+  ];
+
+  // Columns for Maryland Case Search users
+  const mdCaseSearchColumns: GridColDef[] = [
+    { field: 'case_number', headerName: 'Case Number', minWidth: 110, maxWidth: 130, flex: 0.7 },
+    { field: 'file_date', headerName: 'File Date', minWidth: 90, maxWidth: 110, flex: 0.7 },
+    { field: 'party_name', headerName: 'Party Name', minWidth: 150, maxWidth: 200, flex: 1 },
+    { field: 'case_type', headerName: 'Case Type', minWidth: 100, maxWidth: 120, flex: 0.8 },
+    { field: 'county', headerName: 'County', minWidth: 70, maxWidth: 90, flex: 0.5 },
+    { field: 'property_address', headerName: 'Property Address', minWidth: 150, flex: 1.2, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
+    { field: 'defendant_info', headerName: 'Parties', minWidth: 150, maxWidth: 200, flex: 1, renderCell: (params) => <PropertyAddressCell value={params.value} row={params.row} /> },
+    { field: 'created_at', headerName: 'Created At', minWidth: 120, maxWidth: 160, flex: 1, renderCell: (params) => <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', width: '100%' }}>{params.value}</span> },
+    { field: 'is_new', headerName: 'Is New', minWidth: 60, maxWidth: 70, flex: 0.4, type: 'boolean' },
+  ];
 
   // ALL useEffect hooks must be called before conditional returns
   const fetchData = async () => {
@@ -1752,6 +1791,30 @@ export default function Dashboard() {
           
 
         </SidebarProvider>
+        
+        {/* Summary Modal */}
+        <Dialog 
+          open={summaryModalOpen} 
+          onClose={handleCloseSummaryModal}
+          maxWidth="md"
+          fullWidth
+        >
+          <DialogTitle>
+            AI Summary - Case {selectedSummary?.caseNumber}
+          </DialogTitle>
+          <DialogContent>
+            <div style={{ marginTop: '16px' }}>
+              <Typography variant="body1" style={{ lineHeight: 1.6 }}>
+                {selectedSummary?.summary}
+              </Typography>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseSummaryModal} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </>
   )
