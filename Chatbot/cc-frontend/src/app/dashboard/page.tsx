@@ -1177,15 +1177,33 @@ export default function Dashboard() {
     console.log('Session found, staying on dashboard');
   }, [session, status, router]);
 
-  // Show onboarding if just logged in or if no county is selected (use sessionStorage to persist)
+  // Check onboarding status from database
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const onboarded = sessionStorage.getItem('onboarded');
-      if (!onboarded) {
-        setShowOnboarding(true);
+    const checkOnboardingStatus = async () => {
+      if (session?.user?.id) {
+        try {
+          const response = await fetch('/api/auth/onboarding');
+          if (response.ok) {
+            const data = await response.json();
+            if (!data.hasCompletedOnboarding) {
+              setShowOnboarding(true);
+            }
+          }
+        } catch (error) {
+          console.error('Error checking onboarding status:', error);
+          // Fallback to sessionStorage for error cases
+          if (typeof window !== 'undefined') {
+            const onboarded = sessionStorage.getItem('onboarded');
+            if (!onboarded) {
+              setShowOnboarding(true);
+            }
+          }
+        }
       }
-    }
-  }, []);
+    };
+
+    checkOnboardingStatus();
+  }, [session]);
 
   const handleCountySelect = (county: string) => {
     setSelectedCounty(county);
@@ -1204,11 +1222,36 @@ export default function Dashboard() {
     );
   };
 
-  const handleOnboardingFinish = () => {
-    setShowOnboarding(false);
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('onboarded', '1');
-      sessionStorage.setItem('selectedDocTypes', JSON.stringify(selectedDocTypes));
+  const handleOnboardingFinish = async () => {
+    try {
+      // Mark onboarding as completed in database
+      const response = await fetch('/api/auth/onboarding', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          county: selectedCounty,
+          docTypes: selectedDocTypes
+        })
+      });
+
+      if (response.ok) {
+        setShowOnboarding(false);
+        // Keep sessionStorage as backup/cache
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('onboarded', '1');
+          sessionStorage.setItem('selectedDocTypes', JSON.stringify(selectedDocTypes));
+        }
+      } else {
+        console.error('Failed to save onboarding completion');
+        // Still hide onboarding on frontend error
+        setShowOnboarding(false);
+      }
+    } catch (error) {
+      console.error('Error completing onboarding:', error);
+      // Still hide onboarding on error
+      setShowOnboarding(false);
     }
   };
 

@@ -71,12 +71,25 @@ function CredentialSignup() {
         if (result?.error) {
           setError("Failed to sign in after registration");
         } else {
-          // Clear onboarding flags so onboarding always shows for new users
+          // Mark new users as having completed onboarding since they skip the onboarding flow
+          try {
+            await fetch('/api/auth/onboarding', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                county: 'Harris (Recommended)', // Default county for new signups
+                docTypes: ['Tax Delinquency'] // Default doc type
+              })
+            });
+          } catch (error) {
+            console.error('Error marking onboarding as complete:', error);
+          }
+
+          // Set up trial and redirect
           if (typeof window !== 'undefined') {
-            sessionStorage.removeItem('onboarded');
-            sessionStorage.removeItem('selectedCounty');
-            sessionStorage.removeItem('selectedDocTypes');
-            // Set trial start date
+            sessionStorage.setItem('onboarded', '1');
             sessionStorage.setItem('trialStartDate', new Date().toISOString());
           }
           // Redirect to Stripe checkout instead of dashboard

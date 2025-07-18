@@ -10,50 +10,15 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Set
 import sys
 import os
+from filter_configs import get_user_filter_config, USER_FILTER_ASSIGNMENTS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Zip code restrictions for specific user IDs
-RESTRICTED_USER_ZIP_CODES = {
-    '6b3d5d75-f440-46d3-b0a6-8c6e49b211a5': {
-        # Cypress, TX
-        '77429', '77433',
-        # Katy, TX  
-        '77449', '77450', '77493', '77494',
-        # Humble, TX
-        '77338', '77339', '77345', '77346', '77396',
-        # Other Misc
-        '77033', '77047', '77088',
-        # Special case: 77021 only for Harris for the one record type they can pull
-        '77021'
-    },
-    '08c8ffaa-0bfb-4db3-abbb-ebe1eef036aa': {
-        # Cypress, TX
-        '77429', '77433',
-        # Katy, TX  
-        '77449', '77450', '77493', '77494',
-        # Humble, TX
-        '77338', '77339', '77345', '77346', '77396',
-        # Other Misc
-        '77033', '77047', '77088',
-        # Special case: 77021 only for Harris for the one record type they can pull
-        '77021'
-    },
-    '867ebb10-afd9-4892-b781-208ba8098306': {
-        # Cypress, TX
-        '77429', '77433',
-        # Katy, TX  
-        '77449', '77450', '77493', '77494',
-        # Humble, TX
-        '77338', '77339', '77345', '77346', '77396',
-        # Other Misc
-        '77033', '77047', '77088',
-        # Special case: 77021 only for Harris for the one record type they can pull
-        '77021'
-    }
-}
+# Filter configurations are now managed in filter_configs.py
+# Current active filter: FILTER_1 (Cypress, Humble, Katy, Houston areas)
+# See filter_configs.py for all available filter configurations
 
 def extract_zip_code_from_address(address: str) -> Optional[str]:
     """
@@ -88,18 +53,17 @@ def should_filter_record_by_zip(user_id: str, property_address: str) -> bool:
     Returns:
         bool: True if record should be filtered out (blocked), False if allowed
     """
-    # Only apply restrictions to specific user IDs
-    if user_id not in RESTRICTED_USER_ZIP_CODES:
+    # Get filter configuration for this user (using Filter 1 system)
+    filter_config = get_user_filter_config(user_id)
+    if not filter_config:
         return False  # No restrictions for this user, allow all records
     
     if not property_address:
-        logger.debug(f"🚫 No address provided for restricted user {user_id}")
+        logger.debug(f"🚫 No address provided for filtered user {user_id}")
         return True  # Filter out records without addresses
     
-    allowed_zip_codes = RESTRICTED_USER_ZIP_CODES[user_id]
-    
-    # Define allowed cities for restricted users (Cypress, Humble, Katy areas)
-    allowed_cities = ['CYPRESS', 'HUMBLE', 'KATY', 'SPRING', 'TOMBALL', 'HOUSTON']
+    allowed_zip_codes = filter_config.get('allowed_zip_codes', set())
+    allowed_cities = filter_config.get('allowed_cities', [])
     
     address_upper = property_address.upper()
     

@@ -82,6 +82,7 @@ const authOptions: NextAuthOptions = {
                 email: user.email!,
                 firstName: user.name || 'OAuth User',
                 password: '', // OAuth users don't have password
+                hasCompletedOnboarding: true, // Mark OAuth users as onboarded since they go to trial checkout
                 createdAt: new Date(),
               }
             });

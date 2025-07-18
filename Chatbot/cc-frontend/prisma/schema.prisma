@@ -99,6 +99,7 @@ model User {
   firstName             String
   password              String
   userType              String                   @default("LPH")
+  hasCompletedOnboarding Boolean                 @default(false)
   createdAt             DateTime                 @default(now())
   accounts              Account[]
   brevardFlFilings      brevard_fl_filing[]
