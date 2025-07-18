@@ -85,8 +85,17 @@ class LisPendensAgent:
             # Step 1: Progressive pulling until we have enough new records
             all_enriched_records = []
             attempts = 0
-            max_attempts = 3
+            
+            # Check if this user has location filtering enabled (needs more attempts)
+            from filter_configs import get_user_filter_config
+            user_filter = get_user_filter_config(params.user_id)
+            has_location_filter = bool(user_filter and user_filter.get('allowed_zip_codes'))
+            
+            max_attempts = 5 if has_location_filter else 3  # More attempts for filtered users
             current_page_size = 50  # Start with reasonable size
+            
+            if has_location_filter:
+                logger.info(f"🔒 User has location filtering enabled - using {max_attempts} max attempts")
             
             while len(all_enriched_records) < target_count and attempts < max_attempts:
                 attempts += 1
@@ -128,6 +137,12 @@ class LisPendensAgent:
                 # Add to final collection
                 all_enriched_records.extend(batch_enriched)
                 logger.info(f"📊 Attempt {attempts} complete: {len(batch_enriched)} enriched, total: {len(all_enriched_records)}/{target_count}")
+                
+                # Check if we need to increase page size if no records passed location filter
+                if len(batch_enriched) == 0 and len(new_batch_records) > 0:
+                    logger.warning(f"🚫 Attempt {attempts}: All {len(new_batch_records)} records filtered out by location restrictions (proximity rules)")
+                    logger.info(f"🔄 Increasing page size for next attempt to find records in allowed areas")
+                    current_page_size = min(current_page_size * 2, 500)  # Increase cap to 500 for filter scenarios
                 
                 # Break if we have enough
                 if len(all_enriched_records) >= target_count:

@@ -4,7 +4,7 @@
 # Filter 1: Cypress, Humble, Katy, and specific Houston areas
 FILTER_1_CONFIG = {
     "name": "Cypress_Humble_Katy_Houston_Filter",
-    "description": "Filter for Cypress, Humble, Katy areas and specific Houston zip codes",
+    "description": "Filter for Cypress, Humble, Katy areas and specific Houston zip codes with proximity matching",
     "allowed_cities": ['CYPRESS', 'HUMBLE', 'KATY', 'HOUSTON'],
     "allowed_zip_codes": {
         # Cypress, TX
@@ -18,8 +18,10 @@ FILTER_1_CONFIG = {
         # Special case: 77021 only for Harris for the one record type they can pull
         '77021'
     },
+    "proximity_range": 5,  # Allow zip codes within 5 of any allowed zip
+    "enable_progressive_pulling": True,  # Pull more batches if no records pass filter
     "created_date": "2025-01-18",
-    "notes": "Primary filter for restricted users focusing on specific suburban areas"
+    "notes": "Primary filter for restricted users focusing on specific suburban areas with proximity matching"
 }
 
 # User ID to Filter Configuration Mapping
@@ -47,4 +49,37 @@ def get_user_filter_config(user_id: str) -> dict:
 
 def list_available_filters() -> dict:
     """List all available filter configurations"""
-    return {name: config['description'] for name, config in AVAILABLE_FILTERS.items()} 
+    return {name: config['description'] for name, config in AVAILABLE_FILTERS.items()}
+
+def is_zip_within_proximity(target_zip: str, allowed_zips: set, proximity_range: int) -> bool:
+    """Check if a zip code is within proximity range of any allowed zip code"""
+    if not target_zip or not target_zip.isdigit() or len(target_zip) != 5:
+        return False
+    
+    target_num = int(target_zip)
+    
+    for allowed_zip in allowed_zips:
+        if allowed_zip.isdigit() and len(allowed_zip) == 5:
+            allowed_num = int(allowed_zip)
+            if abs(target_num - allowed_num) <= proximity_range:
+                return True
+    
+    return False
+
+def check_zip_against_filter(zip_code: str, filter_config: dict) -> bool:
+    """Check if a zip code passes the filter (exact match or proximity)"""
+    if not filter_config:
+        return True
+    
+    allowed_zips = filter_config.get('allowed_zip_codes', set())
+    
+    # Check exact match first
+    if zip_code in allowed_zips:
+        return True
+    
+    # Check proximity if enabled
+    proximity_range = filter_config.get('proximity_range', 0)
+    if proximity_range > 0:
+        return is_zip_within_proximity(zip_code, allowed_zips, proximity_range)
+    
+    return False 

@@ -10,7 +10,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Set
 import sys
 import os
-from filter_configs import get_user_filter_config, USER_FILTER_ASSIGNMENTS
+from filter_configs import get_user_filter_config, USER_FILTER_ASSIGNMENTS, check_zip_against_filter
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -73,11 +73,15 @@ def should_filter_record_by_zip(user_id: str, property_address: str) -> bool:
             logger.debug(f"✅ Allowed record for user {user_id}: city '{city}' found in address")
             return False  # Allow this record
     
-    # Extract and check zip code
+    # Extract and check zip code (with proximity matching)
     extracted_zip = extract_zip_code_from_address(property_address)
     
-    if extracted_zip and extracted_zip in allowed_zip_codes:
-        logger.debug(f"✅ Allowed record for user {user_id}: zip code {extracted_zip} is permitted")
+    if extracted_zip and check_zip_against_filter(extracted_zip, filter_config):
+        proximity_range = filter_config.get('proximity_range', 0)
+        if extracted_zip in allowed_zip_codes:
+            logger.debug(f"✅ Allowed record for user {user_id}: zip code {extracted_zip} is exact match")
+        elif proximity_range > 0:
+            logger.debug(f"✅ Allowed record for user {user_id}: zip code {extracted_zip} is within proximity range ({proximity_range})")
         return False  # Allow this record
     
     # If no city or zip code match found, filter out
@@ -174,10 +178,11 @@ async def save_harris_records(records: List[Dict[str, Any]], user_id: str) -> bo
             processed_records.append(processed_record)
         
         # Log filtering results if applicable
-        if user_id in RESTRICTED_USER_ZIP_CODES:
+        user_filter = get_user_filter_config(user_id)
+        if user_filter:
             total_input_records = len(records)
             allowed_records = len(processed_records)
-            logger.debug(f"🔒 Zip code filtering for user {user_id}: {allowed_records}/{total_input_records} records allowed, {filtered_count} filtered out")
+            logger.debug(f"🔒 Location filtering for user {user_id}: {allowed_records}/{total_input_records} records allowed, {filtered_count} filtered out")
         
         # SQL for Harris County filings with UPSERT
         insert_sql = """
@@ -235,10 +240,12 @@ async def save_harris_records(records: List[Dict[str, Any]], user_id: str) -> bo
         total_input = len(records)
         duplicates_removed = total_input - len(processed_records) - filtered_count
         
-        if user_id in RESTRICTED_USER_ZIP_CODES:
+        user_filter = get_user_filter_config(user_id)
+        if user_filter:
             logger.info(f"✅ Successfully saved {inserted_count} Harris County records to database")
             logger.debug(f"📊 Processing summary: {total_input} input → {duplicates_removed} duplicates removed → {filtered_count} location filtered → {inserted_count} saved")
-            logger.debug(f"✅ User {user_id} is zip code restricted")
+            filter_name = user_filter.get('name', 'Unknown Filter')
+            logger.debug(f"✅ User {user_id} has location filtering enabled ({filter_name})")
         else:
             logger.info(f"✅ Successfully saved {inserted_count} Harris County records to database")
             if duplicates_removed > 0:
