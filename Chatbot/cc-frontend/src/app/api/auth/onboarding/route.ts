@@ -9,13 +9,14 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
+    const userId = (session?.user as any)?.id;
     
-    if (!session?.user?.id) {
+    if (!session || !userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { id: userId },
       select: { hasCompletedOnboarding: true }
     });
 
@@ -37,8 +38,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
+    const userId = (session?.user as any)?.id;
     
-    if (!session?.user?.id) {
+    if (!session || !userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -46,7 +48,7 @@ export async function POST(req: NextRequest) {
 
     // Update user's onboarding status in database
     const updatedUser = await prisma.user.update({
-      where: { id: session.user.id },
+      where: { id: userId },
       data: { hasCompletedOnboarding: true },
       select: { 
         id: true, 
