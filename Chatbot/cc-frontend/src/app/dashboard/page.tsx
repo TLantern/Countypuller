@@ -319,6 +319,9 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
   const [summary, setSummary] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
 
+  // Debug info (only if needed for troubleshooting)
+  // console.log('🔥 Hot20Button Debug:', { processing, dataLength: data.length, userType });
+
   const handleHot20Click = async () => {
     setProcessing(true);
     setResults([]);
@@ -389,7 +392,11 @@ const Hot20Button = ({ data, userType }: { data: any[], userType: string }) => {
             : 'hover:shadow-2xl hover:scale-105 active:scale-95 active:shadow-md cursor-pointer'
           }
         `}
-        title={data.length === 0 ? 'No data available' : 'Analyze top 20 hottest prospects by equity and LTV'}
+        title={
+          processing ? 'Hot 20 analysis in progress...' :
+          data.length === 0 ? 'No data available - pull some records first' : 
+          'Analyze top 20 hottest prospects by equity and LTV'
+        }
       >
         <span className="text-lg">🔥</span>
         <span className="font-semibold">

@@ -2678,3 +2678,535 @@
 2025-07-14 20:29:18,776 - INFO - 
 === SUMMARY REPORT ===
 2025-07-14 20:29:18,776 - INFO - Successful enrichments: 3/3
+2025-07-20 09:45:13,857 - INFO - Using Google Maps for address validation
+2025-07-20 09:45:13,865 - INFO - Loaded 10 addresses from C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_LPH_1753026313243.csv
+2025-07-20 09:45:13,865 - INFO - Address validation methods available: Google Maps, USPS
+2025-07-20 09:45:13,865 - INFO - Starting batch enrichment of 10 addresses with max concurrency 10
+2025-07-20 09:45:14,031 - INFO - Google Maps validated: 'Houston, TX 77064' -> 'Houston, TX 77064'
+2025-07-20 09:45:14,031 - INFO - ATTOM API attempt 1 for 'Houston, TX 77064': {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:45:14,039 - INFO - Google Maps validated: '15843 Fleetwood Oaks Drive, Houston, TX 77079' -> '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:45:14,049 - INFO - Google Maps validated: '10718 Cedar Creek Drive, Houston, TX 77042' -> '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:45:14,049 - INFO - Google Maps validated: '10326 Mist Lane, Houston, TX 77070' -> '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:45:14,050 - INFO - Google Maps validated: '1505 Commerce Street, Houston, TX 77002' -> '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:45:14,056 - INFO - Google Maps validated: '13718 Sherburn Manor Dr, Cypress, TX 77429' -> '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:45:14,059 - INFO - Google Maps validated: '1514 Everett Street, Houston, TX 77009' -> '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:45:14,062 - INFO - Google Maps validated: '11355 Canyon Shore Drive, Humble, TX 77396' -> '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:45:14,062 - INFO - Google Maps validated: '13007 Cherton Court, Houston, TX 77045' -> '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:45:14,065 - INFO - Google Maps validated: '12007 Paradise Valley Drive, Houston, TX 77066' -> '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:45:14,124 - INFO - ATTOM API attempt 1 for '1505 Commerce Street, Houston, TX 77002': {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:45:14,124 - INFO - ATTOM API attempt 1 for '10718 Cedar Creek Drive, Houston, TX 77042': {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:45:14,124 - INFO - ATTOM API attempt 1 for '10326 Mist Lane, Houston, TX 77070': {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:45:14,124 - INFO - ATTOM API attempt 1 for '12007 Paradise Valley Drive, Houston, TX 77066': {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:45:14,124 - INFO - ATTOM API attempt 1 for '11355 Canyon Shore Drive, Humble, TX 77396': {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:45:14,125 - INFO - ATTOM API attempt 1 for '13007 Cherton Court, Houston, TX 77045': {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:45:14,125 - INFO - ATTOM API attempt 1 for '1514 Everett Street, Houston, TX 77009': {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:45:14,125 - INFO - ATTOM API attempt 1 for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:45:14,125 - INFO - ATTOM API attempt 1 for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:45:14,504 - INFO - Found property data for ATTOM ID 4931390 for '13007 Cherton Court, Houston, TX 77045' using params: {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:45:14,504 - INFO - Calculated equity: Market Value $230,681, Total Loans $115,905, Equity $114,776, LTV 50.2%
+2025-07-20 09:45:14,504 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,504 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'GORDON STEVE JR', 'lastName': 'STEVE JR', 'firstNameAndMi': 'GORDON '}, 'owner2': {'fullName': 'QIANA N JR', 'lastName': 'JR ', 'firstNameAndMi': 'QIANA N'}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13007 CHERTON CT, HOUSTON, TX 77045-1725'}
+2025-07-20 09:45:14,504 - INFO - Found assessment.tax section: {'taxAmt': 2027.39, 'taxPerSizeUnit': 1.31, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:14,504 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 41 BLK 1 BRENTWOOD PARK'}
+2025-07-20 09:45:14,504 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13007 Cherton Court, Houston, TX 77045': {'attomid': 4931390}
+2025-07-20 09:45:14,518 - INFO - Found property data for ATTOM ID 241768179 for 'Houston, TX 77064' using params: {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:45:14,518 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,518 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'NORTH FAIRBANKS OWNER LP', 'lastName': 'NORTH FAIRBANKS OWNER LP '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '1900 WEST LOOP S STE 1300, HOUSTON, TX 77027-3218'}
+2025-07-20 09:45:14,519 - INFO - Found assessment.tax section: {'taxAmt': 54.11, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:45:14,519 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Vacant', 'propSubType': 'Residential', 'propType': 'RESIDENTIAL - VACANT LAND', 'propertyType': 'RESIDENTIAL - VACANT LAND', 'propLandUse': 'RESIDENTIAL - VACANT LAND', 'propIndicator': 80, 'legal1': 'LTS 11 12 & 13 BLK 56 NORTH HOUSTON'}
+2025-07-20 09:45:14,519 - INFO - Found property data for ATTOM ID 165784814 for '1505 Commerce Street, Houston, TX 77002' using params: {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:45:14,519 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,519 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'COUNTY HARRIS', 'lastName': 'COUNTY HARRIS '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': 'PO BOX 1525, HOUSTON, TX 77251-1525'}
+2025-07-20 09:45:14,519 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-20 09:45:14,519 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'LTS 3 & 4 & TRS 5 THRU 13 BLK 8 SSBB'}
+2025-07-20 09:45:14,522 - INFO - Found property data for ATTOM ID 165237479 for '1514 Everett Street, Houston, TX 77009' using params: {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:45:14,522 - INFO - Calculated equity: Market Value $421,375, Total Loans $280,000, Equity $141,375, LTV 66.4%
+2025-07-20 09:45:14,522 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,522 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARBOR HAMMOND PROPERTY LLC', 'lastName': 'HARBOR HAMMOND PROPERTY LLC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '1514 EVERETT ST, HOUSTON, TX 77009-8824'}
+2025-07-20 09:45:14,522 - INFO - Found assessment.tax section: {'taxAmt': 8913.53, 'taxPerSizeUnit': 6.12, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:45:14,522 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Duplex, Triplex, Quadplex', 'propSubType': 'Residential', 'propType': 'DUPLEX', 'propertyType': 'DUPLEX (2 UNITS, ANY COMBINATION)', 'yearBuilt': 1900, 'propLandUse': 'DUPLEX', 'propIndicator': 21, 'legal1': 'LT 3 BLK 12 ALLEN A C'}
+2025-07-20 09:45:14,537 - INFO - Found property data for ATTOM ID 36641930 for '10326 Mist Lane, Houston, TX 77070' using params: {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:45:14,538 - INFO - Calculated equity: Market Value $174,939, Total Loans $79,900, Equity $95,039, LTV 45.7%
+2025-07-20 09:45:14,538 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,538 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'REYNA,ANTONIO & PATRICIA'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10326 MIST LN, HOUSTON, TX 77070-4740'}
+2025-07-20 09:45:14,538 - INFO - Found assessment.tax section: {'taxAmt': 941.14, 'taxPerSizeUnit': 0.92, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:14,538 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1983, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'W 22.44 FT LT 20 & E 26.94 FT LT 21 BLK 22 TALLOW WOOD SEC 3 R/P'}
+2025-07-20 09:45:14,539 - INFO - Found property data for ATTOM ID 9313905 for '13718 Sherburn Manor Dr, Cypress, TX 77429' using params: {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:45:14,539 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,539 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'KELLEY KRUGER', 'lastName': 'KRUGER ', 'firstNameAndMi': 'KELLEY '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13718 SHERBURN MANOR DR, CYPRESS, TX 77429-8165'}
+2025-07-20 09:45:14,539 - INFO - Found assessment.tax section: {'taxAmt': 2230.36, 'taxPerSizeUnit': 0.85, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:14,539 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2002, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 3 BLK 2 COLES CROSSING SEC 15'}
+2025-07-20 09:45:14,553 - INFO - Found property data for ATTOM ID 35643644 for '11355 Canyon Shore Drive, Humble, TX 77396' using params: {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:45:14,553 - INFO - Calculated equity: Market Value $220,601, Total Loans $256,000, Equity $-35,399, LTV 116.0%
+2025-07-20 09:45:14,553 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,553 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'VICTOR RODGERS', 'lastName': 'RODGERS ', 'firstNameAndMi': 'VICTOR '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '11355 CANYON SHORE DR, HUMBLE, TX 77396-6007'}
+2025-07-20 09:45:14,554 - INFO - Found assessment.tax section: {'taxAmt': 1876.15, 'taxPerSizeUnit': 1.02, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:45:14,554 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2005, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 34 BLK 1 SUNSET RIDGE SEC 1'}
+2025-07-20 09:45:14,582 - INFO - Found property data for ATTOM ID 4427094 for '15843 Fleetwood Oaks Drive, Houston, TX 77079' using params: {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:45:14,582 - INFO - Calculated equity: Market Value $460,542, Total Loans $201,400, Equity $259,142, LTV 43.7%
+2025-07-20 09:45:14,582 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,582 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'HANS J LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'HANS J'}, 'owner2': {}, 'owner3': {'fullName': 'JANET LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'JANET '}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '15843 FLEETWOOD OAKS DR, HOUSTON, TX 77079-2404'}
+2025-07-20 09:45:14,582 - INFO - Found assessment.tax section: {'taxAmt': 1428.27, 'taxPerSizeUnit': 0.6, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:14,582 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1976, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 38 BLK 3 FLEETWOOD SEC 1'}
+2025-07-20 09:45:14,583 - INFO - Found property data for ATTOM ID 7003212 for '12007 Paradise Valley Drive, Houston, TX 77066' using params: {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:45:14,583 - INFO - Calculated equity: Market Value $310,705, Total Loans $159,000, Equity $151,705, LTV 51.2%
+2025-07-20 09:45:14,583 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,583 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'STEPHEN,CHERON P'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '12007 PARADISE VALLEY DR, HOUSTON, TX 77066-2717'}
+2025-07-20 09:45:14,583 - INFO - Found assessment.tax section: {'taxAmt': 3833.58, 'taxPerSizeUnit': 1.26, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:14,583 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1974, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 39 BLK 45 017*G6652900-006-045-039 GREENWOOD FOREST 6 2ND CORR'}
+2025-07-20 09:45:14,583 - INFO - Found property data for ATTOM ID 165844580 for '10718 Cedar Creek Drive, Houston, TX 77042' using params: {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:45:14,583 - INFO - Calculated equity: Market Value $434,000, Total Loans $358,800, Equity $75,200, LTV 82.7%
+2025-07-20 09:45:14,583 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:14,583 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'OLUWASEYI A OKUWA', 'lastName': 'OKUWA ', 'firstNameAndMi': 'OLUWASEYI A'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10718 CEDAR CREEK DR, HOUSTON, TX 77042-2306'}
+2025-07-20 09:45:14,583 - INFO - Found assessment.tax section: {'taxAmt': 5813.3, 'taxPerSizeUnit': 2.0, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:14,583 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1967, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 6 BLK 18 WALNUT BEND SEC 6'}
+2025-07-20 09:45:14,613 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '12007 Paradise Valley Drive, Houston, TX 77066': {'attomid': 7003212}
+2025-07-20 09:45:14,613 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10718 Cedar Creek Drive, Houston, TX 77042': {'attomid': 165844580}
+2025-07-20 09:45:14,614 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'attomid': 4427094}
+2025-07-20 09:45:14,614 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for 'Houston, TX 77064': {'attomid': 241768179}
+2025-07-20 09:45:14,614 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1505 Commerce Street, Houston, TX 77002': {'attomid': 165784814}
+2025-07-20 09:45:14,615 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'attomid': 9313905}
+2025-07-20 09:45:14,615 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1514 Everett Street, Houston, TX 77009': {'attomid': 165237479}
+2025-07-20 09:45:14,616 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10326 Mist Lane, Houston, TX 77070': {'attomid': 36641930}
+2025-07-20 09:45:14,617 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '11355 Canyon Shore Drive, Humble, TX 77396': {'attomid': 35643644}
+2025-07-20 09:45:14,673 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,673 - INFO - Found ATTOM ownership data for '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:45:14,673 - INFO - Found ATTOM ownership data: {'owner_name': 'GORDON STEVE JR'}
+2025-07-20 09:45:14,673 - INFO - Successfully enriched '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:45:14,764 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,764 - INFO - Found ATTOM ownership data for '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:45:14,764 - INFO - Found ATTOM ownership data: {'owner_name': 'OLUWASEYI A OKUWA'}
+2025-07-20 09:45:14,764 - INFO - Successfully enriched '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:45:14,764 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,764 - INFO - Found ATTOM ownership data for '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:45:14,764 - INFO - Found ATTOM ownership data: {'owner_name': 'HANS J LEHMANN'}
+2025-07-20 09:45:14,764 - INFO - Successfully enriched '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:45:14,766 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,766 - INFO - Found ATTOM ownership data for '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:45:14,766 - INFO - Found ATTOM ownership data: {'owner_name': 'HARBOR HAMMOND PROPERTY LLC'}
+2025-07-20 09:45:14,766 - INFO - Successfully enriched '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:45:14,768 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,768 - INFO - Found ATTOM ownership data for 'Houston, TX 77064'
+2025-07-20 09:45:14,768 - INFO - Found ATTOM ownership data: {'owner_name': 'NORTH FAIRBANKS OWNER LP'}
+2025-07-20 09:45:14,768 - INFO - Successfully enriched 'Houston, TX 77064'
+2025-07-20 09:45:14,768 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,768 - INFO - Found ATTOM ownership data for '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:45:14,768 - INFO - Found ATTOM ownership data: {'owner_name': 'COUNTY HARRIS'}
+2025-07-20 09:45:14,768 - INFO - Successfully enriched '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:45:14,811 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,811 - INFO - Found ATTOM ownership data for '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:45:14,811 - INFO - Found ATTOM ownership data: {'owner_name': 'STEPHEN,CHERON P'}
+2025-07-20 09:45:14,811 - INFO - Successfully enriched '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:45:14,836 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,836 - INFO - Found ATTOM ownership data for '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:45:14,836 - INFO - Found ATTOM ownership data: {'owner_name': 'KELLEY KRUGER'}
+2025-07-20 09:45:14,836 - INFO - Successfully enriched '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:45:14,857 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,857 - INFO - Found ATTOM ownership data for '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:45:14,857 - INFO - Found ATTOM ownership data: {'owner_name': 'REYNA,ANTONIO & PATRICIA'}
+2025-07-20 09:45:14,857 - INFO - Successfully enriched '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:45:14,900 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:14,900 - INFO - Found ATTOM ownership data for '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:45:14,900 - INFO - Found ATTOM ownership data: {'owner_name': 'VICTOR RODGERS'}
+2025-07-20 09:45:14,900 - INFO - Successfully enriched '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:45:14,900 - INFO - Completed batch enrichment. 10 results generated.
+2025-07-20 09:45:14,908 - INFO - Saved 10 enriched records to C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1753026313244.csv
+2025-07-20 09:45:28,390 - INFO - Using Google Maps for address validation
+2025-07-20 09:45:28,392 - INFO - Loaded 10 addresses from C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_LPH_1753026327789.csv
+2025-07-20 09:45:28,392 - INFO - Address validation methods available: Google Maps, USPS
+2025-07-20 09:45:28,392 - INFO - Starting batch enrichment of 10 addresses with max concurrency 10
+2025-07-20 09:45:28,501 - INFO - Google Maps validated: '1505 Commerce Street, Houston, TX 77002' -> '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:45:28,502 - INFO - ATTOM API attempt 1 for '1505 Commerce Street, Houston, TX 77002': {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:45:28,502 - INFO - Google Maps validated: '1514 Everett Street, Houston, TX 77009' -> '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:45:28,504 - INFO - Google Maps validated: '15843 Fleetwood Oaks Drive, Houston, TX 77079' -> '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:45:28,511 - INFO - Google Maps validated: '11355 Canyon Shore Drive, Humble, TX 77396' -> '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:45:28,512 - INFO - Google Maps validated: '10718 Cedar Creek Drive, Houston, TX 77042' -> '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:45:28,513 - INFO - Google Maps validated: '10326 Mist Lane, Houston, TX 77070' -> '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:45:28,513 - INFO - Google Maps validated: 'Houston, TX 77064' -> 'Houston, TX 77064'
+2025-07-20 09:45:28,514 - INFO - Google Maps validated: '13007 Cherton Court, Houston, TX 77045' -> '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:45:28,534 - INFO - Google Maps validated: '12007 Paradise Valley Drive, Houston, TX 77066' -> '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:45:28,550 - INFO - Google Maps validated: '13718 Sherburn Manor Dr, Cypress, TX 77429' -> '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:45:28,596 - INFO - ATTOM API attempt 1 for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:45:28,597 - INFO - ATTOM API attempt 1 for '12007 Paradise Valley Drive, Houston, TX 77066': {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:45:28,597 - INFO - ATTOM API attempt 1 for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:45:28,597 - INFO - ATTOM API attempt 1 for '1514 Everett Street, Houston, TX 77009': {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:45:28,597 - INFO - ATTOM API attempt 1 for '13007 Cherton Court, Houston, TX 77045': {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:45:28,597 - INFO - ATTOM API attempt 1 for 'Houston, TX 77064': {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:45:28,598 - INFO - ATTOM API attempt 1 for '10326 Mist Lane, Houston, TX 77070': {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:45:28,598 - INFO - ATTOM API attempt 1 for '10718 Cedar Creek Drive, Houston, TX 77042': {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:45:28,598 - INFO - ATTOM API attempt 1 for '11355 Canyon Shore Drive, Humble, TX 77396': {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:45:28,869 - INFO - Found property data for ATTOM ID 165784814 for '1505 Commerce Street, Houston, TX 77002' using params: {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:45:28,869 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,869 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'COUNTY HARRIS', 'lastName': 'COUNTY HARRIS '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': 'PO BOX 1525, HOUSTON, TX 77251-1525'}
+2025-07-20 09:45:28,869 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-20 09:45:28,869 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'LTS 3 & 4 & TRS 5 THRU 13 BLK 8 SSBB'}
+2025-07-20 09:45:28,869 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1505 Commerce Street, Houston, TX 77002': {'attomid': 165784814}
+2025-07-20 09:45:28,959 - INFO - Found property data for ATTOM ID 36641930 for '10326 Mist Lane, Houston, TX 77070' using params: {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:45:28,959 - INFO - Calculated equity: Market Value $174,939, Total Loans $79,900, Equity $95,039, LTV 45.7%
+2025-07-20 09:45:28,959 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,960 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'REYNA,ANTONIO & PATRICIA'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10326 MIST LN, HOUSTON, TX 77070-4740'}
+2025-07-20 09:45:28,960 - INFO - Found assessment.tax section: {'taxAmt': 941.14, 'taxPerSizeUnit': 0.92, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:28,960 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1983, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'W 22.44 FT LT 20 & E 26.94 FT LT 21 BLK 22 TALLOW WOOD SEC 3 R/P'}
+2025-07-20 09:45:28,965 - INFO - Found property data for ATTOM ID 165237479 for '1514 Everett Street, Houston, TX 77009' using params: {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:45:28,965 - INFO - Calculated equity: Market Value $421,375, Total Loans $280,000, Equity $141,375, LTV 66.4%
+2025-07-20 09:45:28,965 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,965 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARBOR HAMMOND PROPERTY LLC', 'lastName': 'HARBOR HAMMOND PROPERTY LLC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '1514 EVERETT ST, HOUSTON, TX 77009-8824'}
+2025-07-20 09:45:28,965 - INFO - Found assessment.tax section: {'taxAmt': 8913.53, 'taxPerSizeUnit': 6.12, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:45:28,965 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Duplex, Triplex, Quadplex', 'propSubType': 'Residential', 'propType': 'DUPLEX', 'propertyType': 'DUPLEX (2 UNITS, ANY COMBINATION)', 'yearBuilt': 1900, 'propLandUse': 'DUPLEX', 'propIndicator': 21, 'legal1': 'LT 3 BLK 12 ALLEN A C'}
+2025-07-20 09:45:28,965 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10326 Mist Lane, Houston, TX 77070': {'attomid': 36641930}
+2025-07-20 09:45:28,966 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1514 Everett Street, Houston, TX 77009': {'attomid': 165237479}
+2025-07-20 09:45:28,981 - INFO - Found property data for ATTOM ID 35643644 for '11355 Canyon Shore Drive, Humble, TX 77396' using params: {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:45:28,981 - INFO - Calculated equity: Market Value $220,601, Total Loans $256,000, Equity $-35,399, LTV 116.0%
+2025-07-20 09:45:28,981 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,981 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'VICTOR RODGERS', 'lastName': 'RODGERS ', 'firstNameAndMi': 'VICTOR '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '11355 CANYON SHORE DR, HUMBLE, TX 77396-6007'}
+2025-07-20 09:45:28,981 - INFO - Found assessment.tax section: {'taxAmt': 1876.15, 'taxPerSizeUnit': 1.02, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:45:28,981 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2005, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 34 BLK 1 SUNSET RIDGE SEC 1'}
+2025-07-20 09:45:28,990 - INFO - Found property data for ATTOM ID 7003212 for '12007 Paradise Valley Drive, Houston, TX 77066' using params: {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:45:28,990 - INFO - Calculated equity: Market Value $310,705, Total Loans $159,000, Equity $151,705, LTV 51.2%
+2025-07-20 09:45:28,990 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,990 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'STEPHEN,CHERON P'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '12007 PARADISE VALLEY DR, HOUSTON, TX 77066-2717'}
+2025-07-20 09:45:28,990 - INFO - Found assessment.tax section: {'taxAmt': 3833.58, 'taxPerSizeUnit': 1.26, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:28,991 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1974, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 39 BLK 45 017*G6652900-006-045-039 GREENWOOD FOREST 6 2ND CORR'}
+2025-07-20 09:45:28,993 - INFO - Found property data for ATTOM ID 241768179 for 'Houston, TX 77064' using params: {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:45:28,993 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,993 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'NORTH FAIRBANKS OWNER LP', 'lastName': 'NORTH FAIRBANKS OWNER LP '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '1900 WEST LOOP S STE 1300, HOUSTON, TX 77027-3218'}
+2025-07-20 09:45:28,993 - INFO - Found assessment.tax section: {'taxAmt': 54.11, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:45:28,993 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Vacant', 'propSubType': 'Residential', 'propType': 'RESIDENTIAL - VACANT LAND', 'propertyType': 'RESIDENTIAL - VACANT LAND', 'propLandUse': 'RESIDENTIAL - VACANT LAND', 'propIndicator': 80, 'legal1': 'LTS 11 12 & 13 BLK 56 NORTH HOUSTON'}
+2025-07-20 09:45:28,996 - INFO - Found property data for ATTOM ID 4931390 for '13007 Cherton Court, Houston, TX 77045' using params: {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:45:28,996 - INFO - Calculated equity: Market Value $230,681, Total Loans $115,905, Equity $114,776, LTV 50.2%
+2025-07-20 09:45:28,996 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:28,996 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'GORDON STEVE JR', 'lastName': 'STEVE JR', 'firstNameAndMi': 'GORDON '}, 'owner2': {'fullName': 'QIANA N JR', 'lastName': 'JR ', 'firstNameAndMi': 'QIANA N'}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13007 CHERTON CT, HOUSTON, TX 77045-1725'}
+2025-07-20 09:45:28,996 - INFO - Found assessment.tax section: {'taxAmt': 2027.39, 'taxPerSizeUnit': 1.31, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:28,996 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 41 BLK 1 BRENTWOOD PARK'}
+2025-07-20 09:45:29,011 - INFO - Found property data for ATTOM ID 4427094 for '15843 Fleetwood Oaks Drive, Houston, TX 77079' using params: {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:45:29,011 - INFO - Calculated equity: Market Value $460,542, Total Loans $201,400, Equity $259,142, LTV 43.7%
+2025-07-20 09:45:29,011 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:29,011 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'HANS J LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'HANS J'}, 'owner2': {}, 'owner3': {'fullName': 'JANET LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'JANET '}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '15843 FLEETWOOD OAKS DR, HOUSTON, TX 77079-2404'}
+2025-07-20 09:45:29,011 - INFO - Found assessment.tax section: {'taxAmt': 1428.27, 'taxPerSizeUnit': 0.6, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:29,011 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1976, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 38 BLK 3 FLEETWOOD SEC 1'}
+2025-07-20 09:45:29,026 - INFO - Found property data for ATTOM ID 165844580 for '10718 Cedar Creek Drive, Houston, TX 77042' using params: {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:45:29,026 - INFO - Calculated equity: Market Value $434,000, Total Loans $358,800, Equity $75,200, LTV 82.7%
+2025-07-20 09:45:29,026 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:29,026 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'OLUWASEYI A OKUWA', 'lastName': 'OKUWA ', 'firstNameAndMi': 'OLUWASEYI A'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10718 CEDAR CREEK DR, HOUSTON, TX 77042-2306'}
+2025-07-20 09:45:29,026 - INFO - Found assessment.tax section: {'taxAmt': 5813.3, 'taxPerSizeUnit': 2.0, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:29,027 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1967, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 6 BLK 18 WALNUT BEND SEC 6'}
+2025-07-20 09:45:29,045 - INFO - Found property data for ATTOM ID 9313905 for '13718 Sherburn Manor Dr, Cypress, TX 77429' using params: {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:45:29,045 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:45:29,045 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'KELLEY KRUGER', 'lastName': 'KRUGER ', 'firstNameAndMi': 'KELLEY '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13718 SHERBURN MANOR DR, CYPRESS, TX 77429-8165'}
+2025-07-20 09:45:29,045 - INFO - Found assessment.tax section: {'taxAmt': 2230.36, 'taxPerSizeUnit': 0.85, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:45:29,045 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2002, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 3 BLK 2 COLES CROSSING SEC 15'}
+2025-07-20 09:45:29,071 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'attomid': 9313905}
+2025-07-20 09:45:29,071 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '11355 Canyon Shore Drive, Humble, TX 77396': {'attomid': 35643644}
+2025-07-20 09:45:29,072 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10718 Cedar Creek Drive, Houston, TX 77042': {'attomid': 165844580}
+2025-07-20 09:45:29,072 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13007 Cherton Court, Houston, TX 77045': {'attomid': 4931390}
+2025-07-20 09:45:29,072 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'attomid': 4427094}
+2025-07-20 09:45:29,072 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for 'Houston, TX 77064': {'attomid': 241768179}
+2025-07-20 09:45:29,074 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '12007 Paradise Valley Drive, Houston, TX 77066': {'attomid': 7003212}
+2025-07-20 09:45:29,096 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,096 - INFO - Found ATTOM ownership data for '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:45:29,096 - INFO - Found ATTOM ownership data: {'owner_name': 'COUNTY HARRIS'}
+2025-07-20 09:45:29,096 - INFO - Successfully enriched '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:45:29,163 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,163 - INFO - Found ATTOM ownership data for '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:45:29,163 - INFO - Found ATTOM ownership data: {'owner_name': 'REYNA,ANTONIO & PATRICIA'}
+2025-07-20 09:45:29,163 - INFO - Successfully enriched '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:45:29,194 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,194 - INFO - Found ATTOM ownership data for '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:45:29,194 - INFO - Found ATTOM ownership data: {'owner_name': 'HARBOR HAMMOND PROPERTY LLC'}
+2025-07-20 09:45:29,194 - INFO - Successfully enriched '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:45:29,217 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,217 - INFO - Found ATTOM ownership data for '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:45:29,217 - INFO - Found ATTOM ownership data: {'owner_name': 'HANS J LEHMANN'}
+2025-07-20 09:45:29,219 - INFO - Successfully enriched '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:45:29,225 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,225 - INFO - Found ATTOM ownership data for '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:45:29,225 - INFO - Found ATTOM ownership data: {'owner_name': 'OLUWASEYI A OKUWA'}
+2025-07-20 09:45:29,225 - INFO - Successfully enriched '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:45:29,226 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,226 - INFO - Found ATTOM ownership data for '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:45:29,226 - INFO - Found ATTOM ownership data: {'owner_name': 'KELLEY KRUGER'}
+2025-07-20 09:45:29,226 - INFO - Successfully enriched '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:45:29,239 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,239 - INFO - Found ATTOM ownership data for '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:45:29,239 - INFO - Found ATTOM ownership data: {'owner_name': 'VICTOR RODGERS'}
+2025-07-20 09:45:29,239 - INFO - Successfully enriched '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:45:29,262 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,262 - INFO - Found ATTOM ownership data for '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:45:29,262 - INFO - Found ATTOM ownership data: {'owner_name': 'STEPHEN,CHERON P'}
+2025-07-20 09:45:29,262 - INFO - Successfully enriched '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:45:29,271 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,271 - INFO - Found ATTOM ownership data for '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:45:29,272 - INFO - Found ATTOM ownership data: {'owner_name': 'GORDON STEVE JR'}
+2025-07-20 09:45:29,272 - INFO - Successfully enriched '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:45:29,290 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:45:29,290 - INFO - Found ATTOM ownership data for 'Houston, TX 77064'
+2025-07-20 09:45:29,290 - INFO - Found ATTOM ownership data: {'owner_name': 'NORTH FAIRBANKS OWNER LP'}
+2025-07-20 09:45:29,290 - INFO - Successfully enriched 'Houston, TX 77064'
+2025-07-20 09:45:29,290 - INFO - Completed batch enrichment. 10 results generated.
+2025-07-20 09:45:29,295 - INFO - Saved 10 enriched records to C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1753026327790.csv
+2025-07-20 09:47:41,753 - INFO - Using Google Maps for address validation
+2025-07-20 09:47:41,755 - INFO - Loaded 10 addresses from C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_LPH_1753026461128.csv
+2025-07-20 09:47:41,755 - INFO - Address validation methods available: Google Maps, USPS
+2025-07-20 09:47:41,755 - INFO - Starting batch enrichment of 10 addresses with max concurrency 10
+2025-07-20 09:47:41,911 - INFO - Google Maps validated: '11355 Canyon Shore Drive, Humble, TX 77396' -> '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:47:41,912 - INFO - ATTOM API attempt 1 for '11355 Canyon Shore Drive, Humble, TX 77396': {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:47:41,914 - INFO - Google Maps validated: '10326 Mist Lane, Houston, TX 77070' -> '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:47:41,915 - INFO - Google Maps validated: '10718 Cedar Creek Drive, Houston, TX 77042' -> '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:47:41,915 - INFO - Google Maps validated: '13007 Cherton Court, Houston, TX 77045' -> '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:47:41,919 - INFO - Google Maps validated: '12007 Paradise Valley Drive, Houston, TX 77066' -> '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:47:41,925 - INFO - Google Maps validated: '1505 Commerce Street, Houston, TX 77002' -> '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:47:41,933 - INFO - Google Maps validated: 'Houston, TX 77064' -> 'Houston, TX 77064'
+2025-07-20 09:47:41,934 - INFO - Google Maps validated: '1514 Everett Street, Houston, TX 77009' -> '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:47:41,944 - INFO - Google Maps validated: '15843 Fleetwood Oaks Drive, Houston, TX 77079' -> '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:47:41,958 - INFO - Google Maps validated: '13718 Sherburn Manor Dr, Cypress, TX 77429' -> '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:47:41,992 - INFO - ATTOM API attempt 1 for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:47:41,993 - INFO - ATTOM API attempt 1 for '1505 Commerce Street, Houston, TX 77002': {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:47:41,993 - INFO - ATTOM API attempt 1 for '12007 Paradise Valley Drive, Houston, TX 77066': {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:47:42,015 - INFO - ATTOM API attempt 1 for 'Houston, TX 77064': {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:47:42,016 - INFO - ATTOM API attempt 1 for '1514 Everett Street, Houston, TX 77009': {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:47:42,017 - INFO - ATTOM API attempt 1 for '10718 Cedar Creek Drive, Houston, TX 77042': {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:47:42,017 - INFO - ATTOM API attempt 1 for '13007 Cherton Court, Houston, TX 77045': {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:47:42,017 - INFO - ATTOM API attempt 1 for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:47:42,017 - INFO - ATTOM API attempt 1 for '10326 Mist Lane, Houston, TX 77070': {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:47:42,341 - INFO - Found property data for ATTOM ID 35643644 for '11355 Canyon Shore Drive, Humble, TX 77396' using params: {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:47:42,341 - INFO - Calculated equity: Market Value $220,601, Total Loans $256,000, Equity $-35,399, LTV 116.0%
+2025-07-20 09:47:42,341 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,341 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'VICTOR RODGERS', 'lastName': 'RODGERS ', 'firstNameAndMi': 'VICTOR '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '11355 CANYON SHORE DR, HUMBLE, TX 77396-6007'}
+2025-07-20 09:47:42,341 - INFO - Found assessment.tax section: {'taxAmt': 1876.15, 'taxPerSizeUnit': 1.02, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:47:42,341 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2005, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 34 BLK 1 SUNSET RIDGE SEC 1'}
+2025-07-20 09:47:42,341 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '11355 Canyon Shore Drive, Humble, TX 77396': {'attomid': 35643644}
+2025-07-20 09:47:42,370 - INFO - Found property data for ATTOM ID 9313905 for '13718 Sherburn Manor Dr, Cypress, TX 77429' using params: {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:47:42,370 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,371 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'KELLEY KRUGER', 'lastName': 'KRUGER ', 'firstNameAndMi': 'KELLEY '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13718 SHERBURN MANOR DR, CYPRESS, TX 77429-8165'}
+2025-07-20 09:47:42,371 - INFO - Found assessment.tax section: {'taxAmt': 2230.36, 'taxPerSizeUnit': 0.85, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:42,371 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2002, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 3 BLK 2 COLES CROSSING SEC 15'}
+2025-07-20 09:47:42,388 - INFO - Found property data for ATTOM ID 4427094 for '15843 Fleetwood Oaks Drive, Houston, TX 77079' using params: {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:47:42,388 - INFO - Calculated equity: Market Value $460,542, Total Loans $201,400, Equity $259,142, LTV 43.7%
+2025-07-20 09:47:42,389 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,389 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'HANS J LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'HANS J'}, 'owner2': {}, 'owner3': {'fullName': 'JANET LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'JANET '}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '15843 FLEETWOOD OAKS DR, HOUSTON, TX 77079-2404'}
+2025-07-20 09:47:42,389 - INFO - Found assessment.tax section: {'taxAmt': 1428.27, 'taxPerSizeUnit': 0.6, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:42,389 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1976, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 38 BLK 3 FLEETWOOD SEC 1'}
+2025-07-20 09:47:42,412 - INFO - Found property data for ATTOM ID 241768179 for 'Houston, TX 77064' using params: {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:47:42,412 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,412 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'NORTH FAIRBANKS OWNER LP', 'lastName': 'NORTH FAIRBANKS OWNER LP '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '1900 WEST LOOP S STE 1300, HOUSTON, TX 77027-3218'}
+2025-07-20 09:47:42,414 - INFO - Found assessment.tax section: {'taxAmt': 54.11, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:47:42,414 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Vacant', 'propSubType': 'Residential', 'propType': 'RESIDENTIAL - VACANT LAND', 'propertyType': 'RESIDENTIAL - VACANT LAND', 'propLandUse': 'RESIDENTIAL - VACANT LAND', 'propIndicator': 80, 'legal1': 'LTS 11 12 & 13 BLK 56 NORTH HOUSTON'}
+2025-07-20 09:47:42,434 - INFO - Found property data for ATTOM ID 7003212 for '12007 Paradise Valley Drive, Houston, TX 77066' using params: {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:47:42,434 - INFO - Calculated equity: Market Value $310,705, Total Loans $159,000, Equity $151,705, LTV 51.2%
+2025-07-20 09:47:42,434 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,435 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'STEPHEN,CHERON P'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '12007 PARADISE VALLEY DR, HOUSTON, TX 77066-2717'}
+2025-07-20 09:47:42,435 - INFO - Found assessment.tax section: {'taxAmt': 3833.58, 'taxPerSizeUnit': 1.26, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:42,435 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1974, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 39 BLK 45 017*G6652900-006-045-039 GREENWOOD FOREST 6 2ND CORR'}
+2025-07-20 09:47:42,435 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'attomid': 4427094}
+2025-07-20 09:47:42,435 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'attomid': 9313905}
+2025-07-20 09:47:42,435 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for 'Houston, TX 77064': {'attomid': 241768179}
+2025-07-20 09:47:42,435 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '12007 Paradise Valley Drive, Houston, TX 77066': {'attomid': 7003212}
+2025-07-20 09:47:42,450 - INFO - Found property data for ATTOM ID 4931390 for '13007 Cherton Court, Houston, TX 77045' using params: {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:47:42,450 - INFO - Calculated equity: Market Value $230,681, Total Loans $115,905, Equity $114,776, LTV 50.2%
+2025-07-20 09:47:42,450 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,450 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'GORDON STEVE JR', 'lastName': 'STEVE JR', 'firstNameAndMi': 'GORDON '}, 'owner2': {'fullName': 'QIANA N JR', 'lastName': 'JR ', 'firstNameAndMi': 'QIANA N'}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13007 CHERTON CT, HOUSTON, TX 77045-1725'}
+2025-07-20 09:47:42,450 - INFO - Found assessment.tax section: {'taxAmt': 2027.39, 'taxPerSizeUnit': 1.31, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:42,450 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 41 BLK 1 BRENTWOOD PARK'}
+2025-07-20 09:47:42,457 - INFO - Found property data for ATTOM ID 165237479 for '1514 Everett Street, Houston, TX 77009' using params: {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:47:42,457 - INFO - Calculated equity: Market Value $421,375, Total Loans $280,000, Equity $141,375, LTV 66.4%
+2025-07-20 09:47:42,457 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,457 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARBOR HAMMOND PROPERTY LLC', 'lastName': 'HARBOR HAMMOND PROPERTY LLC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '1514 EVERETT ST, HOUSTON, TX 77009-8824'}
+2025-07-20 09:47:42,457 - INFO - Found assessment.tax section: {'taxAmt': 8913.53, 'taxPerSizeUnit': 6.12, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:47:42,457 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Duplex, Triplex, Quadplex', 'propSubType': 'Residential', 'propType': 'DUPLEX', 'propertyType': 'DUPLEX (2 UNITS, ANY COMBINATION)', 'yearBuilt': 1900, 'propLandUse': 'DUPLEX', 'propIndicator': 21, 'legal1': 'LT 3 BLK 12 ALLEN A C'}
+2025-07-20 09:47:42,538 - INFO - Found property data for ATTOM ID 165844580 for '10718 Cedar Creek Drive, Houston, TX 77042' using params: {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:47:42,538 - INFO - Calculated equity: Market Value $434,000, Total Loans $358,800, Equity $75,200, LTV 82.7%
+2025-07-20 09:47:42,538 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,538 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'OLUWASEYI A OKUWA', 'lastName': 'OKUWA ', 'firstNameAndMi': 'OLUWASEYI A'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10718 CEDAR CREEK DR, HOUSTON, TX 77042-2306'}
+2025-07-20 09:47:42,538 - INFO - Found assessment.tax section: {'taxAmt': 5813.3, 'taxPerSizeUnit': 2.0, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:42,538 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1967, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 6 BLK 18 WALNUT BEND SEC 6'}
+2025-07-20 09:47:42,538 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10718 Cedar Creek Drive, Houston, TX 77042': {'attomid': 165844580}
+2025-07-20 09:47:42,539 - INFO - Found property data for ATTOM ID 165784814 for '1505 Commerce Street, Houston, TX 77002' using params: {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:47:42,539 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,539 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'COUNTY HARRIS', 'lastName': 'COUNTY HARRIS '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': 'PO BOX 1525, HOUSTON, TX 77251-1525'}
+2025-07-20 09:47:42,539 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-20 09:47:42,539 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'LTS 3 & 4 & TRS 5 THRU 13 BLK 8 SSBB'}
+2025-07-20 09:47:42,539 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1514 Everett Street, Houston, TX 77009': {'attomid': 165237479}
+2025-07-20 09:47:42,539 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13007 Cherton Court, Houston, TX 77045': {'attomid': 4931390}
+2025-07-20 09:47:42,572 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,572 - INFO - Found ATTOM ownership data for '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:47:42,572 - INFO - Found ATTOM ownership data: {'owner_name': 'VICTOR RODGERS'}
+2025-07-20 09:47:42,572 - INFO - Successfully enriched '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:47:42,572 - INFO - Found property data for ATTOM ID 36641930 for '10326 Mist Lane, Houston, TX 77070' using params: {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:47:42,572 - INFO - Calculated equity: Market Value $174,939, Total Loans $79,900, Equity $95,039, LTV 45.7%
+2025-07-20 09:47:42,572 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:42,572 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'REYNA,ANTONIO & PATRICIA'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10326 MIST LN, HOUSTON, TX 77070-4740'}
+2025-07-20 09:47:42,572 - INFO - Found assessment.tax section: {'taxAmt': 941.14, 'taxPerSizeUnit': 0.92, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:42,572 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1983, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'W 22.44 FT LT 20 & E 26.94 FT LT 21 BLK 22 TALLOW WOOD SEC 3 R/P'}
+2025-07-20 09:47:42,595 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,596 - INFO - Found ATTOM ownership data for 'Houston, TX 77064'
+2025-07-20 09:47:42,596 - INFO - Found ATTOM ownership data: {'owner_name': 'NORTH FAIRBANKS OWNER LP'}
+2025-07-20 09:47:42,596 - INFO - Successfully enriched 'Houston, TX 77064'
+2025-07-20 09:47:42,650 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10326 Mist Lane, Houston, TX 77070': {'attomid': 36641930}
+2025-07-20 09:47:42,650 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1505 Commerce Street, Houston, TX 77002': {'attomid': 165784814}
+2025-07-20 09:47:42,666 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,666 - INFO - Found ATTOM ownership data for '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:47:42,666 - INFO - Found ATTOM ownership data: {'owner_name': 'HANS J LEHMANN'}
+2025-07-20 09:47:42,666 - INFO - Successfully enriched '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:47:42,692 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,692 - INFO - Found ATTOM ownership data for '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:47:42,692 - INFO - Found ATTOM ownership data: {'owner_name': 'GORDON STEVE JR'}
+2025-07-20 09:47:42,692 - INFO - Successfully enriched '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:47:42,693 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,693 - INFO - Found ATTOM ownership data for '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:47:42,693 - INFO - Found ATTOM ownership data: {'owner_name': 'OLUWASEYI A OKUWA'}
+2025-07-20 09:47:42,693 - INFO - Successfully enriched '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:47:42,721 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,721 - INFO - Found ATTOM ownership data for '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:47:42,721 - INFO - Found ATTOM ownership data: {'owner_name': 'STEPHEN,CHERON P'}
+2025-07-20 09:47:42,721 - INFO - Successfully enriched '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:47:42,774 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,774 - INFO - Found ATTOM ownership data for '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:47:42,774 - INFO - Found ATTOM ownership data: {'owner_name': 'KELLEY KRUGER'}
+2025-07-20 09:47:42,774 - INFO - Successfully enriched '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:47:42,788 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,788 - INFO - Found ATTOM ownership data for '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:47:42,789 - INFO - Found ATTOM ownership data: {'owner_name': 'HARBOR HAMMOND PROPERTY LLC'}
+2025-07-20 09:47:42,789 - INFO - Successfully enriched '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:47:42,879 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,879 - INFO - Found ATTOM ownership data for '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:47:42,880 - INFO - Found ATTOM ownership data: {'owner_name': 'COUNTY HARRIS'}
+2025-07-20 09:47:42,880 - INFO - Successfully enriched '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:47:42,911 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:42,911 - INFO - Found ATTOM ownership data for '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:47:42,911 - INFO - Found ATTOM ownership data: {'owner_name': 'REYNA,ANTONIO & PATRICIA'}
+2025-07-20 09:47:42,911 - INFO - Successfully enriched '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:47:42,911 - INFO - Completed batch enrichment. 10 results generated.
+2025-07-20 09:47:42,916 - INFO - Saved 10 enriched records to C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1753026461129.csv
+2025-07-20 09:47:56,900 - INFO - Using Google Maps for address validation
+2025-07-20 09:47:56,902 - INFO - Loaded 10 addresses from C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_LPH_1753026476271.csv
+2025-07-20 09:47:56,902 - INFO - Address validation methods available: Google Maps, USPS
+2025-07-20 09:47:56,902 - INFO - Starting batch enrichment of 10 addresses with max concurrency 10
+2025-07-20 09:47:57,024 - INFO - Google Maps validated: 'Houston, TX 77064' -> 'Houston, TX 77064'
+2025-07-20 09:47:57,025 - INFO - ATTOM API attempt 1 for 'Houston, TX 77064': {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:47:57,025 - INFO - Google Maps validated: '15843 Fleetwood Oaks Drive, Houston, TX 77079' -> '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:47:57,040 - INFO - Google Maps validated: '1505 Commerce Street, Houston, TX 77002' -> '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:47:57,040 - INFO - Google Maps validated: '13007 Cherton Court, Houston, TX 77045' -> '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:47:57,044 - INFO - Google Maps validated: '10718 Cedar Creek Drive, Houston, TX 77042' -> '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:47:57,044 - INFO - Google Maps validated: '12007 Paradise Valley Drive, Houston, TX 77066' -> '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:47:57,044 - INFO - Google Maps validated: '10326 Mist Lane, Houston, TX 77070' -> '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:47:57,054 - INFO - Google Maps validated: '13718 Sherburn Manor Dr, Cypress, TX 77429' -> '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:47:57,058 - INFO - Google Maps validated: '1514 Everett Street, Houston, TX 77009' -> '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:47:57,058 - INFO - Google Maps validated: '11355 Canyon Shore Drive, Humble, TX 77396' -> '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:47:57,117 - INFO - ATTOM API attempt 1 for '10718 Cedar Creek Drive, Houston, TX 77042': {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:47:57,117 - INFO - ATTOM API attempt 1 for '12007 Paradise Valley Drive, Houston, TX 77066': {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:47:57,117 - INFO - ATTOM API attempt 1 for '10326 Mist Lane, Houston, TX 77070': {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:47:57,117 - INFO - ATTOM API attempt 1 for '1514 Everett Street, Houston, TX 77009': {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:47:57,117 - INFO - ATTOM API attempt 1 for '11355 Canyon Shore Drive, Humble, TX 77396': {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:47:57,118 - INFO - ATTOM API attempt 1 for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:47:57,118 - INFO - ATTOM API attempt 1 for '1505 Commerce Street, Houston, TX 77002': {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:47:57,118 - INFO - ATTOM API attempt 1 for '13007 Cherton Court, Houston, TX 77045': {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:47:57,118 - INFO - ATTOM API attempt 1 for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:47:57,389 - INFO - Found property data for ATTOM ID 241768179 for 'Houston, TX 77064' using params: {'address1': 'Houston', 'address2': 'TX 77064'}
+2025-07-20 09:47:57,390 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,390 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'NORTH FAIRBANKS OWNER LP', 'lastName': 'NORTH FAIRBANKS OWNER LP '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'A', 'mailingAddressOneLine': '1900 WEST LOOP S STE 1300, HOUSTON, TX 77027-3218'}
+2025-07-20 09:47:57,390 - INFO - Found assessment.tax section: {'taxAmt': 54.11, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:47:57,390 - INFO - Found summary section: {'absenteeInd': 'ABSENTEE(MAIL AND SITUS NOT =)', 'propClass': 'Vacant', 'propSubType': 'Residential', 'propType': 'RESIDENTIAL - VACANT LAND', 'propertyType': 'RESIDENTIAL - VACANT LAND', 'propLandUse': 'RESIDENTIAL - VACANT LAND', 'propIndicator': 80, 'legal1': 'LTS 11 12 & 13 BLK 56 NORTH HOUSTON'}
+2025-07-20 09:47:57,390 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for 'Houston, TX 77064': {'attomid': 241768179}
+2025-07-20 09:47:57,494 - INFO - Found property data for ATTOM ID 36641930 for '10326 Mist Lane, Houston, TX 77070' using params: {'address1': '10326 Mist Lane', 'address2': 'Houston, TX 77070'}
+2025-07-20 09:47:57,494 - INFO - Calculated equity: Market Value $174,939, Total Loans $79,900, Equity $95,039, LTV 45.7%
+2025-07-20 09:47:57,494 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,494 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'REYNA,ANTONIO & PATRICIA'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10326 MIST LN, HOUSTON, TX 77070-4740'}
+2025-07-20 09:47:57,494 - INFO - Found assessment.tax section: {'taxAmt': 941.14, 'taxPerSizeUnit': 0.92, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:57,494 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1983, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'W 22.44 FT LT 20 & E 26.94 FT LT 21 BLK 22 TALLOW WOOD SEC 3 R/P'}
+2025-07-20 09:47:57,494 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10326 Mist Lane, Houston, TX 77070': {'attomid': 36641930}
+2025-07-20 09:47:57,497 - INFO - Found property data for ATTOM ID 165784814 for '1505 Commerce Street, Houston, TX 77002' using params: {'address1': '1505 Commerce Street', 'address2': 'Houston, TX 77002'}
+2025-07-20 09:47:57,497 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,497 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'COUNTY HARRIS', 'lastName': 'COUNTY HARRIS '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': 'PO BOX 1525, HOUSTON, TX 77251-1525'}
+2025-07-20 09:47:57,498 - INFO - Found assessment.tax section: {'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Additional': 'Y'}}
+2025-07-20 09:47:57,498 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Exempt', 'propSubType': 'PUBLIC WORKS', 'propType': 'PUBLIC (NEC)', 'propertyType': 'GOVERNMENTAL / PUBLIC USE (GENERAL)', 'propLandUse': 'PUBLIC (NEC)', 'propIndicator': 90, 'legal1': 'LTS 3 & 4 & TRS 5 THRU 13 BLK 8 SSBB'}
+2025-07-20 09:47:57,498 - INFO - Found property data for ATTOM ID 165844580 for '10718 Cedar Creek Drive, Houston, TX 77042' using params: {'address1': '10718 Cedar Creek Drive', 'address2': 'Houston, TX 77042'}
+2025-07-20 09:47:57,498 - INFO - Calculated equity: Market Value $434,000, Total Loans $358,800, Equity $75,200, LTV 82.7%
+2025-07-20 09:47:57,498 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,498 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'OLUWASEYI A OKUWA', 'lastName': 'OKUWA ', 'firstNameAndMi': 'OLUWASEYI A'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '10718 CEDAR CREEK DR, HOUSTON, TX 77042-2306'}
+2025-07-20 09:47:57,498 - INFO - Found assessment.tax section: {'taxAmt': 5813.3, 'taxPerSizeUnit': 2.0, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:57,498 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1967, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 6 BLK 18 WALNUT BEND SEC 6'}
+2025-07-20 09:47:57,512 - INFO - Found property data for ATTOM ID 4427094 for '15843 Fleetwood Oaks Drive, Houston, TX 77079' using params: {'address1': '15843 Fleetwood Oaks Drive', 'address2': 'Houston, TX 77079'}
+2025-07-20 09:47:57,512 - INFO - Calculated equity: Market Value $460,542, Total Loans $201,400, Equity $259,142, LTV 43.7%
+2025-07-20 09:47:57,512 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,512 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'HANS J LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'HANS J'}, 'owner2': {}, 'owner3': {'fullName': 'JANET LEHMANN', 'lastName': 'LEHMANN ', 'firstNameAndMi': 'JANET '}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '15843 FLEETWOOD OAKS DR, HOUSTON, TX 77079-2404'}
+2025-07-20 09:47:57,512 - INFO - Found assessment.tax section: {'taxAmt': 1428.27, 'taxPerSizeUnit': 0.6, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:57,512 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1976, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 38 BLK 3 FLEETWOOD SEC 1'}
+2025-07-20 09:47:57,559 - INFO - Found property data for ATTOM ID 35643644 for '11355 Canyon Shore Drive, Humble, TX 77396' using params: {'address1': '11355 Canyon Shore Drive', 'address2': 'Humble, TX 77396'}
+2025-07-20 09:47:57,559 - INFO - Calculated equity: Market Value $220,601, Total Loans $256,000, Equity $-35,399, LTV 116.0%
+2025-07-20 09:47:57,559 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,559 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'VICTOR RODGERS', 'lastName': 'RODGERS ', 'firstNameAndMi': 'VICTOR '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '11355 CANYON SHORE DR, HUMBLE, TX 77396-6007'}
+2025-07-20 09:47:57,559 - INFO - Found assessment.tax section: {'taxAmt': 1876.15, 'taxPerSizeUnit': 1.02, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:47:57,559 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2005, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 34 BLK 1 SUNSET RIDGE SEC 1'}
+2025-07-20 09:47:57,589 - INFO - Found property data for ATTOM ID 4931390 for '13007 Cherton Court, Houston, TX 77045' using params: {'address1': '13007 Cherton Court', 'address2': 'Houston, TX 77045'}
+2025-07-20 09:47:57,589 - INFO - Calculated equity: Market Value $230,681, Total Loans $115,905, Equity $114,776, LTV 50.2%
+2025-07-20 09:47:57,589 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,589 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'GORDON STEVE JR', 'lastName': 'STEVE JR', 'firstNameAndMi': 'GORDON '}, 'owner2': {'fullName': 'QIANA N JR', 'lastName': 'JR ', 'firstNameAndMi': 'QIANA N'}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13007 CHERTON CT, HOUSTON, TX 77045-1725'}
+2025-07-20 09:47:57,590 - INFO - Found assessment.tax section: {'taxAmt': 2027.39, 'taxPerSizeUnit': 1.31, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:57,590 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2006, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 41 BLK 1 BRENTWOOD PARK'}
+2025-07-20 09:47:57,590 - INFO - Found property data for ATTOM ID 165237479 for '1514 Everett Street, Houston, TX 77009' using params: {'address1': '1514 Everett Street', 'address2': 'Houston, TX 77009'}
+2025-07-20 09:47:57,590 - INFO - Calculated equity: Market Value $421,375, Total Loans $280,000, Equity $141,375, LTV 66.4%
+2025-07-20 09:47:57,590 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,590 - INFO - Found assessment.owner section: {'corporateIndicator': 'Y', 'owner1': {'fullName': 'HARBOR HAMMOND PROPERTY LLC', 'lastName': 'HARBOR HAMMOND PROPERTY LLC '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '1514 EVERETT ST, HOUSTON, TX 77009-8824'}
+2025-07-20 09:47:57,590 - INFO - Found assessment.tax section: {'taxAmt': 8913.53, 'taxPerSizeUnit': 6.12, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {}}
+2025-07-20 09:47:57,590 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Duplex, Triplex, Quadplex', 'propSubType': 'Residential', 'propType': 'DUPLEX', 'propertyType': 'DUPLEX (2 UNITS, ANY COMBINATION)', 'yearBuilt': 1900, 'propLandUse': 'DUPLEX', 'propIndicator': 21, 'legal1': 'LT 3 BLK 12 ALLEN A C'}
+2025-07-20 09:47:57,590 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1505 Commerce Street, Houston, TX 77002': {'attomid': 165784814}
+2025-07-20 09:47:57,591 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '10718 Cedar Creek Drive, Houston, TX 77042': {'attomid': 165844580}
+2025-07-20 09:47:57,591 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '15843 Fleetwood Oaks Drive, Houston, TX 77079': {'attomid': 4427094}
+2025-07-20 09:47:57,591 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '11355 Canyon Shore Drive, Humble, TX 77396': {'attomid': 35643644}
+2025-07-20 09:47:57,592 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13007 Cherton Court, Houston, TX 77045': {'attomid': 4931390}
+2025-07-20 09:47:57,592 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '1514 Everett Street, Houston, TX 77009': {'attomid': 165237479}
+2025-07-20 09:47:57,657 - INFO - Found property data for ATTOM ID 7003212 for '12007 Paradise Valley Drive, Houston, TX 77066' using params: {'address1': '12007 Paradise Valley Drive', 'address2': 'Houston, TX 77066'}
+2025-07-20 09:47:57,658 - INFO - Calculated equity: Market Value $310,705, Total Loans $159,000, Equity $151,705, LTV 51.2%
+2025-07-20 09:47:57,658 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,658 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'STEPHEN,CHERON P'}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '12007 PARADISE VALLEY DR, HOUSTON, TX 77066-2717'}
+2025-07-20 09:47:57,658 - INFO - Found assessment.tax section: {'taxAmt': 3833.58, 'taxPerSizeUnit': 1.26, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:57,658 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 1974, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 39 BLK 45 017*G6652900-006-045-039 GREENWOOD FOREST 6 2ND CORR'}
+2025-07-20 09:47:57,696 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '12007 Paradise Valley Drive, Houston, TX 77066': {'attomid': 7003212}
+2025-07-20 09:47:57,711 - INFO - Found property data for ATTOM ID 9313905 for '13718 Sherburn Manor Dr, Cypress, TX 77429' using params: {'address1': '13718 Sherburn Manor Dr', 'address2': 'Cypress, TX 77429'}
+2025-07-20 09:47:57,711 - INFO - ATTOM response keys: ['identifier', 'lot', 'area', 'address', 'location', 'summary', 'utilities', 'sale', 'building', 'assessment', 'vintage']
+2025-07-20 09:47:57,711 - INFO - Found assessment.owner section: {'corporateIndicator': 'N', 'owner1': {'fullName': 'KELLEY KRUGER', 'lastName': 'KRUGER ', 'firstNameAndMi': 'KELLEY '}, 'owner2': {}, 'owner3': {}, 'owner4': {}, 'absenteeOwnerStatus': 'O', 'mailingAddressOneLine': '13718 SHERBURN MANOR DR, CYPRESS, TX 77429-8165'}
+2025-07-20 09:47:57,711 - INFO - Found assessment.tax section: {'taxAmt': 2230.36, 'taxPerSizeUnit': 0.85, 'taxYear': 2023.0, 'exemption': {}, 'exemptiontype': {'Homeowner': 'Y'}}
+2025-07-20 09:47:57,711 - INFO - Found summary section: {'absenteeInd': 'OWNER OCCUPIED', 'propClass': 'Single Family Residence / Townhouse', 'propSubType': 'Residential', 'propType': 'SFR', 'propertyType': 'SINGLE FAMILY RESIDENCE', 'yearBuilt': 2002, 'propLandUse': 'SFR', 'propIndicator': 10, 'legal1': 'LT 3 BLK 2 COLES CROSSING SEC 15'}
+2025-07-20 09:47:57,738 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,738 - INFO - Found ATTOM ownership data for '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:47:57,738 - INFO - Found ATTOM ownership data: {'owner_name': 'OLUWASEYI A OKUWA'}
+2025-07-20 09:47:57,738 - INFO - Successfully enriched '10718 Cedar Creek Drive, Houston, TX 77042'
+2025-07-20 09:47:57,758 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,758 - INFO - Found ATTOM ownership data for '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:47:57,758 - INFO - Found ATTOM ownership data: {'owner_name': 'GORDON STEVE JR'}
+2025-07-20 09:47:57,758 - INFO - Successfully enriched '13007 Cherton Court, Houston, TX 77045'
+2025-07-20 09:47:57,771 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,771 - INFO - Found ATTOM ownership data for 'Houston, TX 77064'
+2025-07-20 09:47:57,771 - INFO - Found ATTOM ownership data: {'owner_name': 'NORTH FAIRBANKS OWNER LP'}
+2025-07-20 09:47:57,771 - INFO - Successfully enriched 'Houston, TX 77064'
+2025-07-20 09:47:57,783 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,783 - INFO - Found ATTOM ownership data for '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:47:57,783 - INFO - Found ATTOM ownership data: {'owner_name': 'HARBOR HAMMOND PROPERTY LLC'}
+2025-07-20 09:47:57,783 - INFO - Successfully enriched '1514 Everett Street, Houston, TX 77009'
+2025-07-20 09:47:57,788 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,788 - INFO - Found ATTOM ownership data for '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:47:57,788 - INFO - Found ATTOM ownership data: {'owner_name': 'VICTOR RODGERS'}
+2025-07-20 09:47:57,788 - INFO - Successfully enriched '11355 Canyon Shore Drive, Humble, TX 77396'
+2025-07-20 09:47:57,788 - INFO - ATTOM Ownership API attempt 1 (basicprofile) for '13718 Sherburn Manor Dr, Cypress, TX 77429': {'attomid': 9313905}
+2025-07-20 09:47:57,796 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,796 - INFO - Found ATTOM ownership data for '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:47:57,796 - INFO - Found ATTOM ownership data: {'owner_name': 'COUNTY HARRIS'}
+2025-07-20 09:47:57,796 - INFO - Successfully enriched '1505 Commerce Street, Houston, TX 77002'
+2025-07-20 09:47:57,819 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,819 - INFO - Found ATTOM ownership data for '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:47:57,819 - INFO - Found ATTOM ownership data: {'owner_name': 'HANS J LEHMANN'}
+2025-07-20 09:47:57,819 - INFO - Successfully enriched '15843 Fleetwood Oaks Drive, Houston, TX 77079'
+2025-07-20 09:47:57,834 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,834 - INFO - Found ATTOM ownership data for '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:47:57,834 - INFO - Found ATTOM ownership data: {'owner_name': 'REYNA,ANTONIO & PATRICIA'}
+2025-07-20 09:47:57,834 - INFO - Successfully enriched '10326 Mist Lane, Houston, TX 77070'
+2025-07-20 09:47:57,852 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,852 - INFO - Found ATTOM ownership data for '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:47:57,852 - INFO - Found ATTOM ownership data: {'owner_name': 'STEPHEN,CHERON P'}
+2025-07-20 09:47:57,852 - INFO - Successfully enriched '12007 Paradise Valley Drive, Houston, TX 77066'
+2025-07-20 09:47:57,942 - INFO - Extracted ownership details: ['owner_name']
+2025-07-20 09:47:57,942 - INFO - Found ATTOM ownership data for '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:47:57,942 - INFO - Found ATTOM ownership data: {'owner_name': 'KELLEY KRUGER'}
+2025-07-20 09:47:57,942 - INFO - Successfully enriched '13718 Sherburn Manor Dr, Cypress, TX 77429'
+2025-07-20 09:47:57,942 - INFO - Completed batch enrichment. 10 results generated.
+2025-07-20 09:47:57,947 - INFO - Saved 10 enriched records to C:\Users\tmbor\Countypuller\Chatbot\cc-frontend\scripts\temp\hot20_output_LPH_1753026476271.csv
