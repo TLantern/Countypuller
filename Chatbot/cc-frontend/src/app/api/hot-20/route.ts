@@ -8,6 +8,69 @@ import { spawn } from 'child_process';
 
 const prisma = new PrismaClient();
 
+// Helper function to find Python executable
+function findPythonExecutable() {
+  // Check environment variables first
+  if (process.env.PYTHON_EXECUTABLE) {
+    console.log(`[DEBUG] Found PYTHON_EXECUTABLE: ${process.env.PYTHON_EXECUTABLE}`);
+    // Remove any existing quotes and add them back properly
+    let pythonPath = process.env.PYTHON_EXECUTABLE.replace(/^["']|["']$/g, '');
+    return pythonPath;
+  }
+  
+  if (process.env.PYTHON_PATH) {
+    console.log(`[DEBUG] Found PYTHON_PATH: ${process.env.PYTHON_PATH}`);
+    // Remove any existing quotes and add them back properly
+    let pythonPath = process.env.PYTHON_PATH.replace(/^["']|["']$/g, '');
+    return pythonPath;
+  }
+  
+  // Common Python paths on Windows (prioritize working conda environment)
+  const commonPaths = [
+    'C:\\ProgramData\\miniconda3\\python.exe', // Your working conda base environment (PRIORITY)
+    'c:\\Users\\tmbor\\Countypuller\\.conda\\python.exe', // Your project conda environment
+    `${process.env.USERPROFILE}\\Countypuller\\.conda\\python.exe`, // Dynamic conda path
+    'C:\\Users\\tmbor\\python.exe', // Your original path
+    'C:\\Program Files\\Python311\\python.exe', // Your Python 3.11 installation (moved down due to permission issues)
+    'C:\\Python39\\python.exe',
+    'C:\\Python310\\python.exe',
+    'C:\\Python311\\python.exe',
+    'C:\\Python312\\python.exe',
+    'C:\\Python313\\python.exe',
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python39\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python310\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python311\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python312\\python.exe`,
+    `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\Programs\\Python\\Python313\\python.exe`,
+  ];
+  
+  console.log(`[DEBUG] Searching for Python in common paths...`);
+  for (const pythonPath of commonPaths) {
+    if (fs.existsSync(pythonPath)) {
+      console.log(`[DEBUG] Found Python at: ${pythonPath}`);
+      return pythonPath;
+    }
+  }
+  
+  // Unix/Linux/macOS fallbacks
+  if (process.platform !== 'win32') {
+    const unixPaths = ['python3', 'python', '/usr/bin/python3', '/usr/bin/python'];
+    for (const pythonPath of unixPaths) {
+      try {
+        require('child_process').execSync(`which ${pythonPath}`, { stdio: 'ignore' });
+        console.log(`[DEBUG] Found Python at: ${pythonPath}`);
+        return pythonPath;
+      } catch (e) {
+        // Path not found, continue
+      }
+    }
+  }
+  
+  // Final fallback
+  console.log(`[DEBUG] No Python found, using fallback: python3`);
+  return 'python3';
+}
+
 interface PropertyWithEquity {
   id: string;
   property_address: string;
@@ -87,7 +150,10 @@ export async function POST(request: NextRequest) {
     const outputFilePath = path.join(tempDir, outputFileName);
 
          await new Promise<void>((resolve, reject) => {
-       const pythonProcess = spawn('python3', [
+       const pythonExecutable = findPythonExecutable();
+       console.log(`🐍 Using Python executable for Hot 20 analysis: ${pythonExecutable}`);
+       
+       const pythonProcess = spawn(pythonExecutable, [
          pythonScript,
          csvFilePath,
          '--output', outputFilePath
