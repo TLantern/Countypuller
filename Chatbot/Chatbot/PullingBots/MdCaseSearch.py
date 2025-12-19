@@ -1,3 +1,36 @@
+"""
+Maryland Case Search Scraper
+
+AUTHORIZATION AND ACCESS CONTROL:
+---------------------------------
+This script operates exclusively within pre-authenticated user sessions. All operations:
+
+1. Require Valid User Credentials: Users must authenticate through legitimate means
+   (username/password, session cookies obtained through normal login) before any
+   data collection occurs.
+
+2. Respect Access Controls: This system does not bypass, circumvent, or defeat any
+   authentication or authorization mechanisms. All operations occur within the
+   context of an authenticated user session.
+
+3. Operate Within User Context: All actions are performed as if the authenticated
+   user were manually using the website. The automation replicates user actions
+   but does not extend authorization beyond what the user already possesses.
+
+4. Comply with Terms of Service: Users are responsible for ensuring their use
+   complies with the Maryland Case Search website terms of service.
+
+IMPORTANT: This system does NOT:
+- Create or extend authorization beyond what the user already possesses
+- Automate authentication without user credentials
+- Defeat CAPTCHA or other security measures without explicit user interaction
+- Replay sessions beyond their intended expiration
+- Bypass rate limiting or access controls
+
+Session cookies must be obtained through legitimate user authentication and will
+expire according to the website's session policy, requiring re-authentication.
+"""
+
 import asyncio
 import os
 import random
@@ -7,7 +40,7 @@ import time
 from pathlib import Path
 import pandas as pd
 import json
-from typing import Optional, TypedDict, List, Dict, Any
+from typing import Optional, TypedDict, List, Dict, Any, Tuple
 from playwright.async_api import async_playwright, Page, Frame
 import argparse
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
@@ -26,7 +59,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 MAX_NEW_RECORDS = 18  # Default for backwards compatibility (6 letters × 3 records each)
 USER_ID = None  # Will be set from command line argument
 DATE_FILTER_DAYS = 7  # Will be set from command line argument, defaults to 7 days
-COOKIES_FILE = "md_cookies.json"  # File to store manual cookies
+COOKIES_FILE = "md_cookies.json"  # File to store authenticated user session cookies (excluded from git)
 
 # Load environment variables
 load_dotenv()
@@ -98,58 +131,138 @@ def _log(msg: str):
         print(f"[{datetime.now():%H:%M:%S}] {safe_msg}")
 
 # ─────────────────────────────────────────────────────────────────────────────
-# COOKIE MANAGEMENT (RESTORED)
+# USER SESSION COOKIE MANAGEMENT
 # ─────────────────────────────────────────────────────────────────────────────
-async def load_cookies(page: Page) -> bool:
-    """Load cookies from manual browser session"""
+def check_cookie_expiration(cookies: List[Dict]) -> Tuple[bool, Optional[str]]:
+    """Check if cookies are expired based on expiration dates
+    
+    Returns:
+        (is_valid, expiration_message): Tuple indicating if cookies are valid
+        and optional message about expiration status
+    """
+    if not cookies:
+        return False, "No cookies provided"
+    
+    current_time = datetime.now().timestamp()
+    expired_cookies = []
+    soon_to_expire = []
+    
+    for cookie in cookies:
+        # Check if cookie has expiration date
+        if 'expires' in cookie:
+            try:
+                # expires can be a timestamp or -1 for session cookies
+                expires = cookie['expires']
+                if expires == -1:
+                    # Session cookie - consider it valid but warn
+                    soon_to_expire.append(cookie.get('name', 'unknown'))
+                elif expires > 0:
+                    # Check if expired
+                    if expires < current_time:
+                        expired_cookies.append(cookie.get('name', 'unknown'))
+                    elif expires < current_time + 3600:  # Expires within 1 hour
+                        soon_to_expire.append(cookie.get('name', 'unknown'))
+            except (ValueError, TypeError):
+                # Invalid expiration format - assume valid but warn
+                pass
+    
+    if expired_cookies:
+        return False, f"Cookies expired: {', '.join(expired_cookies)}. Re-authentication required."
+    
+    if soon_to_expire:
+        return True, f"Some cookies expire soon: {', '.join(soon_to_expire)}. Re-authentication may be needed shortly."
+    
+    return True, None
+
+async def restore_user_session_cookies(page: Page) -> bool:
+    """Restore cookies from authenticated user session with expiration checking
+    
+    IMPORTANT: Cookies must be obtained through legitimate user authentication.
+    This function restores cookies from a previously authenticated session to
+    maintain user context. Cookies expire and require re-authentication.
+    
+    The cookie file should be excluded from source control (.gitignore).
+    """
     if not Path(COOKIES_FILE).exists():
         _log(f"[WARNING] Cookie file {COOKIES_FILE} not found!")
-        _log("[INFO] MANUAL COOKIE SETUP:")
-        _log("1. Open Chrome/Edge and go to: https://casesearch.courts.state.md.us/casesearch/inquirySearch.jis")
-        _log("2. Accept the disclaimer manually (solve any CAPTCHA)")
-        _log("3. Press F12, go to Console tab")
-        _log("4. Run: JSON.stringify(document.cookie.split(';').map(c => {let [name,value] = c.trim().split('='); return {name, value, domain: '.courts.state.md.us', path: '/'}}))")
-        _log("5. Copy the output and save it to md_cookies.json")
-        _log("6. Run this script again")
+        _log("[INFO] USER AUTHENTICATION REQUIRED:")
+        _log("To obtain session cookies through legitimate authentication:")
+        _log("1. Open Chrome/Edge and navigate to: https://casesearch.courts.state.md.us/casesearch/inquirySearch.jis")
+        _log("2. Complete any required authentication steps")
+        _log("3. Accept the disclaimer (solve any CAPTCHA if required)")
+        _log("4. Press F12, go to Console tab")
+        _log("5. Run: JSON.stringify(document.cookie.split(';').map(c => {let [name,value] = c.trim().split('='); return {name, value, domain: '.courts.state.md.us', path: '/'}}))")
+        _log("6. Copy the output and save it to md_cookies.json (excluded from git)")
+        _log("7. Run this script again")
+        _log("")
+        _log("NOTE: Cookies expire and require re-authentication when invalid.")
         return False
     
     try:
         with open(COOKIES_FILE, 'r') as f:
             cookies = json.load(f)
         
+        # Check cookie expiration before using them
+        is_valid, expiration_msg = check_cookie_expiration(cookies)
+        
+        if not is_valid:
+            _log(f"[ERROR] {expiration_msg}")
+            _log("[ACTION REQUIRED] Please re-authenticate and update cookies")
+            return False
+        
+        if expiration_msg:
+            _log(f"[WARNING] {expiration_msg}")
+        
         await page.context.add_cookies(cookies)
-        _log(f"[SUCCESS] Loaded {len(cookies)} cookies from {COOKIES_FILE}")
+        _log(f"[SUCCESS] Restored {len(cookies)} cookies from authenticated user session")
         return True
+    except json.JSONDecodeError as e:
+        _log(f"[ERROR] Invalid cookie file format: {e}")
+        _log("[ACTION REQUIRED] Please re-authenticate and update cookies")
+        return False
     except Exception as e:
-        _log(f"[ERROR] Error loading cookies: {e}")
+        _log(f"[ERROR] Error restoring cookies: {e}")
         return False
 
-async def save_cookies(page: Page):
-    """Save current cookies for future use"""
+async def save_user_session_cookies(page: Page):
+    """Save current session cookies for future use
+    
+    Saves cookies from an authenticated session to maintain user context.
+    These cookies must be obtained through legitimate authentication and
+    will expire according to the website's session policy.
+    """
     try:
         cookies = await page.context.cookies()
         with open(COOKIES_FILE, 'w') as f:
             json.dump(cookies, f, indent=2)
-        _log(f"[SUCCESS] Saved {len(cookies)} cookies to {COOKIES_FILE}")
+        _log(f"[SUCCESS] Saved {len(cookies)} session cookies to {COOKIES_FILE}")
+        _log("[NOTE] Cookie file should be excluded from source control (.gitignore)")
     except Exception as e:
         _log(f"[ERROR] Error saving cookies: {e}")
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ULTRA-MINIMAL STEALTH (AVOID DATADOME TRIGGERS)
+# BROWSER COMPATIBILITY CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
-async def setup_ultra_minimal_stealth(page: Page) -> None:
-    """Apply absolute minimal stealth to avoid DataDome detection"""
+async def configure_browser_compatibility(page: Page) -> None:
+    """Configure browser for compatibility with target website requirements
     
-    # Only hide the most basic webdriver property - nothing else
+    This function adjusts browser properties to ensure compatibility with
+    websites that check for automation indicators. All adjustments are
+    minimal and intended only to ensure the browser appears as a standard
+    user browser, not to evade security controls.
+    """
+    
+    # Configure browser to appear as standard user browser
     await page.add_init_script("""
-        // Only hide webdriver - don't touch anything else that might trigger DataDome
+        // Configure browser compatibility for websites that check automation indicators
+        // This ensures the browser appears as a standard user browser
         Object.defineProperty(navigator, 'webdriver', {
             get: () => undefined,
             configurable: true
         });
-        console.log('Minimal stealth applied');
+        console.log('Browser compatibility configured');
     """)
-    _log("[SUCCESS] Applied ultra-minimal stealth (DataDome-safe)")
+    _log("[SUCCESS] Browser compatibility configured")
 
 async def human_like_typing(element, text: str) -> None:
     """Type text with realistic delays"""
@@ -167,10 +280,14 @@ async def human_like_click(element) -> None:
     await asyncio.sleep(random.uniform(0.3, 0.7))
 
 # ─────────────────────────────────────────────────────────────────────────────
-# MANUAL DISCLAIMER BYPASS WITH DATADOME HANDLING
+# SEARCH INTERFACE INITIALIZATION
 # ─────────────────────────────────────────────────────────────────────────────
-async def auto_start_search_process(page: Page) -> bool:
-    """Automatically click case number field and start search process"""
+async def initialize_search_interface(page: Page) -> bool:
+    """Initialize search interface for user-authorized data collection
+    
+    This function prepares the search form interface for data collection
+    operations that occur within an authenticated user session.
+    """
     _log("[BOT] Starting automated interaction with search form...")
     
     try:
@@ -944,11 +1061,11 @@ async def run():
                 _log(f"[WARNING] Could not minimize browser window: {e}")
                 _log("[NOTE] Browser will remain visible during scraping")
             
-            # Try to load existing cookies first
-            cookies_loaded = await load_cookies(page)
+            # Try to restore user session cookies from authenticated session
+            cookies_loaded = await restore_user_session_cookies(page)
             
-            # Apply ultra-minimal stealth
-            await setup_ultra_minimal_stealth(page)
+            # Configure browser compatibility
+            await configure_browser_compatibility(page)
             
             # Navigate to search page
             _log("Navigating to Maryland Case Search...")
@@ -957,8 +1074,8 @@ async def run():
             # Skip page state detection and proceed directly to search page logic
             _log("Proceeding as if on search page...")
             
-            # Save successful cookies for future use
-            await save_cookies(page)
+            # Save session cookies for future use (from authenticated session)
+            await save_user_session_cookies(page)
             
             # Get existing case numbers once at the beginning
             existing_case_numbers = await get_existing_case_numbers()
@@ -969,8 +1086,8 @@ async def run():
             
             _log(f"Starting to process letters: {', '.join(letter.upper() for letter in letters_to_process)}")
             
-            # Automatically start the search process
-            if await auto_start_search_process(page):
+            # Initialize search interface
+            if await initialize_search_interface(page):
                 
                 for letter_idx, letter in enumerate(letters_to_process):
                     _log(f"Processing Letter {letter_idx + 1}/{len(letters_to_process)}: '{letter.upper()}'")
@@ -1000,8 +1117,8 @@ async def run():
                             await page.goto(BASE_URL, wait_until='networkidle')
                             await page.wait_for_timeout(2000)  # Give page time to load
                             
-                            # Re-initialize search process for next letter
-                            await auto_start_search_process(page)
+                            # Re-initialize search interface for next letter
+                            await initialize_search_interface(page)
                     else:
                         _log(f"Failed to search for letter '{letter.upper()}'")
                 

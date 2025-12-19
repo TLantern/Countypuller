@@ -47,6 +47,12 @@ next-env.d.ts
 *.pyc
 __pycache__/
 
+# Runtime files
+job-worker.pid
+*.pid
 
-SMARTYSTREETS_AUTH_ID=db46f908-dc0b-3de8-9fca-8cfc034f2046
-SMARTYSTREETS_AUTH_TOKEN=n2cHPGHotSMfJdOEj5DO
+# Log files
+*.log
+*.log.*
+job-worker*.log
+address_enrichment.log

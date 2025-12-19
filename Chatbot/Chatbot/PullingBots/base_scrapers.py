@@ -763,22 +763,26 @@ class AuthenticatedScraper(BaseScraper):
         return False
     
     async def handle_captcha(self) -> bool:
-        """Handle CAPTCHA - basic implementation"""
-        # This is a placeholder for CAPTCHA handling
-        # In practice, you might use:
-        # - 2captcha service
-        # - Manual intervention
-        # - OCR solutions
-        # - Audio CAPTCHA solving
+        """Handle CAPTCHA requiring user interaction
         
-        logger.warning("CAPTCHA detected but not automatically solved")
+        IMPORTANT: This function requires explicit user interaction to solve CAPTCHA.
+        The system does not automatically solve CAPTCHAs. Users must manually solve
+        any CAPTCHA challenges that appear during authentication or data collection.
         
-        # Wait for manual intervention (in non-headless mode)
+        This function pauses execution to allow the authenticated user to solve
+        the CAPTCHA challenge in their browser session.
+        """
+        logger.warning("CAPTCHA detected - user interaction required")
+        
+        # Wait for user to manually solve CAPTCHA (in non-headless mode)
         if not self.config.headless:
-            logger.info("Please solve CAPTCHA manually and press Enter...")
+            logger.info("CAPTCHA challenge detected. Please solve the CAPTCHA in the browser window.")
+            logger.info("After solving the CAPTCHA, press Enter to continue...")
             input("Press Enter after solving CAPTCHA...")
             return True
         
+        # In headless mode, cannot solve CAPTCHA - authentication will fail
+        logger.error("CAPTCHA detected in headless mode. User interaction required but unavailable.")
         return False
     
     async def verify_login_success(self) -> bool:

@@ -6,6 +6,35 @@ Georgia Superior Court Clerks' Cooperative Authority (GSCCCA) system.
 
 Website: https://search.gsccca.org/Lien/namesearch.asp
 
+AUTHORIZATION AND ACCESS CONTROL:
+---------------------------------
+This script operates exclusively within pre-authenticated user sessions. All operations:
+
+1. Require Valid User Credentials: Users must authenticate through legitimate means
+   (username/password via GSCCCA_USERNAME/GSCCCA_PASSWORD environment variables,
+   session cookies obtained through normal login) before any data collection occurs.
+
+2. Respect Access Controls: This system does not bypass, circumvent, or defeat any
+   authentication or authorization mechanisms. All operations occur within the
+   context of an authenticated user session.
+
+3. Operate Within User Context: All actions are performed as if the authenticated
+   user were manually using the website. The automation replicates user actions
+   but does not extend authorization beyond what the user already possesses.
+
+4. Comply with Terms of Service: Users are responsible for ensuring their use
+   complies with the GSCCCA website terms of service.
+
+IMPORTANT: This system does NOT:
+- Create or extend authorization beyond what the user already possesses
+- Automate authentication without user credentials
+- Defeat CAPTCHA or other security measures without explicit user interaction
+- Replay sessions beyond their intended expiration
+- Bypass rate limiting or access controls
+
+Session cookies must be obtained through legitimate user authentication and will
+expire according to the website's session policy, requiring re-authentication.
+
 Features:
 - Searches for recent Fulton County lien records by date range
 - Filters by instrument type (liens, lis pendens, etc.)
@@ -29,7 +58,7 @@ from datetime import datetime, date, timedelta
 import time
 from pathlib import Path
 import pandas as pd
-from typing import Optional, TypedDict, List, Dict, Any
+from typing import Optional, TypedDict, List, Dict, Any, Tuple
 from urllib.parse import urljoin
 import argparse
 import re
@@ -146,8 +175,8 @@ class FultonScraper(SearchFormScraper):
     async def navigate_to_search_results(self, task_params: Dict[str, Any]):
         """Navigate to search results page and execute search"""
         
-        # Load saved cookies FIRST to maintain session state
-        await self.load_cookies()
+        # Restore user session cookies from authenticated session
+        await self.restore_user_session_cookies()
         
         # Navigate to search page
         await self.navigate_to_url(self.config.search_config.search_url)
@@ -799,28 +828,90 @@ class FultonScraper(SearchFormScraper):
         except Exception as e:
             _log(f"⚠️ Error during search execution verification: {e}")
     
-    async def load_cookies(self):
-        """Load saved cookies to maintain session state"""
-        cookies = [
-            {"name":"ASPSESSIONIDACRCSSDR","value":"EGJICHEAMHKCCAOIKLPLKPMI","domain":"search.gsccca.org","path":"/"},
-            {"name":"ASPSESSIONIDSCSATQCQ","value":"APDENIEAJEDEEBEHMFJPNMFO","domain":"search.gsccca.org","path":"/"},
-            {"name":"ASPSESSIONIDQCRARSBQ","value":"HIBEGIEANGJJOICLHFENPDIA","domain":"search.gsccca.org","path":"/"},
-            {"name":"_gid","value":"GA1.2.373521197.1749395529","domain":"gsccca.org","path":"/"},
-            {"name":"ASPSESSIONIDQCTDTTAQ","value":"HHCNIMKCDAFEEAHKLIKJDCBC","domain":"search.gsccca.org","path":"/"},
-            {"name":"ASPSESSIONIDCAQARQAS","value":"EGIAOKKCAFBKBOINJMGAIJLH","domain":"search.gsccca.org","path":"/"},
-            {"name":"ASPSESSIONIDSCSDTRAQ","value":"GBALBMKCCHAAHJMDEFOBDNAG","domain":"search.gsccca.org","path":"/"},
-            {"name":"CustomerCommunicationApi","value":"LastVisit=6%2F9%2F2025+2%3A36%3A50+AM&Snooze=6%2F10%2F2025+2%3A15%3A43+AM","domain":"gsccca.org","path":"/"},
-            {"name":"GUID","value":"%7Bcde59db8%2D20e9%2D4019%2D8503%2Dba2d750e50fd%7D","domain":"gsccca.org","path":"/"},
-            {"name":"GSCCCASaved","value":"iLienInstType=9&iLienTableType=1&iLienMaxRows=50&iLienPartyType=2&intLienBKPGCountyID=60&intLienCountyID=60&sLienName=a","domain":"search.gsccca.org","path":"/"},
-            {"name":"_ga_SV1BEGDXWV","value":"GS2.1.s1749448192$o5$g1$t1749451034$j29$l0$h0","domain":"gsccca.org","path":"/"},
-            {"name":"_ga","value":"GA1.2.1927429005.1749094656","domain":"gsccca.org","path":"/"}
-        ]
+    def _check_cookie_expiration(self, cookies: List[Dict]) -> Tuple[bool, Optional[str]]:
+        """Check if cookies are expired based on expiration dates
+        
+        Returns:
+            (is_valid, expiration_message): Tuple indicating if cookies are valid
+            and optional message about expiration status
+        """
+        if not cookies:
+            return False, "No cookies provided"
+        
+        current_time = datetime.now().timestamp()
+        expired_cookies = []
+        soon_to_expire = []
+        
+        for cookie in cookies:
+            # Check if cookie has expiration date
+            if 'expires' in cookie:
+                try:
+                    # expires can be a timestamp or -1 for session cookies
+                    expires = cookie['expires']
+                    if expires == -1:
+                        # Session cookie - consider it valid but warn
+                        soon_to_expire.append(cookie.get('name', 'unknown'))
+                    elif expires > 0:
+                        # Check if expired
+                        if expires < current_time:
+                            expired_cookies.append(cookie.get('name', 'unknown'))
+                        elif expires < current_time + 3600:  # Expires within 1 hour
+                            soon_to_expire.append(cookie.get('name', 'unknown'))
+                except (ValueError, TypeError):
+                    # Invalid expiration format - assume valid but warn
+                    pass
+        
+        if expired_cookies:
+            return False, f"Cookies expired: {', '.join(expired_cookies)}. Re-authentication required."
+        
+        if soon_to_expire:
+            return True, f"Some cookies expire soon: {', '.join(soon_to_expire)}. Re-authentication may be needed shortly."
+        
+        return True, None
+    
+    async def restore_user_session_cookies(self):
+        """Restore user session cookies from authenticated session with expiration checking
+        
+        IMPORTANT: Cookies must be obtained through legitimate user authentication.
+        This function restores cookies from a previously authenticated session.
+        Cookies expire and require re-authentication when they become invalid.
+        
+        Cookies should be stored in environment variables or secure configuration
+        files (excluded from source control) and obtained through normal login.
+        """
+        # Load cookies from environment variable or secure config file
+        # Format: JSON array of cookie objects
+        cookies_json = os.getenv("GSCCCA_SESSION_COOKIES")
+        
+        if not cookies_json:
+            _log("⚠️ No session cookies found in environment. User must authenticate first.")
+            _log("ℹ️ To obtain cookies: 1) Authenticate through normal login, 2) Export cookies, 3) Set GSCCCA_SESSION_COOKIES environment variable")
+            return False
         
         try:
+            cookies = json.loads(cookies_json)
+            
+            # Check cookie expiration before using them
+            is_valid, expiration_msg = self._check_cookie_expiration(cookies)
+            
+            if not is_valid:
+                _log(f"❌ {expiration_msg}")
+                _log("🔐 ACTION REQUIRED: Please re-authenticate and update GSCCCA_SESSION_COOKIES")
+                return False
+            
+            if expiration_msg:
+                _log(f"⚠️ {expiration_msg}")
+            
             await self.page.context.add_cookies(cookies)
-            _log("✅ Loaded saved cookies for session maintenance")
+            _log(f"✅ Restored {len(cookies)} session cookies from authenticated user session")
+            return True
+        except json.JSONDecodeError as e:
+            _log(f"❌ Invalid cookie format: {e}")
+            _log("🔐 ACTION REQUIRED: Please re-authenticate and update GSCCCA_SESSION_COOKIES")
+            return False
         except Exception as e:
-            _log(f"⚠️ Failed to load cookies: {e}")
+            _log(f"⚠️ Failed to restore cookies: {e}")
+            return False
     
     async def find_search_button(self):
         """Find the search button regardless of its active/inactive state"""

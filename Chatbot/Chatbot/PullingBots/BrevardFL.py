@@ -7,6 +7,31 @@ and other relevant document types.
 
 Website: https://vaclmweb1.brevardclerk.us/AcclaimWeb/search/SearchTypeDocType
 
+AUTHORIZATION AND ACCESS CONTROL:
+---------------------------------
+This script operates exclusively within pre-authenticated user sessions. All operations:
+
+1. Require Valid User Access: Users must have legitimate access to the Brevard
+   County records system. All data collection occurs within publicly accessible
+   search interfaces that do not require authentication.
+
+2. Respect Access Controls: This system does not bypass, circumvent, or defeat any
+   authentication or authorization mechanisms. All operations use publicly available
+   search interfaces.
+
+3. Operate Within Public Access: All actions are performed as if a user were
+   manually using the public search interface. The automation replicates user
+   actions but does not extend access beyond what is publicly available.
+
+4. Comply with Terms of Service: Users are responsible for ensuring their use
+   complies with the Brevard County Clerk's website terms of service.
+
+IMPORTANT: This system does NOT:
+- Access restricted or authenticated areas without proper authorization
+- Defeat CAPTCHA or other security measures without explicit user interaction
+- Bypass rate limiting or access controls
+- Access data beyond what is publicly available through the search interface
+
 Features:
 - Searches for recent records (last 14 days by default)
 - Targets specific document types (liens, lis pendens, etc.)

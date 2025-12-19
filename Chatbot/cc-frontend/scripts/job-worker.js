@@ -372,7 +372,7 @@ async function processJob(job) {
         throw new Error(result.error);
       }
     } else if (job.job_type === 'AGENT_SCRAPE') {
-      const scriptPath = path.resolve(__dirname, '../../Chatbot/re-agent/agent_cli.py');
+      const scriptPath = path.resolve(__dirname, '../../Chatbot/orchestrator/agent_cli.py');
       const rawCounty = job.parameters?.county || 'harris';
       // Clean county name by removing parenthetical text like "(recommended)"
       const county = rawCounty.replace(/\s*\([^)]*\)\s*/g, '').trim();

@@ -1,3 +1,33 @@
+"""
+Hillsborough County New Hampshire Records Scraper
+
+AUTHORIZATION AND ACCESS CONTROL:
+---------------------------------
+This script operates exclusively within pre-authenticated user sessions or public
+access interfaces. All operations:
+
+1. Require Valid User Access: Users must have legitimate access to the Hillsborough
+   County records system. All data collection occurs within publicly accessible
+   search interfaces or authenticated user sessions.
+
+2. Respect Access Controls: This system does not bypass, circumvent, or defeat any
+   authentication or authorization mechanisms. All operations use publicly available
+   search interfaces or occur within authenticated user sessions.
+
+3. Operate Within Authorized Context: All actions are performed as if a user were
+   manually using the search interface. The automation replicates user actions but
+   does not extend access beyond what is authorized.
+
+4. Comply with Terms of Service: Users are responsible for ensuring their use
+   complies with the Hillsborough County website terms of service.
+
+IMPORTANT: This system does NOT:
+- Access restricted or authenticated areas without proper authorization
+- Defeat CAPTCHA or other security measures without explicit user interaction
+- Bypass rate limiting or access controls
+- Access data beyond what is publicly available or authorized for the user
+"""
+
 import asyncio
 import os
 from datetime import datetime, date, timedelta

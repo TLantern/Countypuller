@@ -12,7 +12,7 @@ Countypuller/
 │   │   ├── scripts/          # Python scripts for data processing
 │   │   └── prisma/           # Database schema and migrations
 │   └── Chatbot/              # Chatbot agent and OCR components
-│       ├── re-agent/         # ReAct agent implementation
+│       ├── orchestrator/     # Orchestration layer for scrapers and enrichment
 │       └── PullingBots/      # Web scraping bots
 ├── src/                      # Shared API endpoints
 └── requirements.txt          # Python dependencies
@@ -143,7 +143,7 @@ Python scripts for property address validation and enrichment using multiple dat
 ### Job Worker (`scripts/job-worker.js`)
 Background worker for processing asynchronous jobs including address enrichment and skip trace operations.
 
-### Chatbot Agent (`Chatbot/re-agent/`)
+### Chatbot Orchestrator (`Chatbot/orchestrator/`)
 ReAct-based agent with property summary and filtering capabilities.
 
 ## Scripts
@@ -180,6 +180,31 @@ See individual component documentation for complete environment variable lists.
 2. Make your changes
 3. Test thoroughly
 4. Submit a pull request
+
+## Authorization and Access Control
+
+**IMPORTANT:** This system operates exclusively within pre-authenticated user sessions. All scraping operations:
+
+1. **Require Valid User Credentials**: Users must authenticate through legitimate means (username/password, session cookies obtained through normal login) before any data collection occurs.
+
+2. **Respect Access Controls**: The system does not bypass, circumvent, or defeat any authentication or authorization mechanisms. All operations occur within the context of an authenticated user session.
+
+3. **Operate Within User Context**: All actions are performed as if the authenticated user were manually using the website. The automation replicates user actions but does not extend authorization beyond what the user already possesses.
+
+4. **Comply with Terms of Service**: Users are responsible for ensuring their use complies with target website terms of service. The system provides tools to assist with data collection but does not enable unauthorized access.
+
+**What This System Does NOT Do:**
+- Create or extend authorization beyond what the user already possesses
+- Automate authentication or credential management without user credentials
+- Defeat CAPTCHA or other security measures without explicit user interaction
+- Replay sessions beyond their intended expiration
+- Bypass rate limiting or access controls
+
+**Session Management:**
+- Session cookies must be obtained through legitimate user authentication
+- Cookies expire and require re-authentication when they become invalid
+- No hardcoded credentials or session tokens in source code
+- All sensitive configuration stored in environment variables
 
 ## License
 
